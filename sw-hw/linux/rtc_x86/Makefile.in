@@ -1,0 +1,66 @@
+# Configure this 5 variables according to your computer environment
+CC = gcc
+CBMC = cbmc
+GTCC = goto-cc
+LINUX_SRC = ..
+GCC_INCLUDE = /usr/include
+QEMU_SRC = model
+
+# Source code
+# --> UGLY: The other files are included in  main.c
+#     TODO: Does anyone know how to make cbmc recognize "-include"?
+SRC = main.c #\
+      $(LINUX_SRC)/drivers/rtc-cmos.c \
+      $(LINUX_SRC)/arch/x86/kernel/rtc.c \
+      $(LINUX_SRC)/lib/bcd.c \
+      $(LINUX_SRC)/drivers/base/platform.c \
+      $(LINUX_SRC)/drivers/base/driver.c \
+      model/qemu-timer.c \
+      model/qverify.c \
+      model/mc146818rtc.c
+
+OBJS = $(SRC:%.c=%.o)
+
+HOSTCFLAGS = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 \
+             -fomit-frame-pointer \
+
+CFLAGS = -std=gnu99 -nostdinc $(MYLIB) $(KLIB) -I . -D__KERNEL__ $(HOSTCFLAGS) -D_SYS_ 
+
+LDFLAGS = 
+
+KLIB = -I $(LINUX_SRC)/arch/x86/include/  \
+       -I $(LINUX_SRC)/arch/x86/kernel/ \
+       -I $(LINUX_SRC)/include/ \
+       -I $(LINUX_SRC)/lib/ \
+       -I $(LINUX_SRC)/drivers/
+
+HLIB = -I $(GCC_INCLUDE)/
+
+QLIB = -I $(QEMU_SRC)/
+
+MYLIB = -I modlib/
+
+VERDEF = -D__KERNEL__ -D_CBMC_
+
+# Not used right now
+%.o : %.c
+	@echo Compiling: $<
+	$(CC) $(CFLAGS) -include generated/autoconf.h -c -o $@ $<
+
+mysystem:
+	@echo Compiling: $(SRC)
+	@$(GTCC) $(SRC) -o $@ -nostdinc -include generated/autoconf.h $(MYLIB) \
+        $(KLIB) $(HLIB) -I ./ $(VERDEF)
+
+verify: mysystem
+	@echo Verifying: $(SRC)
+	@$(CBMC) --unwind 2 $<
+
+dot:
+	@echo Build CFG: $(SRC)
+	@$(GTCC) -nostdinc --dot $(SRC) -include generated/autoconf.h $(MYLIB) \
+        $(KLIB) $(HLIB) -I ./ $(VERDEF)
+
+clean:
+	@echo Clean folder...
+	@rm mysystem

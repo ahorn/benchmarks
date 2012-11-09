@@ -1,0 +1,67 @@
+-------------------------------------------------------------------------------
+-- Name     : RTC linux + qemu model
+-- Function : Source code to simulate the iteration hardware / software
+-- Authors  : Celina Val, Lihao Liang (Linux changes + integration)
+--            Alex Horn, Sunha Ahn (QEMU Model)
+-------------------------------------------------------------------------------
+
+-------------------------------
+INSTRUCTIONS:
+-------------------------------
+
+To verify the model:
+
+1- Copy Makefile.in to Makefile
+
+2- Open Makefile and configure the macros for the compiler, cbmc, goto-cc and
+   the folder with the linux source code (tested for kernel version 3.6.2).
+
+3- Execute the following command in the terminal to run cbmc with the right
+   configuration:
+
+  > make verify
+
+
+To create a CFG of the program, make sure steps 1-2 are done, and, then:
+
+  > make dot
+
+
+Note: The stand-alone compilation is not working yet. Make without any arguments
+will run goto-cc and compile a non-executable file.
+
+-------------------------------
+Files / folders description
+-------------------------------
+
+main.c : Testing scenario... Should be replaced / modified in order to make a
+         more elaborated testcase.
+
+model  : qemu changed model
+
+modlib : Header files that had to be changed / added. Since we include this
+         folder first, the compiler will see the modified header files instead
+         of the original ones.
+
+generated : Configuration files generated during a kernel configuration (for
+            real). If you wanna change the target architecture, configure the
+            kernel for such target, and then copy the new files to this folder.
+
+Makefile.in : No need for explanation
+
+-------------------------------
+TROUBLESHOOTING:
+-------------------------------
+
+Q: make: *** Error 64: stdarg.h cannot be found?
+
+   Compiling: main.c
+   In file included from kernel/linux/include/linux/interrupt.h:5:0,
+                    from kernel/linux/include/linux/rtc.h:109,
+                    from main.c:11:
+   kernel/linux/include/linux/kernel.h:14:20: fatal error: stdarg.h: No
+   such file or directory
+   compilation terminated.
+
+A: The variable GCC_INCLUDE is set to a wrong value.
+
