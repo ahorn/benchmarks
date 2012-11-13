@@ -32,7 +32,7 @@
   #include<string.h>
 #endif
 
-# define assert(expression)          do { } while (0)
+//# define assert(expression)          do { } while (0)
 
 #ifdef DEBUG_CMOS
 # define CMOS_DPRINTF(format, ...)   printf(format, ## __VA_ARGS__)
