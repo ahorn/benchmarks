@@ -1,0 +1,281 @@
+Output of "gcc -M -MF build.info":
+
+main.c generated/autoconf.h generated/autoconf.h \
+ kernel/linux/include/linux/rtc.h kernel/linux/include/linux/types.h \
+ kernel/linux/arch/x86/include/asm/types.h \
+ kernel/linux/include/asm-generic/types.h \
+ kernel/linux/include/asm-generic/int-ll64.h \
+ kernel/linux/arch/x86/include/asm/bitsperlong.h \
+ kernel/linux/include/asm-generic/bitsperlong.h \
+ kernel/linux/include/linux/posix_types.h \
+ kernel/linux/include/linux/stddef.h \
+ kernel/linux/include/linux/compiler.h \
+ kernel/linux/include/linux/compiler-gcc.h \
+ kernel/linux/include/linux/compiler-gcc4.h \
+ kernel/linux/arch/x86/include/asm/posix_types.h \
+ kernel/linux/arch/x86/include/asm/posix_types_64.h \
+ kernel/linux/include/asm-generic/posix_types.h \
+ kernel/linux/include/linux/interrupt.h \
+ kernel/linux/include/linux/kernel.h kernel/linux/include/linux/sysinfo.h \
+ /usr/lib/gcc/x86_64-redhat-linux/4.6.3/include/stdarg.h \
+ kernel/linux/include/linux/linkage.h \
+ kernel/linux/arch/x86/include/asm/linkage.h \
+ kernel/linux/include/linux/stringify.h \
+ kernel/linux/include/linux/bitops.h \
+ kernel/linux/arch/x86/include/asm/bitops.h \
+ kernel/linux/arch/x86/include/asm/alternative.h \
+ kernel/linux/arch/x86/include/asm/asm.h \
+ kernel/linux/arch/x86/include/asm/cpufeature.h \
+ kernel/linux/arch/x86/include/asm/required-features.h \
+ kernel/linux/include/asm-generic/bitops/find.h \
+ kernel/linux/include/asm-generic/bitops/sched.h \
+ kernel/linux/arch/x86/include/asm/arch_hweight.h \
+ kernel/linux/include/asm-generic/bitops/const_hweight.h \
+ kernel/linux/include/asm-generic/bitops/le.h \
+ kernel/linux/arch/x86/include/asm/byteorder.h \
+ kernel/linux/include/linux/byteorder/little_endian.h \
+ kernel/linux/include/linux/swab.h \
+ kernel/linux/arch/x86/include/asm/swab.h \
+ kernel/linux/include/linux/byteorder/generic.h \
+ kernel/linux/include/asm-generic/bitops/ext2-atomic-setbit.h \
+ kernel/linux/include/linux/log2.h kernel/linux/include/linux/typecheck.h \
+ kernel/linux/include/linux/printk.h kernel/linux/include/linux/init.h \
+ kernel/linux/include/linux/kern_levels.h \
+ kernel/linux/include/linux/dynamic_debug.h \
+ kernel/linux/include/linux/string.h \
+ kernel/linux/arch/x86/include/asm/string.h \
+ kernel/linux/arch/x86/include/asm/string_64.h \
+ kernel/linux/include/linux/errno.h \
+ kernel/linux/arch/x86/include/asm/errno.h \
+ kernel/linux/include/asm-generic/errno.h \
+ kernel/linux/include/asm-generic/errno-base.h \
+ kernel/linux/include/linux/preempt.h \
+ kernel/linux/include/linux/thread_info.h \
+ kernel/linux/include/linux/bug.h kernel/linux/arch/x86/include/asm/bug.h \
+ kernel/linux/include/asm-generic/bug.h \
+ kernel/linux/arch/x86/include/asm/thread_info.h \
+ kernel/linux/arch/x86/include/asm/page.h \
+ kernel/linux/arch/x86/include/asm/page_types.h \
+ kernel/linux/include/linux/const.h \
+ kernel/linux/arch/x86/include/asm/page_64_types.h \
+ kernel/linux/arch/x86/include/asm/page_64.h \
+ kernel/linux/include/asm-generic/memory_model.h \
+ kernel/linux/include/asm-generic/getorder.h \
+ kernel/linux/arch/x86/include/asm/processor.h \
+ kernel/linux/arch/x86/include/asm/processor-flags.h \
+ kernel/linux/arch/x86/include/asm/vm86.h \
+ kernel/linux/arch/x86/include/asm/ptrace.h \
+ kernel/linux/arch/x86/include/asm/ptrace-abi.h \
+ kernel/linux/arch/x86/include/asm/segment.h \
+ kernel/linux/arch/x86/include/asm/cache.h \
+ kernel/linux/include/asm-generic/ptrace.h \
+ kernel/linux/arch/x86/include/asm/math_emu.h \
+ kernel/linux/arch/x86/include/asm/sigcontext.h \
+ kernel/linux/arch/x86/include/asm/current.h \
+ kernel/linux/arch/x86/include/asm/percpu.h \
+ kernel/linux/include/asm-generic/percpu.h \
+ kernel/linux/include/linux/threads.h \
+ kernel/linux/include/linux/percpu-defs.h \
+ kernel/linux/arch/x86/include/asm/pgtable_types.h \
+ kernel/linux/arch/x86/include/asm/pgtable_64_types.h \
+ kernel/linux/arch/x86/include/asm/msr.h \
+ kernel/linux/arch/x86/include/asm/msr-index.h \
+ kernel/linux/include/linux/ioctl.h \
+ kernel/linux/arch/x86/include/asm/ioctl.h \
+ kernel/linux/include/asm-generic/ioctl.h \
+ kernel/linux/arch/x86/include/asm/cpumask.h \
+ kernel/linux/include/linux/cpumask.h kernel/linux/include/linux/bitmap.h \
+ kernel/linux/arch/x86/include/asm/desc_defs.h \
+ kernel/linux/arch/x86/include/asm/nops.h \
+ kernel/linux/arch/x86/include/asm/special_insns.h \
+ kernel/linux/include/linux/personality.h \
+ kernel/linux/include/linux/cache.h kernel/linux/include/linux/math64.h \
+ kernel/linux/arch/x86/include/asm/div64.h \
+ kernel/linux/include/asm-generic/div64.h \
+ kernel/linux/include/linux/err.h kernel/linux/include/linux/irqflags.h \
+ kernel/linux/arch/x86/include/asm/irqflags.h \
+ kernel/linux/arch/x86/include/asm/ftrace.h \
+ kernel/linux/include/linux/atomic.h \
+ kernel/linux/arch/x86/include/asm/atomic.h \
+ kernel/linux/arch/x86/include/asm/cmpxchg.h \
+ kernel/linux/arch/x86/include/asm/cmpxchg_64.h \
+ kernel/linux/arch/x86/include/asm/atomic64_64.h \
+ kernel/linux/include/asm-generic/atomic-long.h \
+ kernel/linux/include/linux/list.h kernel/linux/include/linux/poison.h \
+ kernel/linux/include/linux/irqreturn.h \
+ kernel/linux/include/linux/irqnr.h kernel/linux/include/linux/hardirq.h \
+ kernel/linux/include/linux/lockdep.h \
+ kernel/linux/include/linux/ftrace_irq.h \
+ kernel/linux/arch/x86/include/asm/hardirq.h \
+ kernel/linux/include/linux/irq.h kernel/linux/include/linux/smp.h \
+ kernel/linux/include/linux/spinlock.h \
+ kernel/linux/include/linux/bottom_half.h \
+ kernel/linux/arch/x86/include/asm/barrier.h \
+ kernel/linux/include/linux/spinlock_types.h \
+ kernel/linux/include/linux/spinlock_types_up.h \
+ kernel/linux/include/linux/rwlock_types.h \
+ kernel/linux/include/linux/spinlock_up.h \
+ kernel/linux/include/linux/rwlock.h \
+ kernel/linux/include/linux/spinlock_api_up.h \
+ kernel/linux/include/linux/gfp.h kernel/linux/include/linux/mmzone.h \
+ kernel/linux/include/linux/wait.h kernel/linux/include/linux/numa.h \
+ kernel/linux/include/linux/seqlock.h \
+ kernel/linux/include/linux/nodemask.h \
+ kernel/linux/include/linux/pageblock-flags.h generated/bounds.h \
+ kernel/linux/include/linux/memory_hotplug.h \
+ kernel/linux/include/linux/notifier.h kernel/linux/include/linux/mutex.h \
+ kernel/linux/include/linux/rwsem.h \
+ kernel/linux/arch/x86/include/asm/rwsem.h \
+ kernel/linux/include/linux/srcu.h kernel/linux/include/linux/rcupdate.h \
+ kernel/linux/include/linux/completion.h \
+ kernel/linux/include/linux/debugobjects.h \
+ kernel/linux/include/linux/rcutiny.h \
+ kernel/linux/include/linux/workqueue.h \
+ kernel/linux/include/linux/timer.h kernel/linux/include/linux/ktime.h \
+ kernel/linux/include/linux/time.h kernel/linux/include/linux/jiffies.h \
+ kernel/linux/include/linux/timex.h kernel/linux/include/linux/param.h \
+ kernel/linux/arch/x86/include/asm/param.h \
+ kernel/linux/include/asm-generic/param.h \
+ kernel/linux/arch/x86/include/asm/timex.h \
+ kernel/linux/arch/x86/include/asm/tsc.h \
+ kernel/linux/arch/x86/include/asm/sparsemem.h \
+ kernel/linux/include/linux/topology.h \
+ kernel/linux/include/linux/percpu.h kernel/linux/include/linux/pfn.h \
+ kernel/linux/arch/x86/include/asm/topology.h \
+ kernel/linux/include/asm-generic/topology.h \
+ kernel/linux/include/linux/mmdebug.h \
+ kernel/linux/arch/x86/include/asm/irq.h \
+ kernel/linux/arch/x86/include/asm/apicdef.h \
+ kernel/linux/arch/x86/include/asm/irq_vectors.h \
+ kernel/linux/arch/x86/include/asm/irq_regs.h \
+ kernel/linux/include/linux/irqdesc.h \
+ kernel/linux/arch/x86/include/asm/hw_irq.h \
+ kernel/linux/include/linux/profile.h \
+ kernel/linux/arch/x86/include/asm/sections.h \
+ kernel/linux/include/asm-generic/sections.h \
+ kernel/linux/arch/x86/include/asm/uaccess.h \
+ kernel/linux/arch/x86/include/asm/uaccess_64.h \
+ kernel/linux/include/linux/hrtimer.h kernel/linux/include/linux/rbtree.h \
+ kernel/linux/include/linux/timerqueue.h \
+ kernel/linux/include/linux/kref.h kernel/linux/include/linux/device.h \
+ kernel/linux/include/linux/ioport.h kernel/linux/include/linux/kobject.h \
+ kernel/linux/include/linux/sysfs.h \
+ kernel/linux/include/linux/kobject_ns.h \
+ kernel/linux/include/linux/klist.h kernel/linux/include/linux/pm.h \
+ kernel/linux/include/linux/ratelimit.h \
+ kernel/linux/arch/x86/include/asm/device.h \
+ kernel/linux/include/linux/pm_wakeup.h \
+ kernel/linux/include/linux/seq_file.h kernel/linux/include/linux/cdev.h \
+ kernel/linux/include/linux/kdev_t.h kernel/linux/include/linux/poll.h \
+ kernel/linux/arch/x86/include/asm/poll.h \
+ kernel/linux/include/asm-generic/poll.h kernel/linux/include/linux/fs.h \
+ kernel/linux/include/linux/limits.h \
+ kernel/linux/include/linux/blk_types.h \
+ kernel/linux/include/linux/dcache.h kernel/linux/include/linux/rculist.h \
+ kernel/linux/include/linux/rculist_bl.h \
+ kernel/linux/include/linux/list_bl.h \
+ kernel/linux/include/linux/bit_spinlock.h \
+ kernel/linux/include/linux/path.h kernel/linux/include/linux/stat.h \
+ kernel/linux/arch/x86/include/asm/stat.h \
+ kernel/linux/include/linux/uidgid.h kernel/linux/include/linux/highuid.h \
+ kernel/linux/include/linux/radix-tree.h \
+ kernel/linux/include/linux/prio_tree.h kernel/linux/include/linux/pid.h \
+ kernel/linux/include/linux/capability.h \
+ kernel/linux/include/linux/semaphore.h \
+ kernel/linux/include/linux/fiemap.h \
+ kernel/linux/include/linux/shrinker.h \
+ kernel/linux/include/linux/migrate_mode.h \
+ kernel/linux/include/linux/quota.h \
+ kernel/linux/include/linux/percpu_counter.h \
+ kernel/linux/include/linux/dqblk_xfs.h \
+ kernel/linux/include/linux/dqblk_v1.h \
+ kernel/linux/include/linux/dqblk_v2.h \
+ kernel/linux/include/linux/dqblk_qtree.h \
+ kernel/linux/include/linux/nfs_fs_i.h kernel/linux/include/linux/fcntl.h \
+ kernel/linux/arch/x86/include/asm/fcntl.h \
+ kernel/linux/include/asm-generic/fcntl.h \
+ kernel/linux/include/linux/sysctl.h \
+ kernel/linux/arch/x86/include/asm/mc146818rtc.h modlib/asm/io.h \
+ kernel/linux/include/asm-generic/iomap.h \
+ kernel/linux/include/asm-generic/pci_iomap.h \
+ kernel/linux/include/linux/vmalloc.h model/qverify.h \
+ kernel/linux/include/linux/mc146818rtc.h \
+ kernel/linux/drivers/rtc/rtc-cmos.c kernel/linux/include/linux/module.h \
+ kernel/linux/include/linux/kmod.h kernel/linux/include/linux/elf.h \
+ kernel/linux/include/linux/elf-em.h \
+ kernel/linux/arch/x86/include/asm/elf.h \
+ kernel/linux/arch/x86/include/asm/user.h \
+ kernel/linux/arch/x86/include/asm/user_64.h \
+ kernel/linux/arch/x86/include/asm/auxvec.h \
+ kernel/linux/arch/x86/include/asm/vdso.h \
+ kernel/linux/include/linux/moduleparam.h \
+ kernel/linux/include/linux/tracepoint.h \
+ kernel/linux/include/linux/static_key.h \
+ kernel/linux/include/linux/jump_label.h \
+ kernel/linux/include/linux/export.h \
+ kernel/linux/arch/x86/include/asm/module.h \
+ kernel/linux/include/asm-generic/module.h \
+ kernel/linux/include/linux/platform_device.h \
+ kernel/linux/include/linux/mod_devicetable.h \
+ kernel/linux/include/linux/of.h kernel/linux/include/linux/of_platform.h \
+ kernel/linux/include/asm-generic/rtc.h kernel/linux/include/linux/bcd.h \
+ kernel/linux/include/linux/delay.h \
+ kernel/linux/arch/x86/include/asm/delay.h \
+ kernel/linux/include/asm-generic/delay.h \
+ kernel/linux/arch/x86/include/asm/hpet.h \
+ kernel/linux/include/linux/msi.h kernel/linux/arch/x86/kernel/rtc.c \
+ kernel/linux/include/linux/acpi.h kernel/linux/include/linux/pnp.h \
+ kernel/linux/arch/x86/include/asm/vsyscall.h \
+ kernel/linux/arch/x86/include/asm/vvar.h \
+ kernel/linux/arch/x86/include/asm/x86_init.h \
+ kernel/linux/arch/x86/include/asm/bootparam.h \
+ kernel/linux/include/linux/screen_info.h \
+ kernel/linux/include/linux/apm_bios.h kernel/linux/include/linux/edd.h \
+ kernel/linux/arch/x86/include/asm/e820.h \
+ kernel/linux/arch/x86/include/asm/ist.h \
+ kernel/linux/include/video/edid.h \
+ kernel/linux/arch/x86/include/asm/time.h \
+ kernel/linux/include/linux/clocksource.h \
+ kernel/linux/arch/x86/include/asm/clocksource.h \
+ kernel/linux/arch/x86/include/asm/mrst.h \
+ kernel/linux/include/linux/sfi.h kernel/linux/lib/bcd.c \
+ kernel/linux/drivers/base/platform.c \
+ kernel/linux/include/linux/of_device.h \
+ kernel/linux/include/linux/dma-mapping.h \
+ kernel/linux/include/linux/dma-attrs.h \
+ kernel/linux/include/linux/dma-direction.h \
+ kernel/linux/include/linux/scatterlist.h kernel/linux/include/linux/mm.h \
+ kernel/linux/include/linux/debug_locks.h \
+ kernel/linux/include/linux/mm_types.h \
+ kernel/linux/include/linux/auxvec.h \
+ kernel/linux/include/linux/page-debug-flags.h \
+ kernel/linux/include/linux/uprobes.h \
+ kernel/linux/arch/x86/include/asm/uprobes.h \
+ kernel/linux/arch/x86/include/asm/mmu.h \
+ kernel/linux/include/linux/range.h \
+ kernel/linux/arch/x86/include/asm/pgtable.h \
+ kernel/linux/arch/x86/include/asm/pgtable_64.h \
+ kernel/linux/arch/x86/include/asm/pgtable_64_types.h \
+ kernel/linux/include/asm-generic/pgtable.h \
+ kernel/linux/include/linux/page-flags.h \
+ kernel/linux/include/linux/huge_mm.h kernel/linux/include/linux/vmstat.h \
+ kernel/linux/include/linux/vm_event_item.h \
+ kernel/linux/arch/x86/include/asm/scatterlist.h \
+ kernel/linux/include/asm-generic/scatterlist.h \
+ kernel/linux/arch/x86/include/asm/dma-mapping.h \
+ kernel/linux/include/linux/kmemcheck.h \
+ kernel/linux/include/linux/dma-debug.h \
+ kernel/linux/arch/x86/include/asm/swiotlb.h \
+ kernel/linux/include/linux/swiotlb.h \
+ kernel/linux/include/asm-generic/dma-coherent.h \
+ kernel/linux/include/linux/dma-contiguous.h \
+ kernel/linux/include/asm-generic/dma-mapping-common.h \
+ kernel/linux/include/linux/bootmem.h \
+ kernel/linux/arch/x86/include/asm/dma.h \
+ kernel/linux/include/linux/slab.h kernel/linux/include/linux/slub_def.h \
+ kernel/linux/include/linux/kmemleak.h \
+ kernel/linux/include/linux/pm_runtime.h kernel/linux/drivers/base/base.h \
+ model/mc146818rtc_regs.h model/qemu-timer.h modlib/time.h \
+ modlib/stdint.h model/qemu-timer.c model/qemu-timer.h model/qverify.c \
+ model/qverify.h model/mc146818rtc.h model/mc146818rtc_regs.h \
+ model/mc146818rtc.h model/mc146818rtc.c
