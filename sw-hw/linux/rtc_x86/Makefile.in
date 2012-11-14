@@ -2,6 +2,7 @@
 CC = gcc
 CBMC = cbmc
 GTCC = goto-cc
+GTINST = goto-instrument
 LINUX_SRC = ..
 GCC_INCLUDE = /usr/include
 QEMU_SRC = model
@@ -56,10 +57,9 @@ verify: mysystem
 	@echo Verifying: $(SRC)
 	@$(CBMC) --unwind 2 --no-library $<
 
-dot:
+dot: mysystem
 	@echo Build CFG: $(SRC)
-	@$(GTCC) -nostdinc --dot $(SRC) -include generated/autoconf.h $(MYLIB) \
-        $(KLIB) $(HLIB) -I ./ $(VERDEF)
+	@$(GTINST) $< mysystem.dot --dot
 
 clean:
 	@echo Clean folder...
