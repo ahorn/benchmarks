@@ -54,7 +54,7 @@ mysystem:
 
 verify: mysystem
 	@echo Verifying: $(SRC)
-	@$(CBMC) --unwind 2 $<
+	@$(CBMC) --unwind 2 --no-library $<
 
 dot:
 	@echo Build CFG: $(SRC)
