@@ -37,10 +37,13 @@ typedef uint64_t ram_addr_t;
 
 QEMUClock *rtc_clock;
 
+int nondet_int();
+uint64_t nondet_uint64();
+
 /* use non-deterministic values */
-ram_addr_t ram_size;
-int smp_cpus;
-int use_rt_clock;
+ram_addr_t ram_size = nondet_uint64();
+int smp_cpus = nondet_int();
+int use_rt_clock = nondet_int();
 
 #ifndef MIN
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -108,12 +111,21 @@ static void pc_cmos_init_for_rtc(RTCState *s)
 }
 
 int main (int argc, char** argv) {
+    int ok;
+
     qverify_start();
     rtc_clock = vm_clock;
     _rtc_init(2000);
     pc_cmos_init_for_rtc(global_qverify->rtc_state);
 
-    cmos_init();
+    ok = cmos_init();
+
+#ifdef CONFIG_FALSE_POSITIVE
+    // symbolic execution should report a false positive because
+    // driver_register(struct device_driver *) is non-deterministic.
+    // That is, the actual function definition is too complex to analyze.
+    assert(ok == 0);
+#endif
 
     struct rtc_time t;
     cmos_read_time (NULL, &t);
