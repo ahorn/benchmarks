@@ -61,12 +61,19 @@
 #define UIP_HOLD_LENGTH           (8 * NSEC_PER_SEC / 32768)
 
 
+/* Device states */
+#define RTC_DS_CMOS_WRITE_ADDR   1
+#define RTC_DS_CMOS_WRITE_DATA   2
+#define RTC_DS_CMOS_READ_ADDR    3
+#define RTC_DS_CMOS_READ_DATA    4
+
 struct IRQState {};
 typedef struct IRQState *qemu_irq;
 static void qemu_irq_raise(qemu_irq irq) {}
 static inline void qemu_irq_lower(qemu_irq irq) {}
 
 struct RTCState {
+    int ds;
     uint8_t cmos_data[128];
     uint8_t cmos_index;
     int32_t base_year;
@@ -374,8 +381,11 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
     RTCState *s = opaque;
 
     if ((addr & 1) == 0) {
+        s->ds = RTC_DS_CMOS_WRITE_ADDR;
         s->cmos_index = data & 0x7f;
     } else {
+        assert(s->ds == RTC_DS_CMOS_WRITE_ADDR);
+        s->ds = RTC_DS_CMOS_WRITE_DATA;
         CMOS_DPRINTF("cmos: write index=0x%02x val=0x%02x\n",
                      s->cmos_index, data);
         switch(s->cmos_index) {
@@ -584,8 +594,12 @@ uint32_t cmos_ioport_read(void *opaque, uint32_t addr)
     RTCState *s = opaque;
     int ret;
     if ((addr & 1) == 0) {
+        s->ds = RTC_DS_CMOS_READ_ADDR;
         return 0xff;
     } else {
+        assert(s->ds == RTC_DS_CMOS_WRITE_ADDR);
+        s->ds = RTC_DS_CMOS_READ_DATA;
+
         switch(s->cmos_index) {
 	case RTC_IBM_PS2_CENTURY_BYTE:
             s->cmos_index = RTC_CENTURY;
