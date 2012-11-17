@@ -386,6 +386,10 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
         case RTC_SECONDS_ALARM:
         case RTC_MINUTES_ALARM:
         case RTC_HOURS_ALARM:
+            // VC: SET bit of Register B must be enabled
+            //     when an RTC data register is written
+            assert((s->cmos_data[RTC_REG_B] & REG_B_SET) == REG_B_SET);
+
             s->cmos_data[s->cmos_index] = data;
             check_update_timer(s);
             break;
@@ -400,6 +404,10 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
         case RTC_DAY_OF_MONTH:
         case RTC_MONTH:
         case RTC_YEAR:
+            // VC: SET bit of Register B must be enabled
+            //     when an RTC data register is written
+            assert((s->cmos_data[RTC_REG_B] & REG_B_SET) == REG_B_SET);
+
             s->cmos_data[s->cmos_index] = data;
             /* if in set mode, do not update the time */
             if (rtc_running(s)) {

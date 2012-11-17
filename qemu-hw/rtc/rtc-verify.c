@@ -163,7 +163,7 @@ static int wiggle = 2;
 static void set_year_20xx(void)
 {
     /* Set BCD mode */
-    cmos_write(RTC_REG_B, cmos_read(RTC_REG_B) & ~REG_B_DM);
+    cmos_write(RTC_REG_B, (cmos_read(RTC_REG_B) & ~REG_B_DM) | REG_B_SET);
     cmos_write(RTC_REG_A, 0x76);
     cmos_write(RTC_YEAR, 0x11);
     cmos_write(RTC_CENTURY, 0x20);
@@ -173,6 +173,7 @@ static void set_year_20xx(void)
     cmos_write(RTC_MINUTES, 0x04);
     cmos_write(RTC_SECONDS, 0x58);
     cmos_write(RTC_REG_A, 0x26);
+    cmos_write(RTC_REG_B, cmos_read(RTC_REG_B) & ~REG_B_SET);
 
     assert_cmpint(cmos_read(RTC_HOURS), ==, 0x02);
     assert_cmpint(cmos_read(RTC_MINUTES), ==, 0x04);
@@ -183,9 +184,11 @@ static void set_year_20xx(void)
     assert_cmpint(cmos_read(RTC_CENTURY), ==, 0x20);
 
     /* Set a date in 2080 to ensure there is no year-2038 overflow.  */
+    cmos_write(RTC_REG_B, (cmos_read(RTC_REG_B) & ~REG_B_DM) | REG_B_SET);
     cmos_write(RTC_REG_A, 0x76);
     cmos_write(RTC_YEAR, 0x80);
     cmos_write(RTC_REG_A, 0x26);
+    cmos_write(RTC_REG_B, cmos_read(RTC_REG_B) & ~REG_B_SET);
 
     assert_cmpint(cmos_read(RTC_HOURS), ==, 0x02);
     assert_cmpint(cmos_read(RTC_MINUTES), ==, 0x04);
@@ -195,9 +198,12 @@ static void set_year_20xx(void)
     assert_cmpint(cmos_read(RTC_YEAR), ==, 0x80);
     assert_cmpint(cmos_read(RTC_CENTURY), ==, 0x20);
 
+    cmos_write(RTC_REG_B, (cmos_read(RTC_REG_B) & ~REG_B_DM) | REG_B_SET);
+    cmos_write(RTC_REG_A, 0x76);
     cmos_write(RTC_REG_A, 0x76);
     cmos_write(RTC_YEAR, 0x11);
     cmos_write(RTC_REG_A, 0x26);
+    cmos_write(RTC_REG_B, cmos_read(RTC_REG_B) & ~REG_B_SET);
 
     assert_cmpint(cmos_read(RTC_HOURS), ==, 0x02);
     assert_cmpint(cmos_read(RTC_MINUTES), ==, 0x04);
@@ -211,7 +217,7 @@ static void set_year_20xx(void)
 static void set_year_1980(void)
 {
     /* Set BCD mode */
-    cmos_write(RTC_REG_B, cmos_read(RTC_REG_B) & ~REG_B_DM);
+    cmos_write(RTC_REG_B, (cmos_read(RTC_REG_B) & ~REG_B_DM) | REG_B_SET);
     cmos_write(RTC_REG_A, 0x76);
     cmos_write(RTC_YEAR, 0x80);
     cmos_write(RTC_CENTURY, 0x19);
@@ -221,6 +227,7 @@ static void set_year_1980(void)
     cmos_write(RTC_MINUTES, 0x04);
     cmos_write(RTC_SECONDS, 0x58);
     cmos_write(RTC_REG_A, 0x26);
+    cmos_write(RTC_REG_B, cmos_read(RTC_REG_B) & ~REG_B_SET);
 
     assert_cmpint(cmos_read(RTC_HOURS), ==, 0x02);
     assert_cmpint(cmos_read(RTC_MINUTES), ==, 0x04);
@@ -248,7 +255,7 @@ static void dec_check_time(void)
 static void register_b_set_flag(void)
 {
     /* Enable binary-coded decimal (BCD) mode and SET flag in Register B*/
-    cmos_write(RTC_REG_B, cmos_read(RTC_REG_B) & ~REG_B_DM | REG_B_SET);
+    cmos_write(RTC_REG_B, (cmos_read(RTC_REG_B) & ~REG_B_DM) | REG_B_SET);
     cmos_write(RTC_HOURS, 0x03);
     cmos_write(RTC_REG_A, 0x26);
     cmos_write(RTC_REG_B, cmos_read(RTC_REG_B) & ~REG_B_SET);
