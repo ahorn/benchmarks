@@ -558,7 +558,9 @@ static void rtc_update_time(RTCState *s)
     guest_nsec = get_guest_rtc_ns(s);
     guest_sec = guest_nsec / NSEC_PER_SEC;
     gmtime_r(&guest_sec, &ret);
-    rtc_set_cmos(s, &ret);
+    if ((s->cmos_data[RTC_REG_B] & REG_B_SET) != REG_B_SET) {
+        rtc_set_cmos(s, &ret);
+    }
 }
 
 static int update_in_progress(RTCState *s)
