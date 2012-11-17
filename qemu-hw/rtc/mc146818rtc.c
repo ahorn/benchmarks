@@ -465,10 +465,12 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
             break;
         case RTC_REG_C:
         case RTC_REG_D:
-            /* cannot write to them */
+            /* VC: Registers C and D must not be written. */
+            assert(false);
             break;
         default:
-            s->cmos_data[s->cmos_index] = data;
+            // VC: Only registers 0x00 to 0x0D must be accessed.
+            assert(false);
             break;
         }
     }
@@ -630,8 +632,13 @@ uint32_t cmos_ioport_read(void *opaque, uint32_t addr)
                 check_update_timer(s);
             }
             break;
-        default:
+        case RTC_REG_B:
+        case RTC_REG_D:
             ret = s->cmos_data[s->cmos_index];
+            break;
+        default:
+            // VC: Only registers 0x00 to 0x0D must be accessed.
+            assert(false);
             break;
         }
         CMOS_DPRINTF("cmos: read index=0x%02x val=0x%02x\n",
