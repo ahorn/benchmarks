@@ -245,10 +245,22 @@ static void dec_check_time(void)
     check_time(wiggle);
 }
 
+static void register_b_set_flag(void)
+{
+    /* Enable binary-coded decimal (BCD) mode and SET flag in Register B*/
+    cmos_write(RTC_REG_B, cmos_read(RTC_REG_B) & ~REG_B_DM | REG_B_SET);
+    cmos_write(RTC_HOURS, 0x03);
+    cmos_write(RTC_REG_A, 0x26);
+    cmos_write(RTC_REG_B, cmos_read(RTC_REG_B) & ~REG_B_SET);
+
+    assert_cmpint(cmos_read(RTC_HOURS), ==, 0x03);
+}
+
 void rtc_verify(void)
 {
     bcd_check_time();
     dec_check_time();
     set_year_20xx();
     set_year_1980();
+    register_b_set_flag();
 }
