@@ -28,7 +28,7 @@
 
 #include<string.h>
 
-# define assert(expression)          do { } while (0)
+#include <assert.h>
 
 #ifdef DEBUG_CMOS
 # define CMOS_DPRINTF(format, ...)   printf(format, ## __VA_ARGS__)
@@ -53,6 +53,10 @@
 #define RTC_CLOCK_RATE            32768
 #define UIP_HOLD_LENGTH           (8 * NSEC_PER_SEC / 32768)
 
+#define OUTB_0x70       1
+#define OUTB_0x71       2
+#define INB_0x70        3
+#define INB_0x71        4
 
 struct IRQState {};
 typedef struct IRQState *qemu_irq;
@@ -78,6 +82,8 @@ struct RTCState {
     uint16_t irq_reinject_on_ack_count;
     uint32_t irq_coalesced;
     uint32_t period;
+
+    int io_info;
 };
 
 static RTCState global_rtc_state;
@@ -367,8 +373,13 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
     RTCState *s = opaque;
 
     if ((addr & 1) == 0) {
+        s->io_info = OUTB_0x70;
         s->cmos_index = data & 0x7f;
     } else {
+        // VC: outb 0x71 must be preceded by outb 0x70
+        assert(s->io_info == OUTB_0x70);
+        s->io_info = OUTB_0x71;
+
         CMOS_DPRINTF("cmos: write index=0x%02x val=0x%02x\n",
                      s->cmos_index, data);
         switch(s->cmos_index) {
@@ -577,8 +588,13 @@ uint32_t cmos_ioport_read(void *opaque, uint32_t addr)
     RTCState *s = opaque;
     int ret;
     if ((addr & 1) == 0) {
+        s->io_info = INB_0x70;
         return 0xff;
     } else {
+        // VC: inb 0x71 must be preceded by outb 0x70
+        assert(s->io_info == OUTB_0x70);
+        s->io_info = INB_0x71;
+
         switch(s->cmos_index) {
 	case RTC_IBM_PS2_CENTURY_BYTE:
             s->cmos_index = RTC_CENTURY;
@@ -721,6 +737,8 @@ static int rtc_initfn(RTCState *s)
 
     s->update_timer = &_update_timer;
     check_update_timer(s);
+
+    s->io_info = -1;
 
     return 0;
 }
