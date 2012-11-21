@@ -425,6 +425,12 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
                 rtc_set_time(s);
                 check_update_timer(s);
             }
+
+            /* VC: As long as the SET bit of Register B is enabled, when data D
+             *     is written to an RTC data register R, a subsequent read of R
+             *     must return D. */
+            assert((s->cmos_data[RTC_REG_B] & REG_B_SET) == 0 ||
+                   s->cmos_data[s->cmos_index] == data);
             break;
         case RTC_REG_A:
             if ((data & 0x60) == 0x60) {
