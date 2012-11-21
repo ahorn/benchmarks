@@ -83,7 +83,14 @@ struct RTCState {
     uint32_t irq_coalesced;
     uint32_t period;
 
-    int io_info;
+    /* == meta-data == */
+
+    /* most recent I/O op */
+    uint32_t io_info;
+    /* Which data register has been written? */
+    bool cmos_data_info[128];
+    /* Has DM bit of Register B changed? */
+    bool dm_change;
 };
 
 static RTCState global_rtc_state;
@@ -376,7 +383,7 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
         s->io_info = OUTB_0x70;
         s->cmos_index = data & 0x7f;
     } else {
-        // VC: outb 0x71 must be preceded by outb 0x70
+        /* VC: outb 0x71 must be preceded by outb 0x70 */
         assert(s->io_info == OUTB_0x70);
         s->io_info = OUTB_0x71;
 
@@ -386,8 +393,10 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
         case RTC_SECONDS_ALARM:
         case RTC_MINUTES_ALARM:
         case RTC_HOURS_ALARM:
-            // VC: SET bit of Register B must be enabled
-            //     when an RTC data register is written
+            s->cmos_data_info[s->cmos_index] = true;
+
+            /* VC: SET bit of Register B must be enabled
+             *     when an RTC data register is written */
             assert((s->cmos_data[RTC_REG_B] & REG_B_SET) == REG_B_SET);
 
             s->cmos_data[s->cmos_index] = data;
@@ -404,8 +413,10 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
         case RTC_DAY_OF_MONTH:
         case RTC_MONTH:
         case RTC_YEAR:
-            // VC: SET bit of Register B must be enabled
-            //     when an RTC data register is written
+            s->cmos_data_info[s->cmos_index] = true;
+
+            /* VC: SET bit of Register B must be enabled
+             *     when an RTC data register is written */
             assert((s->cmos_data[RTC_REG_B] & REG_B_SET) == REG_B_SET);
 
             s->cmos_data[s->cmos_index] = data;
@@ -442,6 +453,16 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
             check_update_timer(s);
             break;
         case RTC_REG_B:
+            /* Is DM bit of Register B being changed? */
+            if ((s->cmos_data[RTC_REG_B] & REG_B_DM) != ((uint8_t) data & REG_B_DM)) {
+                /* VC: If DM bit of Register B is being changed,
+                 *     then either the SET bit of Register B has been
+                 *     enabled or is being simultaneously enabled. */
+                assert((data & REG_B_SET) == REG_B_SET ||
+                       (s->cmos_data[RTC_REG_B] & REG_B_SET) == REG_B_SET);
+                s->dm_change = true;
+            }
+
             if (data & REG_B_SET) {
                 /* update cmos to when the rtc was stopping */
                 if (rtc_running(s)) {
@@ -467,17 +488,49 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
                 s->cmos_data[RTC_REG_C] &= ~REG_C_IRQF;
                 qemu_irq_lower(s->irq);
             }
+
             s->cmos_data[RTC_REG_B] = data;
             periodic_timer_update(s, qemu_get_clock_ns(rtc_clock));
             check_update_timer(s);
-            break;
-        case RTC_REG_C:
-        case RTC_REG_D:
-            /* VC: Registers C and D must not be written. */
-            assert(false);
+
+            /* VC: In Register B, if its SET bit is being disabled and its
+             *     DM bit has changed since the SET bit has been enabled,
+             *     then every RTC data register must have been written.
+             *
+             *     In other words, a change of the DM bit in Register B must
+             *     be either followed or preceded by writes to every RTC data
+             *     register before the SET bit of Register B is disabled.
+             *
+             *     This VC intends to permit that the SET and DM bit of
+             *     Register B are being enabled simultaneously. In addition,
+             *     the intention is to allow the DM bit to being enabled
+             *     while the SET bit is simultaneously disabled provided
+             *     that all RTC data registers have been written. */
+            if (s->dm_change && (data & REG_B_SET) == 0) {
+                assert(s->cmos_data_info[RTC_CENTURY]);
+                uint32_t rtc_data_addr;
+                for(rtc_data_addr = RTC_SECONDS;
+                    rtc_data_addr <= RTC_YEAR;
+                    rtc_data_addr++) {
+
+                    assert(s->cmos_data_info[rtc_data_addr]);
+                }
+
+                /* reset meta-data */
+                s->dm_change = false;
+                s->cmos_data_info[RTC_CENTURY] = false;
+                for(rtc_data_addr = RTC_SECONDS;
+                    rtc_data_addr <= RTC_YEAR;
+                    rtc_data_addr++) {
+
+                    s->cmos_data_info[rtc_data_addr] = false;
+                }
+            }
+
             break;
         default:
-            // VC: Only registers 0x00 to 0x0D must be accessed.
+            /* VC: Only registers 0x00 to 0x0D must be accessed. */
+            /* VC: Registers C and D must not be written. */
             assert(false);
             break;
         }
@@ -566,7 +619,7 @@ static void rtc_update_time(RTCState *s)
     guest_nsec = get_guest_rtc_ns(s);
     guest_sec = guest_nsec / NSEC_PER_SEC;
     gmtime_r(&guest_sec, &ret);
-    if ((s->cmos_data[RTC_REG_B] & REG_B_SET) != REG_B_SET) {
+    if ((s->cmos_data[RTC_REG_B] & REG_B_SET) == 0) {
         rtc_set_cmos(s, &ret);
     }
 }
@@ -603,7 +656,7 @@ uint32_t cmos_ioport_read(void *opaque, uint32_t addr)
         s->io_info = INB_0x70;
         return 0xff;
     } else {
-        // VC: inb 0x71 must be preceded by outb 0x70
+        /* VC: inb 0x71 must be preceded by outb 0x70 */
         assert(s->io_info == OUTB_0x70);
         s->io_info = INB_0x71;
 
@@ -624,6 +677,7 @@ uint32_t cmos_ioport_read(void *opaque, uint32_t addr)
             if (rtc_running(s)) {
                 rtc_update_time(s);
             }
+
             ret = s->cmos_data[s->cmos_index];
             break;
         case RTC_REG_A:
@@ -642,12 +696,15 @@ uint32_t cmos_ioport_read(void *opaque, uint32_t addr)
                 check_update_timer(s);
             }
             break;
+        case RTC_SECONDS_ALARM:
+        case RTC_MINUTES_ALARM:
+        case RTC_HOURS_ALARM:
         case RTC_REG_B:
         case RTC_REG_D:
             ret = s->cmos_data[s->cmos_index];
             break;
         default:
-            // VC: Only registers 0x00 to 0x0D must be accessed.
+            /* VC: Only registers 0x00 to 0x0D must be accessed. */
             assert(false);
             break;
         }
