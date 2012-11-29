@@ -65,6 +65,10 @@ static inline void qemu_irq_lower(qemu_irq irq) {}
 
 struct RTCState {
     uint8_t cmos_data[128];
+
+    /* The century byte is excluded because
+     * it is not described in the data sheet. */
+    uint8_t cmos_data_copy[10];
     uint8_t cmos_index;
     int32_t base_year;
     uint64_t base_rtc;
@@ -375,6 +379,38 @@ static void rtc_update_timer(void *opaque)
     check_update_timer(s);
 }
 
+/* Copy content of RTC data registers for verification purposes */
+static void copy_data(RTCState *s) {
+    uint32_t rtc_data_addr;
+    for(rtc_data_addr = RTC_SECONDS;
+        rtc_data_addr <= RTC_YEAR;
+        rtc_data_addr++) {
+
+        s->cmos_data_copy[rtc_data_addr] = s->cmos_data[rtc_data_addr];
+    }
+}
+
+/* If the SET bit of Register B is enabled, assert the equality of the content
+ * between each RTC data register and its previously made copy.
+ *
+ * This function together with copy_data() can be used to check the VC:
+ *
+ *     As long as the SET bit of Register B is enabled, when data D
+ *     is written to an RTC data register R, a subsequent read of R
+ *     must return D.
+ */
+static void assert_equal_copy_data(RTCState *s) {
+    if ((s->cmos_data[RTC_REG_B] & REG_B_SET) == REG_B_SET) {
+        uint32_t rtc_data_addr;
+        for(rtc_data_addr = RTC_SECONDS;
+            rtc_data_addr <= RTC_YEAR;
+            rtc_data_addr++) {
+
+            assert(s->cmos_data_copy[rtc_data_addr] == s->cmos_data[rtc_data_addr]);
+        }
+    }
+}
+
 void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
 {
     RTCState *s = opaque;
@@ -383,6 +419,8 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
         s->io_info = OUTB_0x70;
         s->cmos_index = data & 0x7f;
     } else {
+        copy_data(s);
+
         /* VC: outb 0x71 must be preceded by outb 0x70 */
         assert(s->io_info == OUTB_0x70);
         s->io_info = OUTB_0x71;
@@ -457,6 +495,8 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
                 (s->cmos_data[RTC_REG_A] & REG_A_UIP);
             periodic_timer_update(s, qemu_get_clock_ns(rtc_clock));
             check_update_timer(s);
+
+            assert_equal_copy_data(s);
             break;
         case RTC_REG_B:
             /* Is DM bit of Register B being changed? */
@@ -533,6 +573,7 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
                 }
             }
 
+            assert_equal_copy_data(s);
             break;
         default:
             /* VC: Only registers 0x00 to 0x0D must be accessed. */
