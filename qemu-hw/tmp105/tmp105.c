@@ -23,6 +23,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 
 static void tmp105_interrupt_update(TMP105State *s)
 {
@@ -107,11 +108,15 @@ static void tmp105_write(TMP105State *s)
 {
     switch (s->pointer & 3) {
     case TMP105_REG_TEMPERATURE:
+        assert(0);
         break;
 
     case TMP105_REG_CONFIG:
+        assert(s->len == 1);
+
         if (s->buf[0] & ~s->config & (1 << 0))			/* SD */
             printf("%s: TMP105 shutdown\n", __FUNCTION__);
+
         s->config = s->buf[0];
         s->faults = tmp105_faultq[(s->config >> 3) & 3];	/* F */
         tmp105_alarm_update(s);
@@ -119,6 +124,8 @@ static void tmp105_write(TMP105State *s)
 
     case TMP105_REG_T_LOW:
     case TMP105_REG_T_HIGH:
+        assert(s->len == 2);
+
         if (s->len >= 3)
             s->limit[s->pointer & 1] = (int16_t)
                     ((((uint16_t) s->buf[0]) << 8) | s->buf[1]);
