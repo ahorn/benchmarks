@@ -112,8 +112,6 @@ static void tmp105_write(TMP105State *s)
         break;
 
     case TMP105_REG_CONFIG:
-        assert(s->len == 1);
-
         if (s->buf[0] & ~s->config & (1 << 0))			/* SD */
             printf("%s: TMP105 shutdown\n", __FUNCTION__);
 
@@ -124,8 +122,6 @@ static void tmp105_write(TMP105State *s)
 
     case TMP105_REG_T_LOW:
     case TMP105_REG_T_HIGH:
-        assert(s->len == 2);
-
         if (s->len >= 3)
             s->limit[s->pointer & 1] = (int16_t)
                     ((((uint16_t) s->buf[0]) << 8) | s->buf[1]);
@@ -148,15 +144,17 @@ int tmp105_tx(I2CSlave *i2c, uint8_t data)
 {
     TMP105State *s = (TMP105State *) i2c;
 
-    if (s->len == 0)
+    if (s->len == 0) {
         s->pointer = data;
-    else {
-        if (s->len <= 2)
+        s->len ++;
+    } else {
+        if (s->len <= 2) {
             s->buf[s->len - 1] = data;
+        }
+        s->len ++;
         tmp105_write(s);
     }
 
-    s->len ++;
     return 0;
 }
 
