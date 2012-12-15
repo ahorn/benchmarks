@@ -83,13 +83,13 @@ static void test_alarm(void)
     /* above 80 C */
     tmp105_set(i2c_slave, 81000);
 
-    /* POL=0 inverts alarm signal */
+    /* VC: POL=0 inverts alarm signal */
     assert_cmpint(alarm_rang, ==, false);
 
     /* below 75 C */
     tmp105_set(i2c_slave, 74000);
 
-    /* POL=0 inverts alarm signal */
+    /* VC: POL=0 inverts alarm signal */
     assert_cmpint(alarm_rang, ==, true);
 }
 
@@ -153,22 +153,31 @@ static void test_change_config(void)
  */
 static void test_change_lower_limit(void)
 {
-    uint16_t limit;
-    const uint8_t data[] = {TMP105_REG_T_LOW, 0x3a, 0x12};
+    uint16_t hi_limit, snd_hi_limit, lo_limit;
+    const uint8_t data[] = {TMP105_REG_T_LOW, 0x3a, 0x10};
+
+    /* save higher limit register value */
+    write_byte(TMP105_REG_T_HIGH);
+    hi_limit = read_word();
 
     /* select lower limit register */
     write_byte(TMP105_REG_T_LOW);
 
     /* expect initial lower limit */
-    limit = read_word();
-    assert_cmpint(limit, ==, 0x4b00);
+    lo_limit = read_word();
+    assert_cmpint(lo_limit, ==, 0x4b00);
 
-    /* overwrite lower limit register */
+    /* overwrite lower limit register value */
     write(data, 3);
 
     /* expect new value */
-    limit = read_word();
-    assert_cmpint(limit, ==, 0x3a12);
+    lo_limit = read_word();
+    assert_cmpint(lo_limit, ==, 0x3a10);
+
+    /* expect T_HIGH to be unchanged */
+    write_byte(TMP105_REG_T_HIGH);
+    snd_hi_limit = read_word();
+    assert_cmpint(hi_limit, ==, snd_hi_limit);
 }
 
 /*
@@ -176,22 +185,31 @@ static void test_change_lower_limit(void)
  */
 static void test_change_higher_limit(void)
 {
-    uint16_t limit;
-    const uint8_t data[] = {TMP105_REG_T_HIGH, 0x49, 0x87};
+    uint16_t hi_limit, lo_limit, snd_lo_limit;
+    const uint8_t data[] = {TMP105_REG_T_HIGH, 0x67, 0x80};
+
+    /* save lower limit register value */
+    write_byte(TMP105_REG_T_LOW);
+    lo_limit = read_word();
 
     /* select higher limit register */
     write_byte(TMP105_REG_T_HIGH);
 
     /* expect initial higher limit */
-    limit = read_word();
-    assert_cmpint(limit, ==, 0x5000);
+    hi_limit = read_word();
+    assert_cmpint(hi_limit, ==, 0x5000);
 
-    /* overwrite higher limit register */
+    /* overwrite higher limit register value */
     write(data, 3);
 
     /* expect new value */
-    limit = read_word();
-    assert_cmpint(limit, ==, 0x4987);
+    hi_limit = read_word();
+    assert_cmpint(hi_limit, ==, 0x6780);
+
+    /* expect T_LOW to be unchanged */
+    write_byte(TMP105_REG_T_LOW);
+    snd_lo_limit = read_word();
+    assert_cmpint(lo_limit, ==, snd_lo_limit);
 }
 
 static void tmp105_handler(void *opaque, int n, int level)
