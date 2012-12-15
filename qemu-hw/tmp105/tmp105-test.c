@@ -10,6 +10,7 @@
 
 #include <stdbool.h>
 #include <assert.h>
+#include <stddef.h>
 
 #define assert_cmpint(value, op, delta) assert(value op delta)
 
@@ -17,7 +18,7 @@ static I2CSlave *i2c_slave;
 static bool alarm_rang = false;
 
 /* Reads a single byte */
-static uint16_t read_byte(void)
+static uint8_t read_byte(void)
 {
     uint8_t byte;
 
@@ -41,21 +42,21 @@ static uint16_t read_word(void)
     return word;
 }
 
-/* Writes a single byte */
-static void write_byte(uint8_t byte)
+/* Writes data buffer to the temperature sensor */
+static void write(const uint8_t *data, size_t size)
 {
+    int i;
     tmp105_event(i2c_slave, I2C_START_SEND);
-    tmp105_tx(i2c_slave, byte);
+    for (i = 0; i < size; i++) {
+        tmp105_tx(i2c_slave, data[i]);
+    }
     tmp105_event(i2c_slave, I2C_FINISH);
 }
 
-/* Writes two consecutive bytes */
-static void write_word(uint8_t byte0, uint8_t byte1)
+/* Writes a single byte to the temperature sensor */
+static void write_byte(uint8_t data)
 {
-    tmp105_event(i2c_slave, I2C_START_SEND);
-    tmp105_tx(i2c_slave, byte0);
-    tmp105_tx(i2c_slave, byte1);
-    tmp105_event(i2c_slave, I2C_FINISH);
+    write(&data, 1);
 }
 
 /*
@@ -99,7 +100,8 @@ static void test_eleven_bit_precision(void)
 {
     TMP105State *tmp105_state;
     int16_t temperature;
-    uint8_t precision;
+    const uint8_t precision = 0x40;          /* R1=1 and R0=0 */
+    const uint8_t data[] = {TMP105_REG_CONFIG, precision};
 
     /* setup snow slush, +0.125 C */
     tmp105_set(i2c_slave, 125);
@@ -113,8 +115,7 @@ static void test_eleven_bit_precision(void)
     assert_cmpint(temperature, ==, 0);
 
     /* configure 11 bit (0.125 C) precision */
-    precision = 0x40;                                       /* R1=1 and R0=0 */
-    write_word(TMP105_REG_CONFIG, precision);
+    write(data, 2);
 
     /* select temperature register */
     write_byte(TMP105_REG_TEMPERATURE);
@@ -130,7 +131,7 @@ static void test_eleven_bit_precision(void)
 static void test_change_config(void)
 {
     uint8_t config;
-    uint8_t new_config;
+    const uint8_t data[] = {TMP105_REG_CONFIG, 0x40};
 
     /* select configuration register */
     write_byte(TMP105_REG_CONFIG);
@@ -139,12 +140,58 @@ static void test_change_config(void)
     config = read_byte();
     assert_cmpint(config, ==, 0);
 
-    /* write configuration register */
-    write_word(TMP105_REG_CONFIG, 0x40);
+    /* overwrite configuration register */
+    write(data, 2);
 
     /* expect new configuration */
     config = read_byte();
     assert_cmpint(config, ==, 0x40);
+}
+
+/*
+ * Tests writing and then reading T_LOW register
+ */
+static void test_change_lower_limit(void)
+{
+    uint16_t limit;
+    const uint8_t data[] = {TMP105_REG_T_LOW, 0x3a, 0x12};
+
+    /* select lower limit register */
+    write_byte(TMP105_REG_T_LOW);
+
+    /* expect initial lower limit */
+    limit = read_word();
+    assert_cmpint(limit, ==, 0x4b00);
+
+    /* overwrite lower limit register */
+    write(data, 3);
+
+    /* expect new value */
+    limit = read_word();
+    assert_cmpint(limit, ==, 0x3a12);
+}
+
+/*
+ * Tests writing and then reading T_HIGH register
+ */
+static void test_change_higher_limit(void)
+{
+    uint16_t limit;
+    const uint8_t data[] = {TMP105_REG_T_HIGH, 0x49, 0x87};
+
+    /* select higher limit register */
+    write_byte(TMP105_REG_T_HIGH);
+
+    /* expect initial higher limit */
+    limit = read_word();
+    assert_cmpint(limit, ==, 0x5000);
+
+    /* overwrite higher limit register */
+    write(data, 3);
+
+    /* expect new value */
+    limit = read_word();
+    assert_cmpint(limit, ==, 0x4987);
 }
 
 static void tmp105_handler(void *opaque, int n, int level)
@@ -180,6 +227,12 @@ int main(void)
 
     tmp105_reset(i2c_slave);
     test_change_config();
+
+    tmp105_reset(i2c_slave);
+    test_change_lower_limit();
+
+    tmp105_reset(i2c_slave);
+    test_change_higher_limit();
 
     return 0;
 }
