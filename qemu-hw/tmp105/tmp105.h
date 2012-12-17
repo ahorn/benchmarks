@@ -17,6 +17,7 @@
 #include "i2c.h"
 #include "irq.h"
 
+#include <stdbool.h>
 #include <stdint.h>
 
 typedef struct {
@@ -31,6 +32,8 @@ typedef struct {
     int16_t limit[2];
     int faults;
     uint8_t alarm;
+
+    bool os_trigger;
 } TMP105State;
 
 /**
