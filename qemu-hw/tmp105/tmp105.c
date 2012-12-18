@@ -248,6 +248,9 @@ int tmp105_tx(I2CSlave *i2c, uint8_t data)
 {
     TMP105State *s = (TMP105State *) i2c;
 
+    /* Fixed bug:
+     *    http://lists.gnu.org/archive/html/qemu-devel/2012-12/msg01455.html
+     */
     if (s->len == 0) {
         /* VC: The value in the pointer register must be between
          *     zero and four inclusive.
