@@ -107,12 +107,12 @@ static inline void set_desc_at(OpenEthState *s, hwaddr addr, uint64_t val)
     *((uint64_t *)((uint8_t *)s->desc + addr)) = val;
 }
 
-static desc *rx_desc(OpenEthState *s)
+static open_eth_desc *rx_desc(OpenEthState *s)
 {
     return s->desc + s->rx_desc;
 }
 
-static desc *tx_desc(OpenEthState *s)
+static open_eth_desc *tx_desc(OpenEthState *s)
 {
     return s->desc + s->tx_desc;
 }
@@ -212,7 +212,7 @@ ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
     {
 #endif
         static const uint8_t zero[64] = {0};
-        desc *desc = rx_desc(s);
+        open_eth_desc *desc = rx_desc(s);
         size_t copy_size = GET_REGBIT(s, MODER, HUGEN) ? 65536 : maxfl;
 
         desc->len_flags &= ~(RXD_CF | RXD_M | RXD_OR |
@@ -279,7 +279,7 @@ ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
     return size;
 }
 
-static void open_eth_start_xmit(OpenEthState *s, desc *tx)
+static void open_eth_start_xmit(OpenEthState *s, open_eth_desc *tx)
 {
     uint8_t buf[65536];
     unsigned len = GET_FIELD(tx->len_flags, TXD_LEN);
@@ -323,7 +323,7 @@ static void open_eth_start_xmit(OpenEthState *s, desc *tx)
 
 static void open_eth_check_start_xmit(OpenEthState *s)
 {
-    desc *tx = tx_desc(s);
+    open_eth_desc *tx = tx_desc(s);
     if (GET_REGBIT(s, MODER, TXEN) && s->regs[TX_BD_NUM] > 0 &&
             (tx->len_flags & TXD_RD) &&
             GET_FIELD(tx->len_flags, TXD_LEN) > 4) {
@@ -346,7 +346,7 @@ uint32_t open_eth_reg_read(OpenEthState *s, hwaddr addr)
         }
     }
     trace_open_eth_reg_read((uint32_t)addr, val);
-    return v;
+    return val;
 }
 
 static void open_eth_ro(OpenEthState *s, uint32_t val)

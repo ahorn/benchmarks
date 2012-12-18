@@ -300,10 +300,10 @@ enum {
 /**
  * Buffer descriptor
  */
-typedef struct desc {
+typedef struct open_eth_desc {
     uint32_t len_flags;
     uint32_t buf_ptr;
-} desc;
+} open_eth_desc;
 
 /**
  * Hardware model of OpenCores Ethernet MAC with MII to PHY
@@ -316,7 +316,7 @@ typedef struct OpenEthState {
     uint32_t regs[REG_MAX];
     unsigned tx_desc;
     unsigned rx_desc;
-    desc desc[128];
+    open_eth_desc desc[128];
 } OpenEthState;
 
 /**
