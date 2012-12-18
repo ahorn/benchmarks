@@ -329,7 +329,7 @@ typedef struct OpenEthState {
  * @see_also: Chapter 3 in data sheet
  * @see_also: open_eth_reg()
  */
-uint64_t open_eth_reg_read(OpenEthState *s, hwaddr addr);
+uint32_t open_eth_reg_read(OpenEthState *s, hwaddr addr);
 
 /**
  * open_eth_reg_write:
@@ -347,7 +347,7 @@ uint64_t open_eth_reg_read(OpenEthState *s, hwaddr addr);
  * @see_also: Chapter 3 in data sheet
  * @see_also: open_eth_reg()
  */
-void open_eth_reg_write(OpenEthState *s, hwaddr addr, uint64_t val);
+void open_eth_reg_write(OpenEthState *s, hwaddr addr, uint32_t val);
 
 /**
  * open_eth_desc_read:

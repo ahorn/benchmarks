@@ -331,21 +331,21 @@ static void open_eth_check_start_xmit(OpenEthState *s)
     }
 }
 
-uint64_t open_eth_reg_read(OpenEthState *s, hwaddr addr)
+uint32_t open_eth_reg_read(OpenEthState *s, hwaddr addr)
 {
     static uint32_t (*reg_read[REG_MAX])(OpenEthState *s) = {
     };
     unsigned idx = addr / 4;
-    uint64_t v = 0;
+    uint32_t val = 0;
 
     if (idx < REG_MAX) {
         if (reg_read[idx]) {
-            v = reg_read[idx](s);
+            val = reg_read[idx](s);
         } else {
-            v = s->regs[idx];
+            val = s->regs[idx];
         }
     }
-    trace_open_eth_reg_read((uint32_t)addr, (uint32_t)v);
+    trace_open_eth_reg_read((uint32_t)addr, val);
     return v;
 }
 
@@ -421,7 +421,7 @@ static void open_eth_mii_tx_host_write(OpenEthState *s, uint32_t val)
     }
 }
 
-void open_eth_reg_write(OpenEthState *s, hwaddr addr, uint64_t val)
+void open_eth_reg_write(OpenEthState *s, hwaddr addr, uint32_t val)
 {
     static void (*reg_write[REG_MAX])(OpenEthState *s, uint32_t val) = {
         [MODER] = open_eth_moder_host_write,
@@ -434,7 +434,7 @@ void open_eth_reg_write(OpenEthState *s, hwaddr addr, uint64_t val)
     unsigned idx = addr / 4;
 
     if (idx < REG_MAX) {
-        trace_open_eth_reg_write((uint32_t)addr, (uint32_t)val);
+        trace_open_eth_reg_write((uint32_t)addr, val);
         if (reg_write[idx]) {
             reg_write[idx](s, val);
         } else {
