@@ -103,10 +103,12 @@ static void test_rx(void)
     assert(raised_irq == true);
 }
 
-static void rx_handler(void *opaque, int n, int level)
+static irqreturn_t rx_handler(void *opaque, int n, int level)
 {
     assert(n == 3);
     raised_irq = true;
+
+    return IRQ_HANDLED;
 }
 
 static int nc_open_eth_can_receive(NetClientState *nc)

@@ -122,7 +122,7 @@ static void open_eth_update_irq(OpenEthState *s,
 {
     if (!old != !new) {
         trace_open_eth_update_irq(new);
-        qemu_set_irq(s->irq, new);
+        hw_set_irq(s->irq, new);
     }
 }
 

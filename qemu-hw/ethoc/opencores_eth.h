@@ -310,7 +310,7 @@ typedef struct open_eth_desc {
  */
 typedef struct OpenEthState {
     NICState *nic;
-    qemu_irq irq;
+    hw_irq irq;
 
     Mii mii;
     uint32_t regs[REG_MAX];

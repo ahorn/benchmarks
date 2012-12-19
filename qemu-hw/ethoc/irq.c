@@ -9,7 +9,7 @@
 
 #include "irq.h"
 
-void qemu_set_irq(qemu_irq irq, int level)
+void hw_set_irq(hw_irq irq, int level)
 {
     if (!irq)
         return;
