@@ -55,6 +55,7 @@ kernel/linux/arch/x86/include/asm/page_types.h
 kernel/linux/arch/x86/include/asm/param.h 
 kernel/linux/arch/x86/include/asm/percpu.h 
 kernel/linux/arch/x86/include/asm/pgtable_64.h 
+kernel/linux/arch/x86/include/asm/pgtable_64_types.h
 kernel/linux/arch/x86/include/asm/pgtable.h 
 kernel/linux/arch/x86/include/asm/pgtable_types.h 
 kernel/linux/arch/x86/include/asm/poll.h 

@@ -4,7 +4,7 @@ CBMC = cbmc
 GTCC = goto-cc
 GTINST = goto-instrument
 LINUX_SRC = ..
-GCC_INCLUDE = /usr/include
+GCC_INCLUDE =  ../../gcc-include
 QEMU_SRC = model
 
 # Source code
