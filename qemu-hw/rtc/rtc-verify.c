@@ -254,6 +254,14 @@ static void register_b_set_flag(void)
     cmos_write(RTC_REG_B, (cmos_read(RTC_REG_B) & ~REG_B_DM) | REG_B_SET);
     cmos_write(RTC_HOURS, 0x03);
     cmos_write(RTC_REG_A, 0x26);
+
+    /* Exposes bug:
+     *    http://git.qemu.org/?p=qemu.git;a=commit;h=02c6ccc6dde90dcbf5975b1cfe2ab199e525ec11
+     *
+     * See also assert_equal_copy_data() in file mc146818rtc.c
+     */
+    assert_cmpint(cmos_read(RTC_HOURS), ==, 0x03);
+
     cmos_write(RTC_REG_B, cmos_read(RTC_REG_B) & ~REG_B_SET);
 
     assert_cmpint(cmos_read(RTC_HOURS), ==, 0x03);

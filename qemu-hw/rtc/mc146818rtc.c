@@ -666,6 +666,10 @@ static void rtc_update_time(RTCState *s)
     guest_nsec = get_guest_rtc_ns(s);
     guest_sec = guest_nsec / NSEC_PER_SEC;
     gmtime_r(&guest_sec, &ret);
+
+    /* Fixes bug:
+     *    http://git.qemu.org/?p=qemu.git;a=commit;h=02c6ccc6dde90dcbf5975b1cfe2ab199e525ec11
+     */
     if ((s->cmos_data[RTC_REG_B] & REG_B_SET) == 0) {
         rtc_set_cmos(s, &ret);
     }
