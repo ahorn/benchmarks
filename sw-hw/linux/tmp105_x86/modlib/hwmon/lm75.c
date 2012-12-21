@@ -183,6 +183,13 @@ lm75_probe(struct i2c_client *client, const struct i2c_device_id *id)
 		lm75_write_value(client, LM75_REG_CONF, new);
 	dev_dbg(&client->dev, "Config %02x\n", new);
 
+	/* VC: After writing byte C to the configuration register, the next read of
+	 *     the configuration register returns a byte C' such that C[i] = C'[i]
+	 *     where 0 <= i < 7. That is, the first seven bits of C and C' are
+	 *     pairwise equal.
+	 */
+	assert((new & 0x7f) == (lm75_read_value(client, LM75_REG_CONF) & 0x7f));
+
 	/* Register sysfs hooks */
 	status = sysfs_create_group(&client->dev.kobj, &lm75_group);
 	if (status)
