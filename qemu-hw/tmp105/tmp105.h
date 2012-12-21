@@ -20,7 +20,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-typedef struct {
+typedef struct TMP105State {
     I2CSlave i2c;
     uint8_t len;
     uint8_t buf[2];

@@ -21,9 +21,13 @@
 #include "i2c.h"
 #include "tmp105.h"
 
-#include <stdlib.h>
-#include <stdio.h>
+#ifndef _SYS_
+    #include <stdlib.h>
+    #include <stdio.h>
+#endif
+#ifndef _CBMC_
 #include <assert.h>
+#endif
 
 static inline void check_range(int16_t temperature)
 {
@@ -113,9 +117,13 @@ void tmp105_set(I2CSlave *i2c, int temp)
     TMP105State *s = (TMP105State *) i2c;
 
     if (temp >= 128000 || temp < -128000) {
+        #ifndef _SYS_
         fprintf(stderr, "%s: values is out of range (%i.%03i C)\n",
                         __FUNCTION__, temp / 1000, temp % 1000);
         exit(-1);
+        #else
+            assert(0);
+        #endif
     }
 
     s->temperature = ((int16_t) (temp * 0x800 / 128000)) << 4;
@@ -184,8 +192,10 @@ static void tmp105_write(TMP105State *s)
          */
         assert(s->len <= 2);
 
+        #ifndef _SYS_
         if (s->buf[0] & ~s->config & (1 << 0))			/* SD */
             printf("%s: TMP105 shutdown\n", __FUNCTION__);
+        #endif
 
         s->config = s->buf[0];
         s->faults = tmp105_faultq[(s->config >> 3) & 3];	/* F */
