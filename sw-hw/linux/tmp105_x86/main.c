@@ -22,8 +22,8 @@
 #include <tmp105/tmp105.h>
 #include <tmp105/tmp105.c>
 
-/* Interface */
-#include "interface.c"
+/* Interface between software and hardware */
+#include "sw-hw.c"
 
 /* PC cmos mappings */
 

@@ -27,18 +27,57 @@
 #include <linux/i2c.h>
 #include <linux/export.h>
 
-extern void tmp105_read(TMP105State *s);
-extern void tmp105_write(TMP105State *s);
-
-struct TMP105State temp105_dev;
-
+static struct TMP105State temp105_dev;
+static const I2CSlave *i2c_slave;
 
 void
 reset_dev (void) {
-    I2CSlave* i2c_slave = (I2CSlave*) &temp105_dev;
+    i2c_slave = (I2CSlave*) &temp105_dev;
     tmp105_reset(i2c_slave);
 }
 
+/* Reads a single byte */
+static u8 tmp105_read_byte(void)
+{
+    u8 byte;
+
+    tmp105_event(i2c_slave, I2C_START_RECV);
+    byte = tmp105_rx(i2c_slave);
+    tmp105_event(i2c_slave, I2C_FINISH);
+
+    return byte;
+}
+
+/* Reads a word whose MSB is transmitted first */
+static u16 tmp105_read_word(void)
+{
+    u16 word;
+
+    tmp105_event(i2c_slave, I2C_START_RECV);
+    word = tmp105_rx(i2c_slave) << 8;
+    word |= tmp105_rx(i2c_slave) << 0;
+    tmp105_event(i2c_slave, I2C_FINISH);
+
+    return word;
+}
+
+/* Writes data buffer to the temperature sensor */
+static void tmp105_write_array(const u8 *data, unsigned size)
+{
+    unsigned i;
+
+    tmp105_event(i2c_slave, I2C_START_SEND);
+    for (i = 0; i < size; i++) {
+        tmp105_tx(i2c_slave, data[i]);
+    }
+    tmp105_event(i2c_slave, I2C_FINISH);
+}
+
+/* Writes a single byte to the temperature sensor */
+static void tmp105_write_byte(u8 data)
+{
+    tmp105_write_array(&data, 1);
+}
 
 // These functions are based on i2c-core.c:i2c_smbus_xfer_emulated
 s32
@@ -47,15 +86,10 @@ i2c_smbus_read_byte_data (const struct i2c_client *client,
 {
     assert (command == LM75_REG_CONF);
 
-    temp105_dev.pointer = command;
-
-    // -- Ignoring events for now
-    tmp105_read (&temp105_dev);
-    assert (temp105_dev.len == 1);
-
-    return temp105_dev.buf[0];
+    /* select configuration register */
+    tmp105_write_byte(command);
+    return tmp105_read_byte();
 }
-EXPORT_SYMBOL(i2c_smbus_read_byte_data);
 
 s32
 i2c_smbus_write_byte_data (const struct i2c_client *client,
@@ -64,12 +98,8 @@ i2c_smbus_write_byte_data (const struct i2c_client *client,
 {
     assert (command == LM75_REG_CONF);
 
-    temp105_dev.pointer = command;
-    temp105_dev.buf[0] = value;
-    temp105_dev.len = 2; // originally is 2 (+address)
-
-    // -- Ignoring events for now
-    tmp105_write (&temp105_dev);
+    const u8 data[] = {command, value};
+    tmp105_write_array(data, 2);
 
     return 0;
 }
@@ -79,14 +109,11 @@ i2c_smbus_read_word_data (const struct i2c_client *client,
 			  u8 command)
 {
     assert (command != LM75_REG_CONF);
-    temp105_dev.pointer = command;
 
-    // -- Ignoring events for now
-    tmp105_read (&temp105_dev);
-    assert (temp105_dev.len == 2);
-
-    return temp105_dev.buf[0] | (temp105_dev.buf[1] << 8);
+    tmp105_write_byte(command);
+    return tmp105_read_word();
 }
+
 extern s32
 i2c_smbus_write_word_data (const struct i2c_client *client,
 			   u8 command,
@@ -94,13 +121,9 @@ i2c_smbus_write_word_data (const struct i2c_client *client,
 {
     assert (command != LM75_REG_CONF);
 
-    temp105_dev.pointer = command;
-    temp105_dev.buf[0] = value & 0xff;
-    temp105_dev.buf[1] = value >> 8;
-    temp105_dev.len = 3; // originally is 3 (+address)
-
-    // -- Ignoring events for now
-    tmp105_write (&temp105_dev);
+    /* I2C requires to send the most significant byte first */
+    const u8 data[] = {command, /* high */value >> 8, /* low */value & 0xff};
+    tmp105_write_array(data, 3);
 
     return 0;
 }
