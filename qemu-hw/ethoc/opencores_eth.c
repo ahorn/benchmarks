@@ -93,8 +93,6 @@ static uint16_t mii_read_host(Mii *s, unsigned idx)
     return s->regs[idx];
 }
 
-#define DEFAULT_PHY 1
-
 static inline uint64_t get_desc_at(OpenEthState *s, hwaddr addr)
 {
     addr &= 0x3ff;

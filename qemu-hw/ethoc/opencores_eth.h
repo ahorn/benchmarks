@@ -24,6 +24,11 @@
 #include "net.h"
 
 /**
+ * PHY identifier for MDIO setup
+ */
+#define DEFAULT_PHY 1
+
+/**
  * DP83848C PHYTER MII registers
  *
  * @see_also: http://www.ti.com/lit/gpn/dp83848c
@@ -317,6 +322,9 @@ typedef struct OpenEthState {
     unsigned tx_desc;
     unsigned rx_desc;
     open_eth_desc desc[128];
+
+    /* object of low-level software which controls the MAC */
+    void *software;
 } OpenEthState;
 
 /**
