@@ -381,6 +381,8 @@ uint64_t open_eth_desc_read(OpenEthState *s, hwaddr addr);
  * Overwrites a buffer descriptor. Each descriptor is 64 bits wide.
  * There are at most 128 such descriptors. The register indexed by
  * @TX_BD_NUM should hold the actual number of used descriptors.
+ * The lower 32 bits hold the buffer descriptor's status whereas the
+ * upper 32 bits hold a DMA address.
  *
  * @see_also: Section 4.2.2 in data sheet
  */
