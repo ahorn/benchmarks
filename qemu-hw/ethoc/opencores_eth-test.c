@@ -92,6 +92,9 @@ static void test_rx(void)
     desc |= RXD_E | RXD_IRQ;
     open_eth_desc_write(s, desc_addr, desc);
 
+    /* enable receiver */
+    open_eth_reg_write(s, open_eth_reg(MODER), MODER_RXEN);
+
     /* trigger DMA operation and IRQ */
     raised_irq = false;
     open_eth_receive(s, tx_packet, sizeof(tx_packet));

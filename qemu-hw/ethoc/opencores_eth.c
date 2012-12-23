@@ -364,6 +364,11 @@ static void open_eth_moder_host_write(OpenEthState *s, uint32_t val)
 
     if (set & MODER_RXEN) {
         s->rx_desc = s->regs[TX_BD_NUM];
+
+	/* VC: When the receiver is being enabled, there must
+ 	 *     exist at least one empty RX buffer descriptor.
+ 	 */ 
+	assert(open_eth_can_receive(s));
     }
     if (set & MODER_TXEN) {
         s->tx_desc = 0;
