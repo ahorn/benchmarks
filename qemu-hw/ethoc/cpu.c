@@ -10,7 +10,7 @@ static inline void *physical_addr(hwaddr addr)
 
 void cpu_physical_memory_init(uintptr_t base)
 {
-   base_addr = base;
+   base_addr = base & ~0xffffffffLL;
 }
 
 void cpu_physical_memory_write(hwaddr addr, const void *buf, size_t size)

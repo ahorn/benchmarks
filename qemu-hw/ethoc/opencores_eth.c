@@ -16,6 +16,7 @@
 #include "opencores_eth.h"
 #include "sys.h"
 #include "trace.h"
+#include "assert.h"
 
 /* RECSMALL is not used because it breaks tap networking in linux:
  * incoming ARP responses are too short

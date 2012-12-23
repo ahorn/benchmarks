@@ -8,7 +8,6 @@
  */
 #include <assert.h>
 #include <stddef.h>
-#include <stdio.h>
 
 #include "opencores_eth.h"
 #include "net.h"
@@ -82,7 +81,7 @@ static void test_rx(void)
     open_eth_reg_write(s, open_eth_reg(INT_MASK), INT_MASK_RXF_M);
 
     /* setup address map to allow 32 bit hardware addresses */
-    cpu_physical_memory_init((uintptr_t) rx_packet & ~0xFFFF);
+    cpu_physical_memory_init((uintptr_t) rx_packet);
 
     /* calculate lowest rx buffer descriptor address */
     desc_addr = tx_bd_num * 8;
