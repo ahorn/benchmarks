@@ -195,12 +195,12 @@ struct x86_io_apic_ops {
 	void		(*modify)(unsigned int apic, unsigned int reg, unsigned int value);
 };
 
-//extern struct x86_init_ops x86_init;
-//extern struct x86_cpuinit_ops x86_cpuinit;
-//extern struct x86_platform_ops x86_platform;
-//extern struct x86_msi_ops x86_msi;
-//extern struct x86_io_apic_ops x86_io_apic_ops;
-//extern void x86_init_noop(void);
-//extern void x86_init_uint_noop(unsigned int unused);
+extern struct x86_init_ops x86_init;
+extern struct x86_cpuinit_ops x86_cpuinit;
+extern struct x86_platform_ops x86_platform;
+extern struct x86_msi_ops x86_msi;
+extern struct x86_io_apic_ops x86_io_apic_ops;
+extern void x86_init_noop(void);
+extern void x86_init_uint_noop(unsigned int unused);
 
 #endif
