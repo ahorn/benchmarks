@@ -440,7 +440,6 @@ static int ethoc_rx(struct net_device *dev, int limit)
 {
 	struct ethoc *priv = netdev_priv(dev);
 	int count;
-	u32 mask;
 
 	for (count = 0; count < limit; ++count) {
 		unsigned int entry;
@@ -836,7 +835,7 @@ static void test_rx(const u8* mac_addr, int packet_id, u8 data, unsigned int pac
 
 	/* Since this thread could be waiting while ethoc_stop() is called, we must
  	 * check if the hardware model can still receive packets. The assumption is
- 	 * that reading the registers of the hardware model is not a volatile
+ 	 * that reading the registers of the hardware model is a volatile
  	 * operation (i.e. values are not cached).
  	 */ 
 	if (open_eth_can_receive(OPEN_ETH_STATE(nc))) {
@@ -995,5 +994,51 @@ int main(void)
  		 * Each packet is associated with a unique positive identifier.
  		 */
 		test_rx(mac_addr, packet_id + 1, packet_bytes[packet_id], packet_sizes[packet_id]);
+	}
+
+	/* Waits until the currently incoming packets are processed.
+	 *
+	 * Since this call could cut off subsequent incoming packets, the
+	 * packet_id is used to find out if the DMA buffer contains a packet
+	 * or not.
+	 *
+	 * This call also causes the writing of the DMA buffer to have a
+	 * happens-before order to the reading (at the end of main()).
+	 * More precisely, the writing of the DMA buffer happens before
+	 * the RX_BD_EMPTY bit is cleared in the associated buffer
+	 * descriptor. The thread (i.e. ethoc_poll()) which reads this
+	 * bit eventually calls napi_complete(). This function, in turn,
+	 * atomically clears a flag which is read by napi_schedule() and
+	 * napi_disable(). The former can start another ethoc_poll() thread
+	 * whereas the latter corresponds to reaching the line below.
+	 */
+	ethoc_stop(&netdev);
+
+	/* VC: The DMA buffer must only contain packets which were sent. */
+	u8 *dma = dma_buf + (ethoc.num_tx * ETHOC_BUFSIZ);
+	int k;
+	for (k = 1; k <= rx_packet_num; k++) {
+		packet_id = dma[PACKET_VC_INDEX];
+		if (packet_id == 0) {
+			/* DMA buffer does not contain a packet */
+			continue;
+		}
+		const u8 data = packet_bytes[packet_id - 1];
+
+		unsigned int i;
+		for (i = (PACKET_VC_INDEX + 1); i < packet_sizes[packet_id - 1]; i++) {
+			assert(dma[i] == data);
+		}
+
+		/* The rest of the buffer contains the previous packet content.
+ 		 * Since rx_packet_num is less than or equal to ethoc.num_rx,
+ 		 * these unused bytes are zero due to the initialization of
+ 		 * the DMA buffer with memset().
+ 		 */
+		for(; i < ETHOC_BUFSIZ; i++) {
+			assert(dma[i] == 0);
+		}
+
+		dma += ETHOC_BUFSIZ;
 	}
 }
