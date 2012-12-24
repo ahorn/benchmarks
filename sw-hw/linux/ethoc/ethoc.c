@@ -909,10 +909,13 @@ int main(void)
 	netdev.stats.rx_compressed = 0;
 	netdev.stats.tx_compressed = 0;
 
-	ethoc.napi.poll = ethoc_poll;
 	ethoc.phy_id = DEFAULT_PHY;
 	ethoc.open_eth = &open_eth;
 	ethoc.netdev = &netdev;
+
+	ethoc.napi.poll = ethoc_poll;
+	ethoc.napi.sched = 0;
+	ethoc.napi.complete = 0;
 
 	/* use a non-deterministic NAPI weight in the range [0, 512] */
 	ethoc.napi.weight = nondet_int(64);

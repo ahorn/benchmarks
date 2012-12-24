@@ -12,6 +12,7 @@ struct napi_struct {
 	/* ... */
 	int	complete;
 	int	weight;
+	int	sched;
 
 	/* poll() will not be invoked simultaneously (for the same device)
  	 * on multiple processors. In other words, "only one CPU at any time
@@ -48,16 +49,30 @@ static inline void napi_pool_loop(struct napi_struct *n)
 }
 
 /**
+ * In our analysis, this is an atomic test and set of the given flag.
+ */
+static inline int test_and_set(int *flag)
+{
+	int _flag = *flag;
+	*flag = 1;
+	return _flag;
+}
+
+/**
  * napi_schedule - schedule NAPI poll
  * @n: napi context
  *
  * Schedule NAPI poll routine to be called if it is not already
- * running. That is, the poll() call happens some time in the future.
+ * running. The poll() call happens some time in the future.
  */
 static inline void napi_schedule(struct napi_struct *n)
 {
-	/* asynchronous call */
-	napi_pool_loop(n);
+	if (!test_and_set(&n->sched)) {
+		assert(n->sched);
+
+		/* asynchronous call */
+		napi_pool_loop(n);
+	}
 }
 
 /* ... */
