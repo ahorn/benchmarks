@@ -196,6 +196,11 @@ struct ethoc {
 	unsigned int num_rx;
 	unsigned int cur_rx;
 
+	/* Assume the thread which acknowledges the TX or RX is also
+ 	 * the one which reads this DMA buffer. In the case of RX, this
+ 	 * establishes the required happens-before order between the
+ 	 * hardware writing the DMA buffer and the software reading it.
+ 	 */
 	void *dma_buf;
 	void **dma_regions;
 
@@ -435,6 +440,7 @@ static int ethoc_rx(struct net_device *dev, int limit)
 {
 	struct ethoc *priv = netdev_priv(dev);
 	int count;
+	u32 mask;
 
 	for (count = 0; count < limit; ++count) {
 		unsigned int entry;
@@ -795,15 +801,16 @@ static NetClientState *nc;
  * This function is a lightweight thread which triggers an RX event in the
  * OpenCores Ethernet MAC hardware model.
  *
- * We require that the global arrays satisfy the equalities
+ * Each packet is associated with a unique positive identifier (packet_id).
+ * In addition, we require that the global arrays satisfy the equalities
  * 
- * 	packet_bytes[index] == data and packet_sizes[index] == packet_size
+ * 	packet_bytes[packet_id - 1] == data and packet_sizes[packet_id - 1] == packet_size
  *
  * prior to executing this function as a thread.
  *
  * For thread-safety, this function does not modify these arrays.
  */
-static void test_rx(const u8* mac_addr, int index, u8 data, unsigned int packet_size)
+static void test_rx(const u8* mac_addr, int packet_id, u8 data, unsigned int packet_size)
 {
 	uint8_t packet[ETHOC_BUFSIZ];
 
@@ -822,18 +829,26 @@ static void test_rx(const u8* mac_addr, int index, u8 data, unsigned int packet_
  	 *
  	 * See also the preconditions of this function.
 	 */
-	packet[PACKET_VC_INDEX] = index;
+	packet[PACKET_VC_INDEX] = packet_id;
 
 	/* pad the rest of the packet with the supplied data */
 	memset(packet + PACKET_VC_INDEX + 1, data, packet_size - (PACKET_VC_INDEX + 1));
 
-	/* Trigger incoming packet in hardware model.
-	 *
- 	 * This call must NOT be asynchronous because the packet array could otherwise
- 	 * be deallocated from the stack causing a memory error.
- 	 */
-	assert(open_eth_can_receive(OPEN_ETH_STATE(nc)));
-	open_eth_receive(OPEN_ETH_STATE(nc), packet, packet_size);
+	/* Since this thread could be waiting while ethoc_stop() is called, we must
+ 	 * check if the hardware model can still receive packets. The assumption is
+ 	 * that reading the registers of the hardware model is not a volatile
+ 	 * operation (i.e. values are not cached).
+ 	 */ 
+	if (open_eth_can_receive(OPEN_ETH_STATE(nc))) {
+
+		/* Trigger incoming packet in hardware model.
+		 *
+ 		 * This call must NOT be asynchronous because the packet array
+ 		 * could otherwise be deallocated from the stack causing a
+ 		 * memory error.
+ 		 */
+		open_eth_receive(OPEN_ETH_STATE(nc), packet, packet_size);
+	}
 }
 
 int main(void)
@@ -914,8 +929,9 @@ int main(void)
 	ethoc.netdev = &netdev;
 
 	ethoc.napi.poll = ethoc_poll;
-	ethoc.napi.sched = 0;
+	ethoc.napi.sched = 1;
 	ethoc.napi.complete = 0;
+	ethoc.napi.is_disabling = 0;
 
 	/* use a non-deterministic NAPI weight in the range [0, 512] */
 	ethoc.napi.weight = nondet_int(64);
@@ -938,7 +954,7 @@ int main(void)
 
 	if (!is_valid_ether_addr(mac_addr))
 		return 1;
-	if (DMA_BUF_SIZE <= mem_size || mem_size <= (4 * ETHOC_BUFSIZ))
+	if (DMA_BUF_SIZE < mem_size || mem_size <= (4 * ETHOC_BUFSIZ))
 		return 1;
 
 	/* setup virtual machine memory address space */
@@ -960,23 +976,24 @@ int main(void)
 	ethoc.num_rx = num_bd - ethoc.num_tx;
 
 	const unsigned int rx_packet_num = nondet_int(3);
-
 	if (rx_packet_num > ethoc.num_rx)
 		return;
 
 	ethoc_set_mac_address(&netdev, mac_addr);
 	ethoc_open(&netdev);
 
-	int index;
-	for (index = 0; index < rx_packet_num; index++) {
-		const unsigned int packet_size = nondet_uint(64 + index);
+	int packet_id;
+	for (packet_id = 0; packet_id < rx_packet_num; packet_id++) {
+		const unsigned int packet_size = nondet_uint(64 + packet_id);
 		if (packet_size >= ETHOC_BUFSIZ || packet_size < 64)
 			continue;
 
-		packet_sizes[index] = packet_size;
-		packet_bytes[index] = nondet_u8((index + 1) % 255);
+		packet_sizes[packet_id] = packet_size;
+		packet_bytes[packet_id] = nondet_u8((packet_id + 1) % 255);
 
-		/* asynchronous call to trigger an incoming packet */
-		test_rx(mac_addr, index, packet_bytes[index], packet_sizes[index]);
+		/* Start an asynchronous call which triggers an incoming packet.
+ 		 * Each packet is associated with a unique positive identifier.
+ 		 */
+		test_rx(mac_addr, packet_id + 1, packet_bytes[packet_id], packet_sizes[packet_id]);
 	}
 }

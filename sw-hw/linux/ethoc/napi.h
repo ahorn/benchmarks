@@ -9,21 +9,46 @@
  * Structure for NAPI scheduling similar to tasklet but with weighting
  */
 struct napi_struct {
-	/* ... */
+	/* thread local variable */
 	int	complete;
+
+	/* constant after initialization */
 	int	weight;
+
+	/* used for synchronization (e.g. see poll()) */
 	int	sched;
 
-	/* poll() will not be invoked simultaneously (for the same device)
- 	 * on multiple processors. In other words, "only one CPU at any time
- 	 * can call poll()". Thus, poll() is "totaly (sic) lockless because of
- 	 * the guarantee only that (sic) one CPU is executing it."
- 	 *
+	/* relies on happens-before order on sched field */
+	int	is_disabling;
+
+	/* poll() will not be invoked simultaneously.
  	 * Of course, this does not mean that poll() cannot be preempted.
  	 */
 	int	(*poll)(struct napi_struct *, int);
 
 };
+
+/**
+ * In our analysis, this is an atomic test and set of the given flag.
+ * It is assumed that this function also serves as a memory barrier.
+ */
+static inline int test_and_set(int *flag)
+{
+	int _flag = *flag;
+	*flag = 1;
+	return _flag;
+}
+
+/**
+ * In our analysis, this is an atomic test and clear of the given flag.
+ * It is assumed that this function also serves as a memory barrier.
+ */
+static inline int test_and_clear(int *flag)
+{
+	int _flag = *flag;
+	*flag = 0;
+	return _flag;
+}
 
 /**
  * napi_pool_loop - simplified NAPI implementation
@@ -39,23 +64,14 @@ struct napi_struct {
  * the driver has not exhausted its budget, i.e. the driver has processed
  * all incoming packets within poll() and called napi_complete().
  */
-static inline void napi_pool_loop(struct napi_struct *n)
+static inline void napi_poll_loop(struct napi_struct *n)
 {
 	int work;
+
 	n->complete = 0;
 	while (!n->complete) {
 		n->poll(n, n->weight);
 	}
-}
-
-/**
- * In our analysis, this is an atomic test and set of the given flag.
- */
-static inline int test_and_set(int *flag)
-{
-	int _flag = *flag;
-	*flag = 1;
-	return _flag;
 }
 
 /**
@@ -67,11 +83,9 @@ static inline int test_and_set(int *flag)
  */
 static inline void napi_schedule(struct napi_struct *n)
 {
-	if (!test_and_set(&n->sched)) {
-		assert(n->sched);
-
+	if (!test_and_set(&n->sched) && !n->is_disabling) {
 		/* asynchronous call */
-		napi_pool_loop(n);
+		napi_poll_loop(n);
 	}
 }
 
@@ -86,7 +100,7 @@ static inline void napi_schedule(struct napi_struct *n)
  */
 static inline void napi_enable(struct napi_struct *n)
 {
-	/* ... */
+	assert(test_and_clear(&n->sched));
 }
 
 /**
@@ -98,7 +112,10 @@ static inline void napi_enable(struct napi_struct *n)
  */
 static inline void napi_disable(struct napi_struct *n)
 {
-	/* ... */
+	n->is_disabling = true;
+	while (test_and_set(&n->sched)) {
+	}
+	n->is_disabling = false;
 }
 
 /**
@@ -110,7 +127,10 @@ static inline void napi_disable(struct napi_struct *n)
  */
 static inline void napi_complete(struct napi_struct *n)
 {
+	/* happens-before order through napi_schedule() */
+	assert(n->sched);
 	n->complete = 1;
+	test_and_clear(&n->sched);
 }
 
 #endif
