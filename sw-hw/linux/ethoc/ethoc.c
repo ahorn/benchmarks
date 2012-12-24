@@ -440,6 +440,13 @@ static int ethoc_rx(struct net_device *dev, int limit)
 {
 	struct ethoc *priv = netdev_priv(dev);
 	int count;
+	u32 mask;
+
+	/* VC: While polling for incoming packets, both RX interrupts
+	 *     in the OpenCores Ethernet MAC are disabled.
+ 	 */ 
+	mask = ethoc_read(priv, INT_MASK);
+	assert((mask & INT_MASK_RX) == 0);
 
 	for (count = 0; count < limit; ++count) {
 		unsigned int entry;
