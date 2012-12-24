@@ -1021,9 +1021,19 @@ int main(void)
 	 */
 	ethoc_stop(&netdev);
 
+	/* VC: If a packet has been written to the DMA ring, it must be
+ 	 *     eventually processed. At the very latest when the driver
+ 	 *     is stopped, all received packets must have been processed.
+ 	 */
+	int k;
+	struct ethoc_bd bd;
+	for (k = 0; k < ethoc.num_rx; k++) {
+		ethoc_read_bd(&ethoc, ethoc.num_tx + k, &bd);
+		assert((bd.stat & RX_BD_EMPTY) == RX_BD_EMPTY);
+	}
+
 	/* VC: The DMA buffer must only contain packets which were sent. */
 	u8 *dma = dma_buf + (ethoc.num_tx * ETHOC_BUFSIZ);
-	int k;
 	for (k = 1; k <= rx_packet_num; k++) {
 		packet_id = dma[PACKET_VC_INDEX];
 		if (packet_id == 0) {
