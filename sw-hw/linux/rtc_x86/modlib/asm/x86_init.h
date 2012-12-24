@@ -197,10 +197,22 @@ struct x86_io_apic_ops {
 
 extern struct x86_init_ops x86_init;
 extern struct x86_cpuinit_ops x86_cpuinit;
-extern struct x86_platform_ops x86_platform;
 extern struct x86_msi_ops x86_msi;
 extern struct x86_io_apic_ops x86_io_apic_ops;
 extern void x86_init_noop(void);
 extern void x86_init_uint_noop(unsigned int unused);
+
+extern struct x86_platform_ops x86_platform = {
+	.calibrate_tsc			= native_calibrate_tsc,
+	.get_wallclock			= mach_get_cmos_time,
+	.set_wallclock			= mach_set_rtc_mmss,
+	.iommu_shutdown			= iommu_shutdown_noop,
+	.is_untracked_pat_range		= is_ISA_range,
+	.nmi_init			= default_nmi_init,
+	.get_nmi_reason			= default_get_nmi_reason,
+	.i8042_detect			= default_i8042_detect,
+	.save_sched_clock_state 	= tsc_save_sched_clock_state,
+	.restore_sched_clock_state 	= tsc_restore_sched_clock_state,
+};
 
 #endif
