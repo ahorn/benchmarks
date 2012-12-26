@@ -102,7 +102,64 @@ static void test_rx(void)
     /* validate DMA buffer content and IRQ */
     assert(sizeof(tx_packet) == sizeof(rx_packet));
     assert(memcmp(tx_packet, rx_packet, sizeof(tx_packet)) == 0);
+    assert((open_eth_reg_read(s, open_eth_reg(INT_SOURCE)) & INT_SOURCE_BUSY) == 0);
     assert(raised_irq == true);
+}
+
+static void test_rx_busy(void)
+{
+    const uint64_t tx_bd_num = 0x7f;
+    uint64_t desc;
+    hwaddr desc_addr;
+
+    const uint8_t tx_packet[] = { /* recipient addr */
+                                 0x12U, 0x34U, 0x56U,
+                                 0x78U, 0x9AU, 0xBCU,
+                                 /* data */
+                                 0x20U, 0x21U, 0x22U,
+                                 0x30U, 0x31U, 0x32U,
+                                 0x40U, 0x41U, 0x42U,
+                                 0x50U, 0x51U, 0x52U };
+
+    /* setup rx DMA buffer */
+    uint8_t rx_packet[sizeof(tx_packet)];
+    memset(rx_packet, 0, sizeof(rx_packet));
+
+    OpenEthState *s = OPEN_ETH_STATE(nc);
+
+    /* reset MAC and MII */
+    open_eth_reg_write(s, open_eth_reg(MODER), MODER_RST);
+
+    /* allocate only one RX buffer descriptor */
+    open_eth_reg_write(s, open_eth_reg(TX_BD_NUM), tx_bd_num);
+
+    /* setup MAC address */
+    open_eth_reg_write(s, open_eth_reg(MAC_ADDR0), 0x56789ABC);
+    open_eth_reg_write(s, open_eth_reg(MAC_ADDR1), 0x1234);
+
+    /* enable IRQ for incoming packets */
+    open_eth_reg_write(s, open_eth_reg(INT_MASK), INT_MASK_RXF_M);
+
+    /* setup address map to allow 32 bit hardware addresses */
+    cpu_physical_memory_init((uintptr_t) rx_packet);
+
+    /* calculate lowest rx buffer descriptor address */
+    desc_addr = tx_bd_num * 8;
+
+    /* setup rx buffer descriptor for DMA on rx_packet */
+    desc = (uint32_t) (uintptr_t) rx_packet;
+    desc <<= 32;
+    desc |= RXD_E | RXD_IRQ;
+    open_eth_desc_write(s, desc_addr, desc);
+
+    /* enable receiver and unmask BUSY interrupt */
+    open_eth_reg_write(s, open_eth_reg(MODER), MODER_RXEN);
+
+    /* trigger DMA operations */
+    open_eth_receive(s, tx_packet, sizeof(tx_packet));
+    assert((open_eth_reg_read(s, open_eth_reg(INT_SOURCE)) & INT_SOURCE_BUSY) == 0);
+    open_eth_receive(s, tx_packet, sizeof(tx_packet));
+    assert((open_eth_reg_read(s, open_eth_reg(INT_SOURCE)) & INT_SOURCE_BUSY) == INT_SOURCE_BUSY);
 }
 
 static irqreturn_t rx_handler(void *opaque, int n, int level)
@@ -165,5 +222,6 @@ void main(void)
 
     test_init();
     test_rx();
+    test_rx_busy();
 }
 

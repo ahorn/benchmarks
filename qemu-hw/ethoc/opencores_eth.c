@@ -171,8 +171,8 @@ int open_eth_can_receive(OpenEthState *s)
 
 ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
 {
-    if (!open_eth_can_receive(s)) {
-       return;
+    if (!GET_REGBIT(s, MODER, RXEN) || (s->regs[TX_BD_NUM] >= 0x80)) {
+       return 0;
     }
 
     size_t maxfl = GET_REGFIELD(s, PACKETLEN, MAXFL);
@@ -216,6 +216,16 @@ ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
 #endif
         static const uint8_t zero[64] = {0};
         open_eth_desc *desc = rx_desc(s);
+
+        if ((desc->len_flags & RXD_E) == 0) {
+            /* As long as the RX buffer descriptor
+             * is empty, it won't be used.
+             */
+            open_eth_int_source_write(s,
+                        s->regs[INT_SOURCE] | INT_SOURCE_BUSY);
+            return 0;
+        }
+
         size_t copy_size = GET_REGBIT(s, MODER, HUGEN) ? 65536 : maxfl;
 
         desc->len_flags &= ~(RXD_CF | RXD_M | RXD_OR |

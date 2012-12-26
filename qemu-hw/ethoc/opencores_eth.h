@@ -122,6 +122,7 @@ enum {
  * @see_also: Section 3.2 in data sheet
  */
 enum {
+    INT_SOURCE_BUSY = 0x10,
     INT_SOURCE_RXB = 0x4,
     INT_SOURCE_TXB = 0x1,
 };
