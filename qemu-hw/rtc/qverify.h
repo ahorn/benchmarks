@@ -1,7 +1,9 @@
 #ifndef QVERIFY_H
 #define QVERIFY_H
 
-#include <stdint.h>
+#if ! (defined (_SYS_) || defined (_CBMC_))
+    #include <stdint.h>
+#endif
 
 typedef struct QTestState QTestState;
 struct QTestState

@@ -306,7 +306,7 @@ static inline void ins##bwl(int port, void *addr, unsigned long count)	\
 }
 
 #if defined (_CBMC_) || defined (_SYS_)
-  #include <model/qverify.h>
+  #include <rtc/qverify.h>
 #else
   BUILDIO(b, b, char)
 #endif

@@ -250,9 +250,12 @@ static void set_year_1980(void)
 
 static void register_b_set_flag(void)
 {
+    //uint8_t abcd;
+    //__CPROVER_assume( abcd >= 0 && abcd < 60 );
     /* Enable binary-coded decimal (BCD) mode and SET flag in Register B*/
     cmos_write(RTC_REG_B, (cmos_read(RTC_REG_B) & ~REG_B_DM) | REG_B_SET);
     cmos_write(RTC_HOURS, 0x03);
+    //cmos_write(RTC_HOURS, abcd);
     cmos_write(RTC_REG_A, 0x26);
 
     /* Exposes bug:

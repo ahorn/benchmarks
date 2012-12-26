@@ -1,10 +1,16 @@
 #ifndef QEMU_TIMER_H
 #define QEMU_TIMER_H
 
-#include <stdint.h>
-#include <stdbool.h>
-#include <sys/time.h>
-#include <time.h>
+#if defined (_CBMC_) || defined (_SYS_)
+  #include <time.h>
+  #include <linux/time.h>
+  #include <stdint.h> // modlib
+#else
+  #include <stdint.h>
+  #include <stdbool.h>
+  #include <sys/time.h>
+  #include <time.h>
+#endif
 
 #define SCALE_MS 1000000
 #define SCALE_US 1000

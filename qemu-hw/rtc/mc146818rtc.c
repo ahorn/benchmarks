@@ -24,11 +24,15 @@
 #include "mc146818rtc.h"
 #include "qemu-timer.h"
 #include "qverify.h"
-#include "rtc-verify.h"
+//#include "rtc-verify.h"
 
-#include<string.h>
+#ifdef _CBMC_
+  #include<linux/string.h>
+#else
+  #include<string.h>
+#endif
 
-#include <assert.h>
+//#include <assert.h>
 
 #ifdef DEBUG_CMOS
 # define CMOS_DPRINTF(format, ...)   printf(format, ## __VA_ARGS__)
@@ -42,7 +46,10 @@
 # define DPRINTF_C(format, ...)      do { } while (0)
 #endif
 
-#define NSEC_PER_SEC    1000000000LL
+#ifndef _CBMC_
+  #define NSEC_PER_SEC    1000000000LL
+#endif
+
 #define SEC_PER_MIN     60
 #define MIN_PER_HOUR    60
 #define SEC_PER_HOUR    3600
@@ -99,10 +106,10 @@ struct RTCState {
 
 static RTCState global_rtc_state;
 
-static void rtc_set_time(RTCState *s);
-static void rtc_update_time(RTCState *s);
-static void rtc_set_cmos(RTCState *s, const struct tm *tm);
-static inline int rtc_from_bcd(RTCState *s, int a);
+static void _rtc_set_time(RTCState *s);
+static void _rtc_update_time(RTCState *s);
+static void _rtc_set_cmos(RTCState *s, const struct tm *tm);
+static inline int _rtc_from_bcd(RTCState *s, int a);
 static uint64_t get_next_alarm(RTCState *s);
 
 static time_t mktimegm(struct tm *tm)
@@ -119,7 +126,7 @@ static time_t mktimegm(struct tm *tm)
     return t;
 }
 
-static inline bool rtc_running(RTCState *s)
+static inline bool _rtc_running(RTCState *s)
 {
     return (!(s->cmos_data[RTC_REG_B] & REG_B_SET) &&
             (s->cmos_data[RTC_REG_A] & 0x70) <= 0x20);
@@ -184,7 +191,7 @@ static void periodic_timer_update(RTCState *s, int64_t current_time)
     }
 }
 
-static void rtc_periodic_timer(void *opaque)
+static void _rtc_periodic_timer(void *opaque)
 {
     RTCState *s = opaque;
 
@@ -265,16 +272,16 @@ static uint64_t get_next_alarm(RTCState *s)
     int32_t alarm_sec, alarm_min, alarm_hour, cur_hour, cur_min, cur_sec;
     int32_t hour, min, sec;
 
-    rtc_update_time(s);
+    _rtc_update_time(s);
 
-    alarm_sec = rtc_from_bcd(s, s->cmos_data[RTC_SECONDS_ALARM]);
-    alarm_min = rtc_from_bcd(s, s->cmos_data[RTC_MINUTES_ALARM]);
-    alarm_hour = rtc_from_bcd(s, s->cmos_data[RTC_HOURS_ALARM]);
+    alarm_sec = _rtc_from_bcd(s, s->cmos_data[RTC_SECONDS_ALARM]);
+    alarm_min = _rtc_from_bcd(s, s->cmos_data[RTC_MINUTES_ALARM]);
+    alarm_hour = _rtc_from_bcd(s, s->cmos_data[RTC_HOURS_ALARM]);
     alarm_hour = alarm_hour == -1 ? -1 : convert_hour(s, alarm_hour);
 
-    cur_sec = rtc_from_bcd(s, s->cmos_data[RTC_SECONDS]);
-    cur_min = rtc_from_bcd(s, s->cmos_data[RTC_MINUTES]);
-    cur_hour = rtc_from_bcd(s, s->cmos_data[RTC_HOURS]);
+    cur_sec = _rtc_from_bcd(s, s->cmos_data[RTC_SECONDS]);
+    cur_min = _rtc_from_bcd(s, s->cmos_data[RTC_MINUTES]);
+    cur_hour = _rtc_from_bcd(s, s->cmos_data[RTC_HOURS]);
     cur_hour = convert_hour(s, cur_hour);
 
     if (alarm_hour == -1) {
@@ -351,7 +358,7 @@ static uint64_t get_next_alarm(RTCState *s)
     return sec <= 0 ? sec + SEC_PER_DAY : sec;
 }
 
-static void rtc_update_timer(void *opaque)
+static void _rtc_update_timer(void *opaque)
 {
     RTCState *s = opaque;
     int32_t irqs = REG_C_UF;
@@ -360,7 +367,7 @@ static void rtc_update_timer(void *opaque)
     assert((s->cmos_data[RTC_REG_A] & 0x60) != 0x60);
 
     /* UIP might have been latched, update time and clear it.  */
-    rtc_update_time(s);
+    _rtc_update_time(s);
     s->cmos_data[RTC_REG_A] &= ~REG_A_UIP;
 
     if (qemu_get_clock_ns(rtc_clock) >= s->next_alarm_time) {
@@ -419,7 +426,7 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
         s->io_info = OUTB_0x70;
         s->cmos_index = data & 0x7f;
     } else {
-        copy_data(s);
+        //copy_data(s);
 
         /* VC: outb 0x71 must be preceded by outb 0x70 */
         assert(s->io_info == OUTB_0x70);
@@ -459,8 +466,8 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
 
             s->cmos_data[s->cmos_index] = data;
             /* if in set mode, do not update the time */
-            if (rtc_running(s)) {
-                rtc_set_time(s);
+            if (_rtc_running(s)) {
+                _rtc_set_time(s);
                 check_update_timer(s);
             }
 
@@ -472,8 +479,8 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
             break;
         case RTC_REG_A:
             if ((data & 0x60) == 0x60) {
-                if (rtc_running(s)) {
-                    rtc_update_time(s);
+                if (_rtc_running(s)) {
+                    _rtc_update_time(s);
                 }
                 /* What happens to UIP when divider reset is enabled is
                  * unclear from the datasheet.  Shouldn't matter much
@@ -486,7 +493,7 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
                  * begins one-half second later*/
                 if (!(s->cmos_data[RTC_REG_B] & REG_B_SET)) {
                     s->offset = 500000000;
-                    rtc_set_time(s);
+                    _rtc_set_time(s);
                 }
                 s->cmos_data[RTC_REG_A] &= ~REG_A_UIP;
             }
@@ -496,7 +503,7 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
             periodic_timer_update(s, qemu_get_clock_ns(rtc_clock));
             check_update_timer(s);
 
-            assert_equal_copy_data(s);
+            //assert_equal_copy_data(s);
             break;
         case RTC_REG_B:
             /* Is DM bit of Register B being changed? */
@@ -511,8 +518,8 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
 
             if (data & REG_B_SET) {
                 /* update cmos to when the rtc was stopping */
-                if (rtc_running(s)) {
-                    rtc_update_time(s);
+                if (_rtc_running(s)) {
+                    _rtc_update_time(s);
                 }
                 /* set mode: reset UIP mode */
                 s->cmos_data[RTC_REG_A] &= ~REG_A_UIP;
@@ -522,7 +529,7 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
                 if ((s->cmos_data[RTC_REG_B] & REG_B_SET) &&
                     (s->cmos_data[RTC_REG_A] & 0x70) <= 0x20) {
                     s->offset = get_guest_rtc_ns(s) % NSEC_PER_SEC;
-                    rtc_set_time(s);
+                    _rtc_set_time(s);
                 }
             }
             /* if an interrupt flag is already set when the interrupt
@@ -573,7 +580,7 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
                 }
             }
 
-            assert_equal_copy_data(s);
+            //assert_equal_copy_data(s);
             break;
         default:
             /* VC: Only registers 0x00 to 0x0D must be accessed. */
@@ -584,7 +591,7 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
     }
 }
 
-static inline int rtc_to_bcd(RTCState *s, int a)
+static inline int _rtc_to_bcd(RTCState *s, int a)
 {
     if (s->cmos_data[RTC_REG_B] & REG_B_DM) {
         return a;
@@ -593,7 +600,7 @@ static inline int rtc_to_bcd(RTCState *s, int a)
     }
 }
 
-static inline int rtc_from_bcd(RTCState *s, int a)
+static inline int _rtc_from_bcd(RTCState *s, int a)
 {
     if ((a & 0xc0) == 0xc0) {
         return -1;
@@ -605,59 +612,59 @@ static inline int rtc_from_bcd(RTCState *s, int a)
     }
 }
 
-static void rtc_get_time(RTCState *s, struct tm *tm)
+static void _rtc_get_time(RTCState *s, struct tm *tm)
 {
-    tm->tm_sec = rtc_from_bcd(s, s->cmos_data[RTC_SECONDS]);
-    tm->tm_min = rtc_from_bcd(s, s->cmos_data[RTC_MINUTES]);
-    tm->tm_hour = rtc_from_bcd(s, s->cmos_data[RTC_HOURS] & 0x7f);
+    tm->tm_sec = _rtc_from_bcd(s, s->cmos_data[RTC_SECONDS]);
+    tm->tm_min = _rtc_from_bcd(s, s->cmos_data[RTC_MINUTES]);
+    tm->tm_hour = _rtc_from_bcd(s, s->cmos_data[RTC_HOURS] & 0x7f);
     if (!(s->cmos_data[RTC_REG_B] & REG_B_24H)) {
         tm->tm_hour %= 12;
         if (s->cmos_data[RTC_HOURS] & 0x80) {
             tm->tm_hour += 12;
         }
     }
-    tm->tm_wday = rtc_from_bcd(s, s->cmos_data[RTC_DAY_OF_WEEK]) - 1;
-    tm->tm_mday = rtc_from_bcd(s, s->cmos_data[RTC_DAY_OF_MONTH]);
-    tm->tm_mon = rtc_from_bcd(s, s->cmos_data[RTC_MONTH]) - 1;
+    tm->tm_wday = _rtc_from_bcd(s, s->cmos_data[RTC_DAY_OF_WEEK]) - 1;
+    tm->tm_mday = _rtc_from_bcd(s, s->cmos_data[RTC_DAY_OF_MONTH]);
+    tm->tm_mon = _rtc_from_bcd(s, s->cmos_data[RTC_MONTH]) - 1;
     tm->tm_year =
-        rtc_from_bcd(s, s->cmos_data[RTC_YEAR]) + s->base_year +
-        rtc_from_bcd(s, s->cmos_data[RTC_CENTURY]) * 100 - 1900;
+        _rtc_from_bcd(s, s->cmos_data[RTC_YEAR]) + s->base_year +
+        _rtc_from_bcd(s, s->cmos_data[RTC_CENTURY]) * 100 - 1900;
 }
 
-static void rtc_set_time(RTCState *s)
+static void _rtc_set_time(RTCState *s)
 {
     struct tm tm;
 
-    rtc_get_time(s, &tm);
+    _rtc_get_time(s, &tm);
     s->base_rtc = mktimegm(&tm);
     s->last_update = qemu_get_clock_ns(rtc_clock);
 }
 
-static void rtc_set_cmos(RTCState *s, const struct tm *tm)
+static void _rtc_set_cmos(RTCState *s, const struct tm *tm)
 {
     int year;
 
-    s->cmos_data[RTC_SECONDS] = rtc_to_bcd(s, tm->tm_sec);
-    s->cmos_data[RTC_MINUTES] = rtc_to_bcd(s, tm->tm_min);
+    s->cmos_data[RTC_SECONDS] = _rtc_to_bcd(s, tm->tm_sec);
+    s->cmos_data[RTC_MINUTES] = _rtc_to_bcd(s, tm->tm_min);
     if (s->cmos_data[RTC_REG_B] & REG_B_24H) {
         /* 24 hour format */
-        s->cmos_data[RTC_HOURS] = rtc_to_bcd(s, tm->tm_hour);
+        s->cmos_data[RTC_HOURS] = _rtc_to_bcd(s, tm->tm_hour);
     } else {
         /* 12 hour format */
         int h = (tm->tm_hour % 12) ? tm->tm_hour % 12 : 12;
-        s->cmos_data[RTC_HOURS] = rtc_to_bcd(s, h);
+        s->cmos_data[RTC_HOURS] = _rtc_to_bcd(s, h);
         if (tm->tm_hour >= 12)
             s->cmos_data[RTC_HOURS] |= 0x80;
     }
-    s->cmos_data[RTC_DAY_OF_WEEK] = rtc_to_bcd(s, tm->tm_wday + 1);
-    s->cmos_data[RTC_DAY_OF_MONTH] = rtc_to_bcd(s, tm->tm_mday);
-    s->cmos_data[RTC_MONTH] = rtc_to_bcd(s, tm->tm_mon + 1);
+    s->cmos_data[RTC_DAY_OF_WEEK] = _rtc_to_bcd(s, tm->tm_wday + 1);
+    s->cmos_data[RTC_DAY_OF_MONTH] = _rtc_to_bcd(s, tm->tm_mday);
+    s->cmos_data[RTC_MONTH] = _rtc_to_bcd(s, tm->tm_mon + 1);
     year = tm->tm_year + 1900 - s->base_year;
-    s->cmos_data[RTC_YEAR] = rtc_to_bcd(s, year % 100);
-    s->cmos_data[RTC_CENTURY] = rtc_to_bcd(s, year / 100);
+    s->cmos_data[RTC_YEAR] = _rtc_to_bcd(s, year % 100);
+    s->cmos_data[RTC_CENTURY] = _rtc_to_bcd(s, year / 100);
 }
 
-static void rtc_update_time(RTCState *s)
+static void _rtc_update_time(RTCState *s)
 {
     struct tm ret;
     time_t guest_sec;
@@ -671,7 +678,7 @@ static void rtc_update_time(RTCState *s)
      *    http://git.qemu.org/?p=qemu.git;a=commit;h=02c6ccc6dde90dcbf5975b1cfe2ab199e525ec11
      */
     if ((s->cmos_data[RTC_REG_B] & REG_B_SET) == 0) {
-        rtc_set_cmos(s, &ret);
+        _rtc_set_cmos(s, &ret);
     }
 }
 
@@ -679,7 +686,7 @@ static int update_in_progress(RTCState *s)
 {
     int64_t guest_nsec;
 
-    if (!rtc_running(s)) {
+    if (!_rtc_running(s)) {
         return 0;
     }
     if (qemu_timer_pending(s->update_timer)) {
@@ -725,8 +732,8 @@ uint32_t cmos_ioport_read(void *opaque, uint32_t addr)
         case RTC_YEAR:
             /* if not in set mode, calibrate cmos before
              * reading*/
-            if (rtc_running(s)) {
-                rtc_update_time(s);
+            if (_rtc_running(s)) {
+                _rtc_update_time(s);
             }
 
             ret = s->cmos_data[s->cmos_index];
@@ -765,14 +772,14 @@ uint32_t cmos_ioport_read(void *opaque, uint32_t addr)
     }
 }
 
-void rtc_set_memory(RTCState *s, int addr, int val)
+void _rtc_set_memory(RTCState *s, int addr, int val)
 {
     if (addr >= 0 && addr <= 127)
         s->cmos_data[addr] = val;
 }
 
-static int rtc_date_offset = -1; /* -1 means no change */
-static int rtc_utc = 1; /* make non-determinstic */
+static int _rtc_date_offset = -1; /* -1 means no change */
+static int _rtc_utc = 1; /* make non-determinstic */
 
 
 static void qemu_get_timedate(struct tm *tm, int offset)
@@ -782,20 +789,20 @@ static void qemu_get_timedate(struct tm *tm, int offset)
 
     time(&ti);
     ti += offset;
-    if (rtc_date_offset == -1) {
-        if (rtc_utc)
+    if (_rtc_date_offset == -1) {
+        if (_rtc_utc)
             ret = gmtime(&ti);
         else
             ret = localtime(&ti);
     } else {
-        ti -= rtc_date_offset;
+        ti -= _rtc_date_offset;
         ret = gmtime(&ti);
     }
 
     memcpy(tm, ret, sizeof(struct tm));
 }
 
-static void rtc_set_date_from_host(RTCState *s)
+static void _rtc_set_date_from_host(RTCState *s)
 {
     struct tm tm;
 
@@ -806,10 +813,10 @@ static void rtc_set_date_from_host(RTCState *s)
     s->offset = 0;
 
     /* set the CMOS date */
-    rtc_set_cmos(s, &tm);
+    _rtc_set_cmos(s, &tm);
 }
 
-void rtc_reset(RTCState *s)
+void _rtc_reset(RTCState *s)
 {
 
     s->cmos_data[RTC_REG_B] &= ~(REG_B_PIE | REG_B_AIE | REG_B_SQWE);
@@ -820,7 +827,7 @@ void rtc_reset(RTCState *s)
 }
 
 
-static int rtc_initfn(RTCState *s)
+static int _rtc_initfn(RTCState *s)
 {
     s->cmos_data[RTC_REG_A] = 0x26;
     s->cmos_data[RTC_REG_B] = 0x02;
@@ -839,14 +846,14 @@ static int rtc_initfn(RTCState *s)
         s->base_year = 0;
     }
 
-    rtc_set_date_from_host(s);
+    _rtc_set_date_from_host(s);
 
     static QEMUTimer _periodic_timer = { .expire_time = 0,
                                          .next = NULL,
                                          .scale = SCALE_NS };
 
     _periodic_timer.clock = rtc_clock;
-    _periodic_timer.cb = rtc_periodic_timer;
+    _periodic_timer.cb = _rtc_periodic_timer;
     _periodic_timer.opaque = s;
 
 
@@ -857,7 +864,7 @@ static int rtc_initfn(RTCState *s)
                                        .scale = SCALE_NS };
 
     _update_timer.clock = rtc_clock;
-    _update_timer.cb = rtc_update_timer;
+    _update_timer.cb = _rtc_update_timer;
     _update_timer.opaque = s;
 
     s->update_timer = &_update_timer;
@@ -868,7 +875,7 @@ static int rtc_initfn(RTCState *s)
     return 0;
 }
 
-void rtc_init(int base_year)
+void _rtc_init(int base_year)
 {
     RTCState *s;
 
@@ -876,6 +883,6 @@ void rtc_init(int base_year)
     set_global_qverify_rtc_state(s);
 
     s->base_year = base_year;
-    rtc_initfn(s);
+    _rtc_initfn(s);
 }
 

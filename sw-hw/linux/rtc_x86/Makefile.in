@@ -5,7 +5,9 @@ GTCC = goto-cc
 GTINST = goto-instrument
 LINUX_SRC = ..
 GCC_INCLUDE =  ../../gcc-include
-QEMU_SRC = model
+QEMU_SRC = ../../../qemu-hw 
+
+GEN= generated
 
 # Source code
 # --> UGLY: The other files are included in  main.c
@@ -16,14 +18,11 @@ SRC = main.c #\
       $(LINUX_SRC)/lib/bcd.c \
       $(LINUX_SRC)/drivers/base/platform.c \
       $(LINUX_SRC)/drivers/base/driver.c \
-      model/qemu-timer.c \
-      model/qverify.c \
-      model/mc146818rtc.c
 
 OBJS = $(SRC:%.c=%.o)
 
 HOSTCFLAGS = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 \
-             -fomit-frame-pointer \
+             -fomit-frame-pointer 
 
 CFLAGS = -std=gnu99 -nostdinc $(MYLIB) $(KLIB) -I . -D__KERNEL__ $(HOSTCFLAGS) -D_SYS_ 
 
@@ -46,12 +45,12 @@ VERDEF = -D__KERNEL__ -D_CBMC_
 # Not used right now
 %.o : %.c
 	@echo Compiling: $<
-	$(CC) $(CFLAGS) -include generated/autoconf.h -c -o $@ $<
+	$(CC) $(CFLAGS) -include $(GEN)/autoconf.h -c -o $@ $<
 
 mysystem:
 	@echo Compiling: $(SRC)
-	@$(GTCC) $(SRC) -o $@ -nostdinc -include generated/autoconf.h $(MYLIB) \
-        $(KLIB) $(HLIB) -I ./ $(VERDEF)
+	@$(GTCC) $(SRC) -o $@ -nostdinc -include $(GEN)/autoconf.h $(MYLIB) \
+        $(KLIB) $(HLIB) $(QLIB) -I ./ $(VERDEF)
 
 verify: mysystem
 	@echo Verifying: $(SRC)

@@ -20,13 +20,13 @@
 //#include <base/driver.c> - conflict with rtc-cmos
 
 /* QEMU Model */
-#include <model/mc146818rtc_regs.h>
-#include <model/qemu-timer.h>
-#include "model/qemu-timer.c"
-#include <model/qverify.h>
-#include "model/qverify.c"
-#include <model/mc146818rtc.h>
-#include "model/mc146818rtc.c"
+#include <rtc/mc146818rtc_regs.h>
+#include <rtc/qemu-timer.h>
+#include "rtc/qemu-timer.c"
+#include <rtc/qverify.h>
+#include "rtc/qverify.c"
+#include <rtc/mc146818rtc.h>
+#include "rtc/mc146818rtc.c"
 
 /* PC cmos mappings */
 
