@@ -840,21 +840,14 @@ static void test_rx(const u8* mac_addr, int packet_id, u8 data, unsigned int pac
 	/* pad the rest of the packet with the supplied data */
 	memset(packet + PACKET_VC_INDEX + 1, data, packet_size - (PACKET_VC_INDEX + 1));
 
-	/* Since this thread could be waiting while ethoc_stop() is called, we must
- 	 * check if the hardware model can still receive packets. The assumption is
- 	 * that reading the registers of the hardware model is a volatile
- 	 * operation (i.e. values are not cached).
- 	 */ 
-	if (open_eth_can_receive(OPEN_ETH_STATE(nc))) {
-
-		/* Trigger incoming packet in hardware model.
-		 *
- 		 * This call must NOT be asynchronous because the packet array
- 		 * could otherwise be deallocated from the stack causing a
- 		 * memory error.
- 		 */
-		open_eth_receive(OPEN_ETH_STATE(nc), packet, packet_size);
-	}
+	/* Trigger incoming packet in hardware model.
+	 *
+ 	 * This call must NOT be asynchronous because the packet array
+ 	 * could otherwise be deallocated from the stack causing a
+ 	 * memory error. It is also assumed that calls of functions in
+ 	 * the hardware model are atomic.
+ 	 */
+	open_eth_receive(OPEN_ETH_STATE(nc), packet, packet_size);
 }
 
 int main(void)

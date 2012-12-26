@@ -171,6 +171,10 @@ int open_eth_can_receive(OpenEthState *s)
 
 ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
 {
+    if (!open_eth_can_receive(s)) {
+       return;
+    }
+
     size_t maxfl = GET_REGFIELD(s, PACKETLEN, MAXFL);
     size_t minfl = GET_REGFIELD(s, PACKETLEN, MINFL);
     size_t fcsl = 4;
