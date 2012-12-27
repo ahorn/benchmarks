@@ -185,9 +185,9 @@ static void periodic_timer_update(RTCState *s, int64_t current_time)
         next_irq_clock = (cur_clock & ~(period - 1)) + period;
         s->next_periodic_time =
             muldiv64(next_irq_clock, get_ticks_per_sec(), RTC_CLOCK_RATE) + 1;
-        qemu_mod_timer(s->periodic_timer, s->next_periodic_time);
+        //qemu_mod_timer(s->periodic_timer, s->next_periodic_time);
     } else {
-        qemu_del_timer(s->periodic_timer);
+        //qemu_del_timer(s->periodic_timer);
     }
 }
 
@@ -221,17 +221,17 @@ static void check_update_timer(RTCState *s)
      * from occurring, because the time of day is not updated.
      */
     if ((s->cmos_data[RTC_REG_A] & 0x60) == 0x60) {
-        qemu_del_timer(s->update_timer);
+        //qemu_del_timer(s->update_timer);
         return;
     }
     if ((s->cmos_data[RTC_REG_C] & REG_C_UF) &&
         (s->cmos_data[RTC_REG_B] & REG_B_SET)) {
-        qemu_del_timer(s->update_timer);
+        //qemu_del_timer(s->update_timer);
         return;
     }
     if ((s->cmos_data[RTC_REG_C] & REG_C_UF) &&
         (s->cmos_data[RTC_REG_C] & REG_C_AF)) {
-        qemu_del_timer(s->update_timer);
+        //qemu_del_timer(s->update_timer);
         return;
     }
 
@@ -252,7 +252,7 @@ static void check_update_timer(RTCState *s)
         next_update_time = s->next_alarm_time;
     }
     if (next_update_time != qemu_timer_expire_time_ns(s->update_timer)) {
-        qemu_mod_timer(s->update_timer, next_update_time);
+        //qemu_mod_timer(s->update_timer, next_update_time);
     }
 }
 
@@ -500,7 +500,7 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
             /* UIP bit is read only */
             s->cmos_data[RTC_REG_A] = (data & ~REG_A_UIP) |
                 (s->cmos_data[RTC_REG_A] & REG_A_UIP);
-            periodic_timer_update(s, qemu_get_clock_ns(rtc_clock));
+            //periodic_timer_update(s, qemu_get_clock_ns(rtc_clock));
             check_update_timer(s);
 
             //assert_equal_copy_data(s);
@@ -543,7 +543,7 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
             }
 
             s->cmos_data[RTC_REG_B] = data;
-            periodic_timer_update(s, qemu_get_clock_ns(rtc_clock));
+            //periodic_timer_update(s, qemu_get_clock_ns(rtc_clock));
             check_update_timer(s);
 
             /* VC: In Register B, if its SET bit is being disabled and its
@@ -799,7 +799,7 @@ static void qemu_get_timedate(struct tm *tm, int offset)
         ret = gmtime(&ti);
     }
 
-    memcpy(tm, ret, sizeof(struct tm));
+    //memcpy(tm, ret, sizeof(struct tm));
 }
 
 static void _rtc_set_date_from_host(RTCState *s)
