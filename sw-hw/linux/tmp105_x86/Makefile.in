@@ -62,7 +62,7 @@ klee: test.bc
 
 mysystem:
 	@echo Compiling: $(SRC)
-	@$(GTCC) $(SRC) -o $@ -nostdinc -include generated/autoconf.h $(MYLIB) \
+	@$(GTCC) $(SRC) -o $@ -nostdinc -include $(GEN)/autoconf.h $(MYLIB) \
         $(KLIB) $(HLIB) $(QLIB) -I ./ $(VERDEF)
 
 verify: mysystem
