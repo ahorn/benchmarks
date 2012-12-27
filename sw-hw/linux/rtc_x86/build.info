@@ -315,10 +315,10 @@ kernel/linux/include/linux/workqueue.h
 kernel/linux/include/video/edid.h 
 kernel/linux/lib/bcd.c 
 main.c
-model/mc146818rtc.c
-model/qemu-timer.c 
-model/qverify.c 
+../../../qemu-hw/rtc/mc146818rtc.c
+../../../qemu-hw/rtc/qemu-timer.c 
+../../../qemu-hw/rtc//qverify.c 
 modlib/asm/io.h 
 modlib/stdint.h 
 modlib/time.h 
-/usr/lib/gcc/x86_64-redhat-linux/4.6.3/include/stdarg.h 
+../../gcc-include/stdarg.h 
