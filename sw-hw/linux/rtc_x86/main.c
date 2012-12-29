@@ -126,16 +126,13 @@ int main (int argc, char** argv) {
     // That is, the actual function definition is too complex to analyze.
     assert(ok == 0);
 #endif
-
+    // test cases
     struct rtc_time t;
     cmos_read_time (NULL, &t);
     cmos_set_time (NULL, &t);
     get_rtc_time (&t);
     set_rtc_time (&t);
-    assert (rtc_is_updating());
-    u8 bla = inb (10);
-    outb (12, bla);
-    assert (bla != 4);
+    //assert (rtc_is_updating());
 
     //struct cmos_rtc *cmos = dev_get_drvdata(dev);
     cmos_exit();
