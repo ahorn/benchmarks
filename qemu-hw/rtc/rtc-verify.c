@@ -21,14 +21,14 @@ static uint8_t base = 0x70;
 
 static uint8_t cmos_read(uint8_t reg)
 {
-    outb(base + 0, reg);
+    outb(reg, base + 0);
     return inb(base + 1);
 }
 
 static void cmos_write(uint8_t reg, uint8_t val)
 {
-    outb(base + 0, reg);
-    outb(base + 1, val);
+    outb(reg, base + 0);
+    outb(val, base + 1);
 }
 
 static int bcd2dec(int value)

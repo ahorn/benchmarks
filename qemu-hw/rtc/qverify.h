@@ -86,7 +86,7 @@ int64_t qverify_clock_set(QTestState *s, int64_t val);
  *
  * Write an 8-bit value to an I/O port.
  */
-#define outb(addr, val) qverify_outb(global_qverify, addr, val)
+#define outb(val, addr) qverify_outb(global_qverify, addr, val)
 
 /**
  * inb:
