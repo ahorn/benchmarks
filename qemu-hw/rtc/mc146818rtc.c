@@ -32,7 +32,7 @@
   #include<string.h>
 #endif
 
-//#include <assert.h>
+//#include <assert.h> // conflict with the Linux kernel when running CBMC
 
 #ifdef DEBUG_CMOS
 # define CMOS_DPRINTF(format, ...)   printf(format, ## __VA_ARGS__)
@@ -785,21 +785,18 @@ static int _rtc_utc = 1; /* make non-determinstic */
 static void qemu_get_timedate(struct tm *tm, int offset)
 {
     time_t ti;
-    struct tm *ret;
 
     time(&ti);
     ti += offset;
     if (_rtc_date_offset == -1) {
         if (_rtc_utc)
-            ret = gmtime(&ti);
+            tm = gmtime(&ti);
         else
-            ret = localtime(&ti);
+            tm = localtime(&ti);
     } else {
         ti -= _rtc_date_offset;
-        ret = gmtime(&ti);
+        tm = gmtime(&ti);
     }
-
-    //memcpy(tm, ret, sizeof(struct tm));
 }
 
 static void _rtc_set_date_from_host(RTCState *s)

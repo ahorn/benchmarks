@@ -39,13 +39,9 @@ static int bcd2dec(int value)
 static int tm_cmp(struct tm *lhs, struct tm *rhs)
 {
     time_t a, b;
-    struct tm d1, d2;
 
-    memcpy(&d1, lhs, sizeof(d1));
-    memcpy(&d2, rhs, sizeof(d2));
-
-    a = mktime(&d1);
-    b = mktime(&d2);
+    a = mktime(lhs);
+    b = mktime(rhs);
 
     if (a < b) {
         return -1;
