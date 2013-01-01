@@ -247,7 +247,7 @@ static void set_year_1980(void)
 static void register_b_set_flag(void)
 {
     //uint8_t abcd;
-    //__CPROVER_assume( abcd >= 0 && abcd < 60 );
+    //__CPROVER_assume( abcd >= 0 && abcd < 23 );
     /* Enable binary-coded decimal (BCD) mode and SET flag in Register B*/
     cmos_write(RTC_REG_B, (cmos_read(RTC_REG_B) & ~REG_B_DM) | REG_B_SET);
     cmos_write(RTC_HOURS, 0x03);
@@ -260,16 +260,48 @@ static void register_b_set_flag(void)
      * See also assert_equal_copy_data() in file mc146818rtc.c
      */
     assert_cmpint(cmos_read(RTC_HOURS), ==, 0x03);
-
+    //assert_cmpint(cmos_read(RTC_HOURS), ==, abcd);
     cmos_write(RTC_REG_B, cmos_read(RTC_REG_B) & ~REG_B_SET);
-
     assert_cmpint(cmos_read(RTC_HOURS), ==, 0x03);
+    //assert_cmpint(cmos_read(RTC_HOURS), ==, abcd);
+}
+
+static void set_clock_cbmc(void)
+{
+    /* Set BCD mode */
+    cmos_write(RTC_REG_B, (cmos_read(RTC_REG_B) & ~REG_B_DM) | REG_B_SET);
+    cmos_write(RTC_REG_A, 0x76);
+    
+    // nondeterministic variables
+    uint8_t cbmc_year, cbmc_century, cbmc_month, cbmc_day,
+            cbmc_hour, cbmc_min, cbmc_sec;
+    
+    __CPROVER_assume( cbmc_year >= 0  && cbmc_year < 100 );
+    __CPROVER_assume( cbmc_month >= 1 && cbmc_month <= 12 );
+    __CPROVER_assume( cbmc_day >= 1 && cbmc_day <= 31 );
+    __CPROVER_assume( cbmc_hour >= 0 && cbmc_hour < 23 );
+    __CPROVER_assume( cbmc_min >= 0 && cbmc_min < 60 );
+    __CPROVER_assume( cbmc_sec >= 0 && cbmc_sec < 60 );
+ 
+    // Set clock
+    cmos_write(RTC_YEAR, cbmc_year);
+    cmos_write(RTC_CENTURY, cbmc_century);
+    cmos_write(RTC_MONTH, cbmc_month);
+    cmos_write(RTC_DAY_OF_MONTH, cbmc_day);
+    cmos_write(RTC_HOURS, cbmc_hour);
+    cmos_write(RTC_MINUTES, cbmc_min);
+    cmos_write(RTC_SECONDS, cbmc_sec);
+    
+    cmos_write(RTC_REG_A, 0x26);
+    cmos_write(RTC_REG_B, cmos_read(RTC_REG_B) & ~REG_B_SET);
 }
 
 void rtc_verify(void)
 {
-    check_time_with_current_mode();
-    set_year_20xx();
-    set_year_1980();
-    register_b_set_flag();
+    //check_time_with_current_mode();
+    //set_year_20xx();
+    //set_year_1980();
+    //register_b_set_flag();
+    set_clock_cbmc();
+
 }
