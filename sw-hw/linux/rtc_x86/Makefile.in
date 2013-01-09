@@ -1,12 +1,14 @@
-# Configure the first 5 variables according to your computer environment
+# Configure the first 6 variables according to your computer environment
 CC = gcc
 CBMC = cbmc
 GTCC = goto-cc
 GTINST = goto-instrument
 LINUX_SRC = ..
-GCC_INCLUDE = ../../gcc-include
-QEMU_SRC = ../../../qemu-hw 
+QEMU_SRC = ../../../qemu-hw
+
+GCC_INCLUDE = ../../gcc-include 
 GEN = generated
+UNWIND_NUM = 21
 
 # Source code
 # --> UGLY: The other files are included in  main.c
@@ -53,7 +55,7 @@ mysystem:
 
 verify: mysystem
 	@echo Verifying: $(SRC)
-	@$(CBMC) --unwind 21 --no-library $<
+	@$(CBMC) --unwind $(UNWIND_NUM) --no-library $<
 
 dot: mysystem
 	@echo Build CFG: $(SRC)
