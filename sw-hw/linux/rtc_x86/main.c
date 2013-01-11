@@ -128,8 +128,8 @@ int main (int argc, char** argv) {
 #endif
     // test cases
     struct rtc_time t;
-    cmos_read_time (NULL, &t);
-    cmos_set_time (NULL, &t);
+    //cmos_read_time (NULL, &t);
+    //cmos_set_time (NULL, &t);
     get_rtc_time (&t);
     set_rtc_time (&t);
     //assert (rtc_is_updating());

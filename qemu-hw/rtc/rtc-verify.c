@@ -246,12 +246,15 @@ static void set_year_1980(void)
 
 static void register_b_set_flag(void)
 {
-    //uint8_t abcd;
-    //__CPROVER_assume( abcd >= 0 && abcd < 23 );
+    uint8_t abcd;
+    __CPROVER_assume( abcd >= 0 && abcd < 23 );
+    
     /* Enable binary-coded decimal (BCD) mode and SET flag in Register B*/
     cmos_write(RTC_REG_B, (cmos_read(RTC_REG_B) & ~REG_B_DM) | REG_B_SET);
-    cmos_write(RTC_HOURS, 0x03);
-    //cmos_write(RTC_HOURS, abcd);
+    cmos_write(RTC_REG_A, 0x76);
+    
+    //cmos_write(RTC_HOURS, 0x03);
+    cmos_write(RTC_HOURS, abcd);
     cmos_write(RTC_REG_A, 0x26);
 
     /* Exposes bug:
@@ -259,20 +262,20 @@ static void register_b_set_flag(void)
      *
      * See also assert_equal_copy_data() in file mc146818rtc.c
      */
-    assert_cmpint(cmos_read(RTC_HOURS), ==, 0x03);
-    //assert_cmpint(cmos_read(RTC_HOURS), ==, abcd);
+    //assert_cmpint(cmos_read(RTC_HOURS), ==, 0x03);
+    assert_cmpint(cmos_read(RTC_HOURS), ==, abcd);
     cmos_write(RTC_REG_B, cmos_read(RTC_REG_B) & ~REG_B_SET);
-    assert_cmpint(cmos_read(RTC_HOURS), ==, 0x03);
+    //assert_cmpint(cmos_read(RTC_HOURS), ==, 0x03);
     //assert_cmpint(cmos_read(RTC_HOURS), ==, abcd);
 }
 
-static void set_clock_cbmc(void)
+static void check_clock_cbmc(void)
 {
     /* Set BCD mode */
     cmos_write(RTC_REG_B, (cmos_read(RTC_REG_B) & ~REG_B_DM) | REG_B_SET);
     cmos_write(RTC_REG_A, 0x76);
     
-    // nondeterministic variables
+    /* Non-deterministic variables */
     uint8_t cbmc_year, cbmc_century, cbmc_month, cbmc_day,
             cbmc_hour, cbmc_min, cbmc_sec;
     
@@ -283,7 +286,7 @@ static void set_clock_cbmc(void)
     __CPROVER_assume( cbmc_min >= 0 && cbmc_min < 60 );
     __CPROVER_assume( cbmc_sec >= 0 && cbmc_sec < 60 );
  
-    // Set clock
+    /* Set clock */
     cmos_write(RTC_YEAR, cbmc_year);
     cmos_write(RTC_CENTURY, cbmc_century);
     cmos_write(RTC_MONTH, cbmc_month);
@@ -292,8 +295,24 @@ static void set_clock_cbmc(void)
     cmos_write(RTC_MINUTES, cbmc_min);
     cmos_write(RTC_SECONDS, cbmc_sec);
     
+    /* Get clock */
+    cmos_read(RTC_YEAR);
+    cmos_read(RTC_CENTURY);
+    cmos_read(RTC_MONTH);
+    cmos_read(RTC_DAY_OF_MONTH);
+    cmos_read(RTC_HOURS);
+    cmos_read(RTC_MINUTES);
+    cmos_read(RTC_SECONDS);
+
     cmos_write(RTC_REG_A, 0x26);
     cmos_write(RTC_REG_B, cmos_read(RTC_REG_B) & ~REG_B_SET);
+}
+
+
+static void simulate_bugs() {
+    uint8_t aaa;
+    inb(base + 1);
+    outb(aaa, base + 0); 
 }
 
 void rtc_verify(void)
@@ -302,6 +321,6 @@ void rtc_verify(void)
     //set_year_20xx();
     //set_year_1980();
     //register_b_set_flag();
-    set_clock_cbmc();
-
+    check_clock_cbmc();
+    //simulate_bugs();
 }
