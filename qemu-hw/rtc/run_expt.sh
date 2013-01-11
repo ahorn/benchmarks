@@ -14,7 +14,12 @@ then
 fi
 
 # Create directory for output files. Experiment will only be run if it will not overwrite an old data set
-mkdir -p $outputFolder
+if [ -d $outputFolder ]; then
+  echo "ERROR: Folder $outputFolder already exists."
+  exit
+else
+  mkdir $outputFolder
+fi
 
 echo "Starting experiment with $numberOfRuns iterations and param1=$param1 at " `date`
 

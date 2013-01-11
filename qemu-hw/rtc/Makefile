@@ -1,5 +1,7 @@
+SRC = main.c mc146818rtc.c qemu-timer.c qverify.c rtc-verify.c
+
 all:
-	gcc *.c -lrt
+	gcc ${SRC} -lrt
 
 verify:
-	cbmc *.c --unwind 1
+	cbmc ${SRC} --unwind 1
