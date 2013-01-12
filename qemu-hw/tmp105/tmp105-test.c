@@ -59,6 +59,28 @@ static void write_byte(uint8_t data)
     write(&data, 1);
 }
 
+/* 
+ * A test function for CBMC to check temperature limits
+ * Check lower limit if flag == 0
+ * Check higher limit otherwise 
+ */
+static inline void assume_temp_range_cbmc(uint8_t l, uint8_t h, int flag)
+{   
+    /* Conform  with the VCs */
+    __CPROVER_assume( (l & 0xf) == 0 );
+    
+    int16_t temperature;   
+    temperature =  h << 8;
+    temperature |= l << 0;
+    __CPROVER_assume( (int16_t) 0xd800 <= temperature && temperature <= (int16_t) 0x7d00 );
+
+    if (flag == 0) { 
+	__CPROVER_assume(temperature < 0x5000);
+    } else {
+	__CPROVER_assume(temperature > 0x4b00);
+    }
+}
+
 /*
  * Tests reading temperature with 9-bit precision (0.5 C)
  */
@@ -79,15 +101,20 @@ static void test_read_with_default_precision(void)
 static void test_alarm(void)
 {
     int16_t temperature;
-
+    int high, low; 
+   
     /* above 80 C */
-    tmp105_set(i2c_slave, 81000);
+    //tmp105_set(i2c_slave, 81000);
+    __CPROVER_assume(high > 80000 && high <= 125000) ;
+    tmp105_set(i2c_slave, high);
 
     /* POL=0 inverts alarm signal */
     assert_cmpint(alarm_rang, ==, false);
 
     /* below 75 C */
-    tmp105_set(i2c_slave, 74000);
+    //tmp105_set(i2c_slave, 74000);
+    __CPROVER_assume(low >= -40000 && low < 75000) ;
+    tmp105_set(i2c_slave, low);
 
     /* POL=0 inverts alarm signal */
     assert_cmpint(alarm_rang, ==, true);
@@ -133,8 +160,10 @@ static void test_change_config(void)
     /* ideally, use a non-deterministic value except the most significant bit
      * which should be zero unless the temperature sensor is in shutdown mode.
      */
-    const uint8_t config = 0x40;
-
+    //const uint8_t config = 0x40;
+    const uint8_t config;
+    __CPROVER_assume(((config >> 7) & 1) == 0);
+   
     uint8_t new_config;
     const uint8_t data[] = {TMP105_REG_CONFIG, config};
 
@@ -162,7 +191,9 @@ static void test_change_config(void)
 static void test_change_lower_limit(void)
 {
     /* ideally, use two non-deterministic bytes */
-    const uint8_t lo_limit_h = 0x3a, lo_limit_l = 0x10;
+    //const uint8_t lo_limit_h = 0x3a, lo_limit_l = 0x10;
+    const uint8_t lo_limit_h, lo_limit_l;
+    assume_temp_range_cbmc(lo_limit_l, lo_limit_h, 0);
 
     uint16_t hi_limit, snd_hi_limit, lo_limit;
     const uint8_t data[] = {TMP105_REG_T_LOW, lo_limit_h, lo_limit_l};
@@ -199,7 +230,9 @@ static void test_change_lower_limit(void)
 static void test_change_higher_limit(void)
 {
     /* ideally, use two non-deterministic bytes */
-    const uint8_t hi_limit_h = 0x67, hi_limit_l = 0x80;
+    //const uint8_t hi_limit_h = 0x67, hi_limit_l = 0x80;
+    const uint8_t hi_limit_h, hi_limit_l;
+    assume_temp_range_cbmc(hi_limit_l, hi_limit_h, 1);
 
     uint16_t hi_limit, lo_limit, snd_lo_limit;
     const uint8_t data[] = {TMP105_REG_T_HIGH, hi_limit_h, hi_limit_l};
