@@ -28,10 +28,24 @@
 #include <linux/export.h>
 
 static struct TMP105State temp105_dev;
-static const I2CSlave *i2c_slave;
+static I2CSlave *i2c_slave;
+static IRQState irq_state;
 
-void
+static void tmp105_handler(void *opaque, int n, int level)
+{
+    assert (n == 3);
+}
+
+static void
 reset_dev (void) {
+
+    /* setup IRQ */
+    irq_state.n = 3;
+    irq_state.handler = tmp105_handler;
+
+    /* setup TMP105 hardware model */
+    temp105_dev.pin = &irq_state;
+
     i2c_slave = (I2CSlave*) &temp105_dev;
     tmp105_reset(i2c_slave);
 }
@@ -84,7 +98,8 @@ s32
 i2c_smbus_read_byte_data (const struct i2c_client *client,
                           u8 command)
 {
-    assert (command == LM75_REG_CONF);
+    // Can be different addresses during detect
+    //assert (command == LM75_REG_CONF);
 
     /* select configuration register */
     tmp105_write_byte(command);
