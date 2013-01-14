@@ -36,6 +36,7 @@ static ssize_t show_temp(struct device *dev, struct device_attribute *da,
 static ssize_t set_temp(struct device *dev, struct device_attribute *da,
 			const char *buf, size_t count);
 static int lm75_suspend(struct device *dev);
+static int lm75_resume(struct device *dev);
 
 int nondet_int();
 
@@ -59,7 +60,7 @@ int main (int argc, char** argv) {
     int error = lm75_detect (&client, &info);
     int previous = 0;
     char buf [6];
-
+ 
     while (nondet_int()) {
         // TODO: We can split this into many different tests
         // Implement 
@@ -80,7 +81,7 @@ int main (int argc, char** argv) {
                 //lm75_probe();
                 //break;
             default:
-                lm75_resume();
+                lm75_resume((struct device*) &client);
                 break;
         }
     }
