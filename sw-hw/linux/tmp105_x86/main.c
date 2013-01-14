@@ -66,22 +66,22 @@ int main (int argc, char** argv) {
         // Implement 
         switch (nondet_int()) {
             case 0:
-                show_temp ((struct device*) &client,
-                           (struct device_attribute *) &sda, buf);
+                show_temp (&client.dev,
+                           &sda.dev_attr, buf);
                 break;
             case 1:
                 // Count (4th parameter) is not used
-                set_temp ((struct device*) &client,
-                          (struct device_attribute *) &sda, buf, 5);
+                set_temp (&client.dev,
+                          &sda.dev_attr, buf, 5);
                 break;
             case 2:
-                lm75_suspend((struct device*) &client);
+                lm75_suspend(&client.dev);
                 break;
             //case 3:
                 //lm75_probe();
                 //break;
             default:
-                lm75_resume((struct device*) &client);
+                lm75_resume(&client.dev);
                 break;
         }
     }
