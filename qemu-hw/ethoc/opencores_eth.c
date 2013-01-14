@@ -108,12 +108,12 @@ static inline void set_desc_at(OpenEthState *s, hwaddr addr, uint64_t val)
 
 static open_eth_desc *rx_desc(OpenEthState *s)
 {
-    return s->desc + s->rx_desc;
+    return (open_eth_desc*)s->desc + s->rx_desc;
 }
 
 static open_eth_desc *tx_desc(OpenEthState *s)
 {
-    return s->desc + s->tx_desc;
+    return (open_eth_desc*)s->desc + s->tx_desc;
 }
 
 static void open_eth_update_irq(OpenEthState *s,
@@ -137,10 +137,12 @@ static void open_eth_int_source_write(OpenEthState *s,
 
 void open_eth_set_link_status(OpenEthState *s, bool link_down)
 {
+    __CPROVER_atomic_begin();
     if (GET_REGBIT(s, MIICOMMAND, SCANSTAT)) {
         SET_REGFIELD(s, MIISTATUS, LINKFAIL, link_down);
     }
     mii_set_link(&s->mii, !link_down);
+    __CPROVER_atomic_end();
 }
 
 static void open_eth_reset(OpenEthState *s)
@@ -164,15 +166,20 @@ static void open_eth_reset(OpenEthState *s)
 
 int open_eth_can_receive(OpenEthState *s)
 {
-    return GET_REGBIT(s, MODER, RXEN) &&
+    __CPROVER_atomic_begin();
+    int val = GET_REGBIT(s, MODER, RXEN) &&
         (s->regs[TX_BD_NUM] < 0x80) &&
         (rx_desc(s)->len_flags & RXD_E);
+    __CPROVER_atomic_end();
+    return val;
 }
 
 ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
 {
+    __CPROVER_atomic_begin();
     if (!GET_REGBIT(s, MODER, RXEN) || (s->regs[TX_BD_NUM] >= 0x80)) {
-       return 0;
+       size=0;
+       goto out;
     }
 
     size_t maxfl = GET_REGFIELD(s, PACKETLEN, MAXFL);
@@ -206,7 +213,7 @@ ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
 
     if (miss && !GET_REGBIT(s, MODER, PRO)) {
         trace_open_eth_receive_reject();
-        return size;
+        goto out;
     }
 
 #ifdef USE_RECSMALL
@@ -223,7 +230,8 @@ ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
              */
             open_eth_int_source_write(s,
                         s->regs[INT_SOURCE] | INT_SOURCE_BUSY);
-            return 0;
+            size=0;
+            goto out;
         }
 
         size_t copy_size = GET_REGBIT(s, MODER, HUGEN) ? 65536 : maxfl;
@@ -289,6 +297,8 @@ ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
                     s->regs[INT_SOURCE] | INT_SOURCE_RXB);
         }
     }
+out:
+    __CPROVER_atomic_end();
     return size;
 }
 
@@ -346,6 +356,7 @@ static void open_eth_check_start_xmit(OpenEthState *s)
 
 uint32_t open_eth_reg_read(OpenEthState *s, hwaddr addr)
 {
+    __CPROVER_atomic_begin();
     static uint32_t (*reg_read[REG_MAX])(OpenEthState *s) = {
     };
     unsigned idx = addr / 4;
@@ -359,6 +370,7 @@ uint32_t open_eth_reg_read(OpenEthState *s, hwaddr addr)
         }
     }
     trace_open_eth_reg_read((uint32_t)addr, val);
+    __CPROVER_atomic_end();
     return val;
 }
 
@@ -441,6 +453,7 @@ static void open_eth_mii_tx_host_write(OpenEthState *s, uint32_t val)
 
 void open_eth_reg_write(OpenEthState *s, hwaddr addr, uint32_t val)
 {
+    __CPROVER_atomic_begin();
     static void (*reg_write[REG_MAX])(OpenEthState *s, uint32_t val) = {
         [MODER] = open_eth_moder_host_write,
         [INT_SOURCE] = open_eth_int_source_host_write,
@@ -459,22 +472,27 @@ void open_eth_reg_write(OpenEthState *s, hwaddr addr, uint32_t val)
             s->regs[idx] = val;
         }
     }
+    __CPROVER_atomic_end();
 }
 
 uint64_t open_eth_desc_read(OpenEthState *s, hwaddr addr)
 {
+    __CPROVER_atomic_begin();
     uint64_t v;
 
     v = get_desc_at(s, addr);
     trace_open_eth_desc_read((uint32_t)addr, (uint32_t)v);
+    __CPROVER_atomic_end();
     return v;
 }
 
 void open_eth_desc_write(OpenEthState *s, hwaddr addr, uint64_t val)
 {
+    __CPROVER_atomic_begin();
     trace_open_eth_desc_write((uint32_t)addr, (uint32_t)val);
     set_desc_at(s, addr, val);
 
     open_eth_check_start_xmit(s);
+    __CPROVER_atomic_end();
 }
 

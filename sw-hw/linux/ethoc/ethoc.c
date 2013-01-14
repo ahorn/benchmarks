@@ -246,8 +246,9 @@ static inline u32 ethoc_read(struct ethoc *dev, loff_t offset)
 }
 
 /* Calls OpenCores Ethernet MAC model */
-static inline void ethoc_write(struct ethoc *dev, loff_t offset, u32 data)
+static void ethoc_write(struct ethoc *dev, loff_t offset, u32 data)
 {
+__CPROVER_ASYNC_1:
         open_eth_reg_write(dev->open_eth, offset, data);
 }
 
@@ -263,7 +264,7 @@ static inline void ethoc_read_bd(struct ethoc *dev, int index,
 }
 
 /* Calls OpenCores Ethernet MAC model */
-static inline void ethoc_write_bd(struct ethoc *dev, int index,
+static void ethoc_write_bd(struct ethoc *dev, int index,
 		const struct ethoc_bd *bd)
 {
 	const hwaddr addr = index * sizeof(struct ethoc_bd);
@@ -273,6 +274,7 @@ static inline void ethoc_write_bd(struct ethoc *dev, int index,
 	desc <<= 32;
         desc |= bd->stat;
 
+__CPROVER_ASYNC_1:
 	open_eth_desc_write(dev->open_eth, addr, desc);
 }
 
@@ -562,6 +564,13 @@ static int ethoc_tx(struct net_device *dev, int limit)
 	return count;
 }
 
+void ethoc_interrupt_poll(struct ethoc *priv)
+{
+  ethoc_disable_irq(priv, INT_MASK_TX | INT_MASK_RX);
+__CPROVER_ASYNC_1:
+  napi_schedule(&priv->napi);
+}
+
 static irqreturn_t ethoc_interrupt(void *opaque, int n, int level)
 {
 	OpenEthState *open_eth = (OpenEthState *) opaque;
@@ -597,8 +606,7 @@ static irqreturn_t ethoc_interrupt(void *opaque, int n, int level)
 
 	/* Handle receive/transmit event by switching to polling */
 	if (pending & (INT_MASK_TX | INT_MASK_RX)) {
-		ethoc_disable_irq(priv, INT_MASK_TX | INT_MASK_RX);
-		napi_schedule(&priv->napi);
+    ethoc_interrupt_poll(priv);
 	}
 
 	return IRQ_HANDLED;
@@ -850,6 +858,11 @@ static void test_rx(const u8* mac_addr, int packet_id, u8 data, unsigned int pac
 	open_eth_receive(OPEN_ETH_STATE(nc), packet, packet_size);
 }
 
+static void test_rx_wrap(const u8* mac_addr, int packet_id, u8 data, unsigned int packet_size)
+{
+__CPROVER_ASYNC_1: test_rx(mac_addr, packet_id, data, packet_size);
+}
+
 int main(void)
 {
         /* In our analysis, we force these variables to be non-deterministic. */
@@ -876,7 +889,7 @@ int main(void)
 	irq.handler = ethoc_interrupt;
 
 	/* Ethernet MAC hardware model */
-	OpenEthState open_eth;
+	static OpenEthState open_eth;
 	open_eth.nic = &nic;
 	open_eth.irq = &irq;
 	open_eth.mii.link_ok = true;
@@ -894,7 +907,7 @@ int main(void)
 	open_eth_reg_write(&open_eth, open_eth_reg(MODER), MODER_RST);
 
 	struct net_device netdev;
-	struct ethoc ethoc;
+	static struct ethoc ethoc;
 
 	netdev.priv = &ethoc;
 	netdev.flags = flags;
@@ -993,7 +1006,7 @@ int main(void)
 		/* Start an asynchronous call which triggers an incoming packet.
  		 * Each packet is associated with a unique positive identifier.
  		 */
-		test_rx(mac_addr, packet_id + 1, packet_bytes[packet_id], packet_sizes[packet_id]);
+		test_rx_wrap(mac_addr, packet_id + 1, packet_bytes[packet_id], packet_sizes[packet_id]);
 	}
 
 	/* Waits until the currently incoming packets are processed.

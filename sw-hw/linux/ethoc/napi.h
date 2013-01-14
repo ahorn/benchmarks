@@ -34,8 +34,10 @@ struct napi_struct {
  */
 static inline int test_and_set(int *flag)
 {
+  __CPROVER_atomic_begin();
 	int _flag = *flag;
 	*flag = 1;
+  __CPROVER_atomic_end();
 	return _flag;
 }
 
@@ -45,8 +47,10 @@ static inline int test_and_set(int *flag)
  */
 static inline int test_and_clear(int *flag)
 {
+  __CPROVER_atomic_begin();
 	int _flag = *flag;
 	*flag = 0;
+  __CPROVER_atomic_end();
 	return _flag;
 }
 

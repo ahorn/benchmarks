@@ -9,12 +9,19 @@
 
 #include "irq.h"
 
+void do_handler(hw_irq irq, int level)
+{
+  int n=irq->n;
+__CPROVER_ASYNC_1:
+    irq->handler(irq->opaque, n, level);
+}
+
 void hw_set_irq(hw_irq irq, int level)
 {
     if (!irq)
         return;
 
-    irq->handler(irq->opaque, irq->n, level);
+    do_handler(irq, level);
 }
 
 /* ... */
