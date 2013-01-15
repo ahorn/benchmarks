@@ -1033,35 +1033,67 @@ int main(void)
  	 */
 	int k;
 	struct ethoc_bd bd;
+#ifdef _CBMC_
+  __CPROVER_assume(k >= 0 && k < ethoc.num_rx);
+  ethoc_read_bd(&ethoc, ethoc.num_tx + k, &bd);
+  assert((bd.stat & RX_BD_EMPTY) == RX_BD_EMPTY);
+#else
 	for (k = 0; k < ethoc.num_rx; k++) {
 		ethoc_read_bd(&ethoc, ethoc.num_tx + k, &bd);
 		assert((bd.stat & RX_BD_EMPTY) == RX_BD_EMPTY);
 	}
+#endif
 
 	/* VC: The DMA buffer must only contain packets which were sent. */
 	u8 *dma = dma_buf + (ethoc.num_tx * ETHOC_BUFSIZ);
-	for (k = 1; k <= rx_packet_num; k++) {
+#ifdef _CBMC_
+  int k2;
+  k=k2;
+  __CPROVER_assume(k >= 0 && k < rx_packet_num);
+  dma += k*ETHOC_BUFSIZ;
+  assert(0);
+  if(dma[PACKET_VC_INDEX]!=0)
+#else
+	for (k = 1; k <= rx_packet_num; k++)
+#endif
+  {
+#if 0
 		packet_id = dma[PACKET_VC_INDEX];
+#ifndef _CBMC_
 		if (packet_id == 0) {
 			/* DMA buffer does not contain a packet */
 			continue;
 		}
+#endif
 		const u8 data = packet_bytes[packet_id - 1];
 
 		unsigned int i;
+#ifdef _CBMC_
+    __CPROVER_assume(i >= (PACKET_VC_INDEX + 1) && i < packet_sizes[packet_id - 1]);
+    assert(dma[i] == data);
+#else
 		for (i = (PACKET_VC_INDEX + 1); i < packet_sizes[packet_id - 1]; i++) {
 			assert(dma[i] == data);
 		}
+#endif
 
 		/* The rest of the buffer contains the previous packet content.
  		 * Since rx_packet_num is less than or equal to ethoc.num_rx,
  		 * these unused bytes are zero due to the initialization of
  		 * the DMA buffer with memset().
  		 */
+#ifdef _CBMC_
+    unsigned int i2;
+    i=i2;
+		__CPROVER_assume(i >= packet_sizes[packet_id - 1] && i < ETHOC_BUFSIZ);
+    assert(dma[i] == 0);
+#else
 		for(; i < ETHOC_BUFSIZ; i++) {
 			assert(dma[i] == 0);
 		}
+#endif
 
 		dma += ETHOC_BUFSIZ;
+#endif
 	}
 }

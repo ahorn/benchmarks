@@ -73,9 +73,16 @@ static inline void napi_poll_loop(struct napi_struct *n)
 	int work;
 
 	n->complete = 0;
+#ifdef _CBMC_
+	if (!n->complete) {
+		n->poll(n, n->weight);
+	}
+  __CPROVER_assume(n->complete);
+#else
 	while (!n->complete) {
 		n->poll(n, n->weight);
 	}
+#endif
 }
 
 /**
@@ -117,8 +124,12 @@ static inline void napi_enable(struct napi_struct *n)
 static inline void napi_disable(struct napi_struct *n)
 {
 	n->is_disabling = true;
+#ifdef _CBMC_
+  __CPROVER_assume(!test_and_set(&n->sched));
+#else
 	while (test_and_set(&n->sched)) {
 	}
+#endif
 	n->is_disabling = false;
 }
 
