@@ -57,11 +57,18 @@ int main (int argc, char** argv) {
     struct sensor_device_attribute sda;
     struct i2c_board_info info;
 
-    int error = lm75_detect (&client, &info);
+    //int error = lm75_detect (&client, &info);
     int previous = 0;
     char buf [6];
- 
-    while (nondet_int()) {
+
+    /* force internal integer conversion in kstrtol() to terminate quickly */
+    buf[5] = 0;
+
+    /* Test cases */
+    __CPROVER_assume(sda.index == 1 || sda.index == 2);
+    
+    int test_seq_len = 5; 
+    for (int test_i = 0; test_i < test_seq_len; test_i++) {
         // TODO: We can split this into many different tests
         // Implement 
         switch (nondet_int()) {
