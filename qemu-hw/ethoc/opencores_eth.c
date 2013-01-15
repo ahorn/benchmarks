@@ -417,8 +417,24 @@ static void open_eth_int_mask_host_write(OpenEthState *s, uint32_t val)
     uint32_t old = s->regs[INT_MASK];
 
     s->regs[INT_MASK] = val;
+
+/* Changing the INT_MASK register does not trigger an interrupt according
+ * to the OpenCores Ethernet MAC data sheet, as explained next.
+ *
+ * The function call below originates from the QEMU OpenCores Ethernet MAC
+ * hardware model. It causes the interrupt handler to be called. The interrupt
+ * handler, in turn, must read the INT_SOURCE register to determine the cause
+ * of the interrupt. Section 3.2 in the data sheet (p. 10) lists the seven
+ * possibilities why the interrupt was raised. None of these would allow the
+ * interrupt handler to determine that the interrupt is caused by a change to
+ * the INT_MASK register. This suggests that this feature is specific to QEMU.
+ * Thus, we remove this functionality from the analysis with CBMC because
+ * we are only interested in features that can be justified by the data sheet.
+ */
+#ifndef _CBMC_
     open_eth_update_irq(s, s->regs[INT_SOURCE] & old,
             s->regs[INT_SOURCE] & s->regs[INT_MASK]);
+#endif
 }
 
 static void open_eth_mii_command_host_write(OpenEthState *s, uint32_t val)
