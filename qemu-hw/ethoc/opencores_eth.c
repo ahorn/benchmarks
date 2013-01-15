@@ -16,6 +16,7 @@
 #include "opencores_eth.h"
 #include "sys.h"
 #include "trace.h"
+#include "cpu.h"
 #include "assert.h"
 
 /* RECSMALL is not used because it breaks tap networking in linux:
