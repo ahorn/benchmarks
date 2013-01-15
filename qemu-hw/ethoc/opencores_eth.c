@@ -305,7 +305,7 @@ out:
 
 static void open_eth_start_xmit(OpenEthState *s, open_eth_desc *tx)
 {
-    uint8_t buf[65536];
+    uint8_t buf[16];
     unsigned len = GET_FIELD(tx->len_flags, TXD_LEN);
     unsigned tx_len = len;
 
@@ -423,6 +423,7 @@ static void open_eth_int_mask_host_write(OpenEthState *s, uint32_t val)
 
 static void open_eth_mii_command_host_write(OpenEthState *s, uint32_t val)
 {
+#ifndef __NO_MII_WRITE__
     unsigned fiad = GET_REGFIELD(s, MIIADDRESS, FIAD);
     unsigned rgad = GET_REGFIELD(s, MIIADDRESS, RGAD);
 
@@ -441,15 +442,18 @@ static void open_eth_mii_command_host_write(OpenEthState *s, uint32_t val)
         }
         SET_REGFIELD(s, MIISTATUS, LINKFAIL, s->nic->nc.link_down);
     }
+#endif
 }
 
 static void open_eth_mii_tx_host_write(OpenEthState *s, uint32_t val)
 {
+#ifndef __NO_MII_WRITE__
     SET_REGFIELD(s, MIITX_DATA, CTRLDATA, val);
     if (GET_REGFIELD(s, MIIADDRESS, FIAD) == DEFAULT_PHY) {
         mii_write_host(&s->mii, GET_REGFIELD(s, MIIADDRESS, RGAD),
                 GET_REGFIELD(s, MIITX_DATA, CTRLDATA));
     }
+#endif
 }
 
 void open_eth_reg_write(OpenEthState *s, hwaddr addr, uint32_t val)
