@@ -155,11 +155,11 @@ static void open_eth_reset(OpenEthState *s)
     s->regs[IPGR2] = 0x12;
     s->regs[PACKETLEN] = 0x400600;
     s->regs[COLLCONF] = 0xf003f;
-    s->regs[TX_BD_NUM] = 0x40;
+    s->regs[TX_BD_NUM] = __OPENETH_DESC_SIZE__ / 2;
     s->regs[MIIMODER] = 0x64;
 
     s->tx_desc = 0;
-    s->rx_desc = 0x40;
+    s->rx_desc = __OPENETH_DESC_SIZE__ / 2;
 
     mii_reset(&s->mii);
     open_eth_set_link_status(s, s->nic->nc.link_down);
@@ -169,7 +169,7 @@ int open_eth_can_receive(OpenEthState *s)
 {
     __CPROVER_atomic_begin();
     int val = GET_REGBIT(s, MODER, RXEN) &&
-        (s->regs[TX_BD_NUM] < 0x80) &&
+        (s->regs[TX_BD_NUM] < __OPENETH_DESC_SIZE__) &&
         (rx_desc(s)->len_flags & RXD_E);
     __CPROVER_atomic_end();
     return val;
@@ -178,7 +178,7 @@ int open_eth_can_receive(OpenEthState *s)
 ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
 {
     __CPROVER_atomic_begin();
-    if (!GET_REGBIT(s, MODER, RXEN) || (s->regs[TX_BD_NUM] >= 0x80)) {
+    if (!GET_REGBIT(s, MODER, RXEN) || (s->regs[TX_BD_NUM] >= __OPENETH_DESC_SIZE__)) {
        size=0;
        goto out;
     }
@@ -284,7 +284,7 @@ ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
 
         SET_FIELD(desc->len_flags, RXD_LEN, copy_size);
 
-        if ((desc->len_flags & RXD_WRAP) || s->rx_desc == 0x7f) {
+        if ((desc->len_flags & RXD_WRAP) || s->rx_desc == (__OPENETH_DESC_SIZE__-1)) {
             s->rx_desc = s->regs[TX_BD_NUM];
         } else {
             ++s->rx_desc;

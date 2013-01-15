@@ -42,7 +42,7 @@ static void test_init(void)
     assert(0x12 == open_eth_reg_read(s, open_eth_reg(IPGR2)));
     assert(0x400600 == open_eth_reg_read(s, open_eth_reg(PACKETLEN)));
     assert(0xf003f == open_eth_reg_read(s, open_eth_reg(COLLCONF)));
-    assert(0x40 == open_eth_reg_read(s, open_eth_reg(TX_BD_NUM)));
+    assert(__OPENETH_DESC_SIZE__/2 == open_eth_reg_read(s, open_eth_reg(TX_BD_NUM)));
     assert(0x64 == open_eth_reg_read(s, open_eth_reg(MIIMODER)));
 }
 
@@ -50,7 +50,7 @@ static bool raised_irq;
 
 static void test_rx(void)
 {
-    const uint64_t tx_bd_num = 0x40;
+    const uint64_t tx_bd_num = __OPENETH_DESC_SIZE__/2;
     uint64_t desc;
     hwaddr desc_addr;
 
@@ -108,7 +108,7 @@ static void test_rx(void)
 
 static void test_rx_busy(void)
 {
-    const uint64_t tx_bd_num = 0x7f;
+    const uint64_t tx_bd_num = __OPENETH_DESC_SIZE__-1;
     uint64_t desc;
     hwaddr desc_addr;
 

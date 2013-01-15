@@ -100,7 +100,7 @@
 					PACKETLEN_MAX(max))
 
 /* transmit buffer number register */
-#define	TX_BD_NUM_VAL(x)	(((x) <= 0x80) ? (x) : 0x80)
+#define	TX_BD_NUM_VAL(x)	(((x) <= __OPENETH_DESC_SIZE__) ? (x) : __OPENETH_DESC_SIZE__)
 
 /* control module mode register */
 #define	CTRLMODER_PASSALL	(1 << 0) /* pass all receive frames */
@@ -979,7 +979,7 @@ int main(void)
 
 	/* calculate the number of TX/RX buffers, maximum 128 supported */
 	int num_bd = min_t(unsigned int,
-		128, (netdev.mem_end - netdev.mem_start + 1) / ETHOC_BUFSIZ);
+		__OPENETH_DESC_SIZE__, (netdev.mem_end - netdev.mem_start + 1) / ETHOC_BUFSIZ);
 	if (num_bd < 4) {
 		return 1;
 	}

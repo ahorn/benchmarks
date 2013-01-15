@@ -40,7 +40,7 @@ enum {
     MII_PHYIDR2,
     MII_ANAR,
     MII_ANLPAR,
-    MII_REG_MAX = 16,
+    MII_REG_MAX = 6,
 };
 
 /**
@@ -314,6 +314,7 @@ typedef struct open_eth_desc {
 /**
  * Hardware model of OpenCores Ethernet MAC with MII to PHY
  */
+#define __OPENETH_DESC_SIZE__ 8
 typedef struct OpenEthState {
     NICState *nic;
     hw_irq irq;
@@ -322,7 +323,7 @@ typedef struct OpenEthState {
     uint32_t regs[REG_MAX];
     unsigned tx_desc;
     unsigned rx_desc;
-    open_eth_desc desc[128];
+    open_eth_desc desc[__OPENETH_DESC_SIZE__];
 
     /* object of low-level software which controls the MAC */
     void *software;
