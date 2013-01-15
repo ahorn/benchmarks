@@ -30,7 +30,7 @@
 #include "ethoc/sys.h"
 #include "ethoc/osdep.h"
 
-#define DMA_BUF_SIZE	0x40000 /* 8 KiB */
+#define DMA_BUF_SIZE	(8*ETHOC_BUFSIZ) /* 8 KiB */
 
 /* register offsets */
 #define	MODER		0x00
@@ -170,7 +170,7 @@
 #define	RX_BD_STATS	(RX_BD_LC | RX_BD_CRC | RX_BD_SF | RX_BD_TL | \
 			RX_BD_DN | RX_BD_IS | RX_BD_OR | RX_BD_MISS)
 
-#define	ETHOC_BUFSIZ		1536
+#define	ETHOC_BUFSIZ		2
 #define	ETHOC_ZLEN		64
 #define	ETHOC_BD_BASE		0x400
 #define	ETHOC_TIMEOUT		(HZ / 2)
@@ -997,7 +997,11 @@ int main(void)
 	int packet_id;
 	for (packet_id = 0; packet_id < rx_packet_num; packet_id++) {
 		const unsigned int packet_size = nondet_uint(64 + packet_id);
-		if (packet_size >= ETHOC_BUFSIZ || packet_size < 64)
+		if (packet_size >= ETHOC_BUFSIZ
+#ifndef _CBMC_
+        || packet_size < 64
+#endif
+        )
 			continue;
 
 		packet_sizes[packet_id] = packet_size;
