@@ -25,7 +25,7 @@ struct NetClientState {
     NetClientInfo *info;
     int link_down;
     NetClientState *peer;
-    unsigned receive_disabled : 1;
+    unsigned receive_disabled;
     /* ... */
 };
 
