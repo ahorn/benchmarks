@@ -267,8 +267,14 @@ void main(void)
     nic.opaque = &eth;
     nc = &nic.nc;
 
+#ifdef __TEST_INIT
     test_init();
+#endif
+#ifdef __TEST_RX
     test_rx();
+#endif
+#ifdef __TEST_RX_BUSY
     test_rx_busy();
+#endif
 }
 
