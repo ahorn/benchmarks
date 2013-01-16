@@ -11,6 +11,7 @@ fi
 if [ ! -d $outputFolder ]; then
   echo "ERROR: Folder $outputFolder for experiment $1 doesn't exist."
   exit
+fi
 
 # Compute total runtime in average
 sum=0
