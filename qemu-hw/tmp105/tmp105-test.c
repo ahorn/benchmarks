@@ -197,7 +197,8 @@ static void test_change_lower_limit(void)
     const uint8_t lo_limit_h, lo_limit_l;
     assume_temp_range_cbmc(lo_limit_l, lo_limit_h, 0);
     __CPROVER_assume(lo_limit_l & 0x000f == 0) ;
-
+    __CPROVER_assume(lo_limit_h & 0x000f == 0) ;
+    
     uint16_t hi_limit, snd_hi_limit, lo_limit;
     const uint8_t data[] = {TMP105_REG_T_LOW, lo_limit_h, lo_limit_l};
 
@@ -239,6 +240,7 @@ static void test_change_higher_limit(void)
     const uint8_t hi_limit_h, hi_limit_l;
     assume_temp_range_cbmc(hi_limit_l, hi_limit_h, 1);
     __CPROVER_assume(hi_limit_l & 0x000f == 0) ;
+    __CPROVER_assume(hi_limit_h & 0x000f == 0) ;
 
     uint16_t hi_limit, lo_limit, snd_lo_limit;
     const uint8_t data[] = {TMP105_REG_T_HIGH, hi_limit_h, hi_limit_l};
