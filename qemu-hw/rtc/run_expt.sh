@@ -4,7 +4,7 @@
 # Parse some command line input paramters, and verify they were set
 numberOfRuns=$1
 exptName=$2
-outputFolder="output-$2"
+outputFolder="data/output-$2"
 runtimeFile="runtime-$2.txt"
 
 if [ -z $exptName ]
@@ -27,7 +27,7 @@ echo "Starting experiment with $numberOfRuns iterations and exptName =$exptName 
 for i in `seq $numberOfRuns`
 do
   #check if you have already run this data set
-  outputFile="$outputFolder/data-$exptName -$i.txt"
+  outputFile="$outputFolder/data-$exptName-$i.txt"
   if [ -s $outputFile ]
   then
     echo "WARNING: File $outputFile already exists -- skipping run $i"
