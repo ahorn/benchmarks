@@ -448,7 +448,9 @@ static int ethoc_rx(struct net_device *dev, int limit)
 	 *     in the OpenCores Ethernet MAC are disabled.
  	 */ 
 	mask = ethoc_read(priv, INT_MASK);
+#ifdef ETHOC_BENCHMARK_PROP_7
 	assert((mask & INT_MASK_RX) == 0);
+#endif
 
 	for (count = 0; count < limit; ++count) {
 		unsigned int entry;
@@ -1037,6 +1039,7 @@ int main(void)
  	 */
 	int k;
 	struct ethoc_bd bd;
+#ifdef ETHOC_BENCHMARK_PROP_5
 #ifdef _CBMC_
   __CPROVER_assume(k >= 0 && k < ethoc.num_rx);
   ethoc_read_bd(&ethoc, ethoc.num_tx + k, &bd);
@@ -1047,7 +1050,9 @@ int main(void)
 		assert((bd.stat & RX_BD_EMPTY) == RX_BD_EMPTY);
 	}
 #endif
+#endif
 
+#ifdef ETHOC_BENCHMARK_PROP_6
 	/* VC: The DMA buffer must only contain packets which were sent. */
 	u8 *dma = dma_buf + (ethoc.num_tx * ETHOC_BUFSIZ);
 #ifdef _CBMC_
@@ -1098,6 +1103,7 @@ int main(void)
 #endif
 
 		dma += ETHOC_BUFSIZ;
+#endif
 #endif
 	}
 }

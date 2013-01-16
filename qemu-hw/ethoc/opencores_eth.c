@@ -395,7 +395,9 @@ static void open_eth_moder_host_write(OpenEthState *s, uint32_t val)
 	/* VC: When the receiver is being enabled, there must
  	 *     exist at least one empty RX buffer descriptor.
  	 */ 
+#ifdef ETHOC_BENCHMARK_PROP_1
 	assert(open_eth_can_receive(s));
+#endif
     }
     if (set & MODER_TXEN) {
         s->tx_desc = 0;

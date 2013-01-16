@@ -182,7 +182,9 @@ static void test_change_config(void)
      *     pairwise equal.
      */
     new_config = read_byte();
+#ifdef I2C_BENCHMARK_PROP_18
     assert((new_config & 0x7f) == (config & 0x7f));
+#endif
 }
 
 /*
@@ -217,7 +219,9 @@ static void test_change_lower_limit(void)
      *     returns the same word.
      */
     lo_limit = read_word();
+#ifdef I2C_BENCHMARK_PROP_19
     assert(lo_limit == ((lo_limit_h << 8) | lo_limit_l));
+#endif
 
     /* expect T_HIGH to be unchanged */
     write_byte(TMP105_REG_T_HIGH);
@@ -257,7 +261,9 @@ static void test_change_higher_limit(void)
      *     returns the same word.
      */
     hi_limit = read_word();
+#ifdef I2C_BENCHMARK_PROP_20
     assert(hi_limit == ((hi_limit_h << 8) | hi_limit_l));
+#endif
 
     /* expect T_LOW to be unchanged */
     write_byte(TMP105_REG_T_LOW);

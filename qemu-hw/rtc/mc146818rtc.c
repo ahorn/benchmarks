@@ -429,7 +429,9 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
         //copy_data(s);
 
         /* VC: outb 0x71 must be preceded by outb 0x70 */
+#ifdef RTC_BENCHMARK_PROP_8
         assert(s->io_info == OUTB_0x70);
+#endif
         s->io_info = OUTB_0x71;
 
         CMOS_DPRINTF("cmos: write index=0x%02x val=0x%02x\n",
@@ -442,7 +444,9 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
 
             /* VC: SET bit of Register B must be enabled
              *     when an RTC data register is written */
+#ifdef RTC_BENCHMARK_PROP_9
             assert((s->cmos_data[RTC_REG_B] & REG_B_SET) == REG_B_SET);
+#endif
 
             s->cmos_data[s->cmos_index] = data;
             check_update_timer(s);
@@ -462,7 +466,9 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
 
             /* VC: SET bit of Register B must be enabled
              *     when an RTC data register is written */
+#ifdef RTC_BENCHMARK_PROP_10
             assert((s->cmos_data[RTC_REG_B] & REG_B_SET) == REG_B_SET);
+#endif
 
             s->cmos_data[s->cmos_index] = data;
             /* if in set mode, do not update the time */
@@ -474,8 +480,10 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
             /* VC: As long as the SET bit of Register B is enabled, when data D
              *     is written to an RTC data register R, a subsequent read of R
              *     must return D. */
+#ifdef RTC_BENCHMARK_PROP_11
             assert((s->cmos_data[RTC_REG_B] & REG_B_SET) == 0 ||
                    s->cmos_data[s->cmos_index] == data);
+#endif
             break;
         case RTC_REG_A:
             if ((data & 0x60) == 0x60) {
@@ -503,16 +511,20 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
             //periodic_timer_update(s, qemu_get_clock_ns(rtc_clock));
             check_update_timer(s);
 
-            //assert_equal_copy_data(s);
+#ifdef RTC_BENCHMARK_PROP_1
+            assert_equal_copy_data(s);
+#endif
             break;
         case RTC_REG_B:
             /* Is DM bit of Register B being changed? */
             if ((s->cmos_data[RTC_REG_B] & REG_B_DM) != ((uint8_t) data & REG_B_DM)) {
+#ifdef RTC_BENCHMARK_PROP_3
                 /* VC: If DM bit of Register B is being changed,
                  *     then either the SET bit of Register B has been
                  *     enabled or is being simultaneously enabled. */
                 assert((data & REG_B_SET) == REG_B_SET ||
                        (s->cmos_data[RTC_REG_B] & REG_B_SET) == REG_B_SET);
+#endif
                 s->dm_change = true;
             }
 
@@ -560,6 +572,7 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
              *     while the SET bit is simultaneously disabled provided
              *     that all RTC data registers have been written. */
             if (s->dm_change && (data & REG_B_SET) == 0) {
+#ifdef RTC_BENCHMARK_PROP_4
                 assert(s->cmos_data_info[RTC_CENTURY]);
                 uint32_t rtc_data_addr;
                 for(rtc_data_addr = RTC_SECONDS;
@@ -568,6 +581,7 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
 
                     assert(s->cmos_data_info[rtc_data_addr]);
                 }
+#endif
 
                 /* reset meta-data */
                 s->dm_change = false;
@@ -580,12 +594,16 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
                 }
             }
 
-            //assert_equal_copy_data(s);
+#ifdef RTC_BENCHMARK_PROP_2
+            assert_equal_copy_data(s);
+#endif
             break;
         default:
             /* VC: Only registers 0x00 to 0x0D must be accessed. */
             /* VC: Registers C and D must not be written. */
+#ifdef RTC_BENCHMARK_PROP_5
             assert(false);
+#endif
             break;
         }
     }
@@ -715,7 +733,9 @@ uint32_t cmos_ioport_read(void *opaque, uint32_t addr)
         return 0xff;
     } else {
         /* VC: inb 0x71 must be preceded by outb 0x70 */
+#ifdef RTC_BENCHMARK_PROP_6
         assert(s->io_info == OUTB_0x70);
+#endif
         s->io_info = INB_0x71;
 
         switch(s->cmos_index) {
@@ -763,7 +783,9 @@ uint32_t cmos_ioport_read(void *opaque, uint32_t addr)
             break;
         default:
             /* VC: Only registers 0x00 to 0x0D must be accessed. */
+#ifdef RTC_BENCHMARK_PROP_7
             assert(false);
+#endif
             break;
         }
         CMOS_DPRINTF("cmos: read index=0x%02x val=0x%02x\n",

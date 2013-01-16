@@ -37,19 +37,25 @@ static inline void check_range(int16_t temperature)
 
 static inline void check_temperature(TMP105State *s)
 {
+#ifdef I2C_BENCHMARK_PROP_1
     /* VC: Temperature measurements are in the range -40 C to +125 C. */
     check_range(s->temperature);
+#endif
 
+#ifdef I2C_BENCHMARK_PROP_2
     /* VC: The least significant four bits of the temperature
      *     register are always zero. */
     assert((s->temperature & 0xf) == 0);
+#endif
 }
 
 static inline void check_limits(TMP105State *s)
 {
+#ifdef I2C_BENCHMARK_PROP_11
     /* VC: Temperature thresholds must be in the range -40 C to +125 C. */
     check_range(s->limit[0]);
     check_range(s->limit[1]);
+#endif
 
     /* VC: T_LOW must be strictly less than T_HIGH.
      *
@@ -60,13 +66,17 @@ static inline void check_limits(TMP105State *s)
      * driver developer appears to have applied the same reasoning who
      * is assumed to have had access to the hardware.
      */
+#ifdef I2C_BENCHMARK_PROP_12
     assert(s->limit[0] < s->limit[1]);
+#endif
 
+#ifdef I2C_BENCHMARK_PROP_13
     /* VC: The least significant four bits of T_LOW are always zero. */
     assert((s->limit[0] & 0xf) == 0);
 
     /* VC: The least significant four bits of T_HIGH are always zero. */
     assert((s->limit[1] & 0xf) == 0);
+#endif
 }
 
 static inline void check_config(TMP105State *s)
@@ -87,7 +97,9 @@ static void tmp105_alarm_update(TMP105State *s)
      *     Note that this VC does not allow to enable bit 7 while
      *     simultaneously disabling bit 0.
      */
+#ifdef I2C_BENCHMARK_PROP_17
     assert(!(((s->config >> 7) & 1) == 1) || (((s->config >> 0) & 1) == 1));
+#endif
 
     if ((s->config >> 0) & 1) {					/* SD */
         if ((s->config >> 7) & 1)				/* OS */
@@ -150,7 +162,9 @@ static void tmp105_read(TMP105State *s)
          * of the temperature register must be preceded by a write of a "1"
          * to the "one-shot" bit in the configuration register.
          */
+#ifdef I2C_BENCHMARK_PROP_16
         assert(((s->config & 1) == 0) || s->os_trigger);
+#endif
         s->os_trigger = false;
 
         s->buf[s->len ++] = (((uint16_t) s->temperature) >> 8);
@@ -179,18 +193,24 @@ static void tmp105_write(TMP105State *s)
     switch (s->pointer & 3) {
     case TMP105_REG_TEMPERATURE:
         /* VC: The temperature register must never be written. */
+#ifdef I2C_BENCHMARK_PROP_3
         assert(0);
+#endif
         break;
 
     case TMP105_REG_CONFIG:
+#ifdef I2C_BENCHMARK_PROP_14
         check_config(s);
+#endif
 
         s->os_trigger = (bool) (s->buf[0] & 0x80);
 
         /* VC: No more than one byte must be written after selecting the
          *     configuration register.
          */
+#ifdef I2C_BENCHMARK_PROP_4
         assert(s->len <= 2);
+#endif
 
         #ifndef _SYS_
         if (s->buf[0] & ~s->config & (1 << 0))			/* SD */
@@ -201,7 +221,9 @@ static void tmp105_write(TMP105State *s)
         s->faults = tmp105_faultq[(s->config >> 3) & 3];	/* F */
         tmp105_alarm_update(s);
 
+#ifdef I2C_BENCHMARK_PROP_15
         check_config(s);
+#endif
 
         break;
 
@@ -210,7 +232,9 @@ static void tmp105_write(TMP105State *s)
         /* VC: No more than two bytes must be written after selecting
          *     either register T_LOW or T_HIGH.
          */
+#ifdef I2C_BENCHMARK_PROP_5
         assert(s->len <= 3);
+#endif
 
         if (s->len == 3) {
             s->limit[s->pointer & 1] = (int16_t)
@@ -234,18 +258,24 @@ int tmp105_rx(I2CSlave *i2c)
          *
          * That is, the reading of the least significant byte is optional.
          */
+#ifdef I2C_BENCHMARK_PROP_6
         assert(s->len < 2);
+#endif
         break;
 
     case TMP105_REG_CONFIG:
         /* VC: At most one bytes must be read for configuration data. */
+#ifdef I2C_BENCHMARK_PROP_7
         assert(s->len < 1);
+#endif
         break;
 
     case TMP105_REG_T_LOW:
     case TMP105_REG_T_HIGH:
         /* VC: At most two bytes must be read for temperature thresholds. */
+#ifdef I2C_BENCHMARK_PROP_8
         assert(s->len < 2);
+#endif
         break;
     }
 
@@ -265,8 +295,10 @@ int tmp105_tx(I2CSlave *i2c, uint8_t data)
         /* VC: The value in the pointer register must be between
          *     zero and four inclusive.
          */ 
+#ifdef I2C_BENCHMARK_PROP_9
         assert(0 <= data);
         assert(data <= 4);
+#endif
 
         s->pointer = data;
         s->len ++;
@@ -276,7 +308,9 @@ int tmp105_tx(I2CSlave *i2c, uint8_t data)
         } else {
             /* VC: An I2C transaction for TMP105 must consist of
              *     at most three bytes */
+#ifdef I2C_BENCHMARK_PROP_10
             assert(0);
+#endif
         }
         s->len ++;
         tmp105_write(s);

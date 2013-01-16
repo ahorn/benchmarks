@@ -202,7 +202,9 @@ lm75_probe(struct i2c_client *client, const struct i2c_device_id *id)
 	 *     where 0 <= i < 7. That is, the first seven bits of C and C' are
 	 *     pairwise equal.
 	 */
+#ifdef I2C_BENCHMARK_PROP_21
 	assert((new & 0x7f) == (lm75_read_value(client, LM75_REG_CONF) & 0x7f));
+#endif
 
 	/* Register sysfs hooks */
 	status = sysfs_create_group(&client->dev.kobj, &lm75_group);

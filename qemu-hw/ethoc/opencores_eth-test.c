@@ -267,13 +267,13 @@ void main(void)
     nic.opaque = &eth;
     nc = &nic.nc;
 
-#ifdef __TEST_INIT
+#ifdef ETHOC_BENCHMARK_PROP_2
     test_init();
 #endif
-#ifdef __TEST_RX
+#ifdef ETHOC_BENCHMARK_PROP_3
     test_rx();
 #endif
-#ifdef __TEST_RX_BUSY
+#ifdef ETHOC_BENCHMARK_PROP_4
     test_rx_busy();
 #endif
 }
