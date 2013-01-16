@@ -273,6 +273,10 @@ int tmp105_tx(I2CSlave *i2c, uint8_t data)
     } else {
         if (s->len <= 2) {
             s->buf[s->len - 1] = data;
+        } else {
+            /* VC: An I2C transaction for TMP105 must consist of
+             *     at most three bytes */
+            assert(0);
         }
         s->len ++;
         tmp105_write(s);
