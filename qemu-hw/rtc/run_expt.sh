@@ -3,11 +3,11 @@
 
 # Parse some command line input paramters, and verify they were set
 numberOfRuns=$1
-param1=$2
+exptName=$2
 outputFolder="output-$2"
 runtimeFile="runtime-$2.txt"
 
-if [ -z $param1 ]
+if [ -z $exptName ]
 then
   echo "ERROR: Requires 2 arguments: $0 [Num Runs] [param 1]"
   exit
@@ -21,13 +21,13 @@ else
   mkdir $outputFolder
 fi
 
-echo "Starting experiment with $numberOfRuns iterations and param1=$param1 at " `date`
+echo "Starting experiment with $numberOfRuns iterations and exptName =$exptName at " `date`
 
 # Repeat the experiment $numberOfRuns times
 for i in `seq $numberOfRuns`
 do
   #check if you have already run this data set
-  outputFile="$outputFolder/data-$param1-$i.txt"
+  outputFile="$outputFolder/data-$exptName -$i.txt"
   if [ -s $outputFile ]
   then
     echo "WARNING: File $outputFile already exists -- skipping run $i"

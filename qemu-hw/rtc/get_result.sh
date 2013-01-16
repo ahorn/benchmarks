@@ -8,6 +8,10 @@ then
   exit
 fi
 
+if [ ! -d $outputFolder ]; then
+  echo "ERROR: Folder $outputFolder for experiment $1 doesn't exist."
+  exit
+
 # Compute total runtime in average
 sum=0
 size=`ls $outputFolder/data-$1* | wc -l`
