@@ -168,21 +168,33 @@ static void tmp105_read(TMP105State *s)
         s->os_trigger = false;
 
         s->buf[s->len ++] = (((uint16_t) s->temperature) >> 8);
+#ifdef I2C_BENCHMARK_PROP_10
+        s->buf_len_info = s->len;
+#endif
         s->buf[s->len ++] = (((uint16_t) s->temperature) >> 0) &
                 (0xf0 << ((~s->config >> 5) & 3));		/* R */
         break;
 
     case TMP105_REG_CONFIG:
+#ifdef I2C_BENCHMARK_PROP_10
+        s->buf_len_info = s->len;
+#endif
         s->buf[s->len ++] = s->config;
         break;
 
     case TMP105_REG_T_LOW:
         s->buf[s->len ++] = ((uint16_t) s->limit[0]) >> 8;
+#ifdef I2C_BENCHMARK_PROP_10
+        s->buf_len_info = s->len;
+#endif
         s->buf[s->len ++] = ((uint16_t) s->limit[0]) >> 0;
         break;
 
     case TMP105_REG_T_HIGH:
         s->buf[s->len ++] = ((uint16_t) s->limit[1]) >> 8;
+#ifdef I2C_BENCHMARK_PROP_10
+        s->buf_len_info = s->len;
+#endif
         s->buf[s->len ++] = ((uint16_t) s->limit[1]) >> 0;
         break;
     }
@@ -304,13 +316,13 @@ int tmp105_tx(I2CSlave *i2c, uint8_t data)
         s->len ++;
     } else {
         if (s->len <= 2) {
-            s->buf[s->len - 1] = data;
-        } else {
-            /* VC: An I2C transaction for TMP105 must consist of
-             *     at most three bytes */
+
+           /* VC: If buf[1] is written, buf[0] must have been written, too */
 #ifdef I2C_BENCHMARK_PROP_10
-            assert(0);
+            assert((s->len != 2) || (s->buf_len_info == 1));
+            s->buf_len_info = s->len;
 #endif
+            s->buf[s->len - 1] = data;
         }
         s->len ++;
         tmp105_write(s);
@@ -351,6 +363,9 @@ void tmp105_reset(I2CSlave *i2c)
     s->limit[0] = 0x4b00; /* T_LOW  = 75 C */
     s->limit[1] = 0x5000; /* T_HIGH = 80 C */
     s->os_trigger = false;
+#ifdef I2C_BENCHMARK_PROP_10
+    s->buf_len_info = -1;
+#endif
 
     tmp105_interrupt_update(s);
 }

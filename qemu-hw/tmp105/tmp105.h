@@ -34,6 +34,11 @@ typedef struct TMP105State {
     uint8_t alarm;
 
     bool os_trigger;
+
+#ifdef I2C_BENCHMARK_PROP_10
+    /* meta data: most recent value of len when buf[] was written */
+    int buf_len_info;
+#endif
 } TMP105State;
 
 /**
