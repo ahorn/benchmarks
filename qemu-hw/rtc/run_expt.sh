@@ -38,6 +38,7 @@ do
   # Put the commands to actually run your program / system here
   (time make verify >& $outputFile) >>& $outputFolder/$runtimeFile
   # possibly put some clean up steps here or a sleep command if you want a delay between experiments
+  make clean
 done
 
 # Do any final cleanup here
