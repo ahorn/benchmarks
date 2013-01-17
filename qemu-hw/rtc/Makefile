@@ -4,4 +4,4 @@ all:
 	gcc ${SRC} -lrt
 
 verify:
-	cbmc ${SRC} --unwind 1
+	cbmc ${SRC} --unwind 1 -DRTC_BENCHMARK_PROP_11
