@@ -276,7 +276,9 @@ static void ethoc_write_bd(struct ethoc *dev, int index,
 	desc <<= 32;
         desc |= bd->stat;
 
+#ifndef __ETHOC_WRITE_BD_SYNC__
 __CPROVER_ASYNC_1:
+#endif
 	open_eth_desc_write(dev->open_eth, addr, desc);
 }
 
@@ -461,7 +463,9 @@ static int ethoc_rx(struct net_device *dev, int limit)
 		entry = priv->num_tx + priv->cur_rx;
 		ethoc_read_bd(priv, entry, &bd);
 		if (bd.stat & RX_BD_EMPTY) {
+#ifndef __NO_COSTLY_CALLS__
 			ethoc_ack_irq(priv, INT_MASK_RX);
+#endif
 			/* If packet (interrupt) came in between checking
 			 * BD_EMTPY and clearing the interrupt source, then we
 			 * risk missing the packet as the RX interrupt won't
@@ -474,6 +478,7 @@ static int ethoc_rx(struct net_device *dev, int limit)
 				break;
 		}
 
+#ifndef __NO_COSTLY_CALLS__
 		if (ethoc_update_rx_stats(priv, &bd) == 0) {
 			/* For the experiments, we removed the skb (socket) calls and
  			 * the possibility of insufficient memory or dropped packets.
@@ -486,6 +491,7 @@ static int ethoc_rx(struct net_device *dev, int limit)
 			dev->stats.rx_packets++;
 			dev->stats.rx_bytes += size;
 		}
+#endif
 
 		/* clear the buffer descriptor so it can be reused */
 		bd.stat &= ~RX_BD_STATS;
@@ -592,6 +598,7 @@ static irqreturn_t ethoc_interrupt(void *opaque, int n, int level)
 	 * for all events that are currently masked.  This behaviour
 	 * is not particularly well documented but reasonable...
 	 */
+#ifndef __NO_COSTLY_CALLS__
 	mask = ethoc_read(priv, INT_MASK);
 	pending = ethoc_read(priv, INT_SOURCE);
 	pending &= mask;
@@ -607,6 +614,7 @@ static irqreturn_t ethoc_interrupt(void *opaque, int n, int level)
 		dev_err(&dev->dev, "packet dropped\n");
 		dev->stats.rx_dropped++;
 	}
+#endif
 
 	/* Handle receive/transmit event by switching to polling */
 	if (pending & (INT_MASK_TX | INT_MASK_RX)) {
@@ -645,11 +653,15 @@ static int ethoc_poll(struct napi_struct *napi, int budget)
 	int tx_work_done = 0;
 
 	rx_work_done = ethoc_rx(priv->netdev, budget);
+#ifndef __NO_COSTLY_CALLS__
 	tx_work_done = ethoc_tx(priv->netdev, budget);
+#endif
 
 	if (rx_work_done < budget && tx_work_done < budget) {
 		napi_complete(napi);
+#ifndef __NO_COSTLY_CALLS__
 		ethoc_enable_irq(priv, INT_MASK_TX | INT_MASK_RX);
+#endif
 	}
 
 	return rx_work_done;
