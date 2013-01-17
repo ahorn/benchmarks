@@ -329,11 +329,19 @@ int tmp105_tx(I2CSlave *i2c, uint8_t data)
     }
     
     /* Orginal bug for testing
-    if (!s->len ++)
-        s->pointer = data;
-    else {
+    if (!s->len ++) {
+#ifdef I2C_BENCHMARK_PROP_9
+        assert(0 <= data);
+        assert(data <= 4);
+#endif
+       s->pointer = data;
+    } else {
         if (s->len <= 2) {
-             s->buf[s->len - 1] = data;
+#ifdef I2C_BENCHMARK_PROP_10
+            assert((s->len != 2) || (s->buf_len_info == 1));
+            s->buf_len_info = s->len;
+#endif
+            s->buf[s->len - 1] = data;
         } 
         tmp105_write(s);
      } */

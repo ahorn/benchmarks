@@ -67,7 +67,7 @@ int main (int argc, char** argv) {
     /* Test cases */
     __CPROVER_assume(sda.index == 1 || sda.index == 2);
     
-    int test_seq_len = 5; 
+    int test_seq_len = 10; 
     for (int test_i = 0; test_i < test_seq_len; test_i++) {
         // TODO: We can split this into many different tests
         // Implement 
