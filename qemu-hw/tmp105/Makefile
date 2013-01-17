@@ -5,3 +5,5 @@ all:
 
 verify:
 	cbmc ${SRC} --unwind 4 -DI2C_BENCHMARK_PROP_21
+
+clean:

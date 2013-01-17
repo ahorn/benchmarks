@@ -5,3 +5,5 @@ all:
 
 verify:
 	cbmc ${SRC} --unwind 1 -DRTC_BENCHMARK_PROP_11
+
+clean:
