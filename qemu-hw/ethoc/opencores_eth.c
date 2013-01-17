@@ -296,8 +296,16 @@ ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
         trace_open_eth_receive_desc(desc->buf_ptr, desc->len_flags);
 
         if (desc->len_flags & RXD_IRQ) {
+#ifndef __NO_SOURCE_WRITE_IRQ__
             open_eth_int_source_write(s,
                     s->regs[INT_SOURCE] | INT_SOURCE_RXB);
+#else
+    uint32_t old_val = s->regs[INT_SOURCE];
+
+    s->regs[INT_SOURCE] |= INT_SOURCE_RXB;
+    open_eth_update_irq(s, old_val & s->regs[INT_MASK],
+            s->regs[INT_SOURCE] & s->regs[INT_MASK]);
+#endif
         }
     }
 out:
