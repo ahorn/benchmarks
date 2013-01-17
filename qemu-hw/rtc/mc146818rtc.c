@@ -572,9 +572,9 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
              *     while the SET bit is simultaneously disabled provided
              *     that all RTC data registers have been written. */
             if (s->dm_change && (data & REG_B_SET) == 0) {
-#ifdef RTC_BENCHMARK_PROP_4
-                assert(s->cmos_data_info[RTC_CENTURY]);
                 uint32_t rtc_data_addr;
+ #ifdef RTC_BENCHMARK_PROP_4
+                assert(s->cmos_data_info[RTC_CENTURY]);
                 for(rtc_data_addr = RTC_SECONDS;
                     rtc_data_addr <= RTC_YEAR;
                     rtc_data_addr++) {
