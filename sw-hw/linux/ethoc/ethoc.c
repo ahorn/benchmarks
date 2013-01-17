@@ -15,6 +15,7 @@
 #include <assert.h>
 #endif
 
+#include "cbmc.h"
 #include "sw-hw.h"
 #include "kernel.h"
 #include "errno.h"
@@ -29,6 +30,7 @@
 #include "ethoc/opencores_eth.h"
 #include "ethoc/sys.h"
 #include "ethoc/osdep.h"
+#include "ethoc/cpu.h"
 
 #define DMA_BUF_SIZE	(8*ETHOC_BUFSIZ) /* 8 KiB */
 
@@ -1040,7 +1042,7 @@ int main(void)
 	int k;
 	struct ethoc_bd bd;
 #ifdef ETHOC_BENCHMARK_PROP_5
-#ifdef _CBMC_
+#ifdef _NO_LOOP_
   __CPROVER_assume(k >= 0 && k < ethoc.num_rx);
   ethoc_read_bd(&ethoc, ethoc.num_tx + k, &bd);
   assert((bd.stat & RX_BD_EMPTY) == RX_BD_EMPTY);
@@ -1055,20 +1057,18 @@ int main(void)
 #ifdef ETHOC_BENCHMARK_PROP_6
 	/* VC: The DMA buffer must only contain packets which were sent. */
 	u8 *dma = dma_buf + (ethoc.num_tx * ETHOC_BUFSIZ);
-#ifdef _CBMC_
+#ifdef _NO_LOOP_
   int k2;
   k=k2;
   __CPROVER_assume(k >= 0 && k < rx_packet_num);
   dma += k*ETHOC_BUFSIZ;
-  assert(0);
   if(dma[PACKET_VC_INDEX]!=0)
 #else
 	for (k = 1; k <= rx_packet_num; k++)
 #endif
   {
-#if 0
 		packet_id = dma[PACKET_VC_INDEX];
-#ifndef _CBMC_
+#ifndef _NO_LOOP_
 		if (packet_id == 0) {
 			/* DMA buffer does not contain a packet */
 			continue;
@@ -1077,7 +1077,7 @@ int main(void)
 		const u8 data = packet_bytes[packet_id - 1];
 
 		unsigned int i;
-#ifdef _CBMC_
+#ifdef _NO_LOOP_
     __CPROVER_assume(i >= (PACKET_VC_INDEX + 1) && i < packet_sizes[packet_id - 1]);
     assert(dma[i] == data);
 #else
@@ -1091,7 +1091,7 @@ int main(void)
  		 * these unused bytes are zero due to the initialization of
  		 * the DMA buffer with memset().
  		 */
-#ifdef _CBMC_
+#ifdef _NO_LOOP_
     unsigned int i2;
     i=i2;
 		__CPROVER_assume(i >= packet_sizes[packet_id - 1] && i < ETHOC_BUFSIZ);
@@ -1103,7 +1103,6 @@ int main(void)
 #endif
 
 		dma += ETHOC_BUFSIZ;
-#endif
-#endif
 	}
+#endif
 }
