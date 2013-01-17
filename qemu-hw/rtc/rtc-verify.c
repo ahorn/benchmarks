@@ -321,6 +321,12 @@ void rtc_verify(void)
     //set_year_20xx();
     //set_year_1980();
     //register_b_set_flag();
-    check_clock_cbmc();
+    //check_clock_cbmc();
     //simulate_bugs();
+
+    int i;
+    if (i != 0)
+	check_clock_cbmc();
+    else
+	register_b_set_flag();
 }

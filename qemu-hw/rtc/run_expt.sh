@@ -21,7 +21,7 @@ else
   mkdir $outputFolder
 fi
 
-echo "Starting experiment with $numberOfRuns iterations and exptName =$exptName at " `date`
+echo "Starting experiment with $numberOfRuns iterations and exptName $exptName at " `date`
 
 # Repeat the experiment $numberOfRuns times
 for i in `seq $numberOfRuns`

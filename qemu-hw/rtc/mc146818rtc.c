@@ -426,8 +426,9 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
         s->io_info = OUTB_0x70;
         s->cmos_index = data & 0x7f;
     } else {
-        //copy_data(s);
-
+        #if (defined RTC_BENCHMARK_PROP_1 || defined RTC_BENCHMARK_PROP_2)
+	    copy_data(s);
+	#endif
         /* VC: outb 0x71 must be preceded by outb 0x70 */
 #ifdef RTC_BENCHMARK_PROP_8
         assert(s->io_info == OUTB_0x70);
