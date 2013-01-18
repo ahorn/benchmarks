@@ -4,7 +4,7 @@ outputFolder=output-$1
 
 if [ -z $1 ]
 then 
-  echo "Error: requires one parameter: $0 [Output Folder Name]" 
+  echo "Error: requires one parameter: $0 [Experiment Name]" 
   exit
 fi
 

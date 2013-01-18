@@ -9,7 +9,7 @@ runtimeFile="runtime-$2.txt"
 
 if [ -z $exptName ]
 then
-  echo "ERROR: Requires 2 arguments: $0 [Num Runs] [param 1]"
+  echo "ERROR: Requires 2 arguments: $0 [Num Runs] [Experiment Name]"
   exit
 fi
 
@@ -21,7 +21,7 @@ else
   mkdir $outputFolder
 fi
 
-echo "Starting experiment with $numberOfRuns iterations and exptName $exptName at " `date`
+echo "Starting experiment with $numberOfRuns iterations and name $exptName at " `date`
 
 # Repeat the experiment $numberOfRuns times
 for i in `seq $numberOfRuns`
