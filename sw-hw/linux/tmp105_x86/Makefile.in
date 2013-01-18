@@ -4,12 +4,16 @@ CBMC = cbmc
 GTCC = goto-cc
 GTINST = goto-instrument
 LINUX_SRC = ..
+
 GCC_INCLUDE =  ../../gcc-include
 QEMU_SRC = ../../../qemu-hw
+GEN = generated
+
 LD = llvm-ld
 KLEE = klee
+UNWIND_NO = 2
+PROP_NO = 21
 
-GEN= generated
 
 # Source code
 # --> UGLY: The other files are included in  main.c
@@ -39,7 +43,7 @@ QLIB = -I $(QEMU_SRC)/
 
 MYLIB = -I modlib/
 
-VERDEF = -D__KERNEL__ -D_SYS_ -DCONFIG_I2C -U__i386__ -D_CBMC_ -DI2C_BENCHMARK_PROP_21
+VERDEF = -D__KERNEL__ -D_SYS_ -DCONFIG_I2C -U__i386__ -D_CBMC_ -DI2C_BENCHMARK_PROP_$(PROP_NO)
 
 CFLAGS = -std=gnu99 -nostdinc $(MYLIB) $(KLIB) $(QLIB) -I . -D__KERNEL__ $(HOSTCFLAGS) -D_SYS_ 
 
@@ -67,7 +71,7 @@ mysystem:
 
 verify: mysystem
 	@echo Verifying: $(SRC)
-	@$(CBMC) --unwind 2 --no-library $<
+	@$(CBMC) --unwind $(UNWIND_NO) --no-library $<
 
 dot: mysystem
 	@echo Build CFG: $(SRC)

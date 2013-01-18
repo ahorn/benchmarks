@@ -9,6 +9,7 @@ QEMU_SRC = ../../../qemu-hw
 GCC_INCLUDE = ../../gcc-include 
 GEN = generated
 UNWIND_NUM = 21
+PROP_NO = 11
 
 # Source code
 # --> UGLY: The other files are included in  main.c
@@ -41,7 +42,7 @@ QLIB = -I $(QEMU_SRC)/
 
 MYLIB = -I modlib/
 
-VERDEF = -D__KERNEL__ -D_CBMC_ -D__NO_TIMER__ -DRTC_BENCHMARK_PROP_21
+VERDEF = -D__KERNEL__ -D_CBMC_ -D__NO_TIMER__ -DRTC_BENCHMARK_PROP_$(PROP_NO)
 
 # Not used right now
 %.o : %.c
