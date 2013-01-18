@@ -4,6 +4,6 @@ all:
 	gcc ${SRC} -lrt
 
 verify:
-	cbmc ${SRC} --unwind 1 -DRTC_BENCHMARK_PROP_11
+	cbmc ${SRC} --unwind 1 -D__NO_TIMER__ -DRTC_BENCHMARK_PROP_11
 
 clean:

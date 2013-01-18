@@ -185,9 +185,9 @@ static void periodic_timer_update(RTCState *s, int64_t current_time)
         next_irq_clock = (cur_clock & ~(period - 1)) + period;
         s->next_periodic_time =
             muldiv64(next_irq_clock, get_ticks_per_sec(), RTC_CLOCK_RATE) + 1;
-        //qemu_mod_timer(s->periodic_timer, s->next_periodic_time);
+        qemu_mod_timer(s->periodic_timer, s->next_periodic_time);
     } else {
-        //qemu_del_timer(s->periodic_timer);
+        qemu_del_timer(s->periodic_timer);
     }
 }
 
@@ -220,21 +220,22 @@ static void check_update_timer(RTCState *s)
      * them to occur.  However, it will prevent an alarm interrupt
      * from occurring, because the time of day is not updated.
      */
+#ifndef __NO_TIMER__
     if ((s->cmos_data[RTC_REG_A] & 0x60) == 0x60) {
-        //qemu_del_timer(s->update_timer);
+        qemu_del_timer(s->update_timer);
         return;
     }
     if ((s->cmos_data[RTC_REG_C] & REG_C_UF) &&
         (s->cmos_data[RTC_REG_B] & REG_B_SET)) {
-        //qemu_del_timer(s->update_timer);
+        qemu_del_timer(s->update_timer);
         return;
     }
     if ((s->cmos_data[RTC_REG_C] & REG_C_UF) &&
         (s->cmos_data[RTC_REG_C] & REG_C_AF)) {
-        //qemu_del_timer(s->update_timer);
+        qemu_del_timer(s->update_timer);
         return;
     }
-
+#endif
     guest_nsec = get_guest_rtc_ns(s) % NSEC_PER_SEC;
     /* if UF is clear, reprogram to next second */
     next_update_time = qemu_get_clock_ns(rtc_clock)
@@ -251,9 +252,11 @@ static void check_update_timer(RTCState *s)
          * the alarm time.  */
         next_update_time = s->next_alarm_time;
     }
+#ifndef __NO_TIMER__
     if (next_update_time != qemu_timer_expire_time_ns(s->update_timer)) {
-        //qemu_mod_timer(s->update_timer, next_update_time);
+        qemu_mod_timer(s->update_timer, next_update_time);
     }
+#endif
 }
 
 static inline uint8_t convert_hour(RTCState *s, uint8_t hour)
@@ -509,8 +512,10 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
             /* UIP bit is read only */
             s->cmos_data[RTC_REG_A] = (data & ~REG_A_UIP) |
                 (s->cmos_data[RTC_REG_A] & REG_A_UIP);
-            //periodic_timer_update(s, qemu_get_clock_ns(rtc_clock));
-            check_update_timer(s);
+#ifndef __NO_TIMER__    
+	    periodic_timer_update(s, qemu_get_clock_ns(rtc_clock));
+#endif
+	    check_update_timer(s);
 
 #ifdef RTC_BENCHMARK_PROP_1
             assert_equal_copy_data(s);
@@ -556,8 +561,10 @@ void cmos_ioport_write(void *opaque, uint32_t addr, uint32_t data)
             }
 
             s->cmos_data[RTC_REG_B] = data;
-            //periodic_timer_update(s, qemu_get_clock_ns(rtc_clock));
-            check_update_timer(s);
+#ifndef __NO_TIMER__
+            periodic_timer_update(s, qemu_get_clock_ns(rtc_clock));
+#endif
+	    check_update_timer(s);
 
             /* VC: In Register B, if its SET bit is being disabled and its
              *     DM bit has changed since the SET bit has been enabled,
@@ -708,6 +715,7 @@ static int update_in_progress(RTCState *s)
     if (!_rtc_running(s)) {
         return 0;
     }
+#ifndef __NO_TIMER__
     if (qemu_timer_pending(s->update_timer)) {
         int64_t next_update_time = qemu_timer_expire_time_ns(s->update_timer);
         /* Latch UIP until the timer expires.  */
@@ -716,7 +724,13 @@ static int update_in_progress(RTCState *s)
             return 1;
         }
     }
-
+#else
+    int nondet_flag;
+    if (nondet_flag) {
+	s->cmos_data[RTC_REG_A] |= REG_A_UIP;
+	return 1;
+    }
+#endif
     guest_nsec = get_guest_rtc_ns(s);
     /* UIP bit will be set at last 244us of every second. */
     if ((guest_nsec % NSEC_PER_SEC) >= (NSEC_PER_SEC - UIP_HOLD_LENGTH)) {

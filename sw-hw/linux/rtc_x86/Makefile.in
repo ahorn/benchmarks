@@ -41,7 +41,7 @@ QLIB = -I $(QEMU_SRC)/
 
 MYLIB = -I modlib/
 
-VERDEF = -D__KERNEL__ -D_CBMC_ -DRTC_BENCHMARK_PROP_21
+VERDEF = -D__KERNEL__ -D_CBMC_ -D__NO_TIMER__ -DRTC_BENCHMARK_PROP_21
 
 # Not used right now
 %.o : %.c
