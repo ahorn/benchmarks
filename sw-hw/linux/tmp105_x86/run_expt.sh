@@ -7,9 +7,9 @@ exptName=$2
 outputFolder="data/output-$2"
 runtimeFile="runtime-$2.txt"
 
-if [ -z $exptName ]
+if [[ -z $numberOfRuns || -z $exptName ]]
 then
-  echo "ERROR: Requires 2 arguments: $0 [Num Runs] [Experiment Name]"
+  echo "ERROR: Requires 2 arguments: $0 [Num of Runs] [Experiment Name]"
   exit
 fi
 
