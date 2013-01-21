@@ -23,26 +23,22 @@ $GOTO_CC -m32 ../../../qemu-hw/ethoc/{cpu.c,irq.c,opencores_eth.c} *.c \
   -o ethoc_sw_hw_m32_sequential_prop7.gb
 $GOTO_INSTRUMENT --count-eloc ethoc_sw_hw_m32_sequential_prop7.gb
 
-# known to go through in ~2000 seconds
-#$GOTO_CC -m32 ../../../qemu-hw/ethoc/{cpu.c,irq.c,opencores_eth.c} *.c \
-#  -I../../../qemu-hw -D_CBMC_ \
-#  -DETHOC_BENCHMARK_PROP_5 \
-#  -D__NO_MODER_HOST_WRITE__ -D__NO_MII_WRITE__ -D__NO_DESC_WRITE_XMIT__ \
-#  -D__NO_SOURCE_WRITE_IRQ__ -D__NO_SOURCE_HOST_WRITE_IRQ__ \
-#  -D__NO_COSTLY_CALLS__ \
-#  -o ethoc_sw_hw_m32_prop5.gb
 $GOTO_CC -m32 ../../../qemu-hw/ethoc/{cpu.c,irq.c,opencores_eth.c} *.c \
   -I../../../qemu-hw -D_CBMC_ \
   -DETHOC_BENCHMARK_PROP_5 \
-  -D__NO_MII_WRITE__ -D__NO_DESC_WRITE_XMIT__ \
-  -D__NO_SOURCE_WRITE_IRQ__ -D__NO_SOURCE_HOST_WRITE_IRQ__ \
-  -D__NO_COSTLY_CALLS__ \
   -o ethoc_sw_hw_m32_prop5.gb
 $GOTO_INSTRUMENT --count-eloc ethoc_sw_hw_m32_prop5.gb
+$GOTO_CC -m32 ../../../qemu-hw/ethoc/{cpu.c,irq.c,opencores_eth.c} *.c \
+  -I../../../qemu-hw -D_CBMC_ \
+  -DETHOC_BENCHMARK_PROP_6 \
+  -o ethoc_sw_hw_m32_prop6.gb
+$GOTO_INSTRUMENT --count-eloc ethoc_sw_hw_m32_prop6.gb
+$GOTO_CC -m32 ../../../qemu-hw/ethoc/{cpu.c,irq.c,opencores_eth.c} *.c \
+  -I../../../qemu-hw -D_CBMC_ \
+  -DETHOC_BENCHMARK_PROP_7 \
+  -o ethoc_sw_hw_m32_prop7.gb
+$GOTO_INSTRUMENT --count-eloc ethoc_sw_hw_m32_prop7.gb
 
-##/usr/bin/time -v $CBMC ethoc_sw_hw_m32_prop5.gb \
-##  --unwind 1 --partial-loops --no-unwinding-assertions
-##exit 0
 
 mkdir -p results.cbmc
 cd results.cbmc
@@ -53,6 +49,13 @@ cpbm run --cmd $CBMC ../ethoc_sw_hw_m32_sequential_prop5.gb -- \
 cpbm run --cmd $CBMC ../ethoc_sw_hw_m32_sequential_prop6.gb -- \
   --unwind 1 --partial-loops --no-unwinding-assertions >> results.txt
 cpbm run --cmd $CBMC ../ethoc_sw_hw_m32_sequential_prop7.gb -- \
+  --unwind 1 --partial-loops --no-unwinding-assertions >> results.txt
+
+cpbm run --cmd $CBMC ../ethoc_sw_hw_m32_prop5.gb -- \
+  --unwind 1 --partial-loops --no-unwinding-assertions >> results.txt
+cpbm run --cmd $CBMC ../ethoc_sw_hw_m32_prop6.gb -- \
+  --unwind 1 --partial-loops --no-unwinding-assertions >> results.txt
+cpbm run --cmd $CBMC ../ethoc_sw_hw_m32_prop7.gb -- \
   --unwind 1 --partial-loops --no-unwinding-assertions >> results.txt
 
 cpbm csv cbmc results.txt > results.csv
