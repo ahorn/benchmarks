@@ -132,10 +132,8 @@ static void open_eth_int_source_write(OpenEthState *s,
     uint32_t old_val = s->regs[INT_SOURCE];
 
     s->regs[INT_SOURCE] = val;
-#ifndef __NO_SOURCE_WRITE_IRQ__
     open_eth_update_irq(s, old_val & s->regs[INT_MASK],
             s->regs[INT_SOURCE] & s->regs[INT_MASK]);
-#endif
 }
 
 void open_eth_set_link_status(OpenEthState *s, bool link_down)
@@ -296,16 +294,8 @@ ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
         trace_open_eth_receive_desc(desc->buf_ptr, desc->len_flags);
 
         if (desc->len_flags & RXD_IRQ) {
-#ifndef __NO_SOURCE_WRITE_IRQ__
             open_eth_int_source_write(s,
                     s->regs[INT_SOURCE] | INT_SOURCE_RXB);
-#else
-    uint32_t old_val = s->regs[INT_SOURCE];
-
-    s->regs[INT_SOURCE] |= INT_SOURCE_RXB;
-    open_eth_update_irq(s, old_val & s->regs[INT_MASK],
-            s->regs[INT_SOURCE] & s->regs[INT_MASK]);
-#endif
         }
     }
 out:
@@ -391,7 +381,6 @@ static void open_eth_ro(OpenEthState *s, uint32_t val)
 
 static void open_eth_moder_host_write(OpenEthState *s, uint32_t val)
 {
-#ifndef __NO_MODER_HOST_WRITE__
     uint32_t set = val & ~s->regs[MODER];
 
     if (set & MODER_RST) {
@@ -414,7 +403,6 @@ static void open_eth_moder_host_write(OpenEthState *s, uint32_t val)
         s->tx_desc = 0;
         open_eth_check_start_xmit(s);
     }
-#endif
 }
 
 static void open_eth_int_source_host_write(OpenEthState *s, uint32_t val)
@@ -422,10 +410,8 @@ static void open_eth_int_source_host_write(OpenEthState *s, uint32_t val)
     uint32_t old = s->regs[INT_SOURCE];
 
     s->regs[INT_SOURCE] &= ~val;
-#ifndef __NO_SOURCE_HOST_WRITE_IRQ__
     open_eth_update_irq(s, old & s->regs[INT_MASK],
             s->regs[INT_SOURCE] & s->regs[INT_MASK]);
-#endif
 }
 
 static void open_eth_int_mask_host_write(OpenEthState *s, uint32_t val)
@@ -455,7 +441,6 @@ static void open_eth_int_mask_host_write(OpenEthState *s, uint32_t val)
 
 static void open_eth_mii_command_host_write(OpenEthState *s, uint32_t val)
 {
-#ifndef __NO_MII_WRITE__
     unsigned fiad = GET_REGFIELD(s, MIIADDRESS, FIAD);
     unsigned rgad = GET_REGFIELD(s, MIIADDRESS, RGAD);
 
@@ -474,18 +459,15 @@ static void open_eth_mii_command_host_write(OpenEthState *s, uint32_t val)
         }
         SET_REGFIELD(s, MIISTATUS, LINKFAIL, s->nic->nc.link_down);
     }
-#endif
 }
 
 static void open_eth_mii_tx_host_write(OpenEthState *s, uint32_t val)
 {
-#ifndef __NO_MII_WRITE__
     SET_REGFIELD(s, MIITX_DATA, CTRLDATA, val);
     if (GET_REGFIELD(s, MIIADDRESS, FIAD) == DEFAULT_PHY) {
         mii_write_host(&s->mii, GET_REGFIELD(s, MIIADDRESS, RGAD),
                 GET_REGFIELD(s, MIITX_DATA, CTRLDATA));
     }
-#endif
 }
 
 void open_eth_reg_write(OpenEthState *s, hwaddr addr, uint32_t val)
@@ -529,9 +511,7 @@ void open_eth_desc_write(OpenEthState *s, hwaddr addr, uint64_t val)
     trace_open_eth_desc_write((uint32_t)addr, (uint32_t)val);
     set_desc_at(s, addr, val);
 
-#ifndef __NO_DESC_WRITE_XMIT__
     open_eth_check_start_xmit(s);
-#endif
     __CPROVER_atomic_end();
 }
 
