@@ -15,11 +15,13 @@ bytes:
 Courtesy of [MC146818 data sheet][rtc-datasheet]
 
 To run experiments on the HW/SW model, in folder sw-hw/linux/rtc\_x86 run the following command 
+
 $ ./run\_expt.sh [Num of Runs] [Experiment Name] [Property No. (1 to 11)]
 
 Use the same command in folder qemu-hw/rtc to run experiments on the standalone HW model.
 
 To get the total runtime and runtime spent on the decision procedure, run
+
 $ ./get\_result.sh [Experiment Name]
 
 ## I2C Benchmark
@@ -33,11 +35,13 @@ updates as illustrated by the following waveform:
 Courtesy of [TMP105 data sheet][tmp105-datasheet]
 
 To run experiments on the HW/SW model, in folder sw-hw/linux/tmp105\_x86 run the following command
+
 $ ./run\_expt.sh [Num of Runs] [Experiment Name] [Property No. (1 to 21)]
 
 Use the same command in folder qemu-hw/tmp105 to run experiments on the standalone HW model.
 
 To get the total runtime and runtime spent on the decision procedure, run
+
 $ ./get\_result.sh [Experiment Name]
 
 ## ETHOC Benchmark
