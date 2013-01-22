@@ -45,9 +45,9 @@ useful resources.
 [rtc-datasheet]: http://www.freescale.com/files/microcontrollers/doc/data_sheet/MC146818.pdf
 [tmp105-datasheet]: http://www.ti.com/lit/ds/symlink/tmp105.pdf
 [tmp105-i2c-word-write]: https://raw.github.com/ahorn/benchmarks/master/doc/i2c/tmp105-i2c-word-write.jpg
-[ethoc-hw]: https://raw.github.com/ahorn/benchmarks/master/doc/ethoc/ethoc-hw.web/
-[ethoc-sw-hw]: https://raw.github.com/ahorn/benchmarks/master/doc/ethoc/ethoc-sw-hw.web/
-[ethoc-hw-experiments]: https://raw.github.com/ahorn/benchmarks/master/qemu/ethoc/experiments.sh
+[ethoc-hw]: http://htmlpreview.github.com/?https://github.com/ahorn/benchmarks/master/doc/ethoc/ethoc-hw.web/index.html
+[ethoc-sw-hw]: http://htmlpreview.github.com/?https://github.com/ahorn/benchmarks/master/doc/ethoc/ethoc-sw-hw.web/index.html
+[ethoc-hw-experiments]: https://raw.github.com/ahorn/benchmarks/master/qemu-hw/ethoc/experiments.sh
 [ethoc-sw-hw-experiments]: https://raw.github.com/ahorn/benchmarks/master/sw-hw/linux/ethoc/experiments.sh
 [cpbm]: http://www.cprover.org/software/benchmarks/
 [wiki]: https://github.com/ahorn/benchmarks/wiki/_pages
