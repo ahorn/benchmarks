@@ -12,7 +12,7 @@ bytes:
 
 ![RTC Registers][rtc-registers]
 
-Courtesy of ![MC146818 data sheet][rtc-datasheet]
+Courtesy of [MC146818 data sheet][rtc-datasheet]
 
 ## I2C Benchmark
 
@@ -22,7 +22,7 @@ updates as illustrated by the following waveform:
 
 ![TMP105 I2C Write Word Protocol][tmp105-i2c-word-write]
 
-Courtesy of ![TMP105 data sheet][tmp105-datasheet]
+Courtesy of [TMP105 data sheet][tmp105-datasheet]
 
 ## ETHOC Benchmark
 
