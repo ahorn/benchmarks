@@ -34,8 +34,8 @@ driver for an Ethernet MAC.
 We welcome contributions of new benchmarks. See also our ![Wiki][wiki] for
 useful resources.
 
-[rtc-registers]: https://github.com/ahorn/benchmarks/doc/rtc/rtc_registers.jpg
+[rtc-registers]: https://raw.github.com/ahorn/benchmarks/master/doc/rtc/rtc_registers.jpg
 [rtc-datasheet]: http://www.freescale.com/files/microcontrollers/doc/data_sheet/MC146818.pdf
 [tmp105-datasheet]: http://www.ti.com/lit/ds/symlink/tmp105.pdf
-[tmp105-i2c-word-write]: https://github.com/ahorn/benchmarks/doc/i2c/tmp105-i2c-word-write.jpg
+[tmp105-i2c-word-write]: https://raw.github.com/ahorn/benchmarks/master/doc/i2c/tmp105-i2c-word-write.jpg
 [wiki]: https://github.com/ahorn/benchmarks/wiki/_pages
