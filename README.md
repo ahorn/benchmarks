@@ -31,7 +31,7 @@ driver for an Ethernet MAC.
 
 ## Contribute Benchmarks
 
-We welcome contributions of new benchmarks. See also our ![Wiki][wiki] for
+We welcome contributions of new benchmarks. See also our [Wiki][wiki] for
 useful resources.
 
 [rtc-registers]: https://raw.github.com/ahorn/benchmarks/master/doc/rtc/rtc_registers.jpg
