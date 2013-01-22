@@ -47,7 +47,7 @@ useful resources.
 [tmp105-i2c-word-write]: https://raw.github.com/ahorn/benchmarks/master/doc/i2c/tmp105-i2c-word-write.jpg
 [ethoc-hw]: http://htmlpreview.github.com/?https://github.com/ahorn/benchmarks/master/doc/ethoc/ethoc-hw.web/index.html
 [ethoc-sw-hw]: http://htmlpreview.github.com/?https://github.com/ahorn/benchmarks/master/doc/ethoc/ethoc-sw-hw.web/index.html
-[ethoc-hw-experiments]: https://raw.github.com/ahorn/benchmarks/master/qemu-hw/ethoc/experiments.sh
-[ethoc-sw-hw-experiments]: https://raw.github.com/ahorn/benchmarks/master/sw-hw/linux/ethoc/experiments.sh
+[ethoc-hw-experiments]: https://github.com/ahorn/benchmarks/blob/master/qemu-hw/ethoc/experiments.sh
+[ethoc-sw-hw-experiments]: https://github.com/ahorn/benchmarks/blob/master/sw-hw/linux/ethoc/experiments.sh
 [cpbm]: http://www.cprover.org/software/benchmarks/
 [wiki]: https://github.com/ahorn/benchmarks/wiki/_pages
