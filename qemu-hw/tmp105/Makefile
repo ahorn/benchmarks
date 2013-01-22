@@ -1,5 +1,5 @@
 SRC = irq.c  tmp105.c  tmp105-test.c
-PROP_NO = 21
+#PROP_NO = 21
 
 all:
 	gcc ${SRC}

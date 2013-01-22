@@ -12,7 +12,7 @@ GEN = generated
 LD = llvm-ld
 KLEE = klee
 UNWIND_NO = 2
-PROP_NO = 21
+#PROP_NO = 21
 
 
 # Source code

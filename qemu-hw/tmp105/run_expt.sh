@@ -4,12 +4,13 @@
 # Parse some command line input paramters, and verify they were set
 numberOfRuns=$1
 exptName=$2
+export PROP_NO=$3 
 outputFolder="data/output-$2"
 runtimeFile="runtime-$2.txt"
 
-if [[ -z $numberOfRuns || -z $exptName ]]
+if [[ -z $numberOfRuns || -z $exptName || -z $3 ]]
 then
-  echo "ERROR: Requires 2 arguments: $0 [Num of Runs] [Experiment Name]"
+  echo "ERROR: Requires 3 arguments: $0 [Num of Runs] [Experiment Name] [Property No.]"
   exit
 fi
 

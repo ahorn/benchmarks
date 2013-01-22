@@ -9,7 +9,7 @@ QEMU_SRC = ../../../qemu-hw
 GCC_INCLUDE = ../../gcc-include 
 GEN = generated
 UNWIND_NUM = 21
-PROP_NO = 11
+#PROP_NO = 11
 
 # Source code
 # --> UGLY: The other files are included in  main.c
