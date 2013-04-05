@@ -299,36 +299,8 @@ int tmp105_rx(I2CSlave *i2c)
 int tmp105_tx(I2CSlave *i2c, uint8_t data)
 {
     TMP105State *s = (TMP105State *) i2c;
-
-    /* Fixed bug:
-     *    http://lists.gnu.org/archive/html/qemu-devel/2012-12/msg01455.html
-     */
-    if (s->len == 0) {
-        /* VC: The value in the pointer register must be between
-         *     zero and four inclusive.
-         */ 
-#ifdef I2C_BENCHMARK_PROP_9
-        assert(0 <= data);
-        assert(data <= 4);
-#endif
-
-        s->pointer = data;
-        s->len ++;
-    } else {
-        if (s->len <= 2) {
-
-           /* VC: If buf[1] is written, buf[0] must have been written, too */
-#ifdef I2C_BENCHMARK_PROP_10
-            assert((s->len != 2) || (s->buf_len_info == 1));
-            s->buf_len_info = s->len;
-#endif
-            s->buf[s->len - 1] = data;
-        }
-        s->len ++;
-        tmp105_write(s);
-    }
-    
-    /* Orginal bug for testing
+#ifdef __EXPOSE_BUG__
+    // Orginal bug for testing
     if (!s->len ++) {
 #ifdef I2C_BENCHMARK_PROP_9
         assert(0 <= data);
@@ -344,8 +316,36 @@ int tmp105_tx(I2CSlave *i2c, uint8_t data)
             s->buf[s->len - 1] = data;
         } 
         tmp105_write(s);
-     } */
+     } 
+#else
+    /* Fixed bug:
+     *    http://lists.gnu.org/archive/html/qemu-devel/2012-12/msg01455.html
+     */
+    if (s->len == 0) {
+        /* VC: The value in the pointer register must be between
+         *     zero and four inclusive.
+         */ 
+#ifdef I2C_BENCHMARK_PROP_9
+        assert(0 <= data);
+        assert(data <= 4);
+#endif
+        s->pointer = data;
+        s->len ++;
+    } else {
+        if (s->len <= 2) {
 
+           /* VC: If buf[1] is written, buf[0] must have been written, too */
+#ifdef I2C_BENCHMARK_PROP_10
+            assert((s->len != 2) || (s->buf_len_info == 1));
+            s->buf_len_info = s->len;
+#endif
+            s->buf[s->len - 1] = data;
+        }
+        s->len ++;
+        tmp105_write(s);
+    }
+#endif
+    
     return 0;
 }
 
