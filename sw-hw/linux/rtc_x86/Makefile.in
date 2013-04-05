@@ -1,13 +1,15 @@
-# Configure the first 6 variables according to your computer environment
+# Configure the first 5 variables according to your computer environment
 CC = gcc
 CBMC = cbmc
 GTCC = goto-cc
 GTINST = goto-instrument
+KLEE = klee
+
 LINUX_SRC = ..
 QEMU_SRC = ../../../qemu-hw
-
 GCC_INCLUDE = ../../gcc-include 
 GEN = generated
+
 UNWIND_NUM = 21
 #PROP_NO = 11
 
@@ -26,7 +28,7 @@ OBJS = $(SRC:%.c=%.o)
 HOSTCFLAGS = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 \
              -fomit-frame-pointer 
 
-CFLAGS = -std=gnu99 -nostdinc $(MYLIB) $(KLIB) -I . -D__KERNEL__ $(HOSTCFLAGS) -D_SYS_ 
+CFLAGS = -std=gnu99 -nostdinc $(MYLIB) $(KLIB) $(QLIB) -I . -D__KERNEL__ $(HOSTCFLAGS) -D_SYS_ 
 
 LDFLAGS = 
 
@@ -42,17 +44,27 @@ QLIB = -I $(QEMU_SRC)/
 
 MYLIB = -I modlib/
 
-VERDEF = -D__KERNEL__ -D_CBMC_ -D__NO_TIMER__ -DRTC_BENCHMARK_PROP_$(PROP_NO)
+VERDEF = -D__KERNEL__ -DRTC_BENCHMARK_PROP_$(PROP_NO)
 
 # Not used right now
 %.o : %.c
 	@echo Compiling: $<
 	$(CC) $(CFLAGS) -include $(GEN)/autoconf.h -c -o $@ $<
 
+test.bc: CFLAGS += --emit-llvm 
+test.bc:
+	@echo ------ Compiling: $(SRC)
+	$(CC) $(CFLAGS) $(HLIB) $(SRC) -c -g -o $@ -nostdinc -include\
+	$(GEN)/autoconf.h $(VERDEF) 
+
+klee: test.bc
+	@echo ------ Klee:
+	$(KLEE) --optimize  --libc=uclibc $<
+
 mysystem:
 	@echo Compiling: $(SRC)
 	@$(GTCC) $(SRC) -o $@ -nostdinc -include $(GEN)/autoconf.h $(MYLIB) \
-        $(KLIB) $(HLIB) $(QLIB) -I ./ $(VERDEF)
+        $(KLIB) $(HLIB) $(QLIB) -I ./ $(VERDEF) -D_CBMC_ -D__NO_TIMER__
 
 verify: mysystem
 	@echo Verifying: $(SRC)

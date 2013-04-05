@@ -138,12 +138,16 @@ static void open_eth_int_source_write(OpenEthState *s,
 
 void open_eth_set_link_status(OpenEthState *s, bool link_down)
 {
+#ifndef _NO_CBMC_ATOMIC_
     __CPROVER_atomic_begin();
+#endif
     if (GET_REGBIT(s, MIICOMMAND, SCANSTAT)) {
         SET_REGFIELD(s, MIISTATUS, LINKFAIL, link_down);
     }
     mii_set_link(&s->mii, !link_down);
+#ifndef _NO_CBMC_ATOMIC_
     __CPROVER_atomic_end();
+#endif
 }
 
 static void open_eth_reset(OpenEthState *s)
@@ -167,17 +171,19 @@ static void open_eth_reset(OpenEthState *s)
 
 int open_eth_can_receive(OpenEthState *s)
 {
-    __CPROVER_atomic_begin();
+    //__CPROVER_atomic_begin();
     int val = GET_REGBIT(s, MODER, RXEN) &&
         (s->regs[TX_BD_NUM] < __OPENETH_DESC_SIZE__) &&
         (rx_desc(s)->len_flags & RXD_E);
-    __CPROVER_atomic_end();
+    //__CPROVER_atomic_end();
     return val;
 }
 
 ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
 {
+#ifndef _NO_CBMC_ATOMIC_
     __CPROVER_atomic_begin();
+#endif
     if (!GET_REGBIT(s, MODER, RXEN) || (s->regs[TX_BD_NUM] >= __OPENETH_DESC_SIZE__)) {
        size=0;
        goto out;
@@ -299,7 +305,9 @@ ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
         }
     }
 out:
+#ifndef _NO_CBMC_ATOMIC_
     __CPROVER_atomic_end();
+#endif
     return size;
 }
 
@@ -357,7 +365,9 @@ static void open_eth_check_start_xmit(OpenEthState *s)
 
 uint32_t open_eth_reg_read(OpenEthState *s, hwaddr addr)
 {
+#ifndef _NO_CBMC_ATOMIC_
     __CPROVER_atomic_begin();
+#endif
     static uint32_t (*reg_read[REG_MAX])(OpenEthState *s) = {
     };
     unsigned idx = addr / 4;
@@ -371,7 +381,9 @@ uint32_t open_eth_reg_read(OpenEthState *s, hwaddr addr)
         }
     }
     trace_open_eth_reg_read((uint32_t)addr, val);
+#ifndef _NO_CBMC_ATOMIC_
     __CPROVER_atomic_end();
+#endif
     return val;
 }
 
@@ -472,7 +484,9 @@ static void open_eth_mii_tx_host_write(OpenEthState *s, uint32_t val)
 
 void open_eth_reg_write(OpenEthState *s, hwaddr addr, uint32_t val)
 {
+#ifndef _NO_CBMC_ATOMIC_
     __CPROVER_atomic_begin();
+#endif
     static void (*reg_write[REG_MAX])(OpenEthState *s, uint32_t val) = {
         [MODER] = open_eth_moder_host_write,
         [INT_SOURCE] = open_eth_int_source_host_write,
@@ -491,27 +505,38 @@ void open_eth_reg_write(OpenEthState *s, hwaddr addr, uint32_t val)
             s->regs[idx] = val;
         }
     }
+#ifndef _NO_CBMC_ATOMIC_
     __CPROVER_atomic_end();
+#endif
 }
 
 uint64_t open_eth_desc_read(OpenEthState *s, hwaddr addr)
 {
+#ifndef _NO_CBMC_ATOMIC_
     __CPROVER_atomic_begin();
+#endif
     uint64_t v;
 
     v = get_desc_at(s, addr);
     trace_open_eth_desc_read((uint32_t)addr, (uint32_t)v);
+#ifndef _NO_CBMC_ATOMIC_
     __CPROVER_atomic_end();
+#endif
     return v;
+
 }
 
 void open_eth_desc_write(OpenEthState *s, hwaddr addr, uint64_t val)
 {
+#ifndef _NO_CBMC_ATOMIC_
     __CPROVER_atomic_begin();
+#endif
     trace_open_eth_desc_write((uint32_t)addr, (uint32_t)val);
     set_desc_at(s, addr, val);
 
     open_eth_check_start_xmit(s);
+#ifndef _NO_CBMC_ATOMIC_
     __CPROVER_atomic_end();
+#endif
 }
 
