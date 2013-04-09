@@ -1,0 +1,3195 @@
+cbmc main.c mc146818rtc.c qemu-timer.c qverify.c rtc-verify.c --unwind 11 -D__CBMC_TEST_HW__ -D__NO_TIMER__ -DRTC_BENCHMARK_PROP_2 -D__EXPOSE_BUG__ 
+file main.c: Parsing
+file mc146818rtc.c: Parsing
+file qemu-timer.c: Parsing
+file qverify.c: Parsing
+file rtc-verify.c: Parsing
+Converting
+Type-checking main
+Type-checking mc146818rtc
+Type-checking qemu-timer
+Type-checking qverify
+Type-checking rtc-verify
+Generating GOTO Program
+Adding CPROVER library
+Function Pointer Removal
+Partial Inlining
+Generic Property Instrumentation
+Starting Bounded Model Checking
+**** WARNING: no body for function c::gettimeofday
+Unwinding loop c::copy_data.0 iteration 1 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 2 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 3 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 4 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 5 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 6 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 7 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 8 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 9 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 10 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::cmos_ioport_write.1 iteration 1 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 2 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 3 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 4 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 5 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 6 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 7 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 8 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 9 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 10 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::assert_equal_copy_data.0 iteration 1 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 2 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 3 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 4 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 5 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 6 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 7 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 8 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 9 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 10 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::copy_data.0 iteration 1 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 2 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 3 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 4 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 5 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 6 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 7 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 8 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 9 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 10 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::cmos_ioport_write.1 iteration 1 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 2 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 3 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 4 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 5 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 6 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 7 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 8 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 9 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 10 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::assert_equal_copy_data.0 iteration 1 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 2 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 3 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 4 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 5 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 6 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 7 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 8 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 9 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 10 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::copy_data.0 iteration 1 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 2 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 3 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 4 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 5 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 6 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 7 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 8 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 9 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 10 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::cmos_ioport_write.1 iteration 1 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 2 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 3 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 4 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 5 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 6 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 7 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 8 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 9 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 10 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::assert_equal_copy_data.0 iteration 1 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 2 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 3 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 4 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 5 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 6 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 7 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 8 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 9 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 10 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::copy_data.0 iteration 1 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 2 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 3 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 4 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 5 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 6 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 7 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 8 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 9 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 10 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::cmos_ioport_write.1 iteration 1 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 2 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 3 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 4 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 5 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 6 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 7 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 8 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 9 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 10 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::assert_equal_copy_data.0 iteration 1 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 2 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 3 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 4 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 5 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 6 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 7 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 8 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 9 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 10 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::copy_data.0 iteration 1 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 2 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 3 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 4 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 5 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 6 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 7 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 8 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 9 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::copy_data.0 iteration 10 file mc146818rtc.c line 395 function copy_data
+Unwinding loop c::cmos_ioport_write.1 iteration 1 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 2 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 3 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 4 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 5 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 6 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 7 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 8 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 9 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::cmos_ioport_write.1 iteration 10 file mc146818rtc.c line 597 function cmos_ioport_write
+Unwinding loop c::assert_equal_copy_data.0 iteration 1 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 2 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 3 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 4 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 5 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 6 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 7 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 8 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 9 file mc146818rtc.c line 415 function assert_equal_copy_data
+Unwinding loop c::assert_equal_copy_data.0 iteration 10 file mc146818rtc.c line 415 function assert_equal_copy_data
+size of program expression: 22233 assignments
+simple slicing removed 87 assignments
+Generated 50 VCC(s), 50 remaining after simplification
+Passing problem to propositional reduction
+Running propositional reduction
+Solving with MiniSAT2 with simplifier
+3690275 variables, 10836854 clauses
+SAT checker: negated claim is SATISFIABLE, i.e., does not hold
+Runtime decision procedure: 44.474s
+Building error trace
+
+Counterexample:
+
+State 2 file mc146818rtc.c line 822 thread 0
+----------------------------------------------------
+  _rtc_date_offset=-1 (11111111111111111111111111111111)
+
+State 3 file mc146818rtc.c line 823 thread 0
+----------------------------------------------------
+  _rtc_utc=1 (00000000000000000000000000000001)
+
+State 4 file mc146818rtc.c line 889 function _rtc_initfn thread 0
+----------------------------------------------------
+  _periodic_timer={ .expire_time=0, .clock=NULL, .cb=NULL, .opaque=NULL,
+    .next=NULL, .scale=1, .$pad0=0 } ({ 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 00000000000000000000000000000001, 00000000000000000000000000000000 })
+
+State 5 file mc146818rtc.c line 900 function _rtc_initfn thread 0
+----------------------------------------------------
+  _update_timer={ .expire_time=0, .clock=NULL, .cb=NULL, .opaque=NULL,
+    .next=NULL, .scale=1, .$pad0=0 } ({ 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 00000000000000000000000000000001, 00000000000000000000000000000000 })
+
+State 6 file qemu-timer.c line 39 thread 0
+----------------------------------------------------
+  _rt_clock={ .active_timers=NULL, .last=-9223372036854775808, .type=0,
+    .enabled=TRUE, .$pad0=0 } ({ 0000000000000000000000000000000000000000000000000000000000000000, 1000000000000000000000000000000000000000000000000000000000000000, 00000000000000000000000000000000, 1, 000000000000000000000000 })
+
+State 7 file qemu-timer.c line 43 thread 0
+----------------------------------------------------
+  _vm_clock={ .active_timers=NULL, .last=-9223372036854775808, .type=1,
+    .enabled=TRUE, .$pad0=0 } ({ 0000000000000000000000000000000000000000000000000000000000000000, 1000000000000000000000000000000000000000000000000000000000000000, 00000000000000000000000000000001, 1, 000000000000000000000000 })
+
+State 8 file qemu-timer.c line 47 thread 0
+----------------------------------------------------
+  _host_clock={ .active_timers=NULL, .last=-9223372036854775808, .type=2,
+    .enabled=TRUE, .$pad0=0 } ({ 0000000000000000000000000000000000000000000000000000000000000000, 1000000000000000000000000000000000000000000000000000000000000000, 00000000000000000000000000000010, 1, 000000000000000000000000 })
+
+State 9 file qverify.c line 5 thread 0
+----------------------------------------------------
+  _global_qverify={ .rtc_state=NULL } ({ 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 10 file /usr/include/time.h line 276 thread 0
+----------------------------------------------------
+  __tzname={ NULL, NULL } ({ 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 11 file /usr/include/time.h line 277 thread 0
+----------------------------------------------------
+  __daylight=0 (00000000000000000000000000000000)
+
+State 12 file /usr/include/time.h line 278 thread 0
+----------------------------------------------------
+  __timezone=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 13 file /usr/include/time.h line 283 thread 0
+----------------------------------------------------
+  tzname={ NULL, NULL } ({ 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 14 file /usr/include/time.h line 291 thread 0
+----------------------------------------------------
+  daylight=0 (00000000000000000000000000000000)
+
+State 15 file /usr/include/time.h line 292 thread 0
+----------------------------------------------------
+  timezone=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 16 file rtc-verify.c line 20 thread 0
+----------------------------------------------------
+  base=112 (01110000)
+
+State 17 file qemu-timer.h line 23 thread 0
+----------------------------------------------------
+  rtc_clock=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 18 file qemu-timer.h line 31 thread 0
+----------------------------------------------------
+  rt_clock=&_rt_clock.active_timers (0000001000000000000000000000000000000000000000000000000000000000)
+
+State 19 file qemu-timer.h line 36 thread 0
+----------------------------------------------------
+  vm_clock=&_vm_clock.active_timers (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 20 file qemu-timer.h line 43 thread 0
+----------------------------------------------------
+  host_clock=&_host_clock.active_timers (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 21 file rtc-verify.c line 157 thread 0
+----------------------------------------------------
+  wiggle=2 (00000000000000000000000000000010)
+
+State 22 file qemu-timer.h line 96 thread 0
+----------------------------------------------------
+  use_rt_clock=0 (00000000000000000000000000000000)
+
+State 23 file qverify.h line 14 thread 0
+----------------------------------------------------
+  global_qverify=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 24 file main.c line 16 thread 0
+----------------------------------------------------
+  ram_size=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 25 file main.c line 17 thread 0
+----------------------------------------------------
+  smp_cpus=1 (00000000000000000000000000000001)
+
+State 26 file <built-in> line 26 thread 0
+----------------------------------------------------
+  __CPROVER_deallocated=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 27 file <built-in> line 27 thread 0
+----------------------------------------------------
+  __CPROVER_malloc_object=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 28 file <built-in> line 28 thread 0
+----------------------------------------------------
+  __CPROVER_malloc_size=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 29 file <built-in> line 29 thread 0
+----------------------------------------------------
+  __CPROVER_malloc_is_new_array=FALSE (0)
+
+State 30 file <built-in> line 38 thread 0
+----------------------------------------------------
+  __CPROVER_rounding_mode=0 (00000000000000000000000000000000)
+
+State 31 file mc146818rtc.c line 107 thread 0
+----------------------------------------------------
+  global_rtc_state={ .cmos_data={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, .cmos_data_copy={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    .cmos_index=0,
+    .$pad0=0, .base_year=0, .base_rtc=0,
+    .last_update=0, .offset=0, .irq=NULL,
+    .sqw_irq=NULL, .it_shift=0, .$pad1=0,
+    .periodic_timer=NULL, .next_periodic_time=0, .update_timer=NULL,
+    .next_alarm_time=0, .irq_reinject_on_ack_count=0,
+    .$pad2=0, .irq_coalesced=0,
+    .period=0, .io_info=0, .cmos_data_info={ FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE },
+    .dm_change=FALSE,
+    .$pad3=0 } ({ { 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000 }, { 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000 }, 00000000, 00000000, 00000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000, 0000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 0, 00000000000000000000000000000000000000000000000000000000 })
+
+State 35 file qverify.c line 14 function qverify_init thread 0
+----------------------------------------------------
+  global_qverify=&_global_qverify.rtc_state (0000010100000000000000000000000000000000000000000000000000000000)
+
+State 36 file main.c line 88 function main thread 0
+----------------------------------------------------
+  rtc_clock=&_vm_clock.active_timers (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 38 file main.c line 89 function main thread 0
+----------------------------------------------------
+  base_year=2000 (00000000000000000000011111010000)
+
+State 39 file mc146818rtc.c line 918 function _rtc_init thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 40 file mc146818rtc.c line 920 function _rtc_init thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 42 file mc146818rtc.c line 921 function _rtc_init thread 0
+----------------------------------------------------
+  rtc_state=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 43 file qverify.c line 9 function set_global_qverify_rtc_state thread 0
+----------------------------------------------------
+  _global_qverify.rtc_state=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 44 file mc146818rtc.c line 923 function _rtc_init thread 0
+----------------------------------------------------
+  global_rtc_state.base_year=2000 (00000000000000000000011111010000)
+
+State 46 file mc146818rtc.c line 924 function _rtc_init thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 47 file mc146818rtc.c line 870 function _rtc_initfn thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[10]=38 (00100110)
+
+State 48 file mc146818rtc.c line 871 function _rtc_initfn thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[11]=2 (00000010)
+
+State 49 file mc146818rtc.c line 872 function _rtc_initfn thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[12]=0 (00000000)
+
+State 50 file mc146818rtc.c line 873 function _rtc_initfn thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[13]=128 (10000000)
+
+State 52 file mc146818rtc.c line 884 function _rtc_initfn thread 0
+----------------------------------------------------
+  global_rtc_state.base_year=0 (00000000000000000000000000000000)
+
+State 54 file mc146818rtc.c line 887 function _rtc_initfn thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 55 file mc146818rtc.c line 845 function _rtc_set_date_from_host thread 0
+----------------------------------------------------
+  tm={ .tm_sec=1, .tm_min=2, .tm_hour=771, .tm_mday=33, .tm_mon=-1375521520,
+    .tm_year=-1355810680, .tm_wday=110,
+    .tm_yday=0, .tm_isdst=0, .$pad0=0,
+    .tm_gmtoff=0, .tm_zone=NULL } ({ 00000000000000000000000000000001, 00000000000000000000000000000010, 00000000000000000000001100000011, 00000000000000000000000000100001, 10101110000000110011010100010000, 10101111001011111111100010001000, 00000000000000000000000001101110, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 57 file mc146818rtc.c line 847 function _rtc_set_date_from_host thread 0
+----------------------------------------------------
+  tm=&tm!0@2.tm_sec (0000011100000000000000000000000000000000000000000000000000000000)
+
+State 58 file mc146818rtc.c line 847 function _rtc_set_date_from_host thread 0
+----------------------------------------------------
+  offset=0 (00000000000000000000000000000000)
+
+State 59 file mc146818rtc.c line 828 function qemu_get_timedate thread 0
+----------------------------------------------------
+  ti=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 61 file mc146818rtc.c line 830 function qemu_get_timedate thread 0
+----------------------------------------------------
+  tloc=&ti!0@2 (0000100000000000000000000000000000000000000000000000000000000000)
+
+State 62 file <builtin-library>-time line 11 function time thread 0
+----------------------------------------------------
+  res=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 65 file mc146818rtc.c line 831 function qemu_get_timedate thread 0
+----------------------------------------------------
+  ti=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 69 file mc146818rtc.c line 834 function qemu_get_timedate thread 0
+----------------------------------------------------
+  clock=&ti!0@2 (0000100000000000000000000000000000000000000000000000000000000000)
+
+State 71 file <builtin-library>-gmtime line 15 function gmtime thread 0
+----------------------------------------------------
+  tm=&return_value.tm_sec (0000100100000000000000000000000000000000000000000000000000000000)
+
+State 74 file mc146818rtc.c line 849 function _rtc_set_date_from_host thread 0
+----------------------------------------------------
+  return_value_mktimegm$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 76 file mc146818rtc.c line 849 function _rtc_set_date_from_host thread 0
+----------------------------------------------------
+  tm=&tm!0@2.tm_sec (0000011100000000000000000000000000000000000000000000000000000000)
+
+State 77 file mc146818rtc.c line 117 function mktimegm thread 0
+----------------------------------------------------
+  t=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 78 file mc146818rtc.c line 118 function mktimegm thread 0
+----------------------------------------------------
+  y=0 (00000000000000000000000000000000)
+
+State 79 file mc146818rtc.c line 118 function mktimegm thread 0
+----------------------------------------------------
+  y=-1355808780 (10101111001011111111111111110100)
+
+State 80 file mc146818rtc.c line 118 function mktimegm thread 0
+----------------------------------------------------
+  m=0 (00000000000000000000000000000000)
+
+State 81 file mc146818rtc.c line 118 function mktimegm thread 0
+----------------------------------------------------
+  m=-1375521519 (10101110000000110011010100010001)
+
+State 82 file mc146818rtc.c line 118 function mktimegm thread 0
+----------------------------------------------------
+  d=0 (00000000000000000000000000000000)
+
+State 83 file mc146818rtc.c line 118 function mktimegm thread 0
+----------------------------------------------------
+  d=33 (00000000000000000000000000100001)
+
+State 85 file mc146818rtc.c line 120 function mktimegm thread 0
+----------------------------------------------------
+  m=-1375521507 (10101110000000110011010100011101)
+
+State 86 file mc146818rtc.c line 121 function mktimegm thread 0
+----------------------------------------------------
+  y=-1355808781 (10101111001011111111111111110011)
+
+State 87 file mc146818rtc.c line 124 function mktimegm thread 0
+----------------------------------------------------
+  t=-110483809401600 (1111111111111111100110111000001111111011110010011000010100000000)
+
+State 88 file mc146818rtc.c line 125 function mktimegm thread 0
+----------------------------------------------------
+  t=-110483806625879 (1111111111111111100110111000001111111011111100111101111110101001)
+
+State 90 file mc146818rtc.c line 126 function mktimegm thread 0
+----------------------------------------------------
+  return_value_mktimegm$1=-110483806625879 (1111111111111111100110111000001111111011111100111101111110101001)
+
+State 91 file mc146818rtc.c line 849 function _rtc_set_date_from_host thread 0
+----------------------------------------------------
+  global_rtc_state.base_rtc=18446633589902925737 (1111111111111111100110111000001111111011111100111101111110101001)
+
+State 92 file mc146818rtc.c line 850 function _rtc_set_date_from_host thread 0
+----------------------------------------------------
+  return_value_qemu_get_clock_ns$2=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 94 file mc146818rtc.c line 850 function _rtc_set_date_from_host thread 0
+----------------------------------------------------
+  clock=&_vm_clock.active_timers (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 95 file qemu-timer.c line 170 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  now=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 98 file qemu-timer.c line 177 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  return_value_get_clock$2=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 101 file qemu-timer.c line 209 function get_clock thread 0
+----------------------------------------------------
+  return_value_get_clock_realtime$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 103 file qemu-timer.h line 90 function get_clock_realtime thread 0
+----------------------------------------------------
+  tv={ .tv_sec=4613410072767308056, .tv_usec=1977409683016946480 } ({ 0100000000000110001000000000010010101110100000010010000100011000, 0001101101110001001010111010000101000011101001001001001100110000 })
+
+State 105 file qemu-timer.h line 93 function get_clock_realtime thread 0
+----------------------------------------------------
+  return_value_get_clock_realtime$1=6800114313620874112 (0101111001011110110110111111000010001111011010111110001110000000)
+
+State 108 file qemu-timer.c line 209 function get_clock thread 0
+----------------------------------------------------
+  return_value_get_clock$2=6800114313620874112 (0101111001011110110110111111000010001111011010111110001110000000)
+
+State 110 file qemu-timer.c line 177 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  return_value_qemu_get_clock_ns$2=6800114313620874112 (0101111001011110110110111111000010001111011010111110001110000000)
+
+State 111 file mc146818rtc.c line 850 function _rtc_set_date_from_host thread 0
+----------------------------------------------------
+  global_rtc_state.last_update=6800114313620874112 (0101111001011110110110111111000010001111011010111110001110000000)
+
+State 112 file mc146818rtc.c line 851 function _rtc_set_date_from_host thread 0
+----------------------------------------------------
+  global_rtc_state.offset=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 114 file mc146818rtc.c line 854 function _rtc_set_date_from_host thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 115 file mc146818rtc.c line 854 function _rtc_set_date_from_host thread 0
+----------------------------------------------------
+  tm=&tm!0@2.tm_sec (0000011100000000000000000000000000000000000000000000000000000000)
+
+State 116 file mc146818rtc.c line 671 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  year=0 (00000000000000000000000000000000)
+
+State 117 file mc146818rtc.c line 673 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$1=0 (00000000000000000000000000000000)
+
+State 119 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 120 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 121 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 122 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=1 (00000000000000000000000000000001)
+
+State 124 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$1=1 (00000000000000000000000000000001)
+
+State 127 file mc146818rtc.c line 673 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[0]=1 (00000001)
+
+State 128 file mc146818rtc.c line 674 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$2=0 (00000000000000000000000000000000)
+
+State 130 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 131 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 132 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 133 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=2 (00000000000000000000000000000010)
+
+State 135 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$2=2 (00000000000000000000000000000010)
+
+State 138 file mc146818rtc.c line 674 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[2]=2 (00000010)
+
+State 140 file mc146818rtc.c line 677 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$3=0 (00000000000000000000000000000000)
+
+State 142 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 143 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 144 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 145 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=771 (00000000000000000000001100000011)
+
+State 147 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$3=1233 (00000000000000000000010011010001)
+
+State 150 file mc146818rtc.c line 677 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[4]=209 (11010001)
+
+State 152 file mc146818rtc.c line 685 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$6=0 (00000000000000000000000000000000)
+
+State 154 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 155 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 156 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 157 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=111 (00000000000000000000000001101111)
+
+State 159 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$6=177 (00000000000000000000000010110001)
+
+State 162 file mc146818rtc.c line 685 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[6]=177 (10110001)
+
+State 163 file mc146818rtc.c line 686 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$7=0 (00000000000000000000000000000000)
+
+State 165 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 166 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 167 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 168 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=33 (00000000000000000000000000100001)
+
+State 170 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$7=51 (00000000000000000000000000110011)
+
+State 173 file mc146818rtc.c line 686 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[7]=51 (00110011)
+
+State 174 file mc146818rtc.c line 687 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$8=0 (00000000000000000000000000000000)
+
+State 176 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 177 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 178 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 179 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=-1375521519 (10101110000000110011010100010001)
+
+State 181 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$8=-9 (11111111111111111111111111110111)
+
+State 184 file mc146818rtc.c line 687 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[8]=247 (11110111)
+
+State 185 file mc146818rtc.c line 688 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  year=-1355808780 (10101111001011111111111111110100)
+
+State 186 file mc146818rtc.c line 689 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$9=0 (00000000000000000000000000000000)
+
+State 188 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 189 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 190 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 191 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=-80 (11111111111111111111111110110000)
+
+State 193 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$9=-128 (11111111111111111111111110000000)
+
+State 196 file mc146818rtc.c line 689 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[9]=128 (10000000)
+
+State 197 file mc146818rtc.c line 690 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$10=0 (00000000000000000000000000000000)
+
+State 199 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 200 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 201 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 202 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=-13558087 (11111111001100010001111010111001)
+
+State 204 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$10=-7 (11111111111111111111111111111001)
+
+State 207 file mc146818rtc.c line 690 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[50]=249 (11111001)
+
+State 208 file mc146818rtc.c line 893 function _rtc_initfn thread 0
+----------------------------------------------------
+  _periodic_timer.clock=&_vm_clock.active_timers (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 209 file mc146818rtc.c line 894 function _rtc_initfn thread 0
+----------------------------------------------------
+  _periodic_timer.cb=&_rtc_periodic_timer (0000101000000000000000000000000000000000000000000000000000000000)
+
+State 210 file mc146818rtc.c line 895 function _rtc_initfn thread 0
+----------------------------------------------------
+  _periodic_timer.opaque=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 211 file mc146818rtc.c line 898 function _rtc_initfn thread 0
+----------------------------------------------------
+  global_rtc_state.periodic_timer=&_periodic_timer.expire_time (0000101100000000000000000000000000000000000000000000000000000000)
+
+State 212 file mc146818rtc.c line 904 function _rtc_initfn thread 0
+----------------------------------------------------
+  _update_timer.clock=&_vm_clock.active_timers (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 213 file mc146818rtc.c line 905 function _rtc_initfn thread 0
+----------------------------------------------------
+  _update_timer.cb=&_rtc_update_timer (0000110000000000000000000000000000000000000000000000000000000000)
+
+State 214 file mc146818rtc.c line 906 function _rtc_initfn thread 0
+----------------------------------------------------
+  _update_timer.opaque=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 215 file mc146818rtc.c line 908 function _rtc_initfn thread 0
+----------------------------------------------------
+  global_rtc_state.update_timer=&_update_timer.expire_time (0000110100000000000000000000000000000000000000000000000000000000)
+
+State 217 file mc146818rtc.c line 909 function _rtc_initfn thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 218 file mc146818rtc.c line 214 function check_update_timer thread 0
+----------------------------------------------------
+  next_update_time=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 219 file mc146818rtc.c line 215 function check_update_timer thread 0
+----------------------------------------------------
+  guest_nsec=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 220 file mc146818rtc.c line 216 function check_update_timer thread 0
+----------------------------------------------------
+  next_alarm_sec=0 (00000000000000000000000000000000)
+
+State 221 file mc146818rtc.c line 239 function check_update_timer thread 0
+----------------------------------------------------
+  return_value_get_guest_rtc_ns$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 223 file mc146818rtc.c line 239 function check_update_timer thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 224 file mc146818rtc.c line 137 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_rtc=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 225 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  return_value_qemu_get_clock_ns$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 227 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  clock=&_vm_clock.active_timers (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 228 file qemu-timer.c line 170 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  now=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 231 file qemu-timer.c line 177 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  return_value_get_clock$2=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 234 file qemu-timer.c line 209 function get_clock thread 0
+----------------------------------------------------
+  return_value_get_clock_realtime$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 236 file qemu-timer.h line 90 function get_clock_realtime thread 0
+----------------------------------------------------
+  tv={ .tv_sec=-469355078373864355, .tv_usec=267289553780738304 } ({ 1111100101111100100001000000101100000000000000000000110001011101, 0000001110110101100110100110111011011001010001100000100100000000 })
+
+State 238 file qemu-timer.h line 93 function get_clock_realtime thread 0
+----------------------------------------------------
+  return_value_get_clock_realtime$1=-5390261327593305600 (1011010100110001111100011110000110100010010001101000101000000000)
+
+State 241 file qemu-timer.c line 209 function get_clock thread 0
+----------------------------------------------------
+  return_value_get_clock$2=-5390261327593305600 (1011010100110001111100011110000110100010010001101000101000000000)
+
+State 243 file qemu-timer.c line 177 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  return_value_qemu_get_clock_ns$1=-5390261327593305600 (1011010100110001111100011110000110100010010001101000101000000000)
+
+State 244 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_clock=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 245 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_clock=13056482746116246016 (1011010100110001111100011110000110100010010001101000101000000000)
+
+State 246 file mc146818rtc.c line 141 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_rtc=128 (0000000000000000000000000000000000000000000000000000000010000000)
+
+State 248 file mc146818rtc.c line 142 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  return_value_get_guest_rtc_ns$1=128 (0000000000000000000000000000000000000000000000000000000010000000)
+
+State 249 file mc146818rtc.c line 239 function check_update_timer thread 0
+----------------------------------------------------
+  guest_nsec=128 (0000000000000000000000000000000000000000000000000000000010000000)
+
+State 250 file mc146818rtc.c line 241 function check_update_timer thread 0
+----------------------------------------------------
+  return_value_qemu_get_clock_ns$2=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 252 file mc146818rtc.c line 241 function check_update_timer thread 0
+----------------------------------------------------
+  clock=&_vm_clock.active_timers (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 253 file qemu-timer.c line 170 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  now=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 256 file qemu-timer.c line 177 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  return_value_get_clock$2=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 259 file qemu-timer.c line 209 function get_clock thread 0
+----------------------------------------------------
+  return_value_get_clock_realtime$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 261 file qemu-timer.h line 90 function get_clock_realtime thread 0
+----------------------------------------------------
+  tv={ .tv_sec=4612222580102004736, .tv_usec=7205833139791347712 } ({ 0100000000000001111010000000000000000000000001000000000000000000, 0110010000000000010000110001000000000000000000000100000000000000 })
+
+State 263 file qemu-timer.h line 93 function get_clock_realtime thread 0
+----------------------------------------------------
+  return_value_get_clock_realtime$1=-5614048186814824448 (1011001000010110111001001110101100101000111110100000000000000000)
+
+State 266 file qemu-timer.c line 209 function get_clock thread 0
+----------------------------------------------------
+  return_value_get_clock$2=-5614048186814824448 (1011001000010110111001001110101100101000111110100000000000000000)
+
+State 268 file qemu-timer.c line 177 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  return_value_qemu_get_clock_ns$2=-5614048186814824448 (1011001000010110111001001110101100101000111110100000000000000000)
+
+State 269 file mc146818rtc.c line 242 function check_update_timer thread 0
+----------------------------------------------------
+  next_update_time=12832695887894727040 (1011001000010110111001001110101101100100100101001100100110000000)
+
+State 270 file mc146818rtc.c line 247 function check_update_timer thread 0
+----------------------------------------------------
+  return_value_get_next_alarm$3=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 272 file mc146818rtc.c line 247 function check_update_timer thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 273 file mc146818rtc.c line 275 function get_next_alarm thread 0
+----------------------------------------------------
+  alarm_sec=0 (00000000000000000000000000000000)
+
+State 274 file mc146818rtc.c line 275 function get_next_alarm thread 0
+----------------------------------------------------
+  alarm_min=0 (00000000000000000000000000000000)
+
+State 275 file mc146818rtc.c line 275 function get_next_alarm thread 0
+----------------------------------------------------
+  alarm_hour=0 (00000000000000000000000000000000)
+
+State 276 file mc146818rtc.c line 275 function get_next_alarm thread 0
+----------------------------------------------------
+  cur_hour=0 (00000000000000000000000000000000)
+
+State 277 file mc146818rtc.c line 275 function get_next_alarm thread 0
+----------------------------------------------------
+  cur_min=0 (00000000000000000000000000000000)
+
+State 278 file mc146818rtc.c line 275 function get_next_alarm thread 0
+----------------------------------------------------
+  cur_sec=0 (00000000000000000000000000000000)
+
+State 279 file mc146818rtc.c line 276 function get_next_alarm thread 0
+----------------------------------------------------
+  hour=0 (00000000000000000000000000000000)
+
+State 280 file mc146818rtc.c line 276 function get_next_alarm thread 0
+----------------------------------------------------
+  min=0 (00000000000000000000000000000000)
+
+State 281 file mc146818rtc.c line 276 function get_next_alarm thread 0
+----------------------------------------------------
+  sec=0 (00000000000000000000000000000000)
+
+State 283 file mc146818rtc.c line 278 function get_next_alarm thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 284 file mc146818rtc.c line 695 function _rtc_update_time thread 0
+----------------------------------------------------
+  ret={ .tm_sec=0, .tm_min=1, .tm_hour=1, .tm_mday=0, .tm_mon=-1270886401,
+    .tm_year=602929533, .tm_wday=176,
+    .tm_yday=0, .tm_isdst=0, .$pad0=0,
+    .tm_gmtoff=0, .tm_zone=NULL } ({ 00000000000000000000000000000000, 00000000000000000000000000000001, 00000000000000000000000000000001, 00000000000000000000000000000000, 10110100001111111100111111111111, 00100011111011111111100101111101, 00000000000000000000000010110000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 285 file mc146818rtc.c line 696 function _rtc_update_time thread 0
+----------------------------------------------------
+  guest_sec=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 286 file mc146818rtc.c line 697 function _rtc_update_time thread 0
+----------------------------------------------------
+  guest_nsec=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 287 file mc146818rtc.c line 699 function _rtc_update_time thread 0
+----------------------------------------------------
+  return_value_get_guest_rtc_ns$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 289 file mc146818rtc.c line 699 function _rtc_update_time thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 290 file mc146818rtc.c line 137 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_rtc=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 291 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  return_value_qemu_get_clock_ns$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 293 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  clock=&_vm_clock.active_timers (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 294 file qemu-timer.c line 170 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  now=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 297 file qemu-timer.c line 177 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  return_value_get_clock$2=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 300 file qemu-timer.c line 209 function get_clock thread 0
+----------------------------------------------------
+  return_value_get_clock_realtime$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 302 file qemu-timer.h line 90 function get_clock_realtime thread 0
+----------------------------------------------------
+  tv={ .tv_sec=-9220900098345762560, .tv_usec=-3621968259647910672 } ({ 1000000000001000110010000011011100001000101111001000000100000000, 1100110110111100001011110000111011001111111100100100110011110000 })
+
+State 304 file qemu-timer.h line 93 function get_clock_realtime thread 0
+----------------------------------------------------
+  return_value_get_clock_realtime$1=-5390261327593305728 (1011010100110001111100011110000110100010010001101000100110000000)
+
+State 307 file qemu-timer.c line 209 function get_clock thread 0
+----------------------------------------------------
+  return_value_get_clock$2=-5390261327593305728 (1011010100110001111100011110000110100010010001101000100110000000)
+
+State 309 file qemu-timer.c line 177 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  return_value_qemu_get_clock_ns$1=-5390261327593305728 (1011010100110001111100011110000110100010010001101000100110000000)
+
+State 310 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_clock=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 311 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_clock=13056482746116245888 (1011010100110001111100011110000110100010010001101000100110000000)
+
+State 312 file mc146818rtc.c line 141 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_rtc=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 314 file mc146818rtc.c line 142 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  return_value_get_guest_rtc_ns$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 315 file mc146818rtc.c line 699 function _rtc_update_time thread 0
+----------------------------------------------------
+  guest_nsec=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 316 file mc146818rtc.c line 700 function _rtc_update_time thread 0
+----------------------------------------------------
+  guest_sec=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 318 file mc146818rtc.c line 701 function _rtc_update_time thread 0
+----------------------------------------------------
+  clock=&guest_sec!0@2 (0000111000000000000000000000000000000000000000000000000000000000)
+
+State 319 file mc146818rtc.c line 701 function _rtc_update_time thread 0
+----------------------------------------------------
+  result=&ret!0@2.tm_sec (0000111100000000000000000000000000000000000000000000000000000000)
+
+State 322 file mc146818rtc.c line 704 function _rtc_update_time thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 323 file mc146818rtc.c line 704 function _rtc_update_time thread 0
+----------------------------------------------------
+  tm=&ret!0@2.tm_sec (0000111100000000000000000000000000000000000000000000000000000000)
+
+State 324 file mc146818rtc.c line 671 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  year=0 (00000000000000000000000000000000)
+
+State 325 file mc146818rtc.c line 673 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$1=0 (00000000000000000000000000000000)
+
+State 327 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 328 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 329 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 330 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 332 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$1=0 (00000000000000000000000000000000)
+
+State 335 file mc146818rtc.c line 673 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[0]=0 (00000000)
+
+State 336 file mc146818rtc.c line 674 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$2=0 (00000000000000000000000000000000)
+
+State 338 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 339 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 340 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 341 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=1 (00000000000000000000000000000001)
+
+State 343 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$2=1 (00000000000000000000000000000001)
+
+State 346 file mc146818rtc.c line 674 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[2]=1 (00000001)
+
+State 348 file mc146818rtc.c line 677 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$3=0 (00000000000000000000000000000000)
+
+State 350 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 351 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 352 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 353 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=1 (00000000000000000000000000000001)
+
+State 355 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$3=1 (00000000000000000000000000000001)
+
+State 358 file mc146818rtc.c line 677 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[4]=1 (00000001)
+
+State 360 file mc146818rtc.c line 685 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$6=0 (00000000000000000000000000000000)
+
+State 362 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 363 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 364 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 365 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=177 (00000000000000000000000010110001)
+
+State 367 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$6=279 (00000000000000000000000100010111)
+
+State 370 file mc146818rtc.c line 685 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[6]=23 (00010111)
+
+State 371 file mc146818rtc.c line 686 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$7=0 (00000000000000000000000000000000)
+
+State 373 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 374 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 375 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 376 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 378 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$7=0 (00000000000000000000000000000000)
+
+State 381 file mc146818rtc.c line 686 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[7]=0 (00000000)
+
+State 382 file mc146818rtc.c line 687 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$8=0 (00000000000000000000000000000000)
+
+State 384 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 385 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 386 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 387 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=-1270886400 (10110100001111111101000000000000)
+
+State 389 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$8=-2033418240 (10000110110011001000000000000000)
+
+State 392 file mc146818rtc.c line 687 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[8]=0 (00000000)
+
+State 393 file mc146818rtc.c line 688 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  year=602931433 (00100011111100000000000011101001)
+
+State 394 file mc146818rtc.c line 689 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$9=0 (00000000000000000000000000000000)
+
+State 396 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 397 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 398 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 399 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=33 (00000000000000000000000000100001)
+
+State 401 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$9=51 (00000000000000000000000000110011)
+
+State 404 file mc146818rtc.c line 689 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[9]=51 (00110011)
+
+State 405 file mc146818rtc.c line 690 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$10=0 (00000000000000000000000000000000)
+
+State 407 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 408 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 409 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 410 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=6029314 (00000000010111000000000000000010)
+
+State 412 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$10=9646900 (00000000100100110011001100110100)
+
+State 415 file mc146818rtc.c line 690 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[50]=52 (00110100)
+
+State 417 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 418 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 419 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 420 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 423 file mc146818rtc.c line 637 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  alarm_sec=0 (00000000000000000000000000000000)
+
+State 427 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 428 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 429 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 430 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 433 file mc146818rtc.c line 637 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  alarm_min=0 (00000000000000000000000000000000)
+
+State 437 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 438 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 439 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 440 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 443 file mc146818rtc.c line 637 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  alarm_hour=0 (00000000000000000000000000000000)
+
+State 446 file mc146818rtc.c line 283 function get_next_alarm thread 0
+----------------------------------------------------
+  tmp_condition$1=FALSE (0)
+
+State 447 file mc146818rtc.c line 283 function get_next_alarm thread 0
+----------------------------------------------------
+  tmp_condition$1=FALSE (0)
+
+State 449 file mc146818rtc.c line 283 function get_next_alarm thread 0
+----------------------------------------------------
+  return_value_convert_hour$2=0 (00000000)
+
+State 451 file mc146818rtc.c line 264 function convert_hour thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 452 file mc146818rtc.c line 264 function convert_hour thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 453 file mc146818rtc.c line 264 function convert_hour thread 0
+----------------------------------------------------
+  hour=0 (00000000)
+
+State 454 file mc146818rtc.c line 264 function convert_hour thread 0
+----------------------------------------------------
+  hour=0 (00000000)
+
+State 456 file mc146818rtc.c line 270 function convert_hour thread 0
+----------------------------------------------------
+  return_value_convert_hour$2=0 (00000000)
+
+State 458 file mc146818rtc.c line 283 function get_next_alarm thread 0
+----------------------------------------------------
+  alarm_hour=0 (00000000000000000000000000000000)
+
+State 460 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 461 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 462 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 463 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 466 file mc146818rtc.c line 637 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  cur_sec=0 (00000000000000000000000000000000)
+
+State 470 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 471 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 472 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 473 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=1 (00000000000000000000000000000001)
+
+State 476 file mc146818rtc.c line 637 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  cur_min=1 (00000000000000000000000000000001)
+
+State 480 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 481 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 482 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 483 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=1 (00000000000000000000000000000001)
+
+State 486 file mc146818rtc.c line 637 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  cur_hour=1 (00000000000000000000000000000001)
+
+State 489 file mc146818rtc.c line 288 function get_next_alarm thread 0
+----------------------------------------------------
+  return_value_convert_hour$3=0 (00000000)
+
+State 491 file mc146818rtc.c line 264 function convert_hour thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 492 file mc146818rtc.c line 264 function convert_hour thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 493 file mc146818rtc.c line 264 function convert_hour thread 0
+----------------------------------------------------
+  hour=0 (00000000)
+
+State 494 file mc146818rtc.c line 264 function convert_hour thread 0
+----------------------------------------------------
+  hour=1 (00000001)
+
+State 496 file mc146818rtc.c line 270 function convert_hour thread 0
+----------------------------------------------------
+  return_value_convert_hour$3=1 (00000001)
+
+State 498 file mc146818rtc.c line 288 function get_next_alarm thread 0
+----------------------------------------------------
+  cur_hour=1 (00000000000000000000000000000001)
+
+State 505 file mc146818rtc.c line 356 function get_next_alarm thread 0
+----------------------------------------------------
+  alarm_hour=0 (00000000000000000000000000000000)
+
+State 506 file mc146818rtc.c line 358 function get_next_alarm thread 0
+----------------------------------------------------
+  hour=-1 (11111111111111111111111111111111)
+
+State 507 file mc146818rtc.c line 359 function get_next_alarm thread 0
+----------------------------------------------------
+  min=-61 (11111111111111111111111111000011)
+
+State 508 file mc146818rtc.c line 360 function get_next_alarm thread 0
+----------------------------------------------------
+  sec=-3660 (11111111111111111111000110110100)
+
+State 510 file mc146818rtc.c line 361 function get_next_alarm thread 0
+----------------------------------------------------
+  return_value_get_next_alarm$3=82740 (0000000000000000000000000000000000000000000000010100001100110100)
+
+State 511 file mc146818rtc.c line 247 function check_update_timer thread 0
+----------------------------------------------------
+  next_alarm_sec=82740 (00000000000000010100001100110100)
+
+State 512 file mc146818rtc.c line 248 function check_update_timer thread 0
+----------------------------------------------------
+  global_rtc_state.next_alarm_time=12832778626894727040 (1011001000010111001100000010101110010001010010010000011110000000)
+
+State 514 file mc146818rtc.c line 911 function _rtc_initfn thread 0
+----------------------------------------------------
+  global_rtc_state.io_info=4294967295 (11111111111111111111111111111111)
+
+State 517 file main.c line 90 function main thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 518 file main.c line 27 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=0 (00000000000000000000000000000000)
+
+State 519 file main.c line 27 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  nb=0 (00000000000000000000000000000000)
+
+State 520 file main.c line 29 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  above_4g_mem_size=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 521 file main.c line 29 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  above_4g_mem_size=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 522 file main.c line 35 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=0 (00000000000000000000000000000000)
+
+State 524 file main.c line 36 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 525 file main.c line 36 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  addr=21 (00000000000000000000000000010101)
+
+State 526 file main.c line 36 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=0 (00000000000000000000000000000000)
+
+State 529 file mc146818rtc.c line 819 function _rtc_set_memory thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[(long int)addr!0@1]=0 (00000000)
+
+State 531 file main.c line 37 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 532 file main.c line 37 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  addr=22 (00000000000000000000000000010110)
+
+State 533 file main.c line 37 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=0 (00000000000000000000000000000000)
+
+State 536 file mc146818rtc.c line 819 function _rtc_set_memory thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[(long int)addr!0@2]=0 (00000000)
+
+State 538 file main.c line 42 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=0 (00000000000000000000000000000000)
+
+State 541 file main.c line 46 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 542 file main.c line 46 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  addr=23 (00000000000000000000000000010111)
+
+State 543 file main.c line 46 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=0 (00000000000000000000000000000000)
+
+State 546 file mc146818rtc.c line 819 function _rtc_set_memory thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[(long int)addr!0@3]=0 (00000000)
+
+State 548 file main.c line 47 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 549 file main.c line 47 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  addr=24 (00000000000000000000000000011000)
+
+State 550 file main.c line 47 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=0 (00000000000000000000000000000000)
+
+State 553 file mc146818rtc.c line 819 function _rtc_set_memory thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[(long int)addr!0@4]=0 (00000000)
+
+State 555 file main.c line 48 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 556 file main.c line 48 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  addr=48 (00000000000000000000000000110000)
+
+State 557 file main.c line 48 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=0 (00000000000000000000000000000000)
+
+State 560 file mc146818rtc.c line 819 function _rtc_set_memory thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[(long int)addr!0@5]=0 (00000000)
+
+State 562 file main.c line 49 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 563 file main.c line 49 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  addr=49 (00000000000000000000000000110001)
+
+State 564 file main.c line 49 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=0 (00000000000000000000000000000000)
+
+State 567 file mc146818rtc.c line 819 function _rtc_set_memory thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[(long int)addr!0@6]=0 (00000000)
+
+State 569 file main.c line 54 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=0 (00000000000000000000000000000000)
+
+State 572 file main.c line 58 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 573 file main.c line 58 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  addr=52 (00000000000000000000000000110100)
+
+State 574 file main.c line 58 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=0 (00000000000000000000000000000000)
+
+State 577 file mc146818rtc.c line 819 function _rtc_set_memory thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[(long int)addr!0@7]=0 (00000000)
+
+State 579 file main.c line 59 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 580 file main.c line 59 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  addr=53 (00000000000000000000000000110101)
+
+State 581 file main.c line 59 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=0 (00000000000000000000000000000000)
+
+State 584 file mc146818rtc.c line 819 function _rtc_set_memory thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[(long int)addr!0@8]=0 (00000000)
+
+State 585 file main.c line 61 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=0 (00000000000000000000000000000000)
+
+State 587 file main.c line 62 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 588 file main.c line 62 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  addr=91 (00000000000000000000000001011011)
+
+State 589 file main.c line 62 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=0 (00000000000000000000000000000000)
+
+State 592 file mc146818rtc.c line 819 function _rtc_set_memory thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[(long int)addr!0@9]=0 (00000000)
+
+State 594 file main.c line 63 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 595 file main.c line 63 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  addr=92 (00000000000000000000000001011100)
+
+State 596 file main.c line 63 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=0 (00000000000000000000000000000000)
+
+State 599 file mc146818rtc.c line 819 function _rtc_set_memory thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[(long int)addr!0@10]=0 (00000000)
+
+State 601 file main.c line 64 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 602 file main.c line 64 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  addr=93 (00000000000000000000000001011101)
+
+State 603 file main.c line 64 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=0 (00000000000000000000000000000000)
+
+State 606 file mc146818rtc.c line 819 function _rtc_set_memory thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[(long int)addr!0@11]=0 (00000000)
+
+State 608 file main.c line 67 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 609 file main.c line 67 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  addr=95 (00000000000000000000000001011111)
+
+State 610 file main.c line 67 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=0 (00000000000000000000000000000000)
+
+State 613 file mc146818rtc.c line 819 function _rtc_set_memory thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[(long int)addr!0@12]=0 (00000000)
+
+State 614 file main.c line 69 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  nb=0 (00000000000000000000000000000000)
+
+State 617 file main.c line 80 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=2 (00000000000000000000000000000010)
+
+State 618 file main.c line 81 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=6 (00000000000000000000000000000110)
+
+State 620 file main.c line 82 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 621 file main.c line 82 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  addr=20 (00000000000000000000000000010100)
+
+State 622 file main.c line 82 function pc_cmos_init_for_rtc thread 0
+----------------------------------------------------
+  val=6 (00000000000000000000000000000110)
+
+State 625 file mc146818rtc.c line 819 function _rtc_set_memory thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[(long int)addr!0@13]=6 (00000110)
+
+State 628 file rtc-verify.c line 249 function register_b_set_flag thread 0
+----------------------------------------------------
+  abcd=1 (00000001)
+
+State 630 file rtc-verify.c line 255 function register_b_set_flag thread 0
+----------------------------------------------------
+  return_value_cmos_read$1=0 (00000000)
+
+State 632 file rtc-verify.c line 255 function register_b_set_flag thread 0
+----------------------------------------------------
+  reg=11 (00001011)
+
+State 634 file rtc-verify.c line 24 function cmos_read thread 0
+----------------------------------------------------
+  s=&_global_qverify.rtc_state (0000010100000000000000000000000000000000000000000000000000000000)
+
+State 635 file rtc-verify.c line 24 function cmos_read thread 0
+----------------------------------------------------
+  addr=112 (0000000001110000)
+
+State 636 file rtc-verify.c line 24 function cmos_read thread 0
+----------------------------------------------------
+  value=11 (00001011)
+
+State 638 file qverify.c line 45 function qverify_outb thread 0
+----------------------------------------------------
+  opaque=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 639 file qverify.c line 45 function qverify_outb thread 0
+----------------------------------------------------
+  addr=112 (00000000000000000000000001110000)
+
+State 640 file qverify.c line 45 function qverify_outb thread 0
+----------------------------------------------------
+  data=11 (00000000000000000000000000001011)
+
+State 641 file mc146818rtc.c line 426 function cmos_ioport_write thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 642 file mc146818rtc.c line 426 function cmos_ioport_write thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 644 file mc146818rtc.c line 429 function cmos_ioport_write thread 0
+----------------------------------------------------
+  global_rtc_state.io_info=1 (00000000000000000000000000000001)
+
+State 645 file mc146818rtc.c line 430 function cmos_ioport_write thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_index=11 (00001011)
+
+State 647 file rtc-verify.c line 25 function cmos_read thread 0
+----------------------------------------------------
+  return_value_qverify_inb$1=0 (00000000)
+
+State 649 file rtc-verify.c line 25 function cmos_read thread 0
+----------------------------------------------------
+  s=&_global_qverify.rtc_state (0000010100000000000000000000000000000000000000000000000000000000)
+
+State 650 file rtc-verify.c line 25 function cmos_read thread 0
+----------------------------------------------------
+  addr=113 (0000000001110001)
+
+State 651 file qverify.c line 50 function qverify_inb thread 0
+----------------------------------------------------
+  return_value_cmos_ioport_read$1=0 (00000000000000000000000000000000)
+
+State 653 file qverify.c line 50 function qverify_inb thread 0
+----------------------------------------------------
+  opaque=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 654 file qverify.c line 50 function qverify_inb thread 0
+----------------------------------------------------
+  addr=113 (00000000000000000000000001110001)
+
+State 655 file mc146818rtc.c line 748 function cmos_ioport_read thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 656 file mc146818rtc.c line 748 function cmos_ioport_read thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 657 file mc146818rtc.c line 749 function cmos_ioport_read thread 0
+----------------------------------------------------
+  ret=0 (00000000000000000000000000000000)
+
+State 659 file mc146818rtc.c line 758 function cmos_ioport_read thread 0
+----------------------------------------------------
+  global_rtc_state.io_info=4 (00000000000000000000000000000100)
+
+State 665 file mc146818rtc.c line 801 function cmos_ioport_read thread 0
+----------------------------------------------------
+  ret=2 (00000000000000000000000000000010)
+
+State 668 file mc146818rtc.c line 812 function cmos_ioport_read thread 0
+----------------------------------------------------
+  return_value_cmos_ioport_read$1=2 (00000000000000000000000000000010)
+
+State 670 file qverify.c line 50 function qverify_inb thread 0
+----------------------------------------------------
+  return_value_qverify_inb$1=2 (00000010)
+
+State 672 file rtc-verify.c line 25 function cmos_read thread 0
+----------------------------------------------------
+  return_value_cmos_read$1=2 (00000010)
+
+State 674 file rtc-verify.c line 255 function register_b_set_flag thread 0
+----------------------------------------------------
+  reg=11 (00001011)
+
+State 675 file rtc-verify.c line 255 function register_b_set_flag thread 0
+----------------------------------------------------
+  val=130 (10000010)
+
+State 677 file rtc-verify.c line 30 function cmos_write thread 0
+----------------------------------------------------
+  s=&_global_qverify.rtc_state (0000010100000000000000000000000000000000000000000000000000000000)
+
+State 678 file rtc-verify.c line 30 function cmos_write thread 0
+----------------------------------------------------
+  addr=112 (0000000001110000)
+
+State 679 file rtc-verify.c line 30 function cmos_write thread 0
+----------------------------------------------------
+  value=11 (00001011)
+
+State 681 file qverify.c line 45 function qverify_outb thread 0
+----------------------------------------------------
+  opaque=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 682 file qverify.c line 45 function qverify_outb thread 0
+----------------------------------------------------
+  addr=112 (00000000000000000000000001110000)
+
+State 683 file qverify.c line 45 function qverify_outb thread 0
+----------------------------------------------------
+  data=11 (00000000000000000000000000001011)
+
+State 684 file mc146818rtc.c line 426 function cmos_ioport_write thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 685 file mc146818rtc.c line 426 function cmos_ioport_write thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 687 file mc146818rtc.c line 429 function cmos_ioport_write thread 0
+----------------------------------------------------
+  global_rtc_state.io_info=1 (00000000000000000000000000000001)
+
+State 688 file mc146818rtc.c line 430 function cmos_ioport_write thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_index=11 (00001011)
+
+State 691 file rtc-verify.c line 31 function cmos_write thread 0
+----------------------------------------------------
+  s=&_global_qverify.rtc_state (0000010100000000000000000000000000000000000000000000000000000000)
+
+State 692 file rtc-verify.c line 31 function cmos_write thread 0
+----------------------------------------------------
+  addr=113 (0000000001110001)
+
+State 693 file rtc-verify.c line 31 function cmos_write thread 0
+----------------------------------------------------
+  value=130 (10000010)
+
+State 695 file qverify.c line 45 function qverify_outb thread 0
+----------------------------------------------------
+  opaque=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 696 file qverify.c line 45 function qverify_outb thread 0
+----------------------------------------------------
+  addr=113 (00000000000000000000000001110001)
+
+State 697 file qverify.c line 45 function qverify_outb thread 0
+----------------------------------------------------
+  data=130 (00000000000000000000000010000010)
+
+State 698 file mc146818rtc.c line 426 function cmos_ioport_write thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 699 file mc146818rtc.c line 426 function cmos_ioport_write thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 702 file mc146818rtc.c line 433 function cmos_ioport_write thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 703 file mc146818rtc.c line 394 function copy_data thread 0
+----------------------------------------------------
+  rtc_data_addr=0 (00000000000000000000000000000000)
+
+State 704 file mc146818rtc.c line 395 function copy_data thread 0
+----------------------------------------------------
+  rtc_data_addr=0 (00000000000000000000000000000000)
+
+State 706 file mc146818rtc.c line 399 function copy_data thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data_copy[(long int)rtc_data_addr!0@2]=0 (00000000)
+
+State 707 file mc146818rtc.c line 397 function copy_data thread 0
+----------------------------------------------------
+  rtc_data_addr=1 (00000000000000000000000000000001)
+
+State 710 file mc146818rtc.c line 399 function copy_data thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data_copy[(long int)rtc_data_addr!0@2]=0 (00000000)
+
+State 711 file mc146818rtc.c line 397 function copy_data thread 0
+----------------------------------------------------
+  rtc_data_addr=2 (00000000000000000000000000000010)
+
+State 714 file mc146818rtc.c line 399 function copy_data thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data_copy[(long int)rtc_data_addr!0@2]=1 (00000001)
+
+State 715 file mc146818rtc.c line 397 function copy_data thread 0
+----------------------------------------------------
+  rtc_data_addr=3 (00000000000000000000000000000011)
+
+State 718 file mc146818rtc.c line 399 function copy_data thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data_copy[(long int)rtc_data_addr!0@2]=0 (00000000)
+
+State 719 file mc146818rtc.c line 397 function copy_data thread 0
+----------------------------------------------------
+  rtc_data_addr=4 (00000000000000000000000000000100)
+
+State 722 file mc146818rtc.c line 399 function copy_data thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data_copy[(long int)rtc_data_addr!0@2]=1 (00000001)
+
+State 723 file mc146818rtc.c line 397 function copy_data thread 0
+----------------------------------------------------
+  rtc_data_addr=5 (00000000000000000000000000000101)
+
+State 726 file mc146818rtc.c line 399 function copy_data thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data_copy[(long int)rtc_data_addr!0@2]=0 (00000000)
+
+State 727 file mc146818rtc.c line 397 function copy_data thread 0
+----------------------------------------------------
+  rtc_data_addr=6 (00000000000000000000000000000110)
+
+State 730 file mc146818rtc.c line 399 function copy_data thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data_copy[(long int)rtc_data_addr!0@2]=23 (00010111)
+
+State 731 file mc146818rtc.c line 397 function copy_data thread 0
+----------------------------------------------------
+  rtc_data_addr=7 (00000000000000000000000000000111)
+
+State 734 file mc146818rtc.c line 399 function copy_data thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data_copy[(long int)rtc_data_addr!0@2]=0 (00000000)
+
+State 735 file mc146818rtc.c line 397 function copy_data thread 0
+----------------------------------------------------
+  rtc_data_addr=8 (00000000000000000000000000001000)
+
+State 738 file mc146818rtc.c line 399 function copy_data thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data_copy[(long int)rtc_data_addr!0@2]=0 (00000000)
+
+State 739 file mc146818rtc.c line 397 function copy_data thread 0
+----------------------------------------------------
+  rtc_data_addr=9 (00000000000000000000000000001001)
+
+State 742 file mc146818rtc.c line 399 function copy_data thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data_copy[(long int)rtc_data_addr!0@2]=51 (00110011)
+
+State 743 file mc146818rtc.c line 397 function copy_data thread 0
+----------------------------------------------------
+  rtc_data_addr=10 (00000000000000000000000000001010)
+
+State 746 file mc146818rtc.c line 439 function cmos_ioport_write thread 0
+----------------------------------------------------
+  global_rtc_state.io_info=2 (00000000000000000000000000000010)
+
+State 755 file mc146818rtc.c line 539 function cmos_ioport_write thread 0
+----------------------------------------------------
+  return_value__rtc_running$4=FALSE (0)
+
+State 757 file mc146818rtc.c line 131 function _rtc_running thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 758 file mc146818rtc.c line 131 function _rtc_running thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 759 file mc146818rtc.c line 131 function _rtc_running thread 0
+----------------------------------------------------
+  tmp_condition$1=FALSE (0)
+
+State 760 file mc146818rtc.c line 131 function _rtc_running thread 0
+----------------------------------------------------
+  tmp_condition$1=TRUE (1)
+
+State 762 file mc146818rtc.c line 132 function _rtc_running thread 0
+----------------------------------------------------
+  tmp_condition$2=FALSE (0)
+
+State 763 file mc146818rtc.c line 132 function _rtc_running thread 0
+----------------------------------------------------
+  tmp_condition$2=TRUE (1)
+
+State 764 file mc146818rtc.c line 131 function _rtc_running thread 0
+----------------------------------------------------
+  return_value__rtc_running$4=TRUE (1)
+
+State 768 file mc146818rtc.c line 540 function cmos_ioport_write thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 769 file mc146818rtc.c line 695 function _rtc_update_time thread 0
+----------------------------------------------------
+  ret={ .tm_sec=1, .tm_min=1, .tm_hour=1, .tm_mday=0, .tm_mon=-16,
+    .tm_year=-1180043115, .tm_wday=0, .tm_yday=0,
+    .tm_isdst=0, .$pad0=0, .tm_gmtoff=0, .tm_zone=NULL } ({ 00000000000000000000000000000001, 00000000000000000000000000000001, 00000000000000000000000000000001, 00000000000000000000000000000000, 11111111111111111111111111110000, 10111001101010011111100010010101, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 770 file mc146818rtc.c line 696 function _rtc_update_time thread 0
+----------------------------------------------------
+  guest_sec=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 771 file mc146818rtc.c line 697 function _rtc_update_time thread 0
+----------------------------------------------------
+  guest_nsec=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 772 file mc146818rtc.c line 699 function _rtc_update_time thread 0
+----------------------------------------------------
+  return_value_get_guest_rtc_ns$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 774 file mc146818rtc.c line 699 function _rtc_update_time thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 775 file mc146818rtc.c line 137 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_rtc=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 776 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  return_value_qemu_get_clock_ns$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 778 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  clock=&_vm_clock.active_timers (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 779 file qemu-timer.c line 170 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  now=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 782 file qemu-timer.c line 177 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  return_value_get_clock$2=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 785 file qemu-timer.c line 209 function get_clock thread 0
+----------------------------------------------------
+  return_value_get_clock_realtime$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 787 file qemu-timer.h line 90 function get_clock_realtime thread 0
+----------------------------------------------------
+  tv={ .tv_sec=2347167110209949825, .tv_usec=7668385036420757504 } ({ 0010000010010010110100000000110100001000100010110101000010000001, 0110101001101011100100111000111111010000110001111011100000000000 })
+
+State 789 file qemu-timer.h line 93 function get_clock_realtime thread 0
+----------------------------------------------------
+  return_value_get_clock_realtime$1=-5390261327593305600 (1011010100110001111100011110000110100010010001101000101000000000)
+
+State 792 file qemu-timer.c line 209 function get_clock thread 0
+----------------------------------------------------
+  return_value_get_clock$2=-5390261327593305600 (1011010100110001111100011110000110100010010001101000101000000000)
+
+State 794 file qemu-timer.c line 177 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  return_value_qemu_get_clock_ns$1=-5390261327593305600 (1011010100110001111100011110000110100010010001101000101000000000)
+
+State 795 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_clock=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 796 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_clock=13056482746116246016 (1011010100110001111100011110000110100010010001101000101000000000)
+
+State 797 file mc146818rtc.c line 141 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_rtc=128 (0000000000000000000000000000000000000000000000000000000010000000)
+
+State 799 file mc146818rtc.c line 142 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  return_value_get_guest_rtc_ns$1=128 (0000000000000000000000000000000000000000000000000000000010000000)
+
+State 800 file mc146818rtc.c line 699 function _rtc_update_time thread 0
+----------------------------------------------------
+  guest_nsec=128 (0000000000000000000000000000000000000000000000000000000010000000)
+
+State 801 file mc146818rtc.c line 700 function _rtc_update_time thread 0
+----------------------------------------------------
+  guest_sec=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 803 file mc146818rtc.c line 701 function _rtc_update_time thread 0
+----------------------------------------------------
+  clock=&guest_sec!0@9 (0001111000000000000000000000000000000000000000000000000000000000)
+
+State 804 file mc146818rtc.c line 701 function _rtc_update_time thread 0
+----------------------------------------------------
+  result=&ret!0@9.tm_sec (0001111100000000000000000000000000000000000000000000000000000000)
+
+State 807 file mc146818rtc.c line 704 function _rtc_update_time thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 808 file mc146818rtc.c line 704 function _rtc_update_time thread 0
+----------------------------------------------------
+  tm=&ret!0@9.tm_sec (0001111100000000000000000000000000000000000000000000000000000000)
+
+State 809 file mc146818rtc.c line 671 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  year=0 (00000000000000000000000000000000)
+
+State 810 file mc146818rtc.c line 673 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$1=0 (00000000000000000000000000000000)
+
+State 812 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 813 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 814 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 815 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=1 (00000000000000000000000000000001)
+
+State 817 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$1=1 (00000000000000000000000000000001)
+
+State 820 file mc146818rtc.c line 673 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[0]=1 (00000001)
+
+State 821 file mc146818rtc.c line 674 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$2=0 (00000000000000000000000000000000)
+
+State 823 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 824 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 825 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 826 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=1 (00000000000000000000000000000001)
+
+State 828 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$2=1 (00000000000000000000000000000001)
+
+State 831 file mc146818rtc.c line 674 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[2]=1 (00000001)
+
+State 833 file mc146818rtc.c line 677 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$3=0 (00000000000000000000000000000000)
+
+State 835 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 836 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 837 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 838 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=1 (00000000000000000000000000000001)
+
+State 840 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$3=1 (00000000000000000000000000000001)
+
+State 843 file mc146818rtc.c line 677 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[4]=1 (00000001)
+
+State 845 file mc146818rtc.c line 685 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$6=0 (00000000000000000000000000000000)
+
+State 847 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 848 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 849 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 850 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=1 (00000000000000000000000000000001)
+
+State 852 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$6=1 (00000000000000000000000000000001)
+
+State 855 file mc146818rtc.c line 685 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[6]=1 (00000001)
+
+State 856 file mc146818rtc.c line 686 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$7=0 (00000000000000000000000000000000)
+
+State 858 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 859 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 860 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 861 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 863 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$7=0 (00000000000000000000000000000000)
+
+State 866 file mc146818rtc.c line 686 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[7]=0 (00000000)
+
+State 867 file mc146818rtc.c line 687 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$8=0 (00000000000000000000000000000000)
+
+State 869 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 870 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 871 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 872 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=-15 (11111111111111111111111111110001)
+
+State 874 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$8=-5 (11111111111111111111111111111011)
+
+State 877 file mc146818rtc.c line 687 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[8]=251 (11111011)
+
+State 878 file mc146818rtc.c line 688 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  year=-1180041215 (10111001101010100000000000000001)
+
+State 879 file mc146818rtc.c line 689 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$9=0 (00000000000000000000000000000000)
+
+State 881 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 882 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 883 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 884 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=-15 (11111111111111111111111111110001)
+
+State 886 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$9=-5 (11111111111111111111111111111011)
+
+State 889 file mc146818rtc.c line 689 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[9]=251 (11111011)
+
+State 890 file mc146818rtc.c line 690 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$10=0 (00000000000000000000000000000000)
+
+State 892 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 893 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 894 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 895 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=-11800412 (11111111010010111111000010100100)
+
+State 897 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$10=-2 (11111111111111111111111111111110)
+
+State 900 file mc146818rtc.c line 690 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[50]=254 (11111110)
+
+State 901 file mc146818rtc.c line 543 function cmos_ioport_write thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[10]=38 (00100110)
+
+State 902 file mc146818rtc.c line 544 function cmos_ioport_write thread 0
+----------------------------------------------------
+  data=130 (00000000000000000000000010000010)
+
+State 905 file mc146818rtc.c line 559 function cmos_ioport_write thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[12]=0 (00000000)
+
+State 907 file mc146818rtc.c line 71 function qemu_irq_lower thread 0
+----------------------------------------------------
+  irq=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 908 file mc146818rtc.c line 71 function qemu_irq_lower thread 0
+----------------------------------------------------
+  irq=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 910 file mc146818rtc.c line 563 function cmos_ioport_write thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[11]=130 (10000010)
+
+State 912 file mc146818rtc.c line 567 function cmos_ioport_write thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 913 file mc146818rtc.c line 214 function check_update_timer thread 0
+----------------------------------------------------
+  next_update_time=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 914 file mc146818rtc.c line 215 function check_update_timer thread 0
+----------------------------------------------------
+  guest_nsec=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 915 file mc146818rtc.c line 216 function check_update_timer thread 0
+----------------------------------------------------
+  next_alarm_sec=0 (00000000000000000000000000000000)
+
+State 916 file mc146818rtc.c line 239 function check_update_timer thread 0
+----------------------------------------------------
+  return_value_get_guest_rtc_ns$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 918 file mc146818rtc.c line 239 function check_update_timer thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 919 file mc146818rtc.c line 137 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_rtc=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 920 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  return_value_qemu_get_clock_ns$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 922 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  clock=&_vm_clock.active_timers (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 923 file qemu-timer.c line 170 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  now=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 926 file qemu-timer.c line 177 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  return_value_get_clock$2=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 929 file qemu-timer.c line 209 function get_clock thread 0
+----------------------------------------------------
+  return_value_get_clock_realtime$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 931 file qemu-timer.h line 90 function get_clock_realtime thread 0
+----------------------------------------------------
+  tv={ .tv_sec=310515277825553409, .tv_usec=2486019241039383216 } ({ 0000010001001111001011000000000000000000000111111011010000000001, 0010001010000000000111010101010000000110111100000100101010110000 })
+
+State 933 file qemu-timer.h line 93 function get_clock_realtime thread 0
+----------------------------------------------------
+  return_value_get_clock_realtime$1=-5390261323298338432 (1011010100110001111100011110001010100010010001101000100110000000)
+
+State 936 file qemu-timer.c line 209 function get_clock thread 0
+----------------------------------------------------
+  return_value_get_clock$2=-5390261323298338432 (1011010100110001111100011110001010100010010001101000100110000000)
+
+State 938 file qemu-timer.c line 177 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  return_value_qemu_get_clock_ns$1=-5390261323298338432 (1011010100110001111100011110001010100010010001101000100110000000)
+
+State 939 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_clock=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 940 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_clock=13056482750411213184 (1011010100110001111100011110001010100010010001101000100110000000)
+
+State 941 file mc146818rtc.c line 141 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_rtc=4294967296 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 943 file mc146818rtc.c line 142 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  return_value_get_guest_rtc_ns$1=4294967296 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 944 file mc146818rtc.c line 239 function check_update_timer thread 0
+----------------------------------------------------
+  guest_nsec=294967296 (0000000000000000000000000000000000010001100101001101100000000000)
+
+State 945 file mc146818rtc.c line 241 function check_update_timer thread 0
+----------------------------------------------------
+  return_value_qemu_get_clock_ns$2=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 947 file mc146818rtc.c line 241 function check_update_timer thread 0
+----------------------------------------------------
+  clock=&_vm_clock.active_timers (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 948 file qemu-timer.c line 170 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  now=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 951 file qemu-timer.c line 177 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  return_value_get_clock$2=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 954 file qemu-timer.c line 209 function get_clock thread 0
+----------------------------------------------------
+  return_value_get_clock_realtime$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 956 file qemu-timer.h line 90 function get_clock_realtime thread 0
+----------------------------------------------------
+  tv={ .tv_sec=6918742889618997760, .tv_usec=1442776155716608 } ({ 0110000000000100010100000000000001000100000000000000001000000000, 0000000000000101001000000011001010000000010000000111110000000000 })
+
+State 958 file qemu-timer.h line 93 function get_clock_realtime thread 0
+----------------------------------------------------
+  return_value_get_clock_realtime$1=-6126334323617931264 (1010101011111010111000110110010000110001011110000110000000000000)
+
+State 961 file qemu-timer.c line 209 function get_clock thread 0
+----------------------------------------------------
+  return_value_get_clock$2=-6126334323617931264 (1010101011111010111000110110010000110001011110000110000000000000)
+
+State 963 file qemu-timer.c line 177 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  return_value_qemu_get_clock_ns$2=-6126334323617931264 (1010101011111010111000110110010000110001011110000110000000000000)
+
+State 964 file mc146818rtc.c line 242 function check_update_timer thread 0
+----------------------------------------------------
+  next_update_time=12320409750796653056 (1010101011111010111000110110010001011011011111100101001000000000)
+
+State 965 file mc146818rtc.c line 247 function check_update_timer thread 0
+----------------------------------------------------
+  return_value_get_next_alarm$3=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 967 file mc146818rtc.c line 247 function check_update_timer thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 968 file mc146818rtc.c line 275 function get_next_alarm thread 0
+----------------------------------------------------
+  alarm_sec=0 (00000000000000000000000000000000)
+
+State 969 file mc146818rtc.c line 275 function get_next_alarm thread 0
+----------------------------------------------------
+  alarm_min=0 (00000000000000000000000000000000)
+
+State 970 file mc146818rtc.c line 275 function get_next_alarm thread 0
+----------------------------------------------------
+  alarm_hour=0 (00000000000000000000000000000000)
+
+State 971 file mc146818rtc.c line 275 function get_next_alarm thread 0
+----------------------------------------------------
+  cur_hour=0 (00000000000000000000000000000000)
+
+State 972 file mc146818rtc.c line 275 function get_next_alarm thread 0
+----------------------------------------------------
+  cur_min=0 (00000000000000000000000000000000)
+
+State 973 file mc146818rtc.c line 275 function get_next_alarm thread 0
+----------------------------------------------------
+  cur_sec=0 (00000000000000000000000000000000)
+
+State 974 file mc146818rtc.c line 276 function get_next_alarm thread 0
+----------------------------------------------------
+  hour=0 (00000000000000000000000000000000)
+
+State 975 file mc146818rtc.c line 276 function get_next_alarm thread 0
+----------------------------------------------------
+  min=0 (00000000000000000000000000000000)
+
+State 976 file mc146818rtc.c line 276 function get_next_alarm thread 0
+----------------------------------------------------
+  sec=0 (00000000000000000000000000000000)
+
+State 978 file mc146818rtc.c line 278 function get_next_alarm thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 979 file mc146818rtc.c line 695 function _rtc_update_time thread 0
+----------------------------------------------------
+  ret={ .tm_sec=1670, .tm_min=1, .tm_hour=-1854152732, .tm_mday=10,
+    .tm_mon=-861339650, .tm_year=-1997, .tm_wday=-536870913,
+    .tm_yday=0, .tm_isdst=0, .$pad0=0,
+    .tm_gmtoff=0, .tm_zone=NULL } ({ 00000000000000000000011010000110, 00000000000000000000000000000001, 10010001011110111101111111100100, 00000000000000000000000000001010, 11001100101010001111111111111110, 11111111111111111111100000110011, 11011111111111111111111111111111, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 980 file mc146818rtc.c line 696 function _rtc_update_time thread 0
+----------------------------------------------------
+  guest_sec=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 981 file mc146818rtc.c line 697 function _rtc_update_time thread 0
+----------------------------------------------------
+  guest_nsec=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 982 file mc146818rtc.c line 699 function _rtc_update_time thread 0
+----------------------------------------------------
+  return_value_get_guest_rtc_ns$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 984 file mc146818rtc.c line 699 function _rtc_update_time thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 985 file mc146818rtc.c line 137 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_rtc=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 986 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  return_value_qemu_get_clock_ns$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 988 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  clock=&_vm_clock.active_timers (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 989 file qemu-timer.c line 170 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  now=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 992 file qemu-timer.c line 177 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  return_value_get_clock$2=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 995 file qemu-timer.c line 209 function get_clock thread 0
+----------------------------------------------------
+  return_value_get_clock_realtime$1=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 997 file qemu-timer.h line 90 function get_clock_realtime thread 0
+----------------------------------------------------
+  tv={ .tv_sec=7221699065592336428, .tv_usec=-7767735663427149115 } ({ 0110010000111000101000010000100110110111011001101101000000101100, 1001010000110011011101011001000111000000010010101010001011000101 })
+
+State 999 file qemu-timer.h line 93 function get_clock_realtime thread 0
+----------------------------------------------------
+  return_value_get_clock_realtime$1=-5390261327593305720 (1011010100110001111100011110000110100010010001101000100110001000)
+
+State 1002 file qemu-timer.c line 209 function get_clock thread 0
+----------------------------------------------------
+  return_value_get_clock$2=-5390261327593305720 (1011010100110001111100011110000110100010010001101000100110001000)
+
+State 1004 file qemu-timer.c line 177 function qemu_get_clock_ns thread 0
+----------------------------------------------------
+  return_value_qemu_get_clock_ns$1=-5390261327593305720 (1011010100110001111100011110000110100010010001101000100110001000)
+
+State 1005 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_clock=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1006 file mc146818rtc.c line 138 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_clock=13056482746116245896 (1011010100110001111100011110000110100010010001101000100110001000)
+
+State 1007 file mc146818rtc.c line 141 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  guest_rtc=8 (0000000000000000000000000000000000000000000000000000000000001000)
+
+State 1009 file mc146818rtc.c line 142 function get_guest_rtc_ns thread 0
+----------------------------------------------------
+  return_value_get_guest_rtc_ns$1=8 (0000000000000000000000000000000000000000000000000000000000001000)
+
+State 1010 file mc146818rtc.c line 699 function _rtc_update_time thread 0
+----------------------------------------------------
+  guest_nsec=8 (0000000000000000000000000000000000000000000000000000000000001000)
+
+State 1011 file mc146818rtc.c line 700 function _rtc_update_time thread 0
+----------------------------------------------------
+  guest_sec=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1013 file mc146818rtc.c line 701 function _rtc_update_time thread 0
+----------------------------------------------------
+  clock=&guest_sec!0@10 (0010000100000000000000000000000000000000000000000000000000000000)
+
+State 1014 file mc146818rtc.c line 701 function _rtc_update_time thread 0
+----------------------------------------------------
+  result=&ret!0@10.tm_sec (0010001000000000000000000000000000000000000000000000000000000000)
+
+State 1017 file mc146818rtc.c line 704 function _rtc_update_time thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1018 file mc146818rtc.c line 704 function _rtc_update_time thread 0
+----------------------------------------------------
+  tm=&ret!0@10.tm_sec (0010001000000000000000000000000000000000000000000000000000000000)
+
+State 1019 file mc146818rtc.c line 671 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  year=0 (00000000000000000000000000000000)
+
+State 1020 file mc146818rtc.c line 673 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$1=0 (00000000000000000000000000000000)
+
+State 1022 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1023 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1024 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 1025 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=1670 (00000000000000000000011010000110)
+
+State 1027 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$1=2672 (00000000000000000000101001110000)
+
+State 1030 file mc146818rtc.c line 673 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[0]=112 (01110000)
+
+State 1031 file mc146818rtc.c line 674 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$2=0 (00000000000000000000000000000000)
+
+State 1033 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1034 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1035 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 1036 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=1 (00000000000000000000000000000001)
+
+State 1038 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$2=1 (00000000000000000000000000000001)
+
+State 1041 file mc146818rtc.c line 674 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[2]=1 (00000001)
+
+State 1043 file mc146818rtc.c line 677 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$3=0 (00000000000000000000000000000000)
+
+State 1045 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1046 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1047 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 1048 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=-1854152732 (10010001011110111101111111100100)
+
+State 1050 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$3=-2 (11111111111111111111111111111110)
+
+State 1053 file mc146818rtc.c line 677 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[4]=254 (11111110)
+
+State 1055 file mc146818rtc.c line 685 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$6=0 (00000000000000000000000000000000)
+
+State 1057 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1058 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1059 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 1060 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=-536870912 (11100000000000000000000000000000)
+
+State 1062 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$6=-2 (11111111111111111111111111111110)
+
+State 1065 file mc146818rtc.c line 685 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[6]=254 (11111110)
+
+State 1066 file mc146818rtc.c line 686 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$7=0 (00000000000000000000000000000000)
+
+State 1068 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1069 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1070 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 1071 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=10 (00000000000000000000000000001010)
+
+State 1073 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$7=16 (00000000000000000000000000010000)
+
+State 1076 file mc146818rtc.c line 686 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[7]=16 (00010000)
+
+State 1077 file mc146818rtc.c line 687 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$8=0 (00000000000000000000000000000000)
+
+State 1079 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1080 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1081 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 1082 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=-861339649 (11001100101010001111111111111111)
+
+State 1084 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$8=-9 (11111111111111111111111111110111)
+
+State 1087 file mc146818rtc.c line 687 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[8]=247 (11110111)
+
+State 1088 file mc146818rtc.c line 688 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  year=-97 (11111111111111111111111110011111)
+
+State 1089 file mc146818rtc.c line 689 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$9=0 (00000000000000000000000000000000)
+
+State 1091 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1092 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1093 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 1094 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=-97 (11111111111111111111111110011111)
+
+State 1096 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$9=-7 (11111111111111111111111111111001)
+
+State 1099 file mc146818rtc.c line 689 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[9]=249 (11111001)
+
+State 1100 file mc146818rtc.c line 690 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$10=0 (00000000000000000000000000000000)
+
+State 1102 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1103 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1104 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 1105 file mc146818rtc.c line 622 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 1107 file mc146818rtc.c line 625 function _rtc_to_bcd thread 0
+----------------------------------------------------
+  return_value__rtc_to_bcd$10=0 (00000000000000000000000000000000)
+
+State 1110 file mc146818rtc.c line 690 function _rtc_set_cmos thread 0
+----------------------------------------------------
+  global_rtc_state.cmos_data[50]=0 (00000000)
+
+State 1112 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1113 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1114 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 1115 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 1118 file mc146818rtc.c line 637 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  alarm_sec=0 (00000000000000000000000000000000)
+
+State 1122 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1123 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1124 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 1125 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 1128 file mc146818rtc.c line 637 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  alarm_min=0 (00000000000000000000000000000000)
+
+State 1132 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1133 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1134 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 1135 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 1138 file mc146818rtc.c line 637 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  alarm_hour=0 (00000000000000000000000000000000)
+
+State 1141 file mc146818rtc.c line 283 function get_next_alarm thread 0
+----------------------------------------------------
+  tmp_condition$1=FALSE (0)
+
+State 1142 file mc146818rtc.c line 283 function get_next_alarm thread 0
+----------------------------------------------------
+  tmp_condition$1=FALSE (0)
+
+State 1144 file mc146818rtc.c line 283 function get_next_alarm thread 0
+----------------------------------------------------
+  return_value_convert_hour$2=0 (00000000)
+
+State 1146 file mc146818rtc.c line 264 function convert_hour thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1147 file mc146818rtc.c line 264 function convert_hour thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1148 file mc146818rtc.c line 264 function convert_hour thread 0
+----------------------------------------------------
+  hour=0 (00000000)
+
+State 1149 file mc146818rtc.c line 264 function convert_hour thread 0
+----------------------------------------------------
+  hour=0 (00000000)
+
+State 1151 file mc146818rtc.c line 270 function convert_hour thread 0
+----------------------------------------------------
+  return_value_convert_hour$2=0 (00000000)
+
+State 1153 file mc146818rtc.c line 283 function get_next_alarm thread 0
+----------------------------------------------------
+  alarm_hour=0 (00000000000000000000000000000000)
+
+State 1155 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1156 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1157 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 1158 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=112 (00000000000000000000000001110000)
+
+State 1161 file mc146818rtc.c line 637 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  cur_sec=70 (00000000000000000000000001000110)
+
+State 1165 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1166 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1167 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 1168 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=1 (00000000000000000000000000000001)
+
+State 1171 file mc146818rtc.c line 637 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  cur_min=1 (00000000000000000000000000000001)
+
+State 1175 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1176 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1177 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=0 (00000000000000000000000000000000)
+
+State 1178 file mc146818rtc.c line 631 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  a=254 (00000000000000000000000011111110)
+
+State 1180 file mc146818rtc.c line 632 function _rtc_from_bcd thread 0
+----------------------------------------------------
+  cur_hour=-1 (11111111111111111111111111111111)
+
+State 1183 file mc146818rtc.c line 288 function get_next_alarm thread 0
+----------------------------------------------------
+  return_value_convert_hour$3=0 (00000000)
+
+State 1185 file mc146818rtc.c line 264 function convert_hour thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1186 file mc146818rtc.c line 264 function convert_hour thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1187 file mc146818rtc.c line 264 function convert_hour thread 0
+----------------------------------------------------
+  hour=0 (00000000)
+
+State 1188 file mc146818rtc.c line 264 function convert_hour thread 0
+----------------------------------------------------
+  hour=255 (11111111)
+
+State 1190 file mc146818rtc.c line 270 function convert_hour thread 0
+----------------------------------------------------
+  return_value_convert_hour$3=255 (11111111)
+
+State 1192 file mc146818rtc.c line 288 function get_next_alarm thread 0
+----------------------------------------------------
+  cur_hour=255 (00000000000000000000000011111111)
+
+State 1199 file mc146818rtc.c line 356 function get_next_alarm thread 0
+----------------------------------------------------
+  alarm_hour=0 (00000000000000000000000000000000)
+
+State 1200 file mc146818rtc.c line 358 function get_next_alarm thread 0
+----------------------------------------------------
+  hour=-255 (11111111111111111111111100000001)
+
+State 1201 file mc146818rtc.c line 359 function get_next_alarm thread 0
+----------------------------------------------------
+  min=-15301 (11111111111111111100010000111011)
+
+State 1202 file mc146818rtc.c line 360 function get_next_alarm thread 0
+----------------------------------------------------
+  sec=-918130 (11111111111100011111110110001110)
+
+State 1204 file mc146818rtc.c line 361 function get_next_alarm thread 0
+----------------------------------------------------
+  return_value_get_next_alarm$3=18446744073708719886 (1111111111111111111111111111111111111111111100110100111100001110)
+
+State 1205 file mc146818rtc.c line 247 function check_update_timer thread 0
+----------------------------------------------------
+  next_alarm_sec=-831730 (11111111111100110100111100001110)
+
+State 1206 file mc146818rtc.c line 248 function check_update_timer thread 0
+----------------------------------------------------
+  global_rtc_state.next_alarm_time=12319578019796653056 (1010101011110111111011101110111111100100101100001001010000000000)
+
+State 1208 file mc146818rtc.c line 582 function cmos_ioport_write thread 0
+----------------------------------------------------
+  tmp_condition$8=FALSE (0)
+
+State 1209 file mc146818rtc.c line 582 function cmos_ioport_write thread 0
+----------------------------------------------------
+  tmp_condition$8=FALSE (0)
+
+State 1212 file mc146818rtc.c line 606 function cmos_ioport_write thread 0
+----------------------------------------------------
+  s=&global_rtc_state.cmos_data[0] (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1214 file mc146818rtc.c line 414 function assert_equal_copy_data thread 0
+----------------------------------------------------
+  rtc_data_addr=0 (00000000000000000000000000000000)
+
+State 1215 file mc146818rtc.c line 415 function assert_equal_copy_data thread 0
+----------------------------------------------------
+  rtc_data_addr=0 (00000000000000000000000000000000)
+
+Violated property:
+  file mc146818rtc.c line 419 function assert_equal_copy_data
+  assertion
+  s->cmos_data_copy[(long int)rtc_data_addr] == s->cmos_data[(long int)rtc_data_addr]
+
+VERIFICATION FAILED
+make: *** [verify] Error 10
