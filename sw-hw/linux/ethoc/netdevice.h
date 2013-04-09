@@ -69,6 +69,16 @@ struct netdev_hw_addr_list {
 	int			count;
 };
 
+/* ... */
+
+enum netdev_tx {
+	/* ... */
+	NETDEV_TX_OK	 = 0x00,	/* driver took care of packet */
+	NETDEV_TX_BUSY	 = 0x10,	/* driver tx path was busy*/
+	NETDEV_TX_LOCKED = 0x20,	/* driver tx lock was already taken */
+};
+typedef enum netdev_tx netdev_tx_t;
+
 /*
  *	The DEVICE structure.
  *	Actually, this whole structure is a big mistake.  It mixes I/O
@@ -168,6 +178,18 @@ static inline void netif_wake_queue(struct net_device *dev)
  *	Allow upper layers to call the device hard_start_xmit routine.
  */
 static inline void netif_start_queue(struct net_device *dev)
+{
+	/* ... */
+}
+
+/**
+ *	netif_stop_queue - stop transmitted packets
+ *	@dev: network device
+ *
+ *	Stop upper layers calling the device hard_start_xmit routine.
+ *	Used for flow control when transmit resources are unavailable.
+ */
+static inline void netif_stop_queue(struct net_device *dev)
 {
 	/* ... */
 }

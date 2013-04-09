@@ -25,6 +25,8 @@
 #include "etherdevice.h"
 #include "netdevice.h"
 #include "if_ether.h"
+#include "skbuff.h"
+#include "spinlock.h"
 
 #include "ethoc/opencores_eth.h"
 #include "ethoc/sys.h"
@@ -206,6 +208,8 @@ struct ethoc {
 
 	struct net_device *netdev;
 	struct napi_struct napi;
+
+	spinlock_t lock;
 
 	s8 phy_id;
 
@@ -782,6 +786,56 @@ static void ethoc_set_multicast_list(struct net_device *dev)
 	ethoc_write(priv, ETH_HASH1, hash[1]);
 }
 
+static netdev_tx_t ethoc_start_xmit(struct sk_buff *skb, struct net_device *dev)
+{
+	struct ethoc *priv = netdev_priv(dev);
+	struct ethoc_bd bd;
+	unsigned int entry;
+	void *dest;
+
+	if (unlikely(skb->len > ETHOC_BUFSIZ)) {
+		dev->stats.tx_errors++;
+		goto out;
+	}
+
+	entry = priv->cur_tx % priv->num_tx;
+	spin_lock_irq(&priv->lock);
+	priv->cur_tx++;
+
+	ethoc_read_bd(priv, entry, &bd);
+	if (unlikely(skb->len < ETHOC_ZLEN))
+		bd.stat |=  TX_BD_PAD;
+	else
+		bd.stat &= ~TX_BD_PAD;
+
+	dest = priv->dma_regions[entry];
+
+	/* Since we do not model different memory subsystems at
+         * this point, we use memcpy() instead of memcpy_toio().
+         */
+	memcpy(dest, skb->data, skb->len);
+
+	bd.stat &= ~(TX_BD_STATS | TX_BD_LEN_MASK);
+	bd.stat |= TX_BD_LEN(skb->len);
+	ethoc_write_bd(priv, entry, &bd);
+
+	bd.stat |= TX_BD_READY;
+	ethoc_write_bd(priv, entry, &bd);
+
+	if (priv->cur_tx == (priv->dty_tx + priv->num_tx)) {
+		dev_dbg(&dev->dev, "stopping queue\n");
+		netif_stop_queue(dev);
+	}
+
+	spin_unlock_irq(&priv->lock);
+	skb_tx_timestamp(skb);
+out:
+	/* Since we only use statically allocated
+ 	 * data, we do not call dev_kfree_skb(skb).
+	 */
+	return NETDEV_TX_OK;
+}
+
 /* ... */
 
 /**
@@ -850,7 +904,7 @@ static void test_rx(const u8* mac_addr, int packet_id, u8 data, unsigned int pac
 	open_eth_receive(OPEN_ETH_STATE(nc), packet, packet_size);
 }
 
-int main(void)
+int main_rx(void)
 {
         /* In our analysis, we force these variables to be non-deterministic. */
 	const int irq_n = nondet_int(3);
@@ -922,6 +976,8 @@ int main(void)
 	netdev.stats.tx_window_errors = 0;
 	netdev.stats.rx_compressed = 0;
 	netdev.stats.tx_compressed = 0;
+
+	ethoc.lock;
 
 	ethoc.phy_id = DEFAULT_PHY;
 	ethoc.open_eth = &open_eth;
@@ -1051,4 +1107,210 @@ int main(void)
 
 		dma += ETHOC_BUFSIZ;
 	}
+}
+
+#define TX_COUNT	(3)
+
+// Trigger `tx_count` concurrent transmissions
+//
+// pre: tx_count <= dev->num_tx
+//
+// For concrete executions, pre is also that TX_COUNT + 4 < 256 
+void test_tx(struct net_device *dev, int tx_count) {
+	const unsigned tx_packet_size = nondet_uint(5);
+	if (tx_packet_size < 5) return;
+
+	struct sk_buff skbs[TX_COUNT];
+	unsigned char tx_data[TX_COUNT][tx_packet_size];
+	
+	int k, j;
+	for (k = 0; k < TX_COUNT; k++) {
+		for (j = 0; j < tx_packet_size; j++) {
+			tx_data[k][j] = nondet_u8(k + j);
+		}
+		skbs[k].len = tx_packet_size;
+		skbs[k].data = tx_data[k];
+
+		/*
+ 		 * We have setup the socket buffer such that they are disjoint
+ 		 */
+  		__CPROVER_ASYNC_1: ethoc_start_xmit(&skbs[k], dev);
+	}
+}
+
+static ssize_t peer_nc_open_eth_receive(NetClientState *nc,
+                                     const uint8_t *buf, size_t size)
+{
+    return 0;
+}
+
+static void peer_nc_open_eth_set_link_status(NetClientState *nc)
+{
+    return;
+}
+
+int main_tx(void)
+{
+        /* In our analysis, we force these variables to be non-deterministic. */
+	const int irq_n = nondet_int(3);
+	const unsigned int flags = nondet_uint(0);
+
+	/* Empty implementation of virtual machine Net API */
+	NetClientInfo nc_info;
+	nc_info.can_receive = NULL;
+	nc_info.receive = NULL;
+	nc_info.link_status_changed = NULL;
+
+	NetClientInfo peer_nc_info;
+	peer_nc_info.can_receive = NULL;
+	peer_nc_info.receive = peer_nc_open_eth_receive;
+	peer_nc_info.link_status_changed = peer_nc_open_eth_set_link_status;
+
+	/* Endpoint where packets are sent */
+	NetClientState peer;
+	peer.info = &peer_nc_info;
+	peer.link_down = 0;
+	peer.peer = NULL;
+	peer.receive_disabled = 0;
+
+	/* Virtual machine NIC which is setup to transmit packets. */
+	NICState nic;
+	nic.nc.info = &nc_info;
+	nic.nc.link_down = 0;
+	nic.nc.peer = &peer;
+	nic.nc.receive_disabled = 0;
+
+	/* Virtual hardware interrupt for incoming packets */
+	IRQState irq;
+	irq.n = irq_n;
+	irq.handler = ethoc_interrupt;
+
+	/* Ethernet MAC hardware model */
+	OpenEthState open_eth;
+	open_eth.nic = &nic;
+	open_eth.irq = &irq;
+	open_eth.mii.link_ok = true;
+
+	irq.opaque = &open_eth;
+
+	memset(open_eth.mii.regs, 0, sizeof(open_eth.mii.regs));
+	memset(open_eth.regs, 0, sizeof(open_eth.regs));
+	memset(open_eth.desc, 0, sizeof(open_eth.desc));
+
+	nic.opaque = &open_eth;
+	nc = &nic.nc;
+
+	/* reset MAC and MII */
+	open_eth_reg_write(&open_eth, open_eth_reg(MODER), MODER_RST);
+
+	struct net_device netdev;
+	struct ethoc ethoc;
+
+	netdev.priv = &ethoc;
+	netdev.flags = flags;
+
+	netdev.stats.rx_packets = 0;
+	netdev.stats.tx_packets = 0;
+	netdev.stats.rx_bytes = 0;
+	netdev.stats.tx_bytes = 0;
+	netdev.stats.rx_errors = 0;
+	netdev.stats.tx_errors = 0;
+	netdev.stats.rx_dropped = 0;
+	netdev.stats.tx_dropped = 0;
+	netdev.stats.multicast = 0;
+	netdev.stats.collisions = 0;
+	netdev.stats.rx_length_errors = 0;
+	netdev.stats.rx_over_errors = 0;
+	netdev.stats.rx_crc_errors = 0;
+	netdev.stats.rx_frame_errors = 0;
+	netdev.stats.rx_fifo_errors = 0;
+	netdev.stats.rx_missed_errors = 0;
+	netdev.stats.tx_aborted_errors = 0;
+	netdev.stats.tx_carrier_errors = 0;
+	netdev.stats.tx_fifo_errors = 0;
+	netdev.stats.tx_heartbeat_errors = 0;
+	netdev.stats.tx_window_errors = 0;
+	netdev.stats.rx_compressed = 0;
+	netdev.stats.tx_compressed = 0;
+
+	ethoc.phy_id = DEFAULT_PHY;
+	ethoc.open_eth = &open_eth;
+	ethoc.netdev = &netdev;
+
+	ethoc.napi.poll = ethoc_poll;
+	ethoc.napi.sched = 1;
+	ethoc.napi.complete = 0;
+	ethoc.napi.is_disabling = 0;
+
+	/* use a non-deterministic NAPI weight in the range [0, 512] */
+	ethoc.napi.weight = nondet_int(64);
+	if (ethoc.napi.weight < 0 || ethoc.napi.weight > 512)
+		return 1;
+
+	open_eth.software = &netdev;
+
+        /* In our analysis, we force these variables to be non-deterministic.
+ 	 * The values are constraint by the next two conditional statements.
+ 	 */
+	const u8 mac_addr[6] = { nondet_u8(0x10),
+				 nondet_u8(0x32),
+				 nondet_u8(0x54),
+				 nondet_u8(0x76),
+				 nondet_u8(0x98),
+				 nondet_u8(0xba) };
+
+	const long mem_size = nondet_long(ETHOC_BUFSIZ * 12);
+
+	if (!is_valid_ether_addr(mac_addr))
+		return 1;
+	if (DMA_BUF_SIZE < mem_size || mem_size <= (4 * ETHOC_BUFSIZ))
+		return 1;
+
+	/* setup virtual machine memory address space */
+	cpu_physical_memory_init((uintptr_t) dma_buf);
+
+	netdev.mem_start = (unsigned long) dma_buf;
+	netdev.mem_end = netdev.mem_start + mem_size;
+	ethoc.dma_buf = dma_buf;
+	ethoc.dma_regions = dma_regions;
+
+	/* calculate the number of TX/RX buffers, maximum 128 supported */
+	int num_bd = min_t(unsigned int,
+		128, (netdev.mem_end - netdev.mem_start + 1) / ETHOC_BUFSIZ);
+	if (num_bd < 4) {
+		return 1;
+	}
+	/* num_tx must be a power of two */
+	ethoc.num_tx = rounddown_pow_of_two(num_bd >> 1);
+	ethoc.num_rx = num_bd - ethoc.num_tx;
+
+	const unsigned int rx_packet_num = nondet_int(3);
+	if (rx_packet_num > ethoc.num_rx)
+		return;
+
+	ethoc_set_mac_address(&netdev, mac_addr);
+	ethoc_open(&netdev);
+
+	test_tx(&netdev, TX_COUNT);
+
+	/* Wait until all child quasi-threads have terminated */
+
+	ethoc_stop(&netdev);
+
+	/* VC: All valid TX packets must be eventually transmitted (whether
+ 	 *     successfully or not).
+ 	 */
+	int k;
+	struct ethoc_bd bd;
+	for (k = 0; k < ethoc.num_tx; k++) {
+		ethoc_read_bd(&ethoc, k, &bd);
+		assert(0 == (bd.stat & TX_BD_READY));
+	}
+	assert(TX_COUNT == netdev.stats.tx_packets);
+}
+
+int main(void) {
+  /* main_rx(); */
+  main_tx();
+  return 0;
 }

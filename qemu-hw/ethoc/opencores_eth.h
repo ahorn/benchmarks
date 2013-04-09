@@ -132,7 +132,7 @@ enum {
  * @see_also: Section 3.3 in data sheet
  */
 enum {
-    INT_MASK_TXB_M = 0x0,
+    INT_MASK_TXB_M = 0x1,
     INT_MASK_TXE_M = 0x2,
     INT_MASK_RXF_M = 0x4,
     INT_MASK_RXE_M = 0x8,

@@ -324,14 +324,30 @@ static void open_eth_start_xmit(OpenEthState *s, open_eth_desc *tx)
 
 }
 
+/*
+ * Must be only called asynchronously from within the hardware model. At most
+ * one open_eth_check_xmit routine is allowed to be active at the same time.
+ */
 static void open_eth_check_start_xmit(OpenEthState *s)
 {
+#ifdef _CBMC_
+#ifndef _NO_CBMC_ATOMIC_
+    __CPROVER_atomic_begin();
+#endif
+#endif
+
     open_eth_desc *tx = tx_desc(s);
     if (GET_REGBIT(s, MODER, TXEN) && s->regs[TX_BD_NUM] > 0 &&
             (tx->len_flags & TXD_RD) &&
             GET_FIELD(tx->len_flags, TXD_LEN) > 4) {
         open_eth_start_xmit(s, tx);
     }
+
+#ifdef _CBMC_
+#ifndef _NO_CBMC_ATOMIC_
+    __CPROVER_atomic_end();
+#endif
+#endif
 }
 
 uint32_t open_eth_reg_read(OpenEthState *s, hwaddr addr)
@@ -376,7 +392,7 @@ static void open_eth_moder_host_write(OpenEthState *s, uint32_t val)
     }
     if (set & MODER_TXEN) {
         s->tx_desc = 0;
-        open_eth_check_start_xmit(s);
+        __CPROVER_ASYNC_1: open_eth_check_start_xmit(s);
     }
 }
 
@@ -464,7 +480,6 @@ void open_eth_desc_write(OpenEthState *s, hwaddr addr, uint64_t val)
 {
     trace_open_eth_desc_write((uint32_t)addr, (uint32_t)val);
     set_desc_at(s, addr, val);
-
-    open_eth_check_start_xmit(s);
+    __CPROVER_ASYNC_1: open_eth_check_start_xmit(s);
 }
 
