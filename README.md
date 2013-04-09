@@ -19,13 +19,18 @@ within the folder `sw-hw/linux/rtc_x86`:
 
     $ ./run_expt.sh [Num of Runs] [Experiment Name] [Property No. (1 to 11)]
 
+You can also run the experiment from propery i to j once by exectuing the 
+following command within the same folder:
+
+    $ ./run_expt_all.sh [Experiment Name] [i] [j] 
+
 Use the same command in the folder `qemu-hw/rtc` to run the experiments on the
 standalone HW model.
 
 To get the total runtime and runtime spent on the decision procedure, run
 the command:
 
-    $ ./get_result.sh [Experiment Name]
+    $ ./get_result.sh [(Relative) Path to the Data Folder]
 
 ## I2C Benchmark
 
@@ -42,13 +47,18 @@ from within the folder `sw-hw/linux/tmp105_x86`:
 
     $ ./run_expt.sh [Num of Runs] [Experiment Name] [Property No. (1 to 21)]
 
+You can also run the experiment from propery i to j once by exectuing the 
+following command within the same folder:
+
+    $ ./run_expt_all.sh [Experiment Name] [i] [j]
+
 Use the same command in folder `qemu-hw/tmp105` to run experiments on the
 standalone HW model.
 
 To get the total runtime and runtime spent on the decision procedure, run
 the command:
 
-    $ ./get_result.sh [Experiment Name]
+    $ ./get_result.sh [(Relative) Path to the Data Folder]
 
 ## ETHOC Benchmark
 
