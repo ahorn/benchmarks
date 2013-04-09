@@ -10,7 +10,7 @@ GCC_INCLUDE =  ../../gcc-include
 QEMU_SRC = ../../../qemu-hw
 GEN = generated
 
-UNWIND_NO = 2
+UNWIND = 11
 #PROP_NO = 21
 
 # Source code
@@ -23,7 +23,7 @@ OBJS = $(SRC:%.c=%.o)
 HOSTCFLAGS = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 \
              -fomit-frame-pointer 
 
-CFLAGS = -std=gnu99 -nostdinc $(MYLIB) $(KLIB) -I . -D__KERNEL__ $(HOSTCFLAGS) \
+CFLAGS = -std=gnu99 -nostdinc $(MYLIB) $(KLIB) $(QLIB) -I . -D__KERNEL__ $(HOSTCFLAGS) \
          -D_SYS_ -DCONFIG_I2C -DCONFIG_PM
 
 LDFLAGS = 
@@ -41,9 +41,10 @@ QLIB = -I $(QEMU_SRC)/
 
 MYLIB = -I modlib/
 
-VERDEF = -D__KERNEL__ -D_SYS_ -DCONFIG_I2C -U__i386__ -DI2C_BENCHMARK_PROP_$(PROP_NO)
+# Add -D__EXPOSE_BUG__ if you want to expose the bug
+VERDEF = -D__KERNEL__ -D_SYS_ -DCONFIG_I2C -U__i386__ -DI2C_BENCHMARK_PROP_$(PROP_NO) 
 
-CFLAGS = -std=gnu99 -nostdinc $(MYLIB) $(KLIB) $(QLIB) -I . -D__KERNEL__ $(HOSTCFLAGS) -D_SYS_ 
+#CFLAGS = -std=gnu99 -nostdinc $(MYLIB) $(KLIB) $(QLIB) -I . -D__KERNEL__ $(HOSTCFLAGS) -D_SYS_ 
 
 LDFLAGS = -l rt
 
@@ -65,11 +66,11 @@ klee: test.bc
 mysystem:
 	@echo Compiling: $(SRC)
 	@$(GTCC) $(SRC) -o $@ -nostdinc -include $(GEN)/autoconf.h $(MYLIB) \
-        $(KLIB) $(HLIB) $(QLIB) -I ./ $(VERDEF) -D_CBMC_
+        $(KLIB) $(HLIB) $(QLIB) -I ./ -D_CBMC_ $(VERDEF)
 
 verify: mysystem
 	@echo Verifying: $(SRC)
-	@$(CBMC) --unwind $(UNWIND_NO) --no-library $<
+	@$(CBMC) --unwind $(UNWIND) --no-library $<
 
 dot: mysystem
 	@echo Build CFG: $(SRC)

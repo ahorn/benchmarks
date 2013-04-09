@@ -10,7 +10,7 @@ QEMU_SRC = ../../../qemu-hw
 GCC_INCLUDE = ../../gcc-include 
 GEN = generated
 
-UNWIND_NUM = 21
+UNWIND = 21
 #PROP_NO = 11
 
 # Source code
@@ -44,7 +44,8 @@ QLIB = -I $(QEMU_SRC)/
 
 MYLIB = -I modlib/
 
-VERDEF = -D__KERNEL__ -DRTC_BENCHMARK_PROP_$(PROP_NO)
+# Add -D__EXPOSE_BUG__ if you want to expose the bug
+VERDEF = -D__KERNEL__ -DRTC_BENCHMARK_PROP_$(PROP_NO) 
 
 # Not used right now
 %.o : %.c
@@ -64,11 +65,11 @@ klee: test.bc
 mysystem:
 	@echo Compiling: $(SRC)
 	@$(GTCC) $(SRC) -o $@ -nostdinc -include $(GEN)/autoconf.h $(MYLIB) \
-        $(KLIB) $(HLIB) $(QLIB) -I ./ $(VERDEF) -D_CBMC_ -D__NO_TIMER__
+        $(KLIB) $(HLIB) $(QLIB) -I ./ -D_CBMC_ -D__NO_TIMER__ $(VERDEF)
 
 verify: mysystem
 	@echo Verifying: $(SRC)
-	@$(CBMC) --unwind $(UNWIND_NUM) --no-library $<
+	@$(CBMC) --unwind $(UNWIND) --no-library $<
 
 dot: mysystem
 	@echo Build CFG: $(SRC)

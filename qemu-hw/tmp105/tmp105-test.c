@@ -59,6 +59,7 @@ static void write_byte(uint8_t data)
     write(&data, 1);
 }
 
+#ifdef __CBMC_TEST_HW__
 /* 
  * A test function for CBMC to check temperature limits
  * Check lower limit if flag == 0
@@ -80,6 +81,7 @@ static inline void assume_temp_range_cbmc(uint8_t l, uint8_t h, int flag)
 	__CPROVER_assume(temperature > 0x4b00);
     }
 }
+#endif
 
 /*
  * Tests reading temperature with 9-bit precision (0.5 C)
@@ -92,7 +94,9 @@ static void test_read_with_default_precision(void)
     tmp105_set(i2c_slave, 100000);
 
     temperature = read_word();
+#ifndef __EXPOSE_BUG__
     assert_cmpint(temperature, ==, 0x06400);
+#endif
 }
 
 /*
@@ -104,21 +108,31 @@ static void test_alarm(void)
     int high, low; 
    
     /* above 80 C */
-    //tmp105_set(i2c_slave, 81000);
+#ifdef __CBMC_TEST_HW__
     __CPROVER_assume(high > 80000 && high <= 125000) ;
+#else
+    tmp105_set(i2c_slave, 81000);
+#endif
     tmp105_set(i2c_slave, high);
 
     /* POL=0 inverts alarm signal */
+#ifndef __EXPOSE_BUG__
     assert_cmpint(alarm_rang, ==, false);
-
+#endif
     /* below 75 C */
-    //tmp105_set(i2c_slave, 74000);
+#ifdef __CBMC_TEST_HW__
     __CPROVER_assume(low >= -40000 && low < 75000) ;
+#else
+    tmp105_set(i2c_slave, 74000);
+#endif
     tmp105_set(i2c_slave, low);
 
     /* POL=0 inverts alarm signal */
+#ifndef __EXPOSE_BUG__
     assert_cmpint(alarm_rang, ==, true);
+#endif
 }
+
 
 /*
  * Tests 11-bit precision (0.125 C) of TMP105 temperature sensor
@@ -135,12 +149,14 @@ static void test_eleven_bit_precision(void)
 
     /* check internal temperature register */
     tmp105_state = (TMP105State *) i2c_slave;
+#ifndef __EXPOSE_BUG__
     assert_cmpint(tmp105_state->temperature, ==, 0x20);
-
+#endif
     /* expect ice! */
     temperature = read_word();
+#ifndef __EXPOSE_BUG__
     assert_cmpint(temperature, ==, 0);
-
+#endif
     /* configure 11 bit (0.125 C) precision */
     write(data, 2);
 
@@ -149,8 +165,11 @@ static void test_eleven_bit_precision(void)
 
     /* expect snow slush */
     temperature = read_word();
+#ifndef __EXPOSE_BUG__
     assert_cmpint(temperature, ==, 0x20);
+#endif
 }
+
 
 /*
  * Tests writing and then reading configuration register
@@ -160,10 +179,12 @@ static void test_change_config(void)
     /* ideally, use a non-deterministic value except the most significant bit
      * which should be zero unless the temperature sensor is in shutdown mode.
      */
-    //const uint8_t config = 0x40;
+#ifdef __CBMC_TEST_HW__
     const uint8_t config;
     __CPROVER_assume(((config >> 7) & 1) == 0);
-   
+#else
+    const uint8_t config = 0x40;
+#endif
     uint8_t new_config;
     const uint8_t data[] = {TMP105_REG_CONFIG, config};
 
@@ -171,8 +192,9 @@ static void test_change_config(void)
     write_byte(TMP105_REG_CONFIG);
 
     /* expect initial configuration */
+#ifndef __EXPOSE_BUG__
     assert_cmpint(read_byte(), ==, 0);
-
+#endif
     /* overwrite configuration register */
     write(data, 2);
 
@@ -193,12 +215,14 @@ static void test_change_config(void)
 static void test_change_lower_limit(void)
 {
     /* ideally, use two non-deterministic bytes */
-    //const uint8_t lo_limit_h = 0x3a, lo_limit_l = 0x10;
+#ifdef __CBMC_TEST_HW__
     const uint8_t lo_limit_h, lo_limit_l;
     assume_temp_range_cbmc(lo_limit_l, lo_limit_h, 0);
     __CPROVER_assume(lo_limit_l & 0x000f == 0) ;
     __CPROVER_assume(lo_limit_h & 0x000f == 0) ;
-    
+#else
+    const uint8_t lo_limit_h = 0x3a, lo_limit_l = 0x10;
+#endif
     uint16_t hi_limit, snd_hi_limit, lo_limit;
     const uint8_t data[] = {TMP105_REG_T_LOW, lo_limit_h, lo_limit_l};
 
@@ -211,8 +235,9 @@ static void test_change_lower_limit(void)
 
     /* expect initial lower limit */
     lo_limit = read_word();
+#ifndef __EXPOSE_BUG__
     assert_cmpint(lo_limit, ==, 0x4b00);
-
+#endif
     /* overwrite lower limit register value */
     write(data, 3);
 
@@ -227,7 +252,9 @@ static void test_change_lower_limit(void)
     /* expect T_HIGH to be unchanged */
     write_byte(TMP105_REG_T_HIGH);
     snd_hi_limit = read_word();
+#ifndef __EXPOSE_BUG__
     assert_cmpint(hi_limit, ==, snd_hi_limit);
+#endif
 }
 
 /*
@@ -236,12 +263,14 @@ static void test_change_lower_limit(void)
 static void test_change_higher_limit(void)
 {
     /* ideally, use two non-deterministic bytes */
-    //const uint8_t hi_limit_h = 0x67, hi_limit_l = 0x80;
+#ifdef __CBMC_TEST_HW__
     const uint8_t hi_limit_h, hi_limit_l;
     assume_temp_range_cbmc(hi_limit_l, hi_limit_h, 1);
     __CPROVER_assume(hi_limit_l & 0x000f == 0) ;
     __CPROVER_assume(hi_limit_h & 0x000f == 0) ;
-
+#else
+    const uint8_t hi_limit_h = 0x67, hi_limit_l = 0x80;
+#endif
     uint16_t hi_limit, lo_limit, snd_lo_limit;
     const uint8_t data[] = {TMP105_REG_T_HIGH, hi_limit_h, hi_limit_l};
 
@@ -254,8 +283,9 @@ static void test_change_higher_limit(void)
 
     /* expect initial higher limit */
     hi_limit = read_word();
+#ifndef __EXPOSE_BUG__
     assert_cmpint(hi_limit, ==, 0x5000);
-
+#endif
     /* overwrite higher limit register value */
     write(data, 3);
 
@@ -270,13 +300,17 @@ static void test_change_higher_limit(void)
     /* expect T_LOW to be unchanged */
     write_byte(TMP105_REG_T_LOW);
     snd_lo_limit = read_word();
+#ifndef __EXPOSE_BUG__
     assert_cmpint(lo_limit, ==, snd_lo_limit);
+#endif
 }
 
 static void tmp105_handler(void *opaque, int n, int level)
 {
     alarm_rang = level > 0 ? true : false;
+#ifndef __EXPOSE_BUG__
     assert_cmpint(n, ==, 3);
+#endif
 }
 
 /*
