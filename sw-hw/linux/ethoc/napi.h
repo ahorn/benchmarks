@@ -34,13 +34,17 @@ struct napi_struct {
  */
 static inline int test_and_set(int *flag)
 {
+#ifdef _CBMC_
 #ifndef _NO_CBMC_ATOMIC_
   __CPROVER_atomic_begin();
 #endif
+#endif
 	int _flag = *flag;
 	*flag = 1;
+#ifdef _CBMC_
 #ifndef _NO_CBMC_ATOMIC_
  __CPROVER_atomic_end();
+#endif
 #endif
 	return _flag;
 }
@@ -51,13 +55,17 @@ static inline int test_and_set(int *flag)
  */
 static inline int test_and_clear(int *flag)
 {
+#ifdef _CBMC_
 #ifndef _NO_CBMC_ATOMIC_
  __CPROVER_atomic_begin();
 #endif
+#endif
 	int _flag = *flag;
 	*flag = 0;
+#ifdef _CBMC_
 #ifndef _NO_CBMC_ATOMIC_
  __CPROVER_atomic_end();
+#endif
 #endif
 	return _flag;
 }

@@ -217,14 +217,18 @@ void main(void)
     eth.irq = &irq;
     eth.mii.link_ok = true;
 
-    //memset(eth.mii.regs, 0, sizeof(eth.mii.regs));
+#ifdef CONCRETE_EXECUTION
+    memset(eth.mii.regs, 0, sizeof(eth.mii.regs));
+#endif
     eth.mii.regs[MII_BMCR]=0;
     eth.mii.regs[MII_BMSR]=0;
     eth.mii.regs[MII_PHYIDR1]=0;
     eth.mii.regs[MII_PHYIDR2]=0;
     eth.mii.regs[MII_ANAR]=0;
     eth.mii.regs[MII_ANLPAR]=0;
-    //memset(eth.regs, 0, sizeof(eth.regs));
+#ifdef CONCRETE_EXECUTION
+    memset(eth.regs, 0, sizeof(eth.regs));
+#endif
     eth.regs[MODER]=0;
     eth.regs[INT_SOURCE]=0;
     eth.regs[INT_MASK]=0;
@@ -246,7 +250,9 @@ void main(void)
     eth.regs[HASH0]=0;
     eth.regs[HASH1]=0;
     eth.regs[TXCTRL]=0;
-    //memset(eth.desc, 0, sizeof(eth.desc));
+#ifdef CONCRETE_EXECUTION
+    memset(eth.desc, 0, sizeof(eth.desc));
+#endif
     eth.desc[0].buf_ptr=0;
     eth.desc[1].buf_ptr=0;
     eth.desc[2].buf_ptr=0;

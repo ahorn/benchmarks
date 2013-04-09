@@ -14,7 +14,7 @@ VERDEF = -D_NO_CBMC_ATOMIC_ \
          -DETHOC_BENCHMARK_PROP_7 \
 
 all:
-	gcc -g *.c 
+	gcc -g *.c $(VERDEF) -DCONCRETE_EXECUTION
 
 test.bc:
 	@echo ------------- Compiling with LLVM_GCC:
