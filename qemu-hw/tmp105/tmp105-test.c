@@ -181,7 +181,9 @@ static void test_change_config(void)
      */
 #ifdef __CBMC_TEST_HW__
     const uint8_t config;
-    __CPROVER_assume(((config >> 7) & 1) == 0);
+
+    /* OS bit == SD bit */
+    __CPROVER_assume((((config >> 7) & 1u) == 1u) == ((config & 1u) == 1u));
 #else
     const uint8_t config = 0x40;
 #endif

@@ -159,11 +159,14 @@ static void tmp105_read(TMP105State *s)
         check_temperature(s);
 
         /* VC: When the temperature sensor is in shutdown mode, each read
-         * of the temperature register must be preceded by a write of a "1"
-         * to the "one-shot" bit in the configuration register.
+         * of the temperature register must be preceded by a write of "1"
+         * to the "one-shot" (OS) bit in the configuration register. Conversely,
+         * if a "1" is written the OS bit, the temperature sensor must be in
+         * shutdown mode. Equivalently, the VC is that the OS bit is "1" if
+         * and only if the temperature sensor is in shutdown mode.
          */
 #ifdef I2C_BENCHMARK_PROP_16
-        assert(((s->config & 1) == 0) || s->os_trigger);
+        assert(((s->config & 1u) == 1u) == s->os_trigger);
 #endif
         s->os_trigger = false;
 
