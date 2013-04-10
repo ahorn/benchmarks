@@ -77,6 +77,7 @@ struct RTCState {
     /* The century byte is excluded because
      * it is not described in the data sheet. */
     uint8_t cmos_data_copy[10];
+    bool cmos_data_copy_check;
     uint8_t cmos_index;
     int32_t base_year;
     uint64_t base_rtc;
@@ -392,6 +393,8 @@ static void _rtc_update_timer(void *opaque)
 
 /* Copy content of RTC data registers for verification purposes */
 static void copy_data(RTCState *s) {
+    s->cmos_data_copy_check = (s->cmos_data[RTC_REG_B] & REG_B_SET) == REG_B_SET;
+
     uint32_t rtc_data_addr;
     for(rtc_data_addr = RTC_SECONDS;
         rtc_data_addr <= RTC_YEAR;
@@ -401,8 +404,9 @@ static void copy_data(RTCState *s) {
     }
 }
 
-/* If the SET bit of Register B is enabled, assert the equality of the content
- * between each RTC data register and its previously made copy.
+/* If the SET bit of Register B was enabled when the RTC data registers
+ * were copied and the SET bit is now still enabled, then assert that the
+ * content of the ten RTC data registers has not changed.
  *
  * This function together with copy_data() can be used to check the VC:
  *
@@ -411,7 +415,9 @@ static void copy_data(RTCState *s) {
  *     must return D.
  */
 static void assert_equal_copy_data(RTCState *s) {
-    if ((s->cmos_data[RTC_REG_B] & REG_B_SET) == REG_B_SET) {
+    if (s->cmos_data_copy_check &&
+         ((s->cmos_data[RTC_REG_B] & REG_B_SET) == REG_B_SET)) {
+
         uint32_t rtc_data_addr;
         for(rtc_data_addr = RTC_SECONDS;
             rtc_data_addr <= RTC_YEAR;
