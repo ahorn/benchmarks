@@ -30,9 +30,10 @@
   #include<linux/string.h>
 #else
   #include<string.h>
-#endif
 
-//#include <assert.h> // conflict with the Linux kernel when running CBMC
+  // conflict with Linux kernel header when running CBMC
+  #include<assert.h>
+#endif
 
 #ifdef DEBUG_CMOS
 # define CMOS_DPRINTF(format, ...)   printf(format, ## __VA_ARGS__)
