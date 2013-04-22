@@ -204,7 +204,9 @@ void might_fault(void);
 #else
 static inline void might_fault(void)
 {
+#ifndef _CBMC_I2C_LOOP_
 	might_sleep();
+#endif
 }
 #endif
 

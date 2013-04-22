@@ -86,12 +86,18 @@ struct mutex_waiter {
  *
  * It is not allowed to initialize an already locked mutex.
  */
+#ifndef _CBMC_I2C_LOOP_
 # define mutex_init(mutex) \
 do {							\
 	static struct lock_class_key __key;		\
 							\
 	__mutex_init((mutex), #mutex, &__key);		\
 } while (0)
+#else
+# define mutex_init(mutex) \
+	static struct lock_class_key __key;		\
+	__mutex_init((mutex), #mutex, &__key);
+#endif
 static inline void mutex_destroy(struct mutex *lock) {}
 #endif
 

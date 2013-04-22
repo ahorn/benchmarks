@@ -113,7 +113,8 @@ static ssize_t set_temp(struct device *dev, struct device_attribute *da,
 
 	error = kstrtol(buf, 10, &temp);
 	
-        /* Temperature range */ 
+        /* Temperature range */
+#ifdef _CBMC_ 
 	__CPROVER_assume( (int16_t) 0xd800 <= temp && temp <= (int16_t) 0x7d00 );
 	/* VC: The least significant four bits of T_LOW are always zero */
         __CPROVER_assume( temp & 0x000f == 0 );   
@@ -126,7 +127,7 @@ static ssize_t set_temp(struct device *dev, struct device_attribute *da,
 		//__CPROVER_assume( temp > lm75_read_value(client, LM75_REG_TEMP[2]) );
 		__CPROVER_assume( temp > 0x4b00 );
 	}
-
+#endif
 	if (error)
 		return error;
 
@@ -203,7 +204,7 @@ lm75_probe(struct i2c_client *client, const struct i2c_device_id *id)
 	 *     where 0 <= i < 7. That is, the first seven bits of C and C' are
 	 *     pairwise equal.
 	 */
-#ifdef I2C_BENCHMARK_PROP_21
+#ifdef I2C_BENCHMARK_PROP_9
 	assert((new & 0x7f) == (lm75_read_value(client, LM75_REG_CONF) & 0x7f));
 #endif
 

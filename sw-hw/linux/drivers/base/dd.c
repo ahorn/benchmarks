@@ -336,6 +336,7 @@ int driver_probe_done(void)
 	return 0;
 }
 
+#ifndef _CBMC_I2C_LOOP_
 /**
  * wait_for_device_probe
  * Wait for device probing to be completed.
@@ -347,7 +348,7 @@ void wait_for_device_probe(void)
 	async_synchronize_full();
 }
 EXPORT_SYMBOL_GPL(wait_for_device_probe);
-
+#endif
 /**
  * driver_probe_device - attempt to bind device & driver together
  * @drv: driver to bind a device to
@@ -528,6 +529,7 @@ void device_release_driver(struct device *dev)
 }
 EXPORT_SYMBOL_GPL(device_release_driver);
 
+#ifndef _CBMC_I2C_LOOP_
 /**
  * driver_detach - detach driver from all devices it controls.
  * @drv: driver.
@@ -561,6 +563,7 @@ void driver_detach(struct device_driver *drv)
 		put_device(dev);
 	}
 }
+#endif
 
 /*
  * These exports can't be _GPL due to .h files using this within them, and it

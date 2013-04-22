@@ -661,9 +661,13 @@ extern int pm_generic_poweroff(struct device *dev);
 extern void pm_generic_complete(struct device *dev);
 
 #else /* !CONFIG_PM_SLEEP */
-
+#ifndef _CBMC_I2C_LOOP_
 #define device_pm_lock() do {} while (0)
 #define device_pm_unlock() do {} while (0)
+#else
+#define device_pm_lock() {} 
+#define device_pm_unlock() {} 
+#endif
 
 static inline int dpm_suspend_start(pm_message_t state)
 {
