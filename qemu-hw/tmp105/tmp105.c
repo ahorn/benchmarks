@@ -87,8 +87,11 @@ static inline void check_config(TMP105State *s)
 
 static void tmp105_interrupt_update(TMP105State *s)
 {
+#ifndef _I2C_NO_IRQ_
     qemu_set_irq(s->pin, s->alarm ^ ((~s->config >> 2) & 1));	/* POL */
+#endif
 }
+
 static void tmp105_alarm_update(TMP105State *s)
 {
     /* VC: Bit 7 of configuration register must only be enabled as long as
@@ -305,10 +308,6 @@ int tmp105_tx(I2CSlave *i2c, uint8_t data)
 #ifdef __EXPOSE_BUG__
     // Orginal bug for testing
     if (!s->len ++) {
-#ifdef I2C_BENCHMARK_PROP_9
-        assert(0 <= data);
-        assert(data <= 4);
-#endif
        s->pointer = data;
     } else {
         if (s->len <= 2) {
@@ -328,10 +327,6 @@ int tmp105_tx(I2CSlave *i2c, uint8_t data)
         /* VC: The value in the pointer register must be between
          *     zero and four inclusive.
          */ 
-#ifdef I2C_BENCHMARK_PROP_9
-        assert(0 <= data);
-        assert(data <= 4);
-#endif
         s->pointer = data;
         s->len ++;
     } else {
