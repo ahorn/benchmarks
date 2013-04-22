@@ -1,6 +1,6 @@
 #!/bin/bash
 # Run experiment for Prop$2 to Prop$3 _once_ on the I2C TMP105 HW/SW model
-
+# where Prop$2 and Prop$3 range from 1 to 21
 # Parse some command line input paramters, and verify they were set
 exptName=$1
 fromProp=$2

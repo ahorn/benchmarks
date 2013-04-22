@@ -1,6 +1,6 @@
 #include <generated/autoconf.h>
 #ifndef _CBMC_
-    #include<assert.h>
+    #include <assert.h>
 #endif
 
 
@@ -43,35 +43,41 @@ int nondet_int();
 // TODO:
 // Replace: kstrtol (might easily blow up)
 //            
-//            
 
 int main (int argc, char** argv) {
 
     struct i2c_client client;
     reset_dev(); 
 
+    // Creat device
     lm75_driver_init();
 
-    // TODO: Create device
     // Create sensor_device_attribute
     struct sensor_device_attribute sda;
     struct i2c_board_info info;
 
-    //int error = lm75_detect (&client, &info);
-    int previous = 0;
+    int error = lm75_detect(&client, &info);
+#ifdef _CBMC_
+     __CPROVER_assume(error == 0);
+#else
+    assert(!error);
+#endif
+        
     char buf [6];
 
     /* force internal integer conversion in kstrtol() to terminate quickly */
     buf[5] = 0;
 
     /* Test cases */
+#ifdef _CBMC_
     __CPROVER_assume(sda.index == 1 || sda.index == 2);
-    
-    int test_seq_len = 10; 
+#endif
+    // The length of test sequence 
+    int test_seq_len = 15; 
     for (int test_i = 0; test_i < test_seq_len; test_i++) {
-        // TODO: We can split this into many different tests
-        // Implement 
-        switch (nondet_int()) {
+        // We can split this into many different tests
+        int switch_case;
+        switch (switch_case) {
             case 0:
                 show_temp (&client.dev,
                            &sda.dev_attr, buf);
@@ -84,15 +90,15 @@ int main (int argc, char** argv) {
             case 2:
                 lm75_suspend(&client.dev);
                 break;
-            //case 3:
-                //lm75_probe();
-                //break;
+            case 3:
+                lm75_probe(&client, &lm75_ids[12]);
+                break;
             default:
                 lm75_resume(&client.dev);
                 break;
         }
     }
-
+    
     lm75_driver_exit();
 
     return 0;
