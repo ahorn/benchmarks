@@ -1,4 +1,32 @@
+# Configure this 4 variables according to your computer environment
+CBMC = ~/Work/tools/cbmc-4.3/cbmc
+LLVM_GCC = llvm-gcc
+LLVM_LD = llvm-ld
+KLEE = klee
+
 SRC = main.c mc146818rtc.c qemu-timer.c qverify.c rtc-verify.c
+
+LLVM_BC = *.bc.o
+
+INCLUDE = -I ./
+
+PROP = -DRTC_BENCHMARK_PROP_1 \
+       -DRTC_BENCHMARK_PROP_2 \
+       -DRTC_BENCHMARK_PROP_3 \
+       -DRTC_BENCHMARK_PROP_4 \
+       -DRTC_BENCHMARK_PROP_5 \
+       -DRTC_BENCHMARK_PROP_6 \
+       -DRTC_BENCHMARK_PROP_7 \
+       -DRTC_BENCHMARK_PROP_8 \
+       -DRTC_BENCHMARK_PROP_9 \
+       -DRTC_BENCHMARK_PROP_10 \
+       -DRTC_BENCHMARK_PROP_11 \
+       -D__EXPOSE_BUG__
+
+VERDEF = -D__KLEE_TEST_HW__ \
+         ${PROP}
+         #-DRTC_BENCHMARK_PROP_$(PROP_NO)
+
 #PROP_NO = 2
 #UNWIND = 11
 
@@ -7,6 +35,26 @@ all:
 
 # Add -D__EXPOSE_BUG__ if you want to expose the bug
 verify:
-	cbmc ${SRC} --unwind $(UNWIND) -D__CBMC_TEST_HW__ -D__NO_TIMER__ -DRTC_BENCHMARK_PROP_$(PROP_NO) #-D__EXPOSE_BUG__ 
+	${CBMC} ${SRC} --unwind $(UNWIND) -D__CBMC_TEST_HW__ -D__NO_TIMER__ -DRTC_BENCHMARK_PROP_$(PROP_NO) -D__EXPOSE_BUG__ 
+
+llvm-gcc:
+	@echo ------------- Compiling with llvm_gcc:
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c mc146818rtc.c -o mc146818rtc.bc.o $(VERDEF)
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c qemu-timer.c -o qemu-timer.bc.o $(VERDEF)
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c qverify.c -o qverify.bc.o $(VERDEF)
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c rtc-verify.c -o rtc-verify.bc.o $(VERDEF)
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c main.c -o main.bc.o $(VERDEF)
+
+llvm-ld:llvm-gcc
+	@echo ------------- Linking with llvm-ld:
+	@$(LLVM_LD) $(LLVM_BC) -o test
+
+klee:   llvm-ld
+	@echo ------------- Running klee:
+	@$(KLEE) --optimize --libc=uclibc test.bc
 
 clean:
+
+clean-klee:
+	@echo ------------- Clean folers...
+	@rm -rf $(LLVM_BC) test.bc test  #klee*
