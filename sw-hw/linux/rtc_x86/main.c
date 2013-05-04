@@ -17,6 +17,7 @@
 #include <rtc.c>            /* Implements x86 rtc (/kernel) */
 #include <bcd.c>
 #include <base/platform.c>
+//#include <resource.c>
 //#include <base/driver.c> - conflict with rtc-cmos
 
 /* QEMU Model */
@@ -29,21 +30,45 @@
 #include "rtc/mc146818rtc.c"
 
 /* PC cmos mappings */
-
 #define REG_EQUIPMENT_BYTE          0x14
 
 #include <stdint.h>
+
 typedef uint64_t ram_addr_t;
 
 QEMUClock *rtc_clock;
 
+#ifdef __KLEE_
+ram_addr_t ram_size;
+int smp_cpus;
+int use_rt_clock;
+#endif
+
+struct resource ioport_resource = {
+        .name   = "PCI IO",
+        .start  = 0,
+        .end    = IO_SPACE_LIMIT,
+        .flags  = IORESOURCE_IO,
+};
+EXPORT_SYMBOL(ioport_resource);
+
+struct resource iomem_resource = {
+        .name   = "PCI mem",
+        .start  = 0,
+        .end    = -1,
+        .flags  = IORESOURCE_MEM,
+};
+EXPORT_SYMBOL(iomem_resource);
+
+/* use non-deterministic values */
+#ifdef _CBMC_
 int nondet_int();
 uint64_t nondet_uint64();
 
-/* use non-deterministic values */
 ram_addr_t ram_size = nondet_uint64();
 int smp_cpus = nondet_int();
 int use_rt_clock = nondet_int();
+#endif
 
 #ifndef MIN
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -113,6 +138,12 @@ static void pc_cmos_init_for_rtc(RTCState *s)
 int main (int argc, char** argv) {
     int ok;
 
+#ifdef _KLEE_
+    klee_make_symbolic(&ram_size, sizeof(ram_size), "ram_size");
+    klee_make_symbolic(&smp_cpus, sizeof(smp_cpus), "smp_cpus");
+    klee_make_symbolic(&use_rt_clock, sizeof(use_rt_clock), "use_rt_clock");
+#endif
+
     qverify_start();
     rtc_clock = vm_clock;
     _rtc_init(2000);
@@ -126,6 +157,15 @@ int main (int argc, char** argv) {
     // That is, the actual function definition is too complex to analyze.
     assert(ok == 0);
 #endif
+
+#ifdef _CBMC_
+    __CPROVER_assume(ok == 0);
+#endif
+
+#ifdef _KLEE_
+    klee_assume(ok == 0);
+#endif
+
     // test cases
     struct rtc_time t;
     //cmos_read_time (NULL, &t);
