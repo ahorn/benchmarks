@@ -1,0 +1,66 @@
+# Configure this 4 variables according to your computer environment
+CBMC = cbmc
+LLVM_GCC = llvm-gcc
+LLVM_LD = llvm-ld
+KLEE = klee
+
+SRC = irq.c tmp105.c tmp105-test.c
+
+LLVM_BC = *.bc.o
+
+INCLUDE = -I ./
+
+PROP = -DI2C_BENCHMARK_PROP_1 \
+       -DI2C_BENCHMARK_PROP_2 \
+       -DI2C_BENCHMARK_PROP_3 \
+       -DI2C_BENCHMARK_PROP_4 \
+       -DI2C_BENCHMARK_PROP_5 \
+       -DI2C_BENCHMARK_PROP_6 \
+       -DI2C_BENCHMARK_PROP_7 \
+       -DI2C_BENCHMARK_PROP_8 \
+       -DI2C_BENCHMARK_PROP_9 \
+       -DI2C_BENCHMARK_PROP_10 \
+       -DI2C_BENCHMARK_PROP_11 \
+       -DI2C_BENCHMARK_PROP_12 \
+       -DI2C_BENCHMARK_PROP_13 \
+       -DI2C_BENCHMARK_PROP_14 \
+       -DI2C_BENCHMARK_PROP_15 \
+       -DI2C_BENCHMARK_PROP_16 \
+       -DI2C_BENCHMARK_PROP_17 \
+       -DI2C_BENCHMARK_PROP_18 \
+       -DI2C_BENCHMARK_PROP_19 \
+       -DI2C_BENCHMARK_PROP_20 \
+       -D__EXPOSE_BUG__
+
+VERDEF = -D_KLEE_ \
+	 ${PROP} 
+         #-DETHOC_BENCHMARK_PROP_$(PROP_NO)
+
+#PROP_NO = 21
+
+all:
+	gcc ${SRC}
+
+# Add -D__EXPOSE_BUG__ if you want to expose the bug
+verify:
+	${CBMC} ${SRC} --unwind 4 -D__CBMC_TEST_HW__ -DI2C_BENCHMARK_PROP_${PROP_NO} -D__EXPOSE_BUG__
+
+llvm-gcc:
+	@echo ------------- Compiling with llvm_gcc:
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c irq.c -o irq.bc.o $(VERDEF)
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c tmp105.c -o tmp105.bc.o $(VERDEF)
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c tmp105-test.c -o tmp105-test.bc.o $(VERDEF)
+
+llvm-ld:llvm-gcc
+	@echo ------------- Linking with llvm-ld:
+	@$(LLVM_LD) $(LLVM_BC) -o test
+
+klee:   llvm-ld
+	@echo ------------- Running klee:       
+	@$(KLEE) --optimize --libc=uclibc test.bc       
+
+clean:
+
+clean-klee:
+	@echo ------------- Clean folers...
+	@rm -rf $(LLVM_BC) test.bc test  
