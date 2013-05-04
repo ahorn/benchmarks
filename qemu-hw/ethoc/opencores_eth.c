@@ -15,9 +15,12 @@
  */
 #include "opencores_eth.h"
 #include "sys.h"
-#include "trace.h"
 #include "cpu.h"
 #include "assert.h"
+
+#ifdef CONCRETE_EXECUTION
+#include "trace.h"
+#endif
 
 /* RECSMALL is not used because it breaks tap networking in linux:
  * incoming ARP responses are too short
@@ -80,7 +83,9 @@ static void mii_write_host(Mii *s, unsigned idx, uint16_t v)
     };
 
     if (idx < MII_REG_MAX) {
+#ifdef CONCRETE_EXECUTION
         trace_open_eth_mii_write(idx, v);
+#endif
         if (reg_write[idx]) {
             reg_write[idx](s, v);
         } else {
@@ -91,7 +96,9 @@ static void mii_write_host(Mii *s, unsigned idx, uint16_t v)
 
 static uint16_t mii_read_host(Mii *s, unsigned idx)
 {
+#ifdef CONCRETE_EXECUTION
     trace_open_eth_mii_read(idx, s->regs[idx]);
+#endif
     return s->regs[idx];
 }
 
@@ -121,7 +128,9 @@ static void open_eth_update_irq(OpenEthState *s,
         uint32_t old, uint32_t new)
 {
     if (!old != !new) {
+#ifdef CONCRETE_EXECUTION
         trace_open_eth_update_irq(new);
+#endif
         hw_set_irq(s->irq, new);
     }
 }
@@ -200,8 +209,9 @@ ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
     size_t fcsl = 4;
     bool miss = true;
 
+#ifdef CONCRETE_EXECUTION
     trace_open_eth_receive((unsigned)size);
-
+#endif
     if (size >= 6) {
         static const uint8_t bcast_addr[] = {
             0xff, 0xff, 0xff, 0xff, 0xff, 0xff
@@ -212,8 +222,10 @@ ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
             unsigned mcast_idx = compute_mcast_idx(buf);
             miss = !(s->regs[HASH0 + mcast_idx / 32] &
                     (1 << (mcast_idx % 32)));
-            trace_open_eth_receive_mcast(
+#ifdef CONCRETE_EXECUTION
+           trace_open_eth_receive_mcast(
                     mcast_idx, s->regs[HASH0], s->regs[HASH1]);
+#endif
         } else {
             miss = GET_REGFIELD(s, MAC_ADDR1, BYTE0) != buf[0] ||
                 GET_REGFIELD(s, MAC_ADDR1, BYTE1) != buf[1] ||
@@ -225,7 +237,9 @@ ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
     }
 
     if (miss && !GET_REGBIT(s, MODER, PRO)) {
+#ifdef CONCRETE_EXECUTION
         trace_open_eth_receive_reject();
+#endif
         goto out;
     }
 
@@ -302,9 +316,9 @@ ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
             ++s->rx_desc;
         }
         desc->len_flags &= ~RXD_E;
-
+#ifdef CONCRETE_EXECUTION
         trace_open_eth_receive_desc(desc->buf_ptr, desc->len_flags);
-
+#endif
         if (desc->len_flags & RXD_IRQ) {
             open_eth_int_source_write(s,
                     s->regs[INT_SOURCE] | INT_SOURCE_RXB);
@@ -333,8 +347,9 @@ static void open_eth_start_xmit(OpenEthState *s, open_eth_desc *tx)
             tx_len > GET_REGFIELD(s, PACKETLEN, MAXFL)) {
         tx_len = GET_REGFIELD(s, PACKETLEN, MAXFL);
     }
-
+#ifdef CONCRETE_EXECUTION
     trace_open_eth_start_xmit(tx->buf_ptr, len, tx_len);
+#endif
 
     if (len > tx_len) {
         len = tx_len;
@@ -390,7 +405,9 @@ uint32_t open_eth_reg_read(OpenEthState *s, hwaddr addr)
             val = s->regs[idx];
         }
     }
+#ifdef CONCRETE_EXECUTION
     trace_open_eth_reg_read((uint32_t)addr, val);
+#endif
 #ifdef _CBMC_
 #ifndef _NO_CBMC_ATOMIC_
     __CPROVER_atomic_end();
@@ -512,7 +529,9 @@ void open_eth_reg_write(OpenEthState *s, hwaddr addr, uint32_t val)
     unsigned idx = addr / 4;
 
     if (idx < REG_MAX) {
+#ifdef CONCRETE_EXECUTION
         trace_open_eth_reg_write((uint32_t)addr, val);
+#endif
         if (reg_write[idx]) {
             reg_write[idx](s, val);
         } else {
@@ -536,7 +555,9 @@ uint64_t open_eth_desc_read(OpenEthState *s, hwaddr addr)
     uint64_t v;
 
     v = get_desc_at(s, addr);
+#ifdef CONCRETE_EXECUTION
     trace_open_eth_desc_read((uint32_t)addr, (uint32_t)v);
+#endif
 #ifdef _CBMC_
 #ifndef _NO_CBMC_ATOMIC_
     __CPROVER_atomic_end();
@@ -553,7 +574,9 @@ void open_eth_desc_write(OpenEthState *s, hwaddr addr, uint64_t val)
     __CPROVER_atomic_begin();
 #endif
 #endif
+#ifdef CONCRETE_EXECUTION
     trace_open_eth_desc_write((uint32_t)addr, (uint32_t)val);
+#endif
     set_desc_at(s, addr, val);
 
     open_eth_check_start_xmit(s);

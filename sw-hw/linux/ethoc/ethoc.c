@@ -870,9 +870,15 @@ __CPROVER_ASYNC_1: test_rx(mac_addr, packet_id, data, packet_size);
 int main(void)
 {
         /* In our analysis, we force these variables to be non-deterministic. */
+#ifdef _KLEE_
+	const int irq_n;
+	const unsigned int flags;
+	klee_make_symbolic(&irq_n, sizeof(irq_n), "irq_n");
+	klee_make_symbolic(&flags, sizeof(flags), "flags");
+#else
 	const int irq_n = nondet_int(3);
 	const unsigned int flags = nondet_uint(0);
-
+#endif
 	/* Empty implementation of virtual machine Net API */
 	NetClientInfo nc_info;
 	nc_info.can_receive = NULL;
@@ -950,7 +956,13 @@ int main(void)
 	ethoc.napi.is_disabling = 0;
 
 	/* use a non-deterministic NAPI weight in the range [0, 512] */
+#ifdef _KLEE_
+	int weight;
+	klee_make_symbolic(&weight, sizeof(weight), "ethoc.napi.weight");
+	ethoc.napi.weight = weight;
+#else
 	ethoc.napi.weight = nondet_int(64);
+#endif
 	if (ethoc.napi.weight < 0 || ethoc.napi.weight > 512)
 		return 1;
 
@@ -959,6 +971,12 @@ int main(void)
         /* In our analysis, we force these variables to be non-deterministic.
  	 * The values are constraint by the next two conditional statements.
  	 */
+#ifdef _KLEE_
+	const u8 mac_addr[6];
+	const long mem_size;
+	klee_make_symbolic(&mac_addr, sizeof(mac_addr), "mac_addr");
+	klee_make_symbolic(&mem_size, sizeof(mem_size), "mem_size");
+#else
 	const u8 mac_addr[6] = { nondet_u8(0x10),
 				 nondet_u8(0x32),
 				 nondet_u8(0x54),
@@ -967,7 +985,7 @@ int main(void)
 				 nondet_u8(0xba) };
 
 	const long mem_size = nondet_long(ETHOC_BUFSIZ * 12);
-
+#endif
 	if (!is_valid_ether_addr(mac_addr))
 		return 1;
 	if (DMA_BUF_SIZE < mem_size || mem_size <= (4 * ETHOC_BUFSIZ))
@@ -990,8 +1008,12 @@ int main(void)
 	/* num_tx must be a power of two */
 	ethoc.num_tx = rounddown_pow_of_two(num_bd >> 1);
 	ethoc.num_rx = num_bd - ethoc.num_tx;
-
+#ifdef _KLEE_
+	const unsigned int rx_packet_num;
+	klee_make_symbolic(&rx_packet_num, sizeof(rx_packet_num), "rx_packet_num");
+#else
 	const unsigned int rx_packet_num = nondet_int(3);
+#endif
 	if (rx_packet_num > ethoc.num_rx)
 		return;
 
@@ -1000,7 +1022,12 @@ int main(void)
 
 	int packet_id;
 	for (packet_id = 0; packet_id < rx_packet_num; packet_id++) {
+#ifdef _KLEE_
+		const unsigned int packet_size;
+		klee_make_symbolic(&packet_size, sizeof(packet_size), "packet_size");
+#else
 		const unsigned int packet_size = nondet_uint(64 + packet_id);
+#endif
 		if (packet_size >= ETHOC_BUFSIZ
 #ifndef _CBMC_
         || packet_size < 64
@@ -1009,8 +1036,13 @@ int main(void)
 			continue;
 
 		packet_sizes[packet_id] = packet_size;
+#ifdef _KLEE_
+		u8 packet_byte;
+		klee_make_symbolic(&packet_byte, sizeof(packet_byte), "packet_bytes[packet_id]"); 
+		packet_bytes[packet_id] = packet_byte;
+#else
 		packet_bytes[packet_id] = nondet_u8((packet_id + 1) % 255);
-
+#endif
 		/* Start an asynchronous call which triggers an incoming packet.
  		 * Each packet is associated with a unique positive identifier.
  		 */
