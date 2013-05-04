@@ -1,0 +1,63 @@
+# Configure this 3 variables according to your computer environment 
+LLVM_GCC = llvm-gcc
+LLVM_LD = llvm-ld 
+KLEE = klee
+
+HW_SRC = ../../../qemu-hw
+OPEN_ETH_SRC = $(HW_SRC)/ethoc
+
+SRC = *.c \
+      $(OPEN_ETH_SRC)/sys.c \
+      $(OPEN_ETH_SRC)/cpu.c \
+      $(OPEN_ETH_SRC)/irq.c \
+      $(OPEN_ETH_SRC)/net.c \
+      $(OPEN_ETH_SRC)/opencores_eth.c
+
+LLVM_BC = *.bc \
+          $(OPEN_ETH_SRC)/sys.bc \
+          $(OPEN_ETH_SRC)/cpu.bc \
+          $(OPEN_ETH_SRC)/irq.bc \
+          $(OPEN_ETH_SRC)/net.bc \
+          $(OPEN_ETH_SRC)/opencores_eth.bc
+
+INCLUDE = -I ./ \
+          -I $(HW_SRC)/ 
+
+VERDEF = -D_KLEE_ $(PROP) 
+
+PROP = -DETHOC_BENCHMARK_PROP_1 \
+       -DETHOC_BENCHMARK_PROP_2 \
+       -DETHOC_BENCHMARK_PROP_3 \
+       -DETHOC_BENCHMARK_PROP_4 \
+       -DETHOC_BENCHMARK_PROP_5 \
+       -DETHOC_BENCHMARK_PROP_6 \
+       -DETHOC_BENCHMARK_PROP_7
+
+all:
+	gcc -I $(HW_SRC) -g $(SRC)
+
+llvm_gcc:
+	@echo ------ Compiling with llvm-gcc:
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c $(OPEN_ETH_SRC)/sys.c -o $(OPEN_ETH_SRC)/sys.bc $(VERDEF)
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c $(OPEN_ETH_SRC)/cpu.c -o $(OPEN_ETH_SRC)/cpu.bc $(VERDEF)
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c $(OPEN_ETH_SRC)/irq.c -o $(OPEN_ETH_SRC)/irq.bc $(VERDEF)
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c $(OPEN_ETH_SRC)/net.c -o $(OPEN_ETH_SRC)/net.bc $(VERDEF)
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c $(OPEN_ETH_SRC)/opencores_eth.c -o $(OPEN_ETH_SRC)/opencores_eth.bc $(VERDEF)
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c bitrev.c -o bitrev.bc $(VERDEF)
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c cbmc.c -o cbmc.bc $(VERDEF)
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c timer.c -o timer.bc $(VERDEF)
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c ethoc.c -o ethoc.bc $(VERDEF)
+
+llvm_ld:llvm_gcc
+	@echo ------ Linking with llvm-ld:
+	@$(LLVM_LD) $(LLVM_BC) -o test 
+	
+
+klee:	llvm_ld
+	@echo ------ Running klee:       
+	@$(KLEE) --optimize --libc=uclibc test.bc        
+
+clean-klee:
+	@echo ------ Clean klee bitcodes
+	@rm -rf $(LLVM_BC) test test.bc
+
