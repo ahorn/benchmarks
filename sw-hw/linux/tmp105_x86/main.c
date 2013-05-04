@@ -1,16 +1,15 @@
 #include <generated/autoconf.h>
+#include <stdint.h>
+
 #ifndef _CBMC_
     #include <assert.h>
 #endif
 
-
 /* Linux files */
 #include <linux/i2c.h>
-//#include <>
 /* We include it here because we want to propagate the autoconf */
 #include <hwmon/lm75.c>     /* Implements tmp105 driver (lm75 like) */
 #include <linux/hwmon-sysfs.h>
-
 #include <kstrtox.c> // kstrstoll
 #include <base/dd.c> // i2c_get_clientdata
 //#include <base/driver.c> - conflict with rtc-cmos
@@ -26,19 +25,10 @@
 #include "sw-hw.c"
 
 /* PC cmos mappings */
-
 #define REG_EQUIPMENT_BYTE          0x14
 
-#include <stdint.h>
-
-static ssize_t show_temp(struct device *dev, struct device_attribute *da,
-			 char *buf);
-static ssize_t set_temp(struct device *dev, struct device_attribute *da,
-			const char *buf, size_t count);
-static int lm75_suspend(struct device *dev);
-static int lm75_resume(struct device *dev);
-
-int nondet_int();
+// From arch/x86/kernel/time.c
+unsigned long volatile jiffies = ((unsigned long)(unsigned int) (-300*HZ));
 
 // TODO:
 // Replace: kstrtol (might easily blow up)
@@ -56,27 +46,50 @@ int main (int argc, char** argv) {
     struct sensor_device_attribute sda;
     struct i2c_board_info info;
 
+#ifdef _KLEE_
+    klee_make_symbolic(&client, sizeof(client), "client");
+    klee_make_symbolic(&sda, sizeof(sda), "sda");
+    klee_make_symbolic(&info, sizeof(info), "info");
+#endif
+
     int error = lm75_detect(&client, &info);
+
 #ifdef _CBMC_
      __CPROVER_assume(error == 0);
+#elif defined(_KLEE_)
+    klee_assume(error == 0);
 #else
     assert(!error);
 #endif
         
     char buf [6];
 
+#ifdef _KLEE_
+    klee_make_symbolic(buf, sizeof(buf), "buf");
     /* force internal integer conversion in kstrtol() to terminate quickly */
+    klee_assume(buf[5] == 0); 
+#else 
     buf[5] = 0;
+#endif
 
     /* Test cases */
 #ifdef _CBMC_
     __CPROVER_assume(sda.index == 1 || sda.index == 2);
 #endif
+#ifdef _KLEE_
+    klee_assume(sda.index == 1 || sda.index == 2);
+#endif
+
     // The length of test sequence 
     int test_seq_len = 15; 
     for (int test_i = 0; test_i < test_seq_len; test_i++) {
         // We can split this into many different tests
         int switch_case;
+
+#ifdef _KLEE_
+	klee_make_symbolic(&switch_case, sizeof(switch_case), "switch_case");
+#endif
+
         switch (switch_case) {
             case 0:
                 show_temp (&client.dev,

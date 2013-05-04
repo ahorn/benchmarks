@@ -128,6 +128,21 @@ static ssize_t set_temp(struct device *dev, struct device_attribute *da,
 		__CPROVER_assume( temp > 0x4b00 );
 	}
 #endif
+#ifdef _KLEE_
+	klee_assume( (int16_t) 0xd800 <= temp && temp <= (int16_t) 0x7d00 );
+	/* VC: The least significant four bits of T_LOW are always zero */
+        klee_assume( temp & 0x000f == 0 );   
+
+	/* VC: T_LOW must be strictly less than T_HIGH */
+	if (nr == 2) {
+		//__CPROVER_assume( temp < lm75_read_value(client, LM75_REG_TEMP[1]) );
+		klee_assume( temp < 0x5000 );
+	} else if (nr == 1) {  
+		//__CPROVER_assume( temp > lm75_read_value(client, LM75_REG_TEMP[2]) );
+		klee_assume( temp > 0x4b00 );
+	}
+#endif
+
 	if (error)
 		return error;
 

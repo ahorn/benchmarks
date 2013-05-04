@@ -1,8 +1,11 @@
-# Configure this 5 variables according to your computer environment
+# Configure this 7 variables according to your computer environment
 CC = gcc
 CBMC = cbmc
 GTCC = goto-cc
 GTINST = goto-instrument
+
+LLVM_GCC = llvm-gcc
+LLVM_LD = llvm-ld 
 KLEE = klee
 
 LINUX_SRC = ..
@@ -10,8 +13,8 @@ GCC_INCLUDE =  ../../gcc-include
 QEMU_SRC = ../../../qemu-hw
 GEN = generated
 
-UNWIND = 11
-#PROP_NO = 21
+UNWIND = 16
+#PROP_NO = 20
 
 # Source code
 # --> UGLY: The other files are included in  main.c
@@ -19,14 +22,6 @@ UNWIND = 11
 SRC = main.c 
 
 OBJS = $(SRC:%.c=%.o)
-
-HOSTCFLAGS = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 \
-             -fomit-frame-pointer 
-
-CFLAGS = -std=gnu99 -nostdinc $(MYLIB) $(KLIB) $(QLIB) -I . -D__KERNEL__ $(HOSTCFLAGS) \
-         -D_SYS_ -DCONFIG_I2C -DCONFIG_PM
-
-LDFLAGS = 
 
 KLIB = -I $(LINUX_SRC)/arch/x86/include/  \
        -I $(LINUX_SRC)/arch/x86/kernel/ \
@@ -41,12 +36,39 @@ QLIB = -I $(QEMU_SRC)/
 
 MYLIB = -I modlib/
 
-# Add -D__EXPOSE_BUG__ if you want to expose the bug
-VERDEF = -D__KERNEL__ -D_SYS_ -DCONFIG_I2C -U__i386__ -DI2C_BENCHMARK_PROP_$(PROP_NO) 
+HOSTCFLAGS = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 \
+             -fomit-frame-pointer 
 
-#CFLAGS = -std=gnu99 -nostdinc $(MYLIB) $(KLIB) $(QLIB) -I . -D__KERNEL__ $(HOSTCFLAGS) -D_SYS_ 
+CFLAGS = -std=gnu99 -nostdinc $(MYLIB) $(KLIB) $(HLIB) $(QLIB) -I ./ $(HOSTCFLAGS) \
+         $(SYSDEF)
 
 LDFLAGS = -l rt
+
+SYSDEF = -D__KERNEL__ -D_SYS_ -DCONFIG_I2C -DCONFIG_PM -U__i386__ 
+# Add -D__EXPOSE_BUG__ if you want to expose the bug
+VERDEF = -DI2C_BENCHMARK_PROP_$(PROP_NO) -D__EXPOSE_BUG__ 
+
+PROP = -DI2C_BENCHMARK_PROP_1 \
+       -DI2C_BENCHMARK_PROP_2 \
+       -DI2C_BENCHMARK_PROP_3 \
+       -DI2C_BENCHMARK_PROP_4 \
+       -DI2C_BENCHMARK_PROP_5 \
+       -DI2C_BENCHMARK_PROP_6 \
+       -DI2C_BENCHMARK_PROP_7 \
+       -DI2C_BENCHMARK_PROP_8 \
+       -DI2C_BENCHMARK_PROP_9 \
+       -DI2C_BENCHMARK_PROP_10 \
+       -DI2C_BENCHMARK_PROP_11 \
+       -DI2C_BENCHMARK_PROP_12 \
+       -DI2C_BENCHMARK_PROP_13 \
+       -DI2C_BENCHMARK_PROP_14 \
+       -DI2C_BENCHMARK_PROP_15 \
+       -DI2C_BENCHMARK_PROP_16 \
+       -DI2C_BENCHMARK_PROP_17 \
+       -DI2C_BENCHMARK_PROP_18 \
+       -DI2C_BENCHMARK_PROP_19 \
+       -DI2C_BENCHMARK_PROP_20 \
+       -D__EXPOSE_BUG__ 
 
 # Not used right now
 %.o : %.c
@@ -55,21 +77,24 @@ LDFLAGS = -l rt
 
 test.bc: CFLAGS += --emit-llvm 
 test.bc:
-	@echo ------ Compiling: $(SRC)
-	$(CC) $(CFLAGS) $(HLIB) $(SRC) -c -g -o $@ -nostdinc -include\
-	$(GEN)/autoconf.h $(VERDEF) 
+	@echo ------ Compiling with llvm-gcc: $(SRC)
+	$(LLVM_GCC) $(CFLAGS) -c -g $(SRC) -o $@ -include \
+	$(GEN)/autoconf.h $(SYSDEF) $(PROP) -D_KLEE_
 
-klee: test.bc
-	@echo ------ Klee:
-	$(KLEE) --optimize  --libc=uclibc $<
+llvm_ld: test.bc
+	$(LLVM_LD) $< -o test.out
+
+klee: test.bc 
+	@echo ------ Runing klee:
+	@$(KLEE) --optimize --libc=uclibc test.bc
 
 mysystem:
-	@echo Compiling: $(SRC)
+	@echo Compiling with goto-cc: $(SRC)
 	@$(GTCC) $(SRC) -o $@ -nostdinc -include $(GEN)/autoconf.h $(MYLIB) \
-        $(KLIB) $(HLIB) $(QLIB) -I ./ -D_CBMC_ $(VERDEF)
+        $(KLIB) $(HLIB) $(QLIB) -I ./ -D_CBMC_ -D_I2C_NO_IRQ_ $(SYSDEF) $(VERDEF)
 
 verify: mysystem
-	@echo Verifying: $(SRC)
+	@echo Verifying with CBMC: $(SRC)
 	@$(CBMC) --unwind $(UNWIND) --no-library $<
 
 dot: mysystem
@@ -79,3 +104,7 @@ dot: mysystem
 clean:
 	@echo Clean folder...
 	@rm mysystem
+
+clean-klee:
+	@echo Clean llvm outputs...
+	@rm test.bc test.out.bc test.out
