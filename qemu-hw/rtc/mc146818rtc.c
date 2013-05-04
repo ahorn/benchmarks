@@ -27,12 +27,13 @@
 //#include "rtc-verify.h"
 
 #ifdef _CBMC_
-  #include<linux/string.h>
+  #include <linux/string.h>
+#elif defined(_KLEE_)
+  #include <assert.h>
 #else
-  #include<string.h>
-
+  #include <string.h>
   // conflict with Linux kernel header when running CBMC
-  #include<assert.h>
+  #include <assert.h>
 #endif
 
 #ifdef DEBUG_CMOS

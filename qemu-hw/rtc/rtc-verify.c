@@ -249,17 +249,24 @@ static void register_b_set_flag(void)
     uint8_t abcd;
 #ifdef __CBMC_TEST_HW__
     __CPROVER_assume( abcd >= 0 && abcd < 23 );
+#endif    
+#ifndef __KLEE_TEST_HW__
+    klee_make_symbolic(&abcd, sizeof(abcd), "abcd");
+    klee_assume( abcd >= 0 && abcd < 23 );
 #endif
-    
+
     /* Enable binary-coded decimal (BCD) mode and SET flag in Register B*/
     cmos_write(RTC_REG_B, (cmos_read(RTC_REG_B) & ~REG_B_DM) | REG_B_SET);
     cmos_write(RTC_REG_A, 0x76);
     
-#ifdef __CBMC_TEST_HW__
-    cmos_write(RTC_HOURS, abcd);
+#if defined (__CBMC_TEST_HW__) || defined (__KLEE_TEST_HW__)
+    //cmos_write(RTC_HOURS, abcd);
+    //cmos_write(RTC_HOURS, 0x03);
 #else
     cmos_write(RTC_HOURS, 0x03);
 #endif
+
+    cmos_write(RTC_HOURS, 0x03);
     cmos_write(RTC_REG_A, 0x26);
 
     /* Exposes bug:
@@ -285,24 +292,41 @@ static void check_clock_cbmc(void)
     cmos_write(RTC_REG_A, 0x76);
     
     /* Non-deterministic variables */
-    uint8_t cbmc_year, cbmc_century, cbmc_month, cbmc_day,
-            cbmc_hour, cbmc_min, cbmc_sec;
+    uint8_t symb_year, symb_century, symb_month, symb_day,
+            symb_hour, symb_min, symb_sec;
 #ifdef __CBMC_TEST_HW__    
-    __CPROVER_assume( cbmc_year >= 0  && cbmc_year < 100 );
-    __CPROVER_assume( cbmc_month >= 1 && cbmc_month <= 12 );
-    __CPROVER_assume( cbmc_day >= 1 && cbmc_day <= 31 );
-    __CPROVER_assume( cbmc_hour >= 0 && cbmc_hour < 23 );
-    __CPROVER_assume( cbmc_min >= 0 && cbmc_min < 60 );
-    __CPROVER_assume( cbmc_sec >= 0 && cbmc_sec < 60 );
+    __CPROVER_assume( symb_year >= 0  && symb_year < 100 );
+    __CPROVER_assume( symb_month >= 1 && symb_month <= 12 );
+    __CPROVER_assume( symb_day >= 1 && symb_day <= 31 );
+    __CPROVER_assume( symb_hour >= 0 && symb_hour < 23 );
+    __CPROVER_assume( symb_min >= 0 && symb_min < 60 );
+    __CPROVER_assume( symb_sec >= 0 && symb_sec < 60 );
 #endif 
+
+#ifdef __KLEE_TEST_HW__
+    klee_make_symbolic(&symb_year, sizeof(symb_year), "symb_year");
+    klee_make_symbolic(&symb_month, sizeof(symb_month), "symb_month");
+    klee_make_symbolic(&symb_day, sizeof(symb_day), "symb_day");
+    klee_make_symbolic(&symb_hour, sizeof(symb_hour), "symb_hour");
+    klee_make_symbolic(&symb_min, sizeof(symb_min), "symb_min");
+    klee_make_symbolic(&symb_sec, sizeof(symb_sec), "symb_sec");
+
+    klee_assume( symb_year >= 0  && symb_year < 100 );
+    klee_assume( symb_month >= 1 && symb_month <= 12 );
+    klee_assume( symb_day >= 1 && symb_day <= 31 );
+    klee_assume( symb_hour >= 0 && symb_hour < 23 );
+    klee_assume( symb_min >= 0 && symb_min < 60 );
+    klee_assume( symb_sec >= 0 && symb_sec < 60 );
+#endif
+
     /* Set clock */
-    cmos_write(RTC_YEAR, cbmc_year);
-    cmos_write(RTC_CENTURY, cbmc_century);
-    cmos_write(RTC_MONTH, cbmc_month);
-    cmos_write(RTC_DAY_OF_MONTH, cbmc_day);
-    cmos_write(RTC_HOURS, cbmc_hour);
-    cmos_write(RTC_MINUTES, cbmc_min);
-    cmos_write(RTC_SECONDS, cbmc_sec);
+    cmos_write(RTC_YEAR, symb_year);
+    cmos_write(RTC_CENTURY, symb_century);
+    cmos_write(RTC_MONTH, symb_month);
+    cmos_write(RTC_DAY_OF_MONTH, symb_day);
+    cmos_write(RTC_HOURS, symb_hour);
+    cmos_write(RTC_MINUTES, symb_min);
+    cmos_write(RTC_SECONDS, symb_sec);
     
     /* Get clock */
     cmos_read(RTC_YEAR);
@@ -326,18 +350,22 @@ static void simulate_bugs() {
 
 void rtc_verify(void)
 {
-#ifndef __CBMC_TEST_HW__
+#if ! (defined (__CBMC_TEST_HW__) || defined (__KLEE_TEST_HW__))
     check_time_with_current_mode();
     set_year_20xx();
     set_year_1980();
     register_b_set_flag();
     check_clock_cbmc();
-#else
+#endif
+
+#ifdef __CBMC_TEST_HW__
 #ifndef __EXPOSE_BUG__
     check_clock_cbmc();
 #else
     register_b_set_flag();
     //simulate_bugs();
 #endif
+#else 
+    check_time_with_current_mode();
 #endif
 }
