@@ -44,6 +44,7 @@ int smp_cpus;
 int use_rt_clock;
 #endif
 
+// The following two structs are from kernel/resource.c
 struct resource ioport_resource = {
         .name   = "PCI IO",
         .start  = 0,
