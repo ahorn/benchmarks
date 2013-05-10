@@ -19,30 +19,30 @@ event: Qiv : QueriesInvalid
 event: Qv : QueriesValid
 event: Qtime : QueryTime
 events: Icov Forks Ireal Itime I UCdist Rtime States Iuncov Q Qiv Qv Qtime 
-ob=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/./klee-out-7/assembly.ll
+ob=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/./klee-out-19/assembly.ll
 fn=ethoc_interrupt
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
-65 581 0 0 0 0 0 0 0 0 1 0 0 0 0 
-66 581 0 0 0 0 0 0 0 0 1 0 0 0 0 
-67 581 0 0 0 0 0 0 0 0 1 0 0 0 0 
-68 581 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/netdevice.h
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+65 585 0 0 0 0 0 0 0 0 1 0 0 0 0 
+66 585 0 0 0 0 0 0 0 0 1 0 0 0 0 
+67 585 0 0 0 0 0 0 0 0 1 0 0 0 0 
+68 585 0 0 0 0 0 0 0 0 1 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/netdevice.h
 69 135 0 0 0 0 0 0 0 0 1 0 0 0 0 
 70 135 0 0 0 0 0 0 0 0 1 0 0 0 0 
 71 135 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 72 247 0 0 0 0 0 0 0 0 1 0 0 0 0 
 73 247 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 74 405 0 0 0 0 0 0 0 0 1 0 0 0 0 
 75 405 0 0 0 0 0 0 0 0 1 0 0 0 0 
 76 405 0 0 0 0 0 0 0 0 1 0 0 0 0 
 77 405 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
-78 597 0 0 0 0 0 0 0 0 1 0 0 0 0 
-79 599 0 0 0 0 0 0 0 0 1 0 0 0 0 
-80 599 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+78 601 0 0 0 0 0 0 0 0 1 0 0 0 0 
+79 603 0 0 0 0 0 0 0 0 1 0 0 0 0 
+80 603 0 0 0 0 0 0 0 0 1 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 83 451 0 0 0 0 0 0 0 0 1 0 0 0 0 
 84 453 0 0 0 0 0 0 0 0 1 0 0 0 0 
 85 453 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -56,7 +56,7 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_e
 93 130 0 0 0 0 0 0 0 0 1 0 0 0 0 
 96 134 0 0 0 0 0 0 0 0 1 0 0 0 0 
 97 134 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
 98 21 0 0 0 0 0 0 0 0 1 0 0 0 0 
 99 21 0 0 0 0 0 0 0 0 1 0 0 0 0 
 102 14 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -67,26 +67,26 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
 107 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
 108 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
 109 24 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
-112 606 0 0 0 0 0 0 0 0 1 0 0 0 0 
-113 606 0 0 0 0 0 0 0 0 1 0 0 0 0 
-114 606 0 0 0 0 0 0 0 0 1 0 0 0 0 
-117 606 0 0 0 0 0 0 0 0 1 0 0 0 0 
-118 608 0 0 0 0 0 0 0 0 1 0 0 0 0 
-119 608 0 0 0 0 0 0 0 0 1 0 0 0 0 
-120 608 0 0 0 0 0 0 0 0 1 0 0 0 0 
-121 608 0 0 0 0 0 0 0 0 1 0 0 0 0 
-122 608 0 0 0 0 0 0 0 0 1 0 0 0 0 
-125 612 0 0 0 0 0 0 0 0 1 0 0 0 0 
-126 612 0 0 0 0 0 0 0 0 1 0 0 0 0 
-127 612 0 0 0 0 0 0 0 0 1 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+112 610 0 0 0 0 0 0 0 0 1 0 0 0 0 
+113 610 0 0 0 0 0 0 0 0 1 0 0 0 0 
+114 610 0 0 0 0 0 0 0 0 1 0 0 0 0 
+117 610 0 0 0 0 0 0 0 0 1 0 0 0 0 
+118 612 0 0 0 0 0 0 0 0 1 0 0 0 0 
+119 612 0 0 0 0 0 0 0 0 1 0 0 0 0 
+120 612 0 0 0 0 0 0 0 0 1 0 0 0 0 
+121 612 0 0 0 0 0 0 0 0 1 0 0 0 0 
+122 612 0 0 0 0 0 0 0 0 1 0 0 0 0 
+125 616 0 0 0 0 0 0 0 0 1 0 0 0 0 
+126 616 0 0 0 0 0 0 0 0 1 0 0 0 0 
+127 616 0 0 0 0 0 0 0 0 1 0 0 0 0 
 130 247 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 131 405 0 0 0 0 0 0 0 0 1 0 0 0 0 
 132 405 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 133 293 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 134 462 0 0 0 0 0 0 0 0 1 0 0 0 0 
 135 478 0 0 0 0 0 0 0 0 1 0 0 0 0 
 136 478 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -98,7 +98,7 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_e
 142 130 0 0 0 0 0 0 0 0 1 0 0 0 0 
 145 134 0 0 0 0 0 0 0 0 1 0 0 0 0 
 146 134 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
 147 21 0 0 0 0 0 0 0 0 1 0 0 0 0 
 148 21 0 0 0 0 0 0 0 0 1 0 0 0 0 
 151 14 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -109,12 +109,12 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
 156 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
 157 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
 158 24 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 161 130 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
-162 575 0 0 0 0 0 0 0 0 1 0 0 0 0 
-163 575 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/napi.h
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+162 579 0 0 0 0 0 0 0 0 1 0 0 0 0 
+163 579 0 0 0 0 0 0 0 0 1 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/napi.h
 164 113 0 0 0 0 0 0 0 0 1 0 0 0 0 
 165 42 0 0 0 0 0 0 0 0 1 0 0 0 0 
 166 43 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -138,24 +138,24 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/napi.h
 190 99 0 0 0 0 0 0 0 0 1 0 0 0 0 
 191 99 0 0 0 0 0 0 0 0 1 0 0 0 0 
 192 98 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
-195 599 0 0 0 0 0 0 0 0 1 0 0 0 0 
-196 600 0 0 0 0 0 0 0 0 1 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+195 603 0 0 0 0 0 0 0 0 1 0 0 0 0 
+196 604 0 0 0 0 0 0 0 0 1 0 0 0 0 
 fn=ethoc_poll
-201 647 0 0 0 0 0 0 0 0 1 0 0 0 0 
-202 647 0 0 0 0 0 0 0 0 1 0 0 0 0 
-203 647 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/netdevice.h
+201 651 0 0 0 0 0 0 0 0 1 0 0 0 0 
+202 651 0 0 0 0 0 0 0 0 1 0 0 0 0 
+203 651 0 0 0 0 0 0 0 0 1 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/netdevice.h
 204 135 0 0 0 0 0 0 0 0 1 0 0 0 0 
 205 135 0 0 0 0 0 0 0 0 1 0 0 0 0 
 206 135 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 207 247 0 0 0 0 0 0 0 0 1 0 0 0 0 
 208 247 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 209 405 0 0 0 0 0 0 0 0 1 0 0 0 0 
 210 405 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 211 454 0 0 0 0 0 0 0 0 1 0 0 0 0 
 212 454 0 0 0 0 0 0 0 0 1 0 0 0 0 
 213 454 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -164,11 +164,11 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 218 461 0 0 0 0 0 0 0 0 1 0 0 0 0 
 219 461 0 0 0 0 0 0 0 0 1 0 0 0 0 
 220 391 0 0 0 0 0 0 0 0 1 0 0 0 0 
-221 486 0 0 0 0 0 0 0 0 1 0 0 0 0 
-222 487 0 0 0 0 0 0 0 0 1 0 0 0 0 
-223 487 0 0 0 0 0 0 0 0 1 0 0 0 0 
-224 494 0 0 0 0 0 0 0 0 1 0 0 0 0 
-225 494 0 0 0 0 0 0 0 0 1 0 0 0 0 
+221 490 0 0 0 0 0 0 0 0 1 0 0 0 0 
+222 491 0 0 0 0 0 0 0 0 1 0 0 0 0 
+223 491 0 0 0 0 0 0 0 0 1 0 0 0 0 
+224 498 0 0 0 0 0 0 0 0 1 0 0 0 0 
+225 498 0 0 0 0 0 0 0 0 1 0 0 0 0 
 228 454 0 0 0 0 0 0 0 0 1 0 0 0 0 
 229 454 0 0 0 0 0 0 0 0 0 0 0 0 0 
 232 461 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -177,19 +177,19 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 235 261 0 0 0 0 0 0 0 0 1 0 0 0 0 
 236 261 0 0 0 0 0 0 0 0 1 0 0 0 0 
 237 262 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 238 107 0 0 0 0 0 0 0 0 1 0 0 0 0 
 239 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
 240 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
 241 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
 242 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
 243 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 244 264 0 0 0 0 0 0 0 0 1 0 0 0 0 
-245 463 0 0 0 0 0 0 0 0 1 0 0 0 0 
-246 463 0 0 0 0 0 0 0 0 1 0 0 0 0 
-247 463 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+245 467 0 0 0 0 0 0 0 0 1 0 0 0 0 
+246 467 0 0 0 0 0 0 0 0 1 0 0 0 0 
+247 467 0 0 0 0 0 0 0 0 1 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 250 451 0 0 0 0 0 0 0 0 1 0 0 0 0 
 251 451 0 0 0 0 0 0 0 0 1 0 0 0 0 
 252 453 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -204,7 +204,7 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_e
 261 130 0 0 0 0 0 0 0 0 1 0 0 0 0 
 264 134 0 0 0 0 0 0 0 0 1 0 0 0 0 
 265 134 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
 266 21 0 0 0 0 0 0 0 0 1 0 0 0 0 
 267 21 0 0 0 0 0 0 0 0 1 0 0 0 0 
 270 14 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -215,22 +215,22 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
 275 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
 276 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
 277 24 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 280 262 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 281 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
 282 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
 283 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
 284 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
 285 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 286 264 0 0 0 0 0 0 0 0 1 0 0 0 0 
-287 473 0 0 0 0 0 0 0 0 1 0 0 0 0 
-288 473 0 0 0 0 0 0 0 0 1 0 0 0 0 
-289 473 0 0 0 0 0 0 0 0 1 0 0 0 0 
-292 463 0 0 0 0 0 0 0 0 1 0 0 0 0 
-293 463 0 0 0 0 0 0 0 0 1 0 0 0 0 
-294 463 0 0 0 0 0 0 0 0 1 0 0 0 0 
+287 477 0 0 0 0 0 0 0 0 1 0 0 0 0 
+288 477 0 0 0 0 0 0 0 0 1 0 0 0 0 
+289 477 0 0 0 0 0 0 0 0 1 0 0 0 0 
+292 467 0 0 0 0 0 0 0 0 1 0 0 0 0 
+293 467 0 0 0 0 0 0 0 0 1 0 0 0 0 
+294 467 0 0 0 0 0 0 0 0 1 0 0 0 0 
 295 391 0 0 0 0 0 0 0 0 1 0 0 0 0 
 296 394 0 0 0 0 0 0 0 0 1 0 0 0 0 
 297 394 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -297,83 +297,83 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 384 429 0 0 0 0 0 0 0 0 1 0 0 0 0 
 385 429 0 0 0 0 0 0 0 0 1 0 0 0 0 
 388 426 0 0 0 0 0 0 0 0 1 0 0 0 0 
-389 477 0 0 0 0 0 0 0 0 1 0 0 0 0 
-390 477 0 0 0 0 0 0 0 0 1 0 0 0 0 
-393 481 0 0 0 0 0 0 0 0 1 0 0 0 0 
-394 482 0 0 0 0 0 0 0 0 1 0 0 0 0 
-395 486 0 0 0 0 0 0 0 0 1 0 0 0 0 
-396 486 0 0 0 0 0 0 0 0 1 0 0 0 0 
-397 486 0 0 0 0 0 0 0 0 1 0 0 0 0 
-398 487 0 0 0 0 0 0 0 0 1 0 0 0 0 
-399 487 0 0 0 0 0 0 0 0 1 0 0 0 0 
-400 487 0 0 0 0 0 0 0 0 1 0 0 0 0 
-401 487 0 0 0 0 0 0 0 0 1 0 0 0 0 
-402 487 0 0 0 0 0 0 0 0 1 0 0 0 0 
-405 491 0 0 0 0 0 0 0 0 1 0 0 0 0 
-406 492 0 0 0 0 0 0 0 0 1 0 0 0 0 
+389 481 0 0 0 0 0 0 0 0 1 0 0 0 0 
+390 481 0 0 0 0 0 0 0 0 1 0 0 0 0 
+393 485 0 0 0 0 0 0 0 0 1 0 0 0 0 
+394 486 0 0 0 0 0 0 0 0 1 0 0 0 0 
+395 490 0 0 0 0 0 0 0 0 1 0 0 0 0 
+396 490 0 0 0 0 0 0 0 0 1 0 0 0 0 
+397 490 0 0 0 0 0 0 0 0 1 0 0 0 0 
+398 491 0 0 0 0 0 0 0 0 1 0 0 0 0 
+399 491 0 0 0 0 0 0 0 0 1 0 0 0 0 
+400 491 0 0 0 0 0 0 0 0 1 0 0 0 0 
+401 491 0 0 0 0 0 0 0 0 1 0 0 0 0 
+402 491 0 0 0 0 0 0 0 0 1 0 0 0 0 
+405 495 0 0 0 0 0 0 0 0 1 0 0 0 0 
+406 496 0 0 0 0 0 0 0 0 1 0 0 0 0 
 407 277 0 0 0 0 0 0 0 0 1 0 0 0 0 
 408 277 0 0 0 0 0 0 0 0 1 0 0 0 0 
 409 280 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 410 114 0 0 0 0 0 0 0 0 1 0 0 0 0 
 411 114 0 0 0 0 0 0 0 0 1 0 0 0 0 
 412 114 0 0 0 0 0 0 0 0 1 0 0 0 0 
 413 114 0 0 0 0 0 0 0 0 1 0 0 0 0 
 414 114 0 0 0 0 0 0 0 0 1 0 0 0 0 
 415 582 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
-416 494 0 0 0 0 0 0 0 0 1 0 0 0 0 
-417 494 0 0 0 0 0 0 0 0 1 0 0 0 0 
-418 494 0 0 0 0 0 0 0 0 1 0 0 0 0 
-419 494 0 0 0 0 0 0 0 0 1 0 0 0 0 
-420 494 0 0 0 0 0 0 0 0 1 0 0 0 0 
-421 494 0 0 0 0 0 0 0 0 1 0 0 0 0 
-424 495 0 0 0 0 0 0 0 0 1 0 0 0 0 
-425 495 0 0 0 0 0 0 0 0 1 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+416 498 0 0 0 0 0 0 0 0 1 0 0 0 0 
+417 498 0 0 0 0 0 0 0 0 1 0 0 0 0 
+418 498 0 0 0 0 0 0 0 0 1 0 0 0 0 
+419 498 0 0 0 0 0 0 0 0 1 0 0 0 0 
+420 498 0 0 0 0 0 0 0 0 1 0 0 0 0 
+421 498 0 0 0 0 0 0 0 0 1 0 0 0 0 
+424 499 0 0 0 0 0 0 0 0 1 0 0 0 0 
+425 499 0 0 0 0 0 0 0 0 1 0 0 0 0 
 428 457 0 0 0 0 0 0 0 0 1 0 0 0 0 
 429 457 0 0 0 0 0 0 0 0 1 0 0 0 0 
-432 494 0 0 0 0 0 0 0 0 1 0 0 0 0 
+432 498 0 0 0 0 0 0 0 0 1 0 0 0 0 
 433 457 0 0 0 0 0 0 0 0 1 0 0 0 0 
 434 457 0 0 0 0 0 0 0 0 1 0 0 0 0 
 437 457 0 0 0 0 0 0 0 0 1 0 0 0 0 
-438 648 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/netdevice.h
+438 652 0 0 0 0 0 0 0 0 1 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/netdevice.h
 439 135 0 0 0 0 0 0 0 0 1 0 0 0 0 
 440 135 0 0 0 0 0 0 0 0 1 0 0 0 0 
 441 135 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
-442 556 0 0 0 0 0 0 0 0 1 0 0 0 0 
-443 542 0 0 0 0 0 0 0 0 1 0 0 0 0 
-444 542 0 0 0 0 0 0 0 0 1 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+442 560 0 0 0 0 0 0 0 0 1 0 0 0 0 
+443 546 0 0 0 0 0 0 0 0 1 0 0 0 0 
+444 546 0 0 0 0 0 0 0 0 1 0 0 0 0 
 445 262 0 0 0 0 0 0 0 0 1 0 0 0 0 
 446 262 0 0 0 0 0 0 0 0 1 0 0 0 0 
-447 546 0 0 0 0 0 0 0 0 1 0 0 0 0 
-448 546 0 0 0 0 0 0 0 0 1 0 0 0 0 
-449 503 0 0 0 0 0 0 0 0 1 0 0 0 0 
-450 539 0 0 0 0 0 0 0 0 1 0 0 0 0 
-453 542 0 0 0 0 0 0 0 0 1 0 0 0 0 
-454 542 0 0 0 0 0 0 0 0 1 0 0 0 0 
-455 542 0 0 0 0 0 0 0 0 1 0 0 0 0 
-456 542 0 0 0 0 0 0 0 0 1 0 0 0 0 
+447 550 0 0 0 0 0 0 0 0 1 0 0 0 0 
+448 550 0 0 0 0 0 0 0 0 1 0 0 0 0 
+449 507 0 0 0 0 0 0 0 0 1 0 0 0 0 
+450 543 0 0 0 0 0 0 0 0 1 0 0 0 0 
+453 546 0 0 0 0 0 0 0 0 1 0 0 0 0 
+454 546 0 0 0 0 0 0 0 0 1 0 0 0 0 
+455 546 0 0 0 0 0 0 0 0 1 0 0 0 0 
+456 546 0 0 0 0 0 0 0 0 1 0 0 0 0 
 457 261 0 0 0 0 0 0 0 0 1 0 0 0 0 
 458 261 0 0 0 0 0 0 0 0 1 0 0 0 0 
 459 262 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 460 107 0 0 0 0 0 0 0 0 1 0 0 0 0 
 461 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
 462 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
 463 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
 464 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
 465 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 466 264 0 0 0 0 0 0 0 0 1 0 0 0 0 
-467 546 0 0 0 0 0 0 0 0 1 0 0 0 0 
-468 546 0 0 0 0 0 0 0 0 1 0 0 0 0 
-469 546 0 0 0 0 0 0 0 0 1 0 0 0 0 
-472 546 0 0 0 0 0 0 0 0 1 0 0 0 0 
-473 546 0 0 0 0 0 0 0 0 1 0 0 0 0 
-474 546 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+467 550 0 0 0 0 0 0 0 0 1 0 0 0 0 
+468 550 0 0 0 0 0 0 0 0 1 0 0 0 0 
+469 550 0 0 0 0 0 0 0 0 1 0 0 0 0 
+472 550 0 0 0 0 0 0 0 0 1 0 0 0 0 
+473 550 0 0 0 0 0 0 0 0 1 0 0 0 0 
+474 550 0 0 0 0 0 0 0 0 1 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 477 451 0 0 0 0 0 0 0 0 1 0 0 0 0 
 478 451 0 0 0 0 0 0 0 0 1 0 0 0 0 
 479 453 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -388,7 +388,7 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_e
 488 130 0 0 0 0 0 0 0 0 1 0 0 0 0 
 491 134 0 0 0 0 0 0 0 0 1 0 0 0 0 
 492 134 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
 493 21 0 0 0 0 0 0 0 0 1 0 0 0 0 
 494 21 0 0 0 0 0 0 0 0 1 0 0 0 0 
 497 14 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -399,93 +399,93 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
 502 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
 503 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
 504 24 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 507 262 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 508 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
 509 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
 510 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
 511 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
 512 108 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 513 264 0 0 0 0 0 0 0 0 1 0 0 0 0 
-514 556 0 0 0 0 0 0 0 0 1 0 0 0 0 
-515 556 0 0 0 0 0 0 0 0 1 0 0 0 0 
-516 556 0 0 0 0 0 0 0 0 1 0 0 0 0 
-519 556 0 0 0 0 0 0 0 0 1 0 0 0 0 
-520 556 0 0 0 0 0 0 0 0 1 0 0 0 0 
-521 556 0 0 0 0 0 0 0 0 1 0 0 0 0 
-522 556 0 0 0 0 0 0 0 0 1 0 0 0 0 
-525 556 0 0 0 0 0 0 0 0 1 0 0 0 0 
-526 503 0 0 0 0 0 0 0 0 1 0 0 0 0 
-527 505 0 0 0 0 0 0 0 0 1 0 0 0 0 
-528 505 0 0 0 0 0 0 0 0 1 0 0 0 0 
-529 505 0 0 0 0 0 0 0 0 1 0 0 0 0 
-532 507 0 0 0 0 0 0 0 0 1 0 0 0 0 
-533 507 0 0 0 0 0 0 0 0 1 0 0 0 0 
-534 507 0 0 0 0 0 0 0 0 1 0 0 0 0 
-535 507 0 0 0 0 0 0 0 0 1 0 0 0 0 
-536 507 0 0 0 0 0 0 0 0 1 0 0 0 0 
-539 510 0 0 0 0 0 0 0 0 1 0 0 0 0 
-540 510 0 0 0 0 0 0 0 0 1 0 0 0 0 
-541 510 0 0 0 0 0 0 0 0 1 0 0 0 0 
-544 512 0 0 0 0 0 0 0 0 1 0 0 0 0 
-545 512 0 0 0 0 0 0 0 0 1 0 0 0 0 
-546 512 0 0 0 0 0 0 0 0 1 0 0 0 0 
-547 512 0 0 0 0 0 0 0 0 1 0 0 0 0 
-548 512 0 0 0 0 0 0 0 0 1 0 0 0 0 
-551 515 0 0 0 0 0 0 0 0 1 0 0 0 0 
-552 515 0 0 0 0 0 0 0 0 1 0 0 0 0 
-553 515 0 0 0 0 0 0 0 0 1 0 0 0 0 
-556 517 0 0 0 0 0 0 0 0 1 0 0 0 0 
-557 517 0 0 0 0 0 0 0 0 1 0 0 0 0 
-558 517 0 0 0 0 0 0 0 0 1 0 0 0 0 
-559 517 0 0 0 0 0 0 0 0 1 0 0 0 0 
-560 517 0 0 0 0 0 0 0 0 1 0 0 0 0 
-563 515 0 0 0 0 0 0 0 0 1 0 0 0 0 
-564 520 0 0 0 0 0 0 0 0 1 0 0 0 0 
-565 520 0 0 0 0 0 0 0 0 1 0 0 0 0 
-568 522 0 0 0 0 0 0 0 0 1 0 0 0 0 
-569 522 0 0 0 0 0 0 0 0 1 0 0 0 0 
-570 522 0 0 0 0 0 0 0 0 1 0 0 0 0 
-571 522 0 0 0 0 0 0 0 0 1 0 0 0 0 
-572 522 0 0 0 0 0 0 0 0 1 0 0 0 0 
-575 525 0 0 0 0 0 0 0 0 1 0 0 0 0 
-576 525 0 0 0 0 0 0 0 0 1 0 0 0 0 
-577 525 0 0 0 0 0 0 0 0 1 0 0 0 0 
-580 526 0 0 0 0 0 0 0 0 1 0 0 0 0 
-581 526 0 0 0 0 0 0 0 0 1 0 0 0 0 
-582 526 0 0 0 0 0 0 0 0 1 0 0 0 0 
-583 526 0 0 0 0 0 0 0 0 1 0 0 0 0 
-584 526 0 0 0 0 0 0 0 0 1 0 0 0 0 
-587 528 0 0 0 0 0 0 0 0 1 0 0 0 0 
-588 528 0 0 0 0 0 0 0 0 1 0 0 0 0 
-589 528 0 0 0 0 0 0 0 0 1 0 0 0 0 
-590 528 0 0 0 0 0 0 0 0 1 0 0 0 0 
-591 528 0 0 0 0 0 0 0 0 1 0 0 0 0 
-592 528 0 0 0 0 0 0 0 0 1 0 0 0 0 
-593 528 0 0 0 0 0 0 0 0 1 0 0 0 0 
-594 529 0 0 0 0 0 0 0 0 1 0 0 0 0 
-595 529 0 0 0 0 0 0 0 0 1 0 0 0 0 
-596 529 0 0 0 0 0 0 0 0 1 0 0 0 0 
-597 529 0 0 0 0 0 0 0 0 1 0 0 0 0 
-598 529 0 0 0 0 0 0 0 0 1 0 0 0 0 
-599 529 0 0 0 0 0 0 0 0 1 0 0 0 0 
-600 530 0 0 0 0 0 0 0 0 1 0 0 0 0 
-601 530 0 0 0 0 0 0 0 0 1 0 0 0 0 
-602 530 0 0 0 0 0 0 0 0 1 0 0 0 0 
-603 530 0 0 0 0 0 0 0 0 1 0 0 0 0 
-604 562 0 0 0 0 0 0 0 0 1 0 0 0 0 
-605 562 0 0 0 0 0 0 0 0 1 0 0 0 0 
-606 562 0 0 0 0 0 0 0 0 1 0 0 0 0 
-607 539 0 0 0 0 0 0 0 0 1 0 0 0 0 
-608 539 0 0 0 0 0 0 0 0 1 0 0 0 0 
-611 539 0 0 0 0 0 0 0 0 1 0 0 0 0 
-612 539 0 0 0 0 0 0 0 0 1 0 0 0 0 
-613 539 0 0 0 0 0 0 0 0 1 0 0 0 0 
-616 556 0 0 0 0 0 0 0 0 1 0 0 0 0 
-617 650 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/napi.h
+514 560 0 0 0 0 0 0 0 0 1 0 0 0 0 
+515 560 0 0 0 0 0 0 0 0 1 0 0 0 0 
+516 560 0 0 0 0 0 0 0 0 1 0 0 0 0 
+519 560 0 0 0 0 0 0 0 0 1 0 0 0 0 
+520 560 0 0 0 0 0 0 0 0 1 0 0 0 0 
+521 560 0 0 0 0 0 0 0 0 1 0 0 0 0 
+522 560 0 0 0 0 0 0 0 0 1 0 0 0 0 
+525 560 0 0 0 0 0 0 0 0 1 0 0 0 0 
+526 507 0 0 0 0 0 0 0 0 1 0 0 0 0 
+527 509 0 0 0 0 0 0 0 0 1 0 0 0 0 
+528 509 0 0 0 0 0 0 0 0 1 0 0 0 0 
+529 509 0 0 0 0 0 0 0 0 1 0 0 0 0 
+532 511 0 0 0 0 0 0 0 0 1 0 0 0 0 
+533 511 0 0 0 0 0 0 0 0 1 0 0 0 0 
+534 511 0 0 0 0 0 0 0 0 1 0 0 0 0 
+535 511 0 0 0 0 0 0 0 0 1 0 0 0 0 
+536 511 0 0 0 0 0 0 0 0 1 0 0 0 0 
+539 514 0 0 0 0 0 0 0 0 1 0 0 0 0 
+540 514 0 0 0 0 0 0 0 0 1 0 0 0 0 
+541 514 0 0 0 0 0 0 0 0 1 0 0 0 0 
+544 516 0 0 0 0 0 0 0 0 1 0 0 0 0 
+545 516 0 0 0 0 0 0 0 0 1 0 0 0 0 
+546 516 0 0 0 0 0 0 0 0 1 0 0 0 0 
+547 516 0 0 0 0 0 0 0 0 1 0 0 0 0 
+548 516 0 0 0 0 0 0 0 0 1 0 0 0 0 
+551 519 0 0 0 0 0 0 0 0 1 0 0 0 0 
+552 519 0 0 0 0 0 0 0 0 1 0 0 0 0 
+553 519 0 0 0 0 0 0 0 0 1 0 0 0 0 
+556 521 0 0 0 0 0 0 0 0 1 0 0 0 0 
+557 521 0 0 0 0 0 0 0 0 1 0 0 0 0 
+558 521 0 0 0 0 0 0 0 0 1 0 0 0 0 
+559 521 0 0 0 0 0 0 0 0 1 0 0 0 0 
+560 521 0 0 0 0 0 0 0 0 1 0 0 0 0 
+563 519 0 0 0 0 0 0 0 0 1 0 0 0 0 
+564 524 0 0 0 0 0 0 0 0 1 0 0 0 0 
+565 524 0 0 0 0 0 0 0 0 1 0 0 0 0 
+568 526 0 0 0 0 0 0 0 0 1 0 0 0 0 
+569 526 0 0 0 0 0 0 0 0 1 0 0 0 0 
+570 526 0 0 0 0 0 0 0 0 1 0 0 0 0 
+571 526 0 0 0 0 0 0 0 0 1 0 0 0 0 
+572 526 0 0 0 0 0 0 0 0 1 0 0 0 0 
+575 529 0 0 0 0 0 0 0 0 1 0 0 0 0 
+576 529 0 0 0 0 0 0 0 0 1 0 0 0 0 
+577 529 0 0 0 0 0 0 0 0 1 0 0 0 0 
+580 530 0 0 0 0 0 0 0 0 1 0 0 0 0 
+581 530 0 0 0 0 0 0 0 0 1 0 0 0 0 
+582 530 0 0 0 0 0 0 0 0 1 0 0 0 0 
+583 530 0 0 0 0 0 0 0 0 1 0 0 0 0 
+584 530 0 0 0 0 0 0 0 0 1 0 0 0 0 
+587 532 0 0 0 0 0 0 0 0 1 0 0 0 0 
+588 532 0 0 0 0 0 0 0 0 1 0 0 0 0 
+589 532 0 0 0 0 0 0 0 0 1 0 0 0 0 
+590 532 0 0 0 0 0 0 0 0 1 0 0 0 0 
+591 532 0 0 0 0 0 0 0 0 1 0 0 0 0 
+592 532 0 0 0 0 0 0 0 0 1 0 0 0 0 
+593 532 0 0 0 0 0 0 0 0 1 0 0 0 0 
+594 533 0 0 0 0 0 0 0 0 1 0 0 0 0 
+595 533 0 0 0 0 0 0 0 0 1 0 0 0 0 
+596 533 0 0 0 0 0 0 0 0 1 0 0 0 0 
+597 533 0 0 0 0 0 0 0 0 1 0 0 0 0 
+598 533 0 0 0 0 0 0 0 0 1 0 0 0 0 
+599 533 0 0 0 0 0 0 0 0 1 0 0 0 0 
+600 534 0 0 0 0 0 0 0 0 1 0 0 0 0 
+601 534 0 0 0 0 0 0 0 0 1 0 0 0 0 
+602 534 0 0 0 0 0 0 0 0 1 0 0 0 0 
+603 534 0 0 0 0 0 0 0 0 1 0 0 0 0 
+604 566 0 0 0 0 0 0 0 0 1 0 0 0 0 
+605 566 0 0 0 0 0 0 0 0 1 0 0 0 0 
+606 566 0 0 0 0 0 0 0 0 1 0 0 0 0 
+607 543 0 0 0 0 0 0 0 0 1 0 0 0 0 
+608 543 0 0 0 0 0 0 0 0 1 0 0 0 0 
+611 543 0 0 0 0 0 0 0 0 1 0 0 0 0 
+612 543 0 0 0 0 0 0 0 0 1 0 0 0 0 
+613 543 0 0 0 0 0 0 0 0 1 0 0 0 0 
+616 560 0 0 0 0 0 0 0 0 1 0 0 0 0 
+617 654 0 0 0 0 0 0 0 0 1 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/napi.h
 620 162 0 0 0 0 0 0 0 0 1 0 0 0 0 
 621 162 0 0 0 0 0 0 0 0 1 0 0 0 0 
 622 162 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -496,15 +496,15 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/napi.h
 631 163 0 0 0 0 0 0 0 0 1 0 0 0 0 
 632 64 0 0 0 0 0 0 0 0 1 0 0 0 0 
 633 64 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 634 247 0 0 0 0 0 0 0 0 1 0 0 0 0 
 635 247 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 636 405 0 0 0 0 0 0 0 0 1 0 0 0 0 
 637 405 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 638 286 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 639 462 0 0 0 0 0 0 0 0 1 0 0 0 0 
 640 478 0 0 0 0 0 0 0 0 1 0 0 0 0 
 641 478 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -516,7 +516,7 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_e
 647 130 0 0 0 0 0 0 0 0 1 0 0 0 0 
 650 134 0 0 0 0 0 0 0 0 1 0 0 0 0 
 651 134 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
 652 21 0 0 0 0 0 0 0 0 1 0 0 0 0 
 653 21 0 0 0 0 0 0 0 0 1 0 0 0 0 
 656 14 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -527,103 +527,103 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
 661 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
 662 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
 663 24 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
-666 655 0 0 0 0 0 0 0 0 1 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+666 659 0 0 0 0 0 0 0 0 1 0 0 0 0 
 fn=__user_main
-673 876 1 0 0 0 1 0 0 0 0 0 0 0 0 
-674 876 1 0 0 0 1 0 0 0 0 0 0 0 0 
-675 876 1 0 0 0 1 0 0 0 0 0 0 0 0 
-676 876 1 0 0 0 1 0 0 0 0 0 0 0 0 
-677 876 1 0 0 0 1 0 0 0 0 0 0 0 0 
-678 876 1 0 0 0 1 0 0 0 0 0 0 0 0 
-679 876 1 0 0 0 1 0 0 0 0 0 0 0 0 
-680 876 1 0 0 0 1 0 0 0 0 0 0 0 0 
-681 876 1 0 0 0 1 0 0 0 0 0 0 0 0 
-682 876 1 0 0 0 1 0 0 0 0 0 0 0 0 
-683 876 1 0 0 0 1 0 0 0 0 0 0 0 0 
-684 876 1 0 0 0 1 0 0 0 0 0 0 0 0 
-685 877 1 0 0 0 1 0 0 0 0 0 0 0 0 
-686 884 1 0 0 0 1 0 0 0 0 0 0 0 0 
-687 884 1 0 0 0 1 0 0 0 0 0 0 0 0 
-688 885 1 0 0 0 1 0 0 0 0 0 0 0 0 
-689 885 1 0 0 0 1 0 0 0 0 0 0 0 0 
-690 886 1 0 0 0 1 0 0 0 0 0 0 0 0 
-691 886 1 0 0 0 1 0 0 0 0 0 0 0 0 
-692 891 1 0 0 0 1 0 0 0 0 0 0 0 0 
-693 891 1 0 0 0 1 0 0 0 0 0 0 0 0 
-694 892 1 0 0 0 1 0 0 0 0 0 0 0 0 
-695 892 1 0 0 0 1 0 0 0 0 0 0 0 0 
-696 893 1 0 0 0 1 0 0 0 0 0 0 0 0 
-697 893 1 0 0 0 1 0 0 0 0 0 0 0 0 
-698 894 1 0 0 0 1 0 0 0 0 0 0 0 0 
-699 894 1 0 0 0 1 0 0 0 0 0 0 0 0 
-700 898 1 0 0 0 1 0 0 0 0 0 0 0 0 
-701 898 1 0 0 0 1 0 0 0 0 0 0 0 0 
-702 898 1 0 0 0 1 0 0 0 0 0 0 0 0 
-703 899 1 0 0 0 1 0 0 0 0 0 0 0 0 
-704 899 1 0 0 0 1 0 0 0 0 0 0 0 0 
-705 903 1 0 0 0 1 0 0 0 0 0 0 0 0 
-706 904 1 0 0 0 1 0 0 0 0 0 0 0 0 
-707 905 1 0 0 0 1 0 0 0 0 0 0 0 0 
-708 907 1 0 0 0 1 0 0 0 0 0 0 0 0 
-709 907 1 0 0 0 1 0 0 0 0 0 0 0 0 
-710 907 1 0 0 0 1 0 0 0 0 0 0 0 0 
+673 880 1 0 0 0 1 0 0 0 0 0 0 0 0 
+674 880 1 0 0 0 1 0 0 0 0 0 0 0 0 
+675 880 1 0 0 0 1 0 0 0 0 0 0 0 0 
+676 880 1 0 0 0 1 0 0 0 0 0 0 0 0 
+677 880 1 0 0 0 1 0 0 0 0 0 0 0 0 
+678 880 1 0 0 0 1 0 0 0 0 0 0 0 0 
+679 880 1 0 0 0 1 0 0 0 0 0 0 0 0 
+680 880 1 0 0 0 1 0 0 0 0 0 0 0 0 
+681 880 1 0 0 0 1 0 0 0 0 0 0 0 0 
+682 880 1 0 0 0 1 0 0 0 0 0 0 0 0 
+683 880 1 0 0 0 1 0 0 0 0 0 0 0 0 
+684 880 1 0 0 0 1 0 0 0 0 0 0 0 0 
+685 881 1 0 0 0 1 0 0 0 0 0 0 0 0 
+686 888 1 0 0 0 1 0 0 0 0 0 0 0 0 
+687 888 1 0 0 0 1 0 0 0 0 0 0 0 0 
+688 889 1 0 0 0 1 0 0 0 0 0 0 0 0 
+689 889 1 0 0 0 1 0 0 0 0 0 0 0 0 
+690 890 1 0 0 0 1 0 0 0 0 0 0 0 0 
+691 890 1 0 0 0 1 0 0 0 0 0 0 0 0 
+692 895 1 0 0 0 1 0 0 0 0 0 0 0 0 
+693 895 1 0 0 0 1 0 0 0 0 0 0 0 0 
+694 896 1 0 0 0 1 0 0 0 0 0 0 0 0 
+695 896 1 0 0 0 1 0 0 0 0 0 0 0 0 
+696 897 1 0 0 0 1 0 0 0 0 0 0 0 0 
+697 897 1 0 0 0 1 0 0 0 0 0 0 0 0 
+698 898 1 0 0 0 1 0 0 0 0 0 0 0 0 
+699 898 1 0 0 0 1 0 0 0 0 0 0 0 0 
+700 902 1 0 0 0 1 0 0 0 0 0 0 0 0 
+701 902 1 0 0 0 1 0 0 0 0 0 0 0 0 
+702 902 1 0 0 0 1 0 0 0 0 0 0 0 0 
+703 903 1 0 0 0 1 0 0 0 0 0 0 0 0 
+704 903 1 0 0 0 1 0 0 0 0 0 0 0 0 
+705 907 1 0 0 0 1 0 0 0 0 0 0 0 0 
+706 908 1 0 0 0 1 0 0 0 0 0 0 0 0 
+707 909 1 0 0 0 1 0 0 0 0 0 0 0 0 
+708 911 1 0 0 0 1 0 0 0 0 0 0 0 0 
+709 911 1 0 0 0 1 0 0 0 0 0 0 0 0 
+710 911 1 0 0 0 1 0 0 0 0 0 0 0 0 
 cfl=/auto/scratch/lliang/klee/runtime/Intrinsic/memset.c
 cfn=memset
-calls=1 1977 14
-710 907 11 0 0 0 77 0 0 0 0 0 0 0 0 
-711 907 1 0 0 0 1 0 0 0 0 0 0 0 0 
+calls=1 1996 14
+710 911 11 0 0 0 77 0 0 0 0 0 0 0 0 
+711 911 1 0 0 0 1 0 0 0 0 0 0 0 0 
 cfl=/auto/scratch/lliang/klee/runtime/Intrinsic/memset.c
 cfn=memset
-calls=1 1977 14
-711 907 0 0 0 0 509 0 0 0 0 0 0 0 0 
-712 907 1 0 0 0 1 0 0 0 0 0 0 0 0 
+calls=1 1996 14
+711 911 0 0 0 0 509 0 0 0 0 0 0 0 0 
+712 911 1 0 0 0 1 0 0 0 0 0 0 0 0 
 cfl=/auto/scratch/lliang/klee/runtime/Intrinsic/memset.c
 cfn=memset
-calls=1 1977 14
-712 907 0 0 0 0 389 0 0 0 0 0 0 0 0 
-713 913 1 0 0 0 1 0 0 0 0 0 0 0 0 
-714 913 1 0 0 0 1 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+calls=1 1996 14
+712 911 0 0 0 0 389 0 0 0 0 0 0 0 0 
+713 917 1 0 0 0 1 0 0 0 0 0 0 0 0 
+714 917 1 0 0 0 1 0 0 0 0 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 715 536 1 0 0 0 1 0 0 0 0 0 0 0 0 
 cfn=open_eth_moder_host_write
 calls=1 1494 425
 715 536 81 0 0 0 667 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
-716 922 1 0 0 0 1 0 0 0 0 0 0 0 0 
-717 922 1 0 0 0 1 0 0 0 0 0 0 0 0 
-718 923 1 0 0 0 1 0 0 0 0 0 0 0 0 
-719 923 1 0 0 0 1 0 0 0 0 0 0 0 0 
-720 923 1 0 0 0 1 0 0 0 0 0 0 0 0 
-721 925 1 0 0 0 1 0 0 0 0 0 0 0 0 
-722 925 1 0 0 0 1 0 0 0 0 0 0 0 0 
-723 925 1 0 0 0 1 0 0 0 0 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+716 926 1 0 0 0 1 0 0 0 0 0 0 0 0 
+717 926 1 0 0 0 1 0 0 0 0 0 0 0 0 
+718 927 1 0 0 0 1 0 0 0 0 0 0 0 0 
+719 927 1 0 0 0 1 0 0 0 0 0 0 0 0 
+720 927 1 0 0 0 1 0 0 0 0 0 0 0 0 
+721 929 1 0 0 0 1 0 0 0 0 0 0 0 0 
+722 929 1 0 0 0 1 0 0 0 0 0 0 0 0 
+723 929 1 0 0 0 1 0 0 0 0 0 0 0 0 
 cfl=/auto/scratch/lliang/klee/runtime/Intrinsic/memset.c
 cfn=memset
-calls=1 1977 14
-723 925 0 0 0 0 1109 0 0 0 0 0 0 0 0 
-724 949 1 0 0 0 1 0 0 0 0 0 0 0 0 
-725 950 1 0 0 0 1 0 0 0 0 0 0 0 0 
-726 951 1 0 0 0 1 0 0 0 0 0 0 0 0 
-727 953 1 0 0 0 1 0 0 0 0 0 0 0 0 
-728 954 1 0 0 0 1 0 0 0 0 0 0 0 0 
-729 955 1 0 0 0 1 0 0 0 0 0 0 0 0 
-730 956 1 0 0 0 1 0 0 0 0 0 0 0 0 
-731 961 1 0 0 0 1 0 0 0 0 0 0 0 0 
-732 962 1 0 0 0 1 0 0 0 0 0 0 0 0 
-733 962 1 0 0 0 1 0 0 0 0 0 0 0 0 
-734 962 1 0 0 0 1 0 0 0 0 0 0 0 0 
-735 966 1 1 0 0 1 0 0 0 0 2 2 0 10697 
-738 969 1 0 0 0 1 0 0 0 0 0 0 0 0 
-739 969 1 0 0 0 1 0 0 0 0 0 0 0 0 
-740 977 1 0 0 0 1 0 0 0 0 0 0 0 0 
-741 978 1 0 0 0 1 0 0 0 0 0 0 0 0 
-742 989 1 0 0 0 1 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/etherdevice.h
+calls=1 1996 14
+723 929 0 0 0 0 1109 0 0 0 0 0 0 0 0 
+724 953 1 0 0 0 1 0 0 0 0 0 0 0 0 
+725 954 1 0 0 0 1 0 0 0 0 0 0 0 0 
+726 955 1 0 0 0 1 0 0 0 0 0 0 0 0 
+727 957 1 0 0 0 1 0 0 0 0 0 0 0 0 
+728 958 1 0 0 0 1 0 0 0 0 0 0 0 0 
+729 959 1 0 0 0 1 0 0 0 0 0 0 0 0 
+730 960 1 0 0 0 1 0 0 0 0 0 0 0 0 
+731 965 1 0 0 0 1 0 0 0 0 0 0 0 0 
+732 966 1 0 0 0 1 0 0 0 0 0 0 0 0 
+733 966 1 0 0 0 1 0 0 0 0 0 0 0 0 
+734 966 1 0 0 0 1 0 0 0 0 0 0 0 0 
+735 970 1 1 0 0 1 0 0 0 0 2 2 0 10084 
+738 973 1 0 0 0 1 0 0 0 0 0 0 0 0 
+739 973 1 0 0 0 1 0 0 0 0 0 0 0 0 
+740 981 1 0 0 0 1 0 0 0 0 0 0 0 0 
+741 982 1 0 0 0 1 0 0 0 0 0 0 0 0 
+742 993 1 0 0 0 1 0 0 0 0 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/etherdevice.h
 743 49 1 0 0 0 1 0 0 0 0 0 0 0 0 
 744 49 1 0 0 0 1 0 0 0 0 0 0 0 0 
 745 65 1 0 0 0 1 0 0 0 0 0 0 0 0 
-746 65 1 1 0 0 1 0 0 0 0 1 1 0 161 
+746 65 1 1 0 0 1 0 0 0 0 1 1 0 202 
 749 37 1 0 0 0 1 0 0 0 0 0 0 0 0 
 750 37 1 0 0 0 1 0 0 0 0 0 0 0 0 
 751 37 1 0 0 0 1 0 0 0 0 0 0 0 0 
@@ -640,35 +640,35 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/etherdevice.h
 762 37 1 0 0 0 1 0 0 0 0 0 0 0 0 
 763 37 1 0 0 0 1 0 0 0 0 0 0 0 0 
 764 37 1 0 0 0 1 0 0 0 0 0 0 0 0 
-765 65 1 1 0 0 1 0 0 0 0 1 1 0 474 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
-768 991 1 0 0 0 1 0 0 0 0 0 0 0 0 
-769 991 1 0 0 0 1 0 0 0 0 0 0 0 0 
-770 991 1 0 0 0 1 0 0 0 0 0 0 0 0 
-771 991 1 1 0 0 1 0 0 0 0 1 1 0 5769 
-774 991 1 0 0 0 1 0 0 0 0 0 0 0 0 
-775 997 1 0 0 0 1 0 0 0 0 0 0 0 0 
-776 997 1 0 0 0 1 0 0 0 0 0 0 0 0 
-777 998 1 0 0 0 1 0 0 0 0 0 0 0 0 
-778 998 1 0 0 0 1 0 0 0 0 0 0 0 0 
-779 998 1 0 0 0 1 0 0 0 0 0 0 0 0 
-780 999 1 0 0 0 1 0 0 0 0 0 0 0 0 
-781 1000 1 0 0 0 1 0 0 0 0 0 0 0 0 
-782 1003 1 0 0 0 1 0 0 0 0 0 0 0 0 
-783 1003 1 0 0 0 1 0 0 0 0 0 0 0 0 
-784 1003 1 0 0 0 1 0 0 0 0 0 0 0 0 
-785 1003 1 0 0 0 1 0 0 0 0 0 0 0 0 
-786 1003 1 0 0 0 1 0 0 0 0 0 0 0 0 
-787 1005 1 0 0 0 1 0 0 0 0 0 0 0 0 
-788 1005 1 0 0 0 1 0 0 0 0 1 0 1 9856 
-791 1009 1 0 0 0 1 0 0 0 0 0 0 0 0 
-792 1009 1 0 0 0 1 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/fls64.h
+765 65 1 1 0 0 1 0 0 0 0 1 1 0 524 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+768 995 1 0 0 0 1 0 0 0 0 0 0 0 0 
+769 995 1 0 0 0 1 0 0 0 0 0 0 0 0 
+770 995 1 0 0 0 1 0 0 0 0 0 0 0 0 
+771 995 1 1 0 0 1 0 0 0 0 1 1 0 3407 
+774 995 1 0 0 0 1 0 0 0 0 0 0 0 0 
+775 1001 1 0 0 0 1 0 0 0 0 0 0 0 0 
+776 1001 1 0 0 0 1 0 0 0 0 0 0 0 0 
+777 1002 1 0 0 0 1 0 0 0 0 0 0 0 0 
+778 1002 1 0 0 0 1 0 0 0 0 0 0 0 0 
+779 1002 1 0 0 0 1 0 0 0 0 0 0 0 0 
+780 1003 1 0 0 0 1 0 0 0 0 0 0 0 0 
+781 1004 1 0 0 0 1 0 0 0 0 0 0 0 0 
+782 1007 1 0 0 0 1 0 0 0 0 0 0 0 0 
+783 1007 1 0 0 0 1 0 0 0 0 0 0 0 0 
+784 1007 1 0 0 0 1 0 0 0 0 0 0 0 0 
+785 1007 1 0 0 0 1 0 0 0 0 0 0 0 0 
+786 1007 1 0 0 0 1 0 0 0 0 0 0 0 0 
+787 1009 1 0 0 0 1 0 0 0 0 0 0 0 0 
+788 1009 1 0 0 0 1 0 0 0 0 1 0 1 7931 
+791 1013 1 0 0 0 1 0 0 0 0 0 0 0 0 
+792 1013 1 0 0 0 1 0 0 0 0 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/fls64.h
 793 24 1 0 0 0 1 0 0 0 0 0 0 0 0 
 794 24 1 0 0 0 1 0 0 0 0 0 0 0 0 
 795 25 1 0 0 0 1 0 0 0 0 0 0 0 0 
-796 25 1 0 0 0 1 0 0 0 0 1 0 1 5842 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/fls.h
+796 25 1 0 0 0 1 0 0 0 0 1 0 1 3316 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/fls.h
 799 19 0 0 0 0 0 0 0 0 1 0 0 0 0 
 800 19 0 0 0 0 0 0 0 0 1 0 0 0 0 
 803 19 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -697,9 +697,9 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/fls.h
 828 33 0 0 0 0 0 0 0 0 1 0 0 0 0 
 829 39 0 0 0 0 0 0 0 0 1 0 0 0 0 
 832 17 1 0 0 0 1 0 0 0 0 0 0 0 0 
-833 17 1 0 0 0 1 0 0 0 0 1 0 1 8335 
+833 17 1 0 0 0 1 0 0 0 0 1 0 1 7500 
 836 19 1 0 0 0 1 0 0 0 0 0 0 0 0 
-837 19 1 0 0 0 1 0 0 0 0 1 0 1 6989 
+837 19 1 0 0 0 1 0 0 0 0 1 0 1 7546 
 840 19 1 0 0 0 1 0 0 0 0 0 0 0 0 
 841 20 1 0 0 0 1 0 0 0 0 0 0 0 0 
 842 21 1 0 0 0 1 0 0 0 0 0 0 0 0 
@@ -725,23 +725,23 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/fls.h
 864 33 1 0 0 0 1 0 0 0 0 0 0 0 0 
 865 33 1 0 0 0 1 0 0 0 0 0 0 0 0 
 868 39 1 0 0 0 1 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/log2.h
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/log2.h
 869 72 1 0 0 0 1 0 0 0 0 0 0 0 0 
 870 72 1 0 0 0 1 0 0 0 0 0 0 0 0 
 871 72 1 0 0 0 1 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
-872 1009 1 0 0 0 1 0 0 0 0 0 0 0 0 
-873 1009 1 0 0 0 1 0 0 0 0 0 0 0 0 
-874 1010 1 0 0 0 1 0 0 0 0 0 0 0 0 
-875 1010 1 0 0 0 1 0 0 0 0 0 0 0 0 
-876 1013 1 0 0 0 1 0 0 0 0 0 0 0 0 
-877 1017 1 0 0 0 1 0 0 0 0 0 0 0 0 
-878 1017 1 0 0 0 1 0 0 0 0 0 0 0 0 
-879 1017 1 0 0 0 1 0 0 0 0 0 0 0 0 
-880 1017 1 1 0 0 1 0 0 0 0 1 1 0 39416 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/netdevice.h
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+872 1013 1 0 0 0 1 0 0 0 0 0 0 0 0 
+873 1013 1 0 0 0 1 0 0 0 0 0 0 0 0 
+874 1014 1 0 0 0 1 0 0 0 0 0 0 0 0 
+875 1014 1 0 0 0 1 0 0 0 0 0 0 0 0 
+876 1017 1 0 0 0 1 0 0 0 0 0 0 0 0 
+877 1021 1 0 0 0 1 0 0 0 0 0 0 0 0 
+878 1021 1 0 0 0 1 0 0 0 0 0 0 0 0 
+879 1021 1 0 0 0 1 0 0 0 0 0 0 0 0 
+880 1021 1 1 0 0 1 0 0 0 0 1 1 0 43027 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/netdevice.h
 883 135 1 0 0 0 1 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/etherdevice.h
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/etherdevice.h
 884 49 1 0 0 0 1 0 0 0 0 0 0 0 0 
 885 49 1 0 0 0 1 0 0 0 0 0 0 0 0 
 886 65 1 0 0 0 1 0 0 0 0 0 0 0 0 
@@ -759,39 +759,39 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/etherdevice.h
 900 37 1 0 0 0 1 0 0 0 0 0 0 0 0 
 901 65 1 0 0 0 1 0 0 0 0 0 0 0 0 
 904 65 1 0 0 0 1 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 905 254 1 0 0 0 1 0 0 0 0 0 0 0 0 
-906 747 1 0 0 0 1 0 0 0 0 0 0 0 0 
-907 747 1 0 0 0 1 0 0 0 0 0 0 0 0 
-908 747 1 0 0 0 1 0 0 0 0 0 0 0 0 
-909 747 1 0 0 0 1 0 0 0 0 0 0 0 0 
-910 747 1 0 0 0 1 0 0 0 0 0 0 0 0 
-911 747 1 0 0 0 1 0 0 0 0 0 0 0 0 
-912 747 1 0 0 0 1 0 0 0 0 0 0 0 0 
+906 751 1 0 0 0 1 0 0 0 0 0 0 0 0 
+907 751 1 0 0 0 1 0 0 0 0 0 0 0 0 
+908 751 1 0 0 0 1 0 0 0 0 0 0 0 0 
+909 751 1 0 0 0 1 0 0 0 0 0 0 0 0 
+910 751 1 0 0 0 1 0 0 0 0 0 0 0 0 
+911 751 1 0 0 0 1 0 0 0 0 0 0 0 0 
+912 751 1 0 0 0 1 0 0 0 0 0 0 0 0 
 913 254 1 0 0 0 1 0 0 0 0 0 0 0 0 
-914 747 1 0 0 0 1 0 0 0 0 0 0 0 0 
-915 747 1 0 0 0 1 0 0 0 0 0 0 0 0 
-916 747 1 0 0 0 1 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+914 751 1 0 0 0 1 0 0 0 0 0 0 0 0 
+915 751 1 0 0 0 1 0 0 0 0 0 0 0 0 
+916 751 1 0 0 0 1 0 0 0 0 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 917 538 1 0 0 0 1 0 0 0 0 0 0 0 0 
 918 538 1 0 0 0 1 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
-919 749 1 0 0 0 1 0 0 0 0 0 0 0 0 
-920 749 1 0 0 0 1 0 0 0 0 0 0 0 0 
-921 749 1 0 0 0 1 0 0 0 0 0 0 0 0 
-922 749 1 0 0 0 1 0 0 0 0 0 0 0 0 
-923 749 1 0 0 0 1 0 0 0 0 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+919 753 1 0 0 0 1 0 0 0 0 0 0 0 0 
+920 753 1 0 0 0 1 0 0 0 0 0 0 0 0 
+921 753 1 0 0 0 1 0 0 0 0 0 0 0 0 
+922 753 1 0 0 0 1 0 0 0 0 0 0 0 0 
+923 753 1 0 0 0 1 0 0 0 0 0 0 0 0 
 924 254 1 0 0 0 1 0 0 0 0 0 0 0 0 
-925 749 1 0 0 0 1 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+925 753 1 0 0 0 1 0 0 0 0 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 926 538 1 0 0 0 1 0 0 0 0 0 0 0 0 
 927 538 1 0 0 0 1 0 0 0 0 0 0 0 0 
 928 538 1 0 0 0 1 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/netdevice.h
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/netdevice.h
 931 135 1 0 0 0 1 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
-932 708 1 0 0 0 1 0 0 0 0 0 0 0 0 
-933 708 1 0 0 0 1 0 0 0 0 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+932 712 1 0 0 0 1 0 0 0 0 0 0 0 0 
+933 712 1 0 0 0 1 0 0 0 0 0 0 0 0 
 934 322 1 0 0 0 1 0 0 0 0 0 0 0 0 
 935 322 1 0 0 0 1 0 0 0 0 0 0 0 0 
 936 322 1 0 0 0 1 0 0 0 0 0 0 0 0 
@@ -808,15 +808,15 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 947 254 1 0 0 0 1 0 0 0 0 0 0 0 0 
 948 254 1 0 0 0 1 0 0 0 0 0 0 0 0 
 949 327 1 0 0 0 1 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 950 538 1 0 0 0 1 0 0 0 0 0 0 0 0 
 951 538 1 0 0 0 1 0 0 0 0 0 0 0 0 
 952 538 1 0 0 0 1 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 953 340 1 0 0 0 1 0 0 0 0 0 0 0 0 
 954 333 1 0 0 0 1 0 0 0 0 0 0 0 0 
 955 333 1 0 0 0 1 0 0 0 0 0 0 0 0 
-956 333 1 0 0 0 1 0 0 0 0 1 0 1 38258 
+956 333 1 0 0 0 1 0 0 0 0 1 0 1 38851 
 959 333 1 0 0 0 1 0 0 0 0 0 0 0 0 
 960 333 1 0 0 0 1 0 0 0 0 0 0 0 0 
 963 333 1 0 0 0 4 0 0 0 0 0 0 0 0 
@@ -837,7 +837,7 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 978 277 1 0 0 0 4 0 0 0 0 0 0 0 0 
 979 277 1 0 0 0 4 0 0 0 0 0 0 0 0 
 980 280 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 981 113 1 0 0 0 4 0 0 0 0 0 0 0 0 
 982 114 1 0 0 0 4 0 0 0 0 0 0 0 0 
 983 114 1 0 0 0 4 0 0 0 0 0 0 0 0 
@@ -848,13 +848,13 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_e
 cfn=open_eth_check_start_xmit
 calls=4 1305 124
 987 582 10 0 0 0 40 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 988 340 1 0 0 0 4 0 0 0 0 0 0 0 0 
 989 340 1 0 0 0 4 0 0 0 0 0 0 0 0 
 990 340 1 0 0 0 4 0 0 0 0 0 0 0 0 
 991 333 1 0 0 0 4 0 0 0 0 0 0 0 0 
 992 333 1 0 0 0 4 0 0 0 0 0 0 0 0 
-993 333 1 1 0 0 4 0 0 0 0 4 1 3 151633 
+993 333 1 1 0 0 4 0 0 0 0 4 1 3 174148 
 996 333 1 0 0 0 2 0 0 0 0 0 0 0 0 
 997 333 1 0 0 0 2 0 0 0 0 0 0 0 0 
 998 333 1 0 0 0 2 0 0 0 0 0 0 0 0 
@@ -865,7 +865,7 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 1005 347 1 0 0 0 2 0 0 0 0 0 0 0 0 
 1006 347 1 0 0 0 2 0 0 0 0 0 0 0 0 
 1007 347 1 0 0 0 2 0 0 0 0 0 0 0 0 
-1008 347 1 0 0 0 2 0 0 0 0 2 0 2 74805 
+1008 347 1 0 0 0 2 0 0 0 0 2 0 2 85093 
 1011 347 1 0 0 0 9 0 0 0 0 0 0 0 0 
 1012 347 1 0 0 0 9 0 0 0 0 0 0 0 0 
 1013 347 1 0 0 0 9 0 0 0 0 0 0 0 0 
@@ -887,70 +887,70 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 1029 277 1 0 0 0 9 0 0 0 0 0 0 0 0 
 1030 277 1 0 0 0 9 0 0 0 0 0 0 0 0 
 1031 280 1 0 0 0 9 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1032 113 1 0 0 0 9 0 0 0 0 0 0 0 0 
 1033 114 1 0 0 0 9 0 0 0 0 0 0 0 0 
 1034 114 1 0 0 0 9 0 0 0 0 0 0 0 0 
 1035 114 1 0 0 0 9 0 0 0 0 0 0 0 0 
 1036 114 1 0 0 0 9 0 0 0 0 0 0 0 0 
-1037 114 1 0 0 0 9 0 2518 0 0 9 0 9 337840 
+1037 114 1 0 0 0 9 0 2671 0 0 9 0 9 388829 
 1038 582 1 0 0 0 9 0 0 0 0 0 0 0 0 
 cfn=open_eth_check_start_xmit
 calls=9 1305 124
-1038 582 0 0 0 0 90 0 0 0 0 13 4 9 436992 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+1038 582 0 0 0 0 90 0 0 0 0 13 4 9 495380 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 1039 352 1 0 0 0 9 0 0 0 0 0 0 0 0 
 1040 352 1 0 0 0 9 0 0 0 0 0 0 0 0 
 1041 352 1 0 0 0 9 0 0 0 0 0 0 0 0 
 1042 352 1 0 0 0 9 0 0 0 0 0 0 0 0 
 1043 352 1 0 0 0 9 0 0 0 0 0 0 0 0 
-1044 352 1 0 0 0 9 0 2345 0 0 9 0 9 364920 
+1044 352 1 0 0 0 9 0 2532 0 0 9 0 9 419124 
 1045 347 1 0 0 0 9 0 0 0 0 0 0 0 0 
 1046 347 1 0 0 0 9 0 0 0 0 0 0 0 0 
-1047 347 1 2 0 0 9 0 0 0 0 9 2 7 339329 
+1047 347 1 2 0 0 9 0 0 0 0 9 2 7 390106 
 1050 247 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1051 405 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1052 405 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 1053 312 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1054 536 1 0 0 0 4 0 0 0 0 0 0 0 0 
 cfn=open_eth_moder_host_write
 calls=4 1494 425
-1054 536 0 0 0 0 60 0 0 0 0 12 0 12 111151 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+1054 536 0 0 0 0 60 0 0 0 0 12 0 12 119098 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 1055 247 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1056 405 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1057 405 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 1058 373 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1059 536 1 0 0 0 4 0 0 0 0 0 0 0 0 
 cfn=open_eth_moder_host_write
 calls=4 1494 425
-1059 536 0 0 0 0 60 0 0 0 0 12 0 12 110286 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+1059 536 0 0 0 0 60 0 0 0 0 12 0 12 121935 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 1060 247 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1061 405 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1062 405 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 1063 378 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1064 536 1 0 0 0 4 0 0 0 0 0 0 0 0 
 cfn=open_eth_moder_host_write
 calls=4 1494 425
-1064 536 0 0 0 0 60 0 0 0 0 12 0 12 110206 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+1064 536 0 0 0 0 60 0 0 0 0 12 0 12 120373 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 1065 254 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1066 538 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1067 538 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 1068 254 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1069 451 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1070 451 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1071 453 1 0 0 0 4 0 0 0 0 0 0 0 0 
@@ -962,10 +962,10 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_e
 1077 130 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1078 130 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1079 130 1 0 0 0 4 0 0 0 0 0 0 0 0 
-1080 130 1 0 0 0 4 0 0 0 0 4 0 4 356116 
+1080 130 1 0 0 0 4 0 0 0 0 4 0 4 272565 
 1083 134 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1084 134 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
 1085 21 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1086 21 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1089 14 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -976,14 +976,14 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
 1094 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1095 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1096 24 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 1099 247 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1100 405 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1101 405 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 1102 286 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1103 462 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1104 478 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1105 478 1 0 0 0 4 0 0 0 0 0 0 0 0 
@@ -992,10 +992,10 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_e
 1108 130 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1109 130 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1110 130 1 0 0 0 4 0 0 0 0 0 0 0 0 
-1111 130 1 0 0 0 4 0 0 0 0 4 0 4 354393 
+1111 130 1 0 0 0 4 0 0 0 0 4 0 4 275887 
 1114 134 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1115 134 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
 1116 21 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1117 21 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1120 14 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -1006,43 +1006,43 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
 1125 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1126 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1127 24 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 1130 247 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1131 405 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1132 405 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 1133 305 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1134 536 1 0 0 0 4 0 0 0 0 0 0 0 0 
 cfn=open_eth_moder_host_write
 calls=4 1494 425
-1134 536 30 0 0 0 220 0 2561 0 0 36 0 36 1428430 
+1134 536 30 0 0 0 220 0 2658 0 0 36 0 36 1627599 
 1135 536 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/napi.h
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/napi.h
 1136 130 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1137 63 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1138 64 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1139 130 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1140 130 1 0 0 0 4 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
-1143 1024 1 0 0 0 4 0 0 0 0 0 0 0 0 
-1144 1024 1 0 0 0 4 0 0 0 0 0 0 0 0 
-1145 1024 1 4 0 0 4 0 0 0 0 4 4 0 149595 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/napi.h
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+1143 1028 1 0 0 0 4 0 0 0 0 0 0 0 0 
+1144 1028 1 0 0 0 4 0 0 0 0 0 0 0 0 
+1145 1028 1 4 0 0 4 0 0 0 0 4 4 0 180734 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/napi.h
 1148 130 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1149 130 0 0 0 0 0 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
-1152 1024 1 0 0 0 16 0 0 0 0 0 0 0 0 
-1153 1024 1 0 0 0 16 0 0 0 0 0 0 0 0 
-1154 1027 1 0 0 0 16 0 0 0 0 0 0 0 0 
-1155 1024 1 0 0 0 16 0 0 0 0 0 0 0 0 
-1156 1024 1 0 0 0 16 0 0 0 0 0 0 0 0 
-1157 1024 1 12 0 0 16 0 0 0 0 16 12 4 638556 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/netdevice.h
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+1152 1028 1 0 0 0 16 0 0 0 0 0 0 0 0 
+1153 1028 1 0 0 0 16 0 0 0 0 0 0 0 0 
+1154 1031 1 0 0 0 16 0 0 0 0 0 0 0 0 
+1155 1028 1 0 0 0 16 0 0 0 0 0 0 0 0 
+1156 1028 1 0 0 0 16 0 0 0 0 0 0 0 0 
+1157 1028 1 12 0 0 16 0 0 0 0 16 12 4 765782 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/netdevice.h
 1160 135 1 0 0 0 20 0 0 0 0 0 0 0 0 
 1161 135 1 0 0 0 20 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/napi.h
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/napi.h
 1162 142 1 0 0 0 20 0 0 0 0 0 0 0 0 
 1163 142 1 0 0 0 20 0 0 0 0 0 0 0 0 
 1164 142 1 0 0 0 20 0 0 0 0 0 0 0 0 
@@ -1055,103 +1055,103 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/napi.h
 1175 146 1 0 0 0 20 0 0 0 0 0 0 0 0 
 1176 149 1 0 0 0 20 0 0 0 0 0 0 0 0 
 1177 149 1 0 0 0 20 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 1178 247 1 0 0 0 20 0 0 0 0 0 0 0 0 
 1179 247 1 0 0 0 20 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1180 405 1 0 0 0 20 0 0 0 0 0 0 0 0 
 1181 405 1 0 0 0 20 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 1182 312 1 0 0 0 20 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1183 536 1 0 0 0 20 0 0 0 0 0 0 0 0 
 cfn=open_eth_moder_host_write
 calls=20 1494 425
-1183 536 0 0 0 0 300 0 0 0 0 78 18 60 1245374 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
-1184 1082 1 0 0 0 20 0 0 0 0 0 0 0 0 
-1185 1083 1 0 0 0 20 0 0 0 0 0 0 0 0 
+1183 536 0 0 0 0 300 0 0 0 0 78 18 60 1421854 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+1184 1086 1 0 0 0 20 0 0 0 0 0 0 0 0 
+1185 1087 1 0 0 0 20 0 0 0 0 0 0 0 0 
 1186 262 1 0 0 0 20 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1187 108 1 0 0 0 20 0 0 0 0 0 0 0 0 
 1188 108 1 0 0 0 20 0 0 0 0 0 0 0 0 
 1189 108 1 0 0 0 20 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
-1192 1082 1 0 0 0 82 0 0 0 0 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+1192 1086 1 0 0 0 82 0 0 0 0 0 0 0 0 
 1193 261 1 0 0 0 82 0 0 0 0 0 0 0 0 
 1194 261 1 0 0 0 82 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1195 107 1 0 0 0 82 0 0 0 0 0 0 0 0 
 1196 108 1 0 0 0 82 0 0 0 0 0 0 0 0 
 1197 108 1 0 0 0 82 0 0 0 0 0 0 0 0 
-1198 108 1 0 0 0 82 0 73695 0 0 16 0 16 539425 
+1198 108 1 0 0 0 82 0 78704 0 0 16 0 16 618357 
 1199 108 1 0 0 0 82 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
-1200 1084 1 0 0 0 82 0 0 0 0 0 0 0 0 
-1201 1084 1 0 0 0 82 0 0 0 0 82 0 82 7945151 
-1204 1084 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1205 1084 0 0 0 0 0 0 0 0 0 0 0 0 0 
-1208 1082 1 0 0 0 82 0 0 0 0 0 0 0 0 
-1209 1082 1 0 0 0 82 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+1200 1088 1 0 0 0 82 0 0 0 0 0 0 0 0 
+1201 1088 1 0 0 0 82 0 0 0 0 82 0 82 8989281 
+1204 1088 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1205 1088 0 0 0 0 0 0 0 0 0 0 0 0 0 
+1208 1086 1 0 0 0 82 0 0 0 0 0 0 0 0 
+1209 1086 1 0 0 0 82 0 0 0 0 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1212 108 1 0 0 0 102 0 0 0 0 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
-1213 1082 1 0 0 0 102 0 0 0 0 0 0 0 0 
-1214 1082 1 0 0 0 102 0 0 0 0 31 0 31 1177613 
-1217 1091 1 0 0 0 20 0 0 0 0 0 0 0 0 
-1218 1091 1 0 0 0 20 0 0 0 0 0 0 0 0 
-1219 1091 1 0 0 0 20 0 0 0 0 0 0 0 0 
-1220 1099 1 0 0 0 20 0 0 0 0 0 0 0 0 
-1221 1099 1 0 0 0 20 0 0 0 0 0 0 0 0 
-1224 1102 1 0 0 0 41 0 0 0 0 0 0 0 0 
-1225 1102 1 0 0 0 41 0 40826 0 0 16 0 16 693515 
-1226 1104 1 0 0 0 41 0 0 0 0 0 0 0 0 
-1227 1104 1 0 0 0 41 0 0 0 0 16 0 16 691395 
-1230 1104 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1231 1104 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1232 1109 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1233 1109 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1234 1116 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1235 1116 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1236 1116 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1239 1116 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1240 1117 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1241 1117 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1242 1117 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1245 1117 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1246 1117 0 0 0 0 0 0 0 0 0 0 0 0 0 
-1249 1117 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1250 1116 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1253 1116 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1254 1116 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1255 1116 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1256 1116 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1257 1116 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1260 1133 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1261 1133 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1262 1133 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1263 1133 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1264 1133 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1267 1133 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1268 1133 0 0 0 0 0 0 0 0 0 0 0 0 0 
-1271 1133 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1272 1132 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1275 1116 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1276 1116 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1277 1132 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1278 1132 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1281 1137 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1282 1137 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1285 1104 1 0 0 0 41 0 0 0 0 0 0 0 0 
-1286 1104 1 0 0 0 41 0 0 0 0 0 0 0 0 
-1287 1099 1 0 0 0 41 0 0 0 0 0 0 0 0 
-1290 1099 1 0 0 0 61 0 0 0 0 0 0 0 0 
-1291 1099 1 0 0 0 61 0 0 0 0 0 0 0 0 
-1292 1099 1 0 0 0 61 0 0 0 0 0 0 0 0 
-1293 1099 1 0 0 0 61 0 0 0 0 57 0 57 1262045 
-1296 967 1 0 0 0 25 0 0 0 0 0 0 0 0 
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+1213 1086 1 0 0 0 102 0 0 0 0 0 0 0 0 
+1214 1086 1 0 0 0 102 0 0 0 0 31 0 31 1366722 
+1217 1095 1 0 0 0 20 0 0 0 0 0 0 0 0 
+1218 1095 1 0 0 0 20 0 0 0 0 0 0 0 0 
+1219 1095 1 0 0 0 20 0 0 0 0 0 0 0 0 
+1220 1103 1 0 0 0 20 0 0 0 0 0 0 0 0 
+1221 1103 1 0 0 0 20 0 0 0 0 0 0 0 0 
+1224 1106 1 0 0 0 41 0 0 0 0 0 0 0 0 
+1225 1106 1 0 0 0 41 0 44561 0 0 16 0 16 789069 
+1226 1108 1 0 0 0 41 0 0 0 0 0 0 0 0 
+1227 1108 1 0 0 0 41 0 0 0 0 16 0 16 778456 
+1230 1108 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1231 1108 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1232 1113 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1233 1113 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1234 1120 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1235 1120 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1236 1120 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1239 1120 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1240 1121 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1241 1121 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1242 1121 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1245 1121 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1246 1121 0 0 0 0 0 0 0 0 0 0 0 0 0 
+1249 1121 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1250 1120 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1253 1120 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1254 1120 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1255 1120 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1256 1120 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1257 1120 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1260 1137 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1261 1137 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1262 1137 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1263 1137 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1264 1137 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1267 1137 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1268 1137 0 0 0 0 0 0 0 0 0 0 0 0 0 
+1271 1137 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1272 1136 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1275 1120 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1276 1120 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1277 1136 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1278 1136 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1281 1141 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1282 1141 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1285 1108 1 0 0 0 41 0 0 0 0 0 0 0 0 
+1286 1108 1 0 0 0 41 0 0 0 0 0 0 0 0 
+1287 1103 1 0 0 0 41 0 0 0 0 0 0 0 0 
+1290 1103 1 0 0 0 61 0 0 0 0 0 0 0 0 
+1291 1103 1 0 0 0 61 0 0 0 0 0 0 0 0 
+1292 1103 1 0 0 0 61 0 0 0 0 0 0 0 0 
+1293 1103 1 0 0 0 61 0 0 0 0 57 0 57 1459397 
+1296 971 1 0 0 0 25 0 0 0 0 0 0 0 0 
 fn=open_eth_check_start_xmit
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1305 124 1 0 0 0 17 0 0 0 0 0 0 0 0 
 1306 124 1 0 0 0 17 0 0 0 0 0 0 0 0 
 1307 124 1 0 0 0 17 0 0 0 0 0 0 0 0 
@@ -1160,18 +1160,18 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_e
 1310 382 1 0 0 0 17 0 0 0 0 0 0 0 0 
 1311 382 1 0 0 0 17 0 0 0 0 0 0 0 0 
 1312 382 1 0 0 0 17 0 0 0 0 0 0 0 0 
-1313 382 1 0 0 0 17 0 0 0 0 17 4 13 444336 
+1313 382 1 0 0 0 17 0 0 0 0 17 4 13 504168 
 1316 382 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1317 382 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1318 382 1 0 0 0 4 0 0 0 0 0 0 0 0 
-1319 382 1 0 0 0 4 0 0 0 0 4 0 4 247677 
+1319 382 1 0 0 0 4 0 0 0 0 4 0 4 285461 
 1322 382 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1323 382 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1324 382 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1325 382 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1326 382 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1327 382 1 0 0 0 4 0 0 0 0 0 0 0 0 
-1328 382 1 0 0 0 4 0 0 0 0 4 0 4 149334 
+1328 382 1 0 0 0 4 0 0 0 0 4 0 4 163585 
 1331 339 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1332 342 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1333 342 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -1202,11 +1202,11 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_e
 1370 357 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1371 357 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1372 357 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/cpu.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/cpu.c
 1373 8 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1374 8 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1375 8 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1376 358 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1377 358 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1380 359 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -1217,7 +1217,7 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_e
 1387 361 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1388 361 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1389 361 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/net.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/net.c
 1390 7 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1391 7 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1392 9 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -1245,7 +1245,7 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/net.c
 1424 19 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1425 19 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1426 19 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1429 363 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1430 363 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1431 363 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -1280,7 +1280,7 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_e
 1470 130 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1473 134 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1474 134 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
 1475 21 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1476 21 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1479 14 0 0 0 0 0 0 0 0 1 0 0 0 0 
@@ -1291,7 +1291,7 @@ fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/irq.c
 1484 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1485 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1486 24 0 0 0 0 0 0 0 0 1 0 0 0 0 
-fl=/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
+fl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/../../../qemu-hw/ethoc/opencores_eth.c
 1489 387 1 0 0 0 17 0 0 0 0 0 0 0 0 
 fn=open_eth_moder_host_write
 1494 425 1 0 0 0 37 0 0 0 0 0 0 0 0 
@@ -1300,12 +1300,12 @@ fn=open_eth_moder_host_write
 1497 425 1 0 0 0 37 0 0 0 0 0 0 0 0 
 1498 427 1 0 0 0 37 0 0 0 0 0 0 0 0 
 1499 427 1 0 0 0 37 0 0 0 0 0 0 0 0 
-1500 427 1 0 0 0 37 0 0 0 0 54 18 36 1546566 
+1500 427 1 0 0 0 37 0 0 0 0 54 18 36 1750083 
 1503 168 1 0 0 0 1 0 0 0 0 0 0 0 0 
 1504 168 1 0 0 0 1 0 0 0 0 0 0 0 0 
 cfl=/auto/scratch/lliang/klee/runtime/Intrinsic/memset.c
 cfn=memset
-calls=1 1977 14
+calls=1 1996 14
 1504 168 0 0 0 0 509 0 0 0 0 0 0 0 0 
 1505 169 1 0 0 0 1 0 0 0 0 0 0 0 0 
 1506 170 1 0 0 0 1 0 0 0 0 0 0 0 0 
@@ -1331,7 +1331,7 @@ calls=1 1977 14
 1526 54 1 0 0 0 1 0 0 0 0 0 0 0 0 
 cfl=/auto/scratch/lliang/klee/runtime/Intrinsic/memset.c
 cfn=memset
-calls=1 1977 14
+calls=1 1996 14
 1526 54 0 0 0 0 77 0 0 0 0 0 0 0 0 
 1527 55 1 0 0 0 1 0 0 0 0 0 0 0 0 
 1528 55 1 0 0 0 1 0 0 0 0 0 0 0 0 
@@ -1396,7 +1396,7 @@ calls=1 1977 14
 1605 431 1 0 0 0 37 0 0 0 0 0 0 0 0 
 1606 431 1 0 0 0 37 0 0 0 0 0 0 0 0 
 1607 433 1 0 0 0 37 0 0 0 0 0 0 0 0 
-1608 433 1 0 0 0 37 0 0 0 0 36 0 36 71141 
+1608 433 1 0 0 0 37 0 0 0 0 36 0 36 77694 
 1611 434 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1612 434 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1613 434 1 0 0 0 4 0 0 0 0 0 0 0 0 
@@ -1405,24 +1405,24 @@ calls=1 1977 14
 1616 190 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1617 190 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1618 190 1 0 0 0 4 0 0 0 0 0 0 0 0 
-1619 190 1 0 0 0 4 0 0 0 0 4 0 4 225609 
+1619 190 1 0 0 0 4 0 0 0 0 4 0 4 252821 
 1622 119 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1623 190 1 0 0 0 4 0 0 0 0 0 0 0 0 
-1624 190 1 0 0 0 4 0 2561 0 0 4 0 4 239908 
+1624 190 1 0 0 0 4 0 2658 0 0 4 0 4 279989 
 1625 190 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1626 190 1 0 0 0 4 0 0 0 0 0 0 0 0 
-1627 190 1 0 0 0 4 0 0 0 0 4 0 4 447750 
+1627 190 1 0 0 0 4 0 0 0 0 4 0 4 516211 
 1630 440 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1631 440 0 0 0 0 0 0 0 0 0 0 0 0 0 
 1634 443 1 0 0 0 37 0 0 0 0 0 0 0 0 
 1635 443 1 0 0 0 37 0 0 0 0 0 0 0 0 
-1636 443 1 0 0 0 37 0 0 0 0 36 0 36 70118 
+1636 443 1 0 0 0 37 0 0 0 0 36 0 36 76227 
 1639 444 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1640 444 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1641 445 1 0 0 0 4 0 0 0 0 0 0 0 0 
 cfn=open_eth_check_start_xmit
 calls=4 1305 124
-1641 445 11 0 0 0 84 0 0 0 0 12 0 12 404355 
+1641 445 11 0 0 0 84 0 0 0 0 12 0 12 457834 
 1642 445 1 0 0 0 4 0 0 0 0 0 0 0 0 
 1645 447 1 0 0 0 37 0 0 0 0 0 0 0 0 
 fn=main
@@ -1449,13 +1449,13 @@ fl=
 1691 0 1 0 0 0 240 0 0 0 0 0 0 0 0 
 1692 0 1 0 0 0 240 0 0 0 0 0 0 0 0 
 1693 0 1 0 0 0 240 0 0 0 0 0 0 0 0 
-1696 0 1 0 0 0 46 0 0 0 0 0 0 0 0 
-1697 0 1 0 0 0 46 0 0 0 0 0 0 0 0 
-1698 0 1 0 0 0 46 0 0 0 0 0 0 0 0 
-1699 0 1 0 0 0 46 0 0 0 0 0 0 0 0 
-1700 0 1 0 0 0 46 0 0 0 0 0 0 0 0 
-1701 0 1 0 0 0 46 0 0 0 0 0 0 0 0 
-1702 0 1 0 0 0 46 0 0 0 0 0 0 0 0 
+1696 0 1 0 0 0 74 0 0 0 0 0 0 0 0 
+1697 0 1 0 0 0 74 0 0 0 0 0 0 0 0 
+1698 0 1 0 0 0 74 0 0 0 0 0 0 0 0 
+1699 0 1 0 0 0 74 0 0 0 0 0 0 0 0 
+1700 0 1 0 0 0 74 0 0 0 0 0 0 0 0 
+1701 0 1 0 0 0 74 0 0 0 0 0 0 0 0 
+1702 0 1 0 0 0 74 0 0 0 0 0 0 0 0 
 1705 0 1 0 0 0 1 0 0 0 0 0 0 0 0 
 1706 0 1 0 0 0 1 0 0 0 0 0 0 0 0 
 1707 0 1 0 0 0 1 0 0 0 0 0 0 0 0 
@@ -1594,10 +1594,10 @@ fl=
 1860 0 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1861 0 0 0 0 0 0 0 0 0 1 0 0 0 0 
 1864 0 1 0 0 0 1 0 0 0 0 0 0 0 0 
-cfl=/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
+cfl=/auto/users/lliang/benchmarks/sw-hw/linux/ethoc/ethoc.c
 cfn=__user_main
-calls=1 673 876
-1864 0 558 24 0 0 7079 0 121945 0 0 453 47 406 18644567 
+calls=1 673 880
+1864 0 558 24 0 0 7079 0 131126 0 0 453 47 406 20982177 
 1865 0 1 0 0 0 25 0 0 0 0 0 0 0 0 
 1868 0 1 0 0 0 75 0 0 0 0 0 0 0 0 
 1869 0 1 0 0 0 75 0 0 0 0 0 0 0 0 
@@ -1674,31 +1674,31 @@ calls=1 673 876
 1964 0 1 0 0 0 75 0 0 0 0 0 0 0 0 
 1965 0 1 0 0 0 75 0 0 0 0 0 0 0 0 
 1966 0 1 0 0 0 75 0 0 0 0 0 0 0 0 
-1969 0 1 0 0 0 25 0 0 0 0 1 1 0 39583 
+1969 0 1 0 0 0 25 0 0 0 0 1 1 0 44381 
 1970 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-fn=memset
-fl=/auto/scratch/lliang/klee/runtime/Intrinsic/memset.c
-1977 14 1 0 0 0 6 0 0 0 0 0 0 0 0 
-1978 14 1 0 0 0 6 0 0 0 0 0 0 0 0 
-1981 15 1 0 0 0 6 0 0 0 0 0 0 0 0 
-1982 15 1 0 0 0 6 0 0 0 0 0 0 0 0 
-1985 15 1 0 0 0 440 0 0 0 0 0 0 0 0 
-1986 15 1 0 0 0 440 0 0 0 0 0 0 0 0 
-1987 15 1 0 0 0 440 0 0 0 0 0 0 0 0 
-1988 15 1 0 0 0 440 0 0 0 0 0 0 0 0 
-1989 15 1 0 0 0 440 0 0 0 0 0 0 0 0 
-1990 14 1 0 0 0 440 0 0 0 0 0 0 0 0 
-1993 16 1 0 0 0 6 0 0 0 0 0 0 0 0 
 fn=memcpy
 fl=/auto/scratch/lliang/klee/runtime/Intrinsic/memcpy.c
-1998 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
-1999 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
-2002 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
-2003 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
-2004 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
-2005 17 0 0 0 0 0 0 0 0 1 0 0 0 0 
-2006 17 0 0 0 0 0 0 0 0 1 0 0 0 0 
-2007 17 0 0 0 0 0 0 0 0 1 0 0 0 0 
-2008 17 0 0 0 0 0 0 0 0 1 0 0 0 0 
-2009 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
-2012 18 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1975 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1976 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1979 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1980 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1981 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1982 17 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1983 17 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1984 17 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1985 17 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1986 16 0 0 0 0 0 0 0 0 1 0 0 0 0 
+1989 18 0 0 0 0 0 0 0 0 1 0 0 0 0 
+fn=memset
+fl=/auto/scratch/lliang/klee/runtime/Intrinsic/memset.c
+1996 14 1 0 0 0 6 0 0 0 0 0 0 0 0 
+1997 14 1 0 0 0 6 0 0 0 0 0 0 0 0 
+2000 15 1 0 0 0 6 0 0 0 0 0 0 0 0 
+2001 15 1 0 0 0 6 0 0 0 0 0 0 0 0 
+2004 15 1 0 0 0 440 0 0 0 0 0 0 0 0 
+2005 15 1 0 0 0 440 0 0 0 0 0 0 0 0 
+2006 15 1 0 0 0 440 0 0 0 0 0 0 0 0 
+2007 15 1 0 0 0 440 0 0 0 0 0 0 0 0 
+2008 15 1 0 0 0 440 0 0 0 0 0 0 0 0 
+2009 14 1 0 0 0 440 0 0 0 0 0 0 0 0 
+2012 16 1 0 0 0 6 0 0 0 0 0 0 0 0 

@@ -1,0 +1,14 @@
+Error: memory error: out of bound pointer
+File: /auto/scratch/lliang/klee/runtime/Intrinsic/memcpy.c
+Line: 17
+Stack: 
+	#0 00001694 in memcpy (destaddr=41205602, srcaddr=40363168, len=4) at /auto/scratch/lliang/klee/runtime/Intrinsic/memcpy.c:17
+	#1 00000338 in open_eth_receive (s=42043008, buf=42088720, size=18) at /users/lliang/benchmarks/qemu-hw/ethoc/cpu.c:8
+	#2 00001241 in __user_main () at /users/lliang/benchmarks/qemu-hw/ethoc/opencores_eth-test.c:100
+	#3 00001552 in main (=1, =41649600)
+Info: 
+	address: 41205602
+	next: object at 41224592 of size 23
+		MO6[23] allocated at main():  %k_termios.i.i1.i.i.i = alloca %struct.__kernel_termios, align 8
+	prev: object at 41205584 of size 18
+		MO389[18] allocated at __user_main():  %rx_packet.i = alloca [18 x i8], align 1

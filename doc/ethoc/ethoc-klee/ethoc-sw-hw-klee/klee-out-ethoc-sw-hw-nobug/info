@@ -1,14 +1,14 @@
 klee --optimize --libc=uclibc test.bc
-PID: 8006
-Started: 2013-05-04 10:50:02
+PID: 15042
+Started: 2013-05-10 12:40:20
 BEGIN searcher description
 <InterleavedSearcher> containing 2 searchers:
 RandomPathSearcher
 WeightedRandomSearcher::CoveringNew
 </InterleavedSearcher>
 END searcher description
-Finished: 2013-05-04 10:50:23
-Elapsed: 00:00:21
+Finished: 2013-05-10 12:40:44
+Elapsed: 00:00:24
 KLEE: done: explored paths = 25
 KLEE: done: avg. constructs per query = 349
 KLEE: done: total queries = 454
@@ -16,6 +16,6 @@ KLEE: done: valid queries = 406
 KLEE: done: invalid queries = 48
 KLEE: done: query cex = 454
 
-KLEE: done: total instructions = 9764
+KLEE: done: total instructions = 9960
 KLEE: done: completed paths = 25
 KLEE: done: generated tests = 25

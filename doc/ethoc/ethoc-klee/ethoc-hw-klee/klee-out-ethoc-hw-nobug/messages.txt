@@ -1,0 +1,2 @@
+KLEE: ERROR: /auto/scratch/lliang/klee/runtime/Intrinsic/memcpy.c:17: memory error: out of bound pointer
+KLEE: NOTE: now ignoring this error at this location
