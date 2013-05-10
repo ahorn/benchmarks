@@ -38,7 +38,7 @@ typedef uint64_t ram_addr_t;
 
 QEMUClock *rtc_clock;
 
-#ifdef __KLEE_
+#ifdef _KLEE_
 ram_addr_t ram_size;
 int smp_cpus;
 int use_rt_clock;
