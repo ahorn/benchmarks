@@ -1,0 +1,2 @@
+KLEE: ERROR: /users/lliang/benchmarks/qemu-hw/rtc/rtc-verify.c:153: ASSERTION FAIL: (((t - s) < 0) ? -(t - s) : (t - s)) <= wiggle
+KLEE: NOTE: now ignoring this error at this location
