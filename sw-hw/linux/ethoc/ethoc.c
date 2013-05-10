@@ -460,6 +460,10 @@ static int ethoc_rx(struct net_device *dev, int limit)
 
 		entry = priv->num_tx + priv->cur_rx;
 		ethoc_read_bd(priv, entry, &bd);
+#ifdef __EXPOSE_BUG__
+		if (bd.stat & RX_BD_EMPTY)
+			break;
+#else
 		if (bd.stat & RX_BD_EMPTY) {
 			ethoc_ack_irq(priv, INT_MASK_RX);
 			/* If packet (interrupt) came in between checking
@@ -473,7 +477,7 @@ static int ethoc_rx(struct net_device *dev, int limit)
 			if (bd.stat & RX_BD_EMPTY)
 				break;
 		}
-
+#endif
 		if (ethoc_update_rx_stats(priv, &bd) == 0) {
 			/* For the experiments, we removed the skb (socket) calls and
  			 * the possibility of insufficient memory or dropped packets.
@@ -552,7 +556,7 @@ static int ethoc_tx(struct net_device *dev, int limit)
 			 * BD_EMPTY here again to make sure there isn't such an
 			 * event pending...
 			 */
-			ethoc_read_bd(priv, entry, &bd);
+	       		ethoc_read_bd(priv, entry, &bd);
 			if (bd.stat & TX_BD_READY ||
 			    (priv->dty_tx == priv->cur_tx))
 				break;
