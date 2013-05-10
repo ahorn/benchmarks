@@ -1,0 +1,2 @@
+KLEE: ERROR: /users/lliang/benchmarks/qemu-hw/tmp105/tmp105.c:315: ASSERTION FAIL: (s->len != 2) || (s->buf_len_info == 1)
+KLEE: NOTE: now ignoring this error at this location

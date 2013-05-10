@@ -1,0 +1,7 @@
+Error: ASSERTION FAIL: (s->len != 2) || (s->buf_len_info == 1)
+File: /users/lliang/benchmarks/qemu-hw/tmp105/tmp105.c
+Line: 315
+Stack: 
+	#0 00000465 in write44 (data=45867152, size=2) at /users/lliang/benchmarks/qemu-hw/tmp105/tmp105.c:315
+	#1 00000876 in __user_main () at /users/lliang/benchmarks/qemu-hw/tmp105/tmp105-test.c:234
+	#2 00001374 in main (=1, =45649744)

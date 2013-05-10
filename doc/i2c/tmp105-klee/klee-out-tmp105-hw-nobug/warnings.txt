@@ -1,0 +1,5 @@
+KLEE: WARNING: undefined reference to function: fcntl
+KLEE: WARNING: undefined reference to function: ioctl
+KLEE: WARNING: undefined reference to function: write
+KLEE: WARNING ONCE: calling external: ioctl(0, 21505, 27295344)
+KLEE: WARNING ONCE: calling external: printf(25920512, 28785392)
