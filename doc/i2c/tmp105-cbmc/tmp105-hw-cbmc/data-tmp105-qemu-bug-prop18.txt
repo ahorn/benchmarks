@@ -1,0 +1,1892 @@
+~/Work/tools/cbmc-4.3/cbmc irq.c  tmp105.c  tmp105-test.c --unwind 4 -D__CBMC_TEST_HW__ -DI2C_BENCHMARK_PROP_18 -D__EXPOSE_BUG__
+file irq.c: Parsing
+file tmp105.c: Parsing
+file tmp105-test.c: Parsing
+Converting
+Type-checking irq
+Type-checking tmp105
+Type-checking tmp105-test
+Generating GOTO Program
+Adding CPROVER library
+Function Pointer Removal
+Partial Inlining
+Generic Property Instrumentation
+Starting Bounded Model Checking
+**** WARNING: no body for function c::fprintf
+Unwinding loop c::write.0 iteration 1 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 2 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 1 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 1 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 1 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 2 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 1 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 1 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 1 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 2 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 3 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 1 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 1 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 1 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 1 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 2 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 3 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 1 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 1 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 1 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 2 file tmp105-test.c line 50 function write thread 0
+Unwinding loop c::write.0 iteration 1 file tmp105-test.c line 50 function write thread 0
+size of program expression: 7959 assignments
+simple slicing removed 4 assignments
+Generated 4 VCC(s), 4 remaining after simplification
+Passing problem to propositional reduction
+Running propositional reduction
+Solving with MiniSAT2 with simplifier
+103375 variables, 160615 clauses
+SAT checker: negated claim is SATISFIABLE, i.e., does not hold
+Runtime decision procedure: 1.276s
+Building error trace
+
+Counterexample:
+
+State 3 file tmp105.c line 146 thread 0
+----------------------------------------------------
+  tmp105_faultq={ 1, 2, 4, 6 } ({ 00000000000000000000000000000001, 00000000000000000000000000000010, 00000000000000000000000000000100, 00000000000000000000000000000110 })
+
+State 4 file <built-in-additions> line 27 thread 0
+----------------------------------------------------
+  __CPROVER_deallocated=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 5 file tmp105-test.c line 17 thread 0
+----------------------------------------------------
+  i2c_slave=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 6 file <built-in-additions> line 28 thread 0
+----------------------------------------------------
+  __CPROVER_malloc_object=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 7 file tmp105-test.c line 18 thread 0
+----------------------------------------------------
+  alarm_rang=FALSE (00000000)
+
+State 8 file <built-in-additions> line 29 thread 0
+----------------------------------------------------
+  __CPROVER_malloc_size=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 9 file <built-in-additions> line 30 thread 0
+----------------------------------------------------
+  __CPROVER_malloc_is_new_array=FALSE (0)
+
+State 10 file <built-in-additions> line 42 thread 0
+----------------------------------------------------
+  __CPROVER_rounding_mode=0 (00000000000000000000000000000000)
+
+State 11 file /usr/include/stdio.h line 171 thread 0
+----------------------------------------------------
+  stderr=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 15 file tmp105-test.c line 345 function main thread 0
+----------------------------------------------------
+  tmp105_state={ .i2c=irep("(\"nil\")"), .len=0, .buf={ 0, 0 }, .$pad0=0,
+    .pin=NULL, .pointer=0, .config=0, .temperature=0,
+    .limit={ 0, 0 }, .faults=0, .alarm=0,
+    .os_trigger=FALSE, .$pad1=0 } ({ ?, 00000000, { 00000000, 00000000 }, 0000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 00000000, 00000000, 0000000000000000, { 0000000000000000, 0000000000000000 }, 00000000000000000000000000000000, 00000000, 00000000, 0000000000000000 })
+
+State 16 file tmp105-test.c line 346 function main thread 0
+----------------------------------------------------
+  irq_state={ .handler=NULL, .opaque=NULL, .n=0, .$pad0=0 } ({ 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 })
+
+State 17 file tmp105-test.c line 349 function main thread 0
+----------------------------------------------------
+  irq_state.n=3 (00000000000000000000000000000011)
+
+State 18 file tmp105-test.c line 350 function main thread 0
+----------------------------------------------------
+  irq_state.handler=&tmp105_handler (0000001000000000000000000000000000000000000000000000000000000000)
+
+State 19 file tmp105-test.c line 353 function main thread 0
+----------------------------------------------------
+  tmp105_state.pin=&irq_state!0@1.handler (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 20 file tmp105-test.c line 356 function main thread 0
+----------------------------------------------------
+  i2c_slave=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 23 file tmp105-test.c line 359 function main thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 24 file tmp105.c line 367 function tmp105_reset thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 25 file tmp105.c line 367 function tmp105_reset thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 26 file tmp105.c line 369 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.temperature=0 (0000000000000000)
+
+State 27 file tmp105.c line 370 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.pointer=0 (00000000)
+
+State 28 file tmp105.c line 371 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.config=0 (00000000)
+
+State 29 file tmp105.c line 372 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.faults=1 (00000000000000000000000000000001)
+
+State 30 file tmp105.c line 373 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.alarm=0 (00000000)
+
+State 31 file tmp105.c line 374 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.limit[0]=19200 (0100101100000000)
+
+State 32 file tmp105.c line 375 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.limit[1]=20480 (0101000000000000)
+
+State 33 file tmp105.c line 376 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.os_trigger=FALSE (00000000)
+
+State 36 file tmp105.c line 381 function tmp105_reset thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 39 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  irq=&irq_state!0@1.handler (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 40 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  level=1 (00000000000000000000000000000001)
+
+State 44 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  opaque=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 45 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  n=3 (00000000000000000000000000000011)
+
+State 46 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  level=1 (00000000000000000000000000000001)
+
+State 47 file tmp105-test.c line 312 function tmp105_handler thread 0
+----------------------------------------------------
+  alarm_rang=TRUE (00000001)
+
+State 54 file tmp105-test.c line 91 function test_read_with_default_precision thread 0
+----------------------------------------------------
+  temperature=0 (0000000000000000)
+
+State 57 file tmp105-test.c line 94 function test_read_with_default_precision thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 58 file tmp105-test.c line 94 function test_read_with_default_precision thread 0
+----------------------------------------------------
+  temp=100000 (00000000000000011000011010100000)
+
+State 59 file tmp105.c line 129 function tmp105_set thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 60 file tmp105.c line 129 function tmp105_set thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 64 file tmp105.c line 141 function tmp105_set thread 0
+----------------------------------------------------
+  tmp105_state.temperature=25600 (0110010000000000)
+
+State 67 file tmp105.c line 143 function tmp105_set thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 71 file tmp105.c line 118 function tmp105_alarm_update thread 0
+----------------------------------------------------
+  tmp105_state.alarm=1 (00000001)
+
+State 75 file tmp105.c line 123 function tmp105_alarm_update thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 78 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  irq=&irq_state!0@1.handler (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 79 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  level=0 (00000000000000000000000000000000)
+
+State 83 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  opaque=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 84 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  n=3 (00000000000000000000000000000011)
+
+State 85 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  level=0 (00000000000000000000000000000000)
+
+State 86 file tmp105-test.c line 312 function tmp105_handler thread 0
+----------------------------------------------------
+  alarm_rang=FALSE (00000000)
+
+State 92 file tmp105-test.c line 96 function test_read_with_default_precision thread 0
+----------------------------------------------------
+  return_value_read_word$1=0 (0000000000000000)
+
+State 95 file tmp105-test.c line 35 function read_word thread 0
+----------------------------------------------------
+  word=0 (0000000000000000)
+
+State 98 file tmp105-test.c line 37 function read_word thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 99 file tmp105-test.c line 37 function read_word thread 0
+----------------------------------------------------
+  event=enum(0) (?)
+
+State 100 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 101 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 105 file tmp105.c line 360 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 106 file tmp105.c line 150 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 110 file tmp105.c line 50 function check_temperature thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 111 file tmp105.c line 50 function check_temperature thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 113 file tmp105.c line 171 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.os_trigger=FALSE (00000000)
+
+State 114 file tmp105.c line 173 function tmp105_read thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 115 file tmp105.c line 173 function tmp105_read thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 116 file tmp105.c line 173 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.len=1 (00000001)
+
+State 117 file tmp105.c line 173 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.buf[(long int)tmp_post$1!0@1]=100 (01100100)
+
+State 118 file tmp105.c line 177 function tmp105_read thread 0
+----------------------------------------------------
+  tmp_post$2=0 (00000000)
+
+State 119 file tmp105.c line 177 function tmp105_read thread 0
+----------------------------------------------------
+  tmp_post$2=1 (00000001)
+
+State 120 file tmp105.c line 177 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.len=2 (00000010)
+
+State 121 file tmp105.c line 177 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.buf[(long int)tmp_post$2!0@1]=0 (00000000)
+
+State 124 file tmp105.c line 362 function tmp105_event thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 126 file tmp105-test.c line 38 function read_word thread 0
+----------------------------------------------------
+  return_value_tmp105_rx$1=0 (00000000000000000000000000000000)
+
+State 129 file tmp105-test.c line 38 function read_word thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 130 file tmp105.c line 268 function tmp105_rx thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 131 file tmp105.c line 268 function tmp105_rx thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 135 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 136 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 137 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp105_state.len=1 (00000001)
+
+State 139 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  return_value_tmp105_rx$1=100 (00000000000000000000000001100100)
+
+State 141 file tmp105-test.c line 38 function read_word thread 0
+----------------------------------------------------
+  word=25600 (0110010000000000)
+
+State 142 file tmp105-test.c line 39 function read_word thread 0
+----------------------------------------------------
+  return_value_tmp105_rx$2=0 (00000000000000000000000000000000)
+
+State 145 file tmp105-test.c line 39 function read_word thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 146 file tmp105.c line 268 function tmp105_rx thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 147 file tmp105.c line 268 function tmp105_rx thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 151 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 152 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp_post$1=1 (00000001)
+
+State 153 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp105_state.len=2 (00000010)
+
+State 155 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  return_value_tmp105_rx$2=0 (00000000000000000000000000000000)
+
+State 157 file tmp105-test.c line 39 function read_word thread 0
+----------------------------------------------------
+  word=25600 (0110010000000000)
+
+State 160 file tmp105-test.c line 40 function read_word thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 161 file tmp105-test.c line 40 function read_word thread 0
+----------------------------------------------------
+  event=enum(2) (?)
+
+State 162 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 163 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 165 file tmp105.c line 362 function tmp105_event thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 168 file tmp105-test.c line 42 function read_word thread 0
+----------------------------------------------------
+  return_value_read_word$1=25600 (0110010000000000)
+
+State 170 file tmp105-test.c line 96 function test_read_with_default_precision thread 0
+----------------------------------------------------
+  temperature=25600 (0110010000000000)
+
+State 174 file tmp105-test.c line 362 function main thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 175 file tmp105.c line 367 function tmp105_reset thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 176 file tmp105.c line 367 function tmp105_reset thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 177 file tmp105.c line 369 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.temperature=0 (0000000000000000)
+
+State 178 file tmp105.c line 370 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.pointer=0 (00000000)
+
+State 179 file tmp105.c line 371 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.config=0 (00000000)
+
+State 180 file tmp105.c line 372 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.faults=1 (00000000000000000000000000000001)
+
+State 181 file tmp105.c line 373 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.alarm=0 (00000000)
+
+State 182 file tmp105.c line 374 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.limit[0]=19200 (0100101100000000)
+
+State 183 file tmp105.c line 375 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.limit[1]=20480 (0101000000000000)
+
+State 184 file tmp105.c line 376 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.os_trigger=FALSE (00000000)
+
+State 187 file tmp105.c line 381 function tmp105_reset thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 190 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  irq=&irq_state!0@1.handler (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 191 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  level=1 (00000000000000000000000000000001)
+
+State 195 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  opaque=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 196 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  n=3 (00000000000000000000000000000011)
+
+State 197 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  level=1 (00000000000000000000000000000001)
+
+State 198 file tmp105-test.c line 312 function tmp105_handler thread 0
+----------------------------------------------------
+  alarm_rang=TRUE (00000001)
+
+State 205 file tmp105-test.c line 107 function test_alarm thread 0
+----------------------------------------------------
+  temperature=0 (0000000000000000)
+
+State 206 file tmp105-test.c line 108 function test_alarm thread 0
+----------------------------------------------------
+  high=108500 (00000000000000011010011111010100)
+
+State 207 file tmp105-test.c line 108 function test_alarm thread 0
+----------------------------------------------------
+  low=0 (00000000000000000000000000000000)
+
+State 211 file tmp105-test.c line 116 function test_alarm thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 212 file tmp105-test.c line 116 function test_alarm thread 0
+----------------------------------------------------
+  temp=108500 (00000000000000011010011111010100)
+
+State 213 file tmp105.c line 129 function tmp105_set thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 214 file tmp105.c line 129 function tmp105_set thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 218 file tmp105.c line 141 function tmp105_set thread 0
+----------------------------------------------------
+  tmp105_state.temperature=27776 (0110110010000000)
+
+State 221 file tmp105.c line 143 function tmp105_set thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 225 file tmp105.c line 118 function tmp105_alarm_update thread 0
+----------------------------------------------------
+  tmp105_state.alarm=1 (00000001)
+
+State 229 file tmp105.c line 123 function tmp105_alarm_update thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 232 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  irq=&irq_state!0@1.handler (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 233 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  level=0 (00000000000000000000000000000000)
+
+State 237 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  opaque=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 238 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  n=3 (00000000000000000000000000000011)
+
+State 239 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  level=0 (00000000000000000000000000000000)
+
+State 240 file tmp105-test.c line 312 function tmp105_handler thread 0
+----------------------------------------------------
+  alarm_rang=FALSE (00000000)
+
+State 249 file tmp105-test.c line 128 function test_alarm thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 250 file tmp105-test.c line 128 function test_alarm thread 0
+----------------------------------------------------
+  temp=0 (00000000000000000000000000000000)
+
+State 251 file tmp105.c line 129 function tmp105_set thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 252 file tmp105.c line 129 function tmp105_set thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 256 file tmp105.c line 141 function tmp105_set thread 0
+----------------------------------------------------
+  tmp105_state.temperature=0 (0000000000000000)
+
+State 259 file tmp105.c line 143 function tmp105_set thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 264 file tmp105.c line 120 function tmp105_alarm_update thread 0
+----------------------------------------------------
+  tmp105_state.alarm=0 (00000000)
+
+State 267 file tmp105.c line 123 function tmp105_alarm_update thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 270 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  irq=&irq_state!0@1.handler (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 271 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  level=1 (00000000000000000000000000000001)
+
+State 275 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  opaque=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 276 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  n=3 (00000000000000000000000000000011)
+
+State 277 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  level=1 (00000000000000000000000000000001)
+
+State 278 file tmp105-test.c line 312 function tmp105_handler thread 0
+----------------------------------------------------
+  alarm_rang=TRUE (00000001)
+
+State 287 file tmp105-test.c line 365 function main thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 288 file tmp105.c line 367 function tmp105_reset thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 289 file tmp105.c line 367 function tmp105_reset thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 290 file tmp105.c line 369 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.temperature=0 (0000000000000000)
+
+State 291 file tmp105.c line 370 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.pointer=0 (00000000)
+
+State 292 file tmp105.c line 371 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.config=0 (00000000)
+
+State 293 file tmp105.c line 372 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.faults=1 (00000000000000000000000000000001)
+
+State 294 file tmp105.c line 373 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.alarm=0 (00000000)
+
+State 295 file tmp105.c line 374 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.limit[0]=19200 (0100101100000000)
+
+State 296 file tmp105.c line 375 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.limit[1]=20480 (0101000000000000)
+
+State 297 file tmp105.c line 376 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.os_trigger=FALSE (00000000)
+
+State 300 file tmp105.c line 381 function tmp105_reset thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 303 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  irq=&irq_state!0@1.handler (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 304 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  level=1 (00000000000000000000000000000001)
+
+State 308 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  opaque=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 309 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  n=3 (00000000000000000000000000000011)
+
+State 310 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  level=1 (00000000000000000000000000000001)
+
+State 311 file tmp105-test.c line 312 function tmp105_handler thread 0
+----------------------------------------------------
+  alarm_rang=TRUE (00000001)
+
+State 318 file tmp105-test.c line 142 function test_eleven_bit_precision thread 0
+----------------------------------------------------
+  tmp105_state=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 319 file tmp105-test.c line 143 function test_eleven_bit_precision thread 0
+----------------------------------------------------
+  temperature=0 (0000000000000000)
+
+State 320 file tmp105-test.c line 144 function test_eleven_bit_precision thread 0
+----------------------------------------------------
+  precision=0 (00000000)
+
+State 321 file tmp105-test.c line 144 function test_eleven_bit_precision thread 0
+----------------------------------------------------
+  precision=64 (01000000)
+
+State 322 file tmp105-test.c line 145 function test_eleven_bit_precision thread 0
+----------------------------------------------------
+  data={ 0, 0 } ({ 00000000, 00000000 })
+
+State 323 file tmp105-test.c line 145 function test_eleven_bit_precision thread 0
+----------------------------------------------------
+  data={ 1, 64 } ({ 00000001, 01000000 })
+
+State 326 file tmp105-test.c line 148 function test_eleven_bit_precision thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 327 file tmp105-test.c line 148 function test_eleven_bit_precision thread 0
+----------------------------------------------------
+  temp=125 (00000000000000000000000001111101)
+
+State 328 file tmp105.c line 129 function tmp105_set thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 329 file tmp105.c line 129 function tmp105_set thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 333 file tmp105.c line 141 function tmp105_set thread 0
+----------------------------------------------------
+  tmp105_state.temperature=32 (0000000000100000)
+
+State 336 file tmp105.c line 143 function tmp105_set thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 341 file tmp105.c line 120 function tmp105_alarm_update thread 0
+----------------------------------------------------
+  tmp105_state.alarm=0 (00000000)
+
+State 344 file tmp105.c line 123 function tmp105_alarm_update thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 347 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  irq=&irq_state!0@1.handler (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 348 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  level=1 (00000000000000000000000000000001)
+
+State 352 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  opaque=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 353 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  n=3 (00000000000000000000000000000011)
+
+State 354 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  level=1 (00000000000000000000000000000001)
+
+State 355 file tmp105-test.c line 312 function tmp105_handler thread 0
+----------------------------------------------------
+  alarm_rang=TRUE (00000001)
+
+State 361 file tmp105-test.c line 151 function test_eleven_bit_precision thread 0
+----------------------------------------------------
+  tmp105_state=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 362 file tmp105-test.c line 156 function test_eleven_bit_precision thread 0
+----------------------------------------------------
+  return_value_read_word$1=0 (0000000000000000)
+
+State 365 file tmp105-test.c line 35 function read_word thread 0
+----------------------------------------------------
+  word=0 (0000000000000000)
+
+State 368 file tmp105-test.c line 37 function read_word thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 369 file tmp105-test.c line 37 function read_word thread 0
+----------------------------------------------------
+  event=enum(0) (?)
+
+State 370 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 371 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 375 file tmp105.c line 360 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 376 file tmp105.c line 150 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 380 file tmp105.c line 50 function check_temperature thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 381 file tmp105.c line 50 function check_temperature thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 383 file tmp105.c line 171 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.os_trigger=FALSE (00000000)
+
+State 384 file tmp105.c line 173 function tmp105_read thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 385 file tmp105.c line 173 function tmp105_read thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 386 file tmp105.c line 173 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.len=1 (00000001)
+
+State 387 file tmp105.c line 173 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.buf[(long int)tmp_post$1!0@2]=0 (00000000)
+
+State 388 file tmp105.c line 177 function tmp105_read thread 0
+----------------------------------------------------
+  tmp_post$2=0 (00000000)
+
+State 389 file tmp105.c line 177 function tmp105_read thread 0
+----------------------------------------------------
+  tmp_post$2=1 (00000001)
+
+State 390 file tmp105.c line 177 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.len=2 (00000010)
+
+State 391 file tmp105.c line 177 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.buf[(long int)tmp_post$2!0@2]=0 (00000000)
+
+State 394 file tmp105.c line 362 function tmp105_event thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 396 file tmp105-test.c line 38 function read_word thread 0
+----------------------------------------------------
+  return_value_tmp105_rx$1=0 (00000000000000000000000000000000)
+
+State 399 file tmp105-test.c line 38 function read_word thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 400 file tmp105.c line 268 function tmp105_rx thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 401 file tmp105.c line 268 function tmp105_rx thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 405 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 406 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 407 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp105_state.len=1 (00000001)
+
+State 409 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  return_value_tmp105_rx$1=0 (00000000000000000000000000000000)
+
+State 411 file tmp105-test.c line 38 function read_word thread 0
+----------------------------------------------------
+  word=0 (0000000000000000)
+
+State 412 file tmp105-test.c line 39 function read_word thread 0
+----------------------------------------------------
+  return_value_tmp105_rx$2=0 (00000000000000000000000000000000)
+
+State 415 file tmp105-test.c line 39 function read_word thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 416 file tmp105.c line 268 function tmp105_rx thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 417 file tmp105.c line 268 function tmp105_rx thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 421 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 422 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp_post$1=1 (00000001)
+
+State 423 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp105_state.len=2 (00000010)
+
+State 425 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  return_value_tmp105_rx$2=0 (00000000000000000000000000000000)
+
+State 427 file tmp105-test.c line 39 function read_word thread 0
+----------------------------------------------------
+  word=0 (0000000000000000)
+
+State 430 file tmp105-test.c line 40 function read_word thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 431 file tmp105-test.c line 40 function read_word thread 0
+----------------------------------------------------
+  event=enum(2) (?)
+
+State 432 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 433 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 435 file tmp105.c line 362 function tmp105_event thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 438 file tmp105-test.c line 42 function read_word thread 0
+----------------------------------------------------
+  return_value_read_word$1=0 (0000000000000000)
+
+State 440 file tmp105-test.c line 156 function test_eleven_bit_precision thread 0
+----------------------------------------------------
+  temperature=0 (0000000000000000)
+
+State 443 file tmp105-test.c line 161 function test_eleven_bit_precision thread 0
+----------------------------------------------------
+  data=&data!0@1[0] (0000010100000000000000000000000000000000000000000000000000000000)
+
+State 444 file tmp105-test.c line 161 function test_eleven_bit_precision thread 0
+----------------------------------------------------
+  size=2 (0000000000000000000000000000000000000000000000000000000000000010)
+
+State 445 file tmp105-test.c line 48 function write thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 448 file tmp105-test.c line 49 function write thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 449 file tmp105-test.c line 49 function write thread 0
+----------------------------------------------------
+  event=enum(1) (?)
+
+State 450 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 451 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 453 file tmp105.c line 362 function tmp105_event thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 455 file tmp105-test.c line 50 function write thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 459 file tmp105-test.c line 51 function write thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 460 file tmp105-test.c line 51 function write thread 0
+----------------------------------------------------
+  data=1 (00000001)
+
+State 461 file tmp105.c line 304 function tmp105_tx thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 462 file tmp105.c line 304 function tmp105_tx thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 463 file tmp105.c line 307 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 464 file tmp105.c line 307 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 465 file tmp105.c line 307 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp105_state.len=1 (00000001)
+
+State 467 file tmp105.c line 312 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp105_state.pointer=1 (00000001)
+
+State 471 file tmp105-test.c line 50 function write thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 476 file tmp105-test.c line 51 function write thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 477 file tmp105-test.c line 51 function write thread 0
+----------------------------------------------------
+  data=64 (01000000)
+
+State 478 file tmp105.c line 304 function tmp105_tx thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 479 file tmp105.c line 304 function tmp105_tx thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 480 file tmp105.c line 307 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 481 file tmp105.c line 307 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp_post$1=1 (00000001)
+
+State 482 file tmp105.c line 307 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp105_state.len=2 (00000010)
+
+State 485 file tmp105.c line 319 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp105_state.buf[(long int)(-1 + (signed int)(tmp105_state!0@1.len))]=64 (01000000)
+
+State 488 file tmp105.c line 321 function tmp105_tx thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 491 file tmp105.c line 221 function tmp105_write thread 0
+----------------------------------------------------
+  tmp105_state.os_trigger=FALSE (00000000)
+
+State 493 file tmp105.c line 235 function tmp105_write thread 0
+----------------------------------------------------
+  tmp105_state.config=0 (00000000)
+
+State 494 file tmp105.c line 236 function tmp105_write thread 0
+----------------------------------------------------
+  tmp105_state.faults=1 (00000000000000000000000000000001)
+
+State 497 file tmp105.c line 237 function tmp105_write thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 502 file tmp105.c line 120 function tmp105_alarm_update thread 0
+----------------------------------------------------
+  tmp105_state.alarm=0 (00000000)
+
+State 505 file tmp105.c line 123 function tmp105_alarm_update thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 508 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  irq=&irq_state!0@1.handler (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 509 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  level=1 (00000000000000000000000000000001)
+
+State 513 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  opaque=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 514 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  n=3 (00000000000000000000000000000011)
+
+State 515 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  level=1 (00000000000000000000000000000001)
+
+State 516 file tmp105-test.c line 312 function tmp105_handler thread 0
+----------------------------------------------------
+  alarm_rang=TRUE (00000001)
+
+State 525 file tmp105-test.c line 50 function write thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 530 file tmp105-test.c line 53 function write thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 531 file tmp105-test.c line 53 function write thread 0
+----------------------------------------------------
+  event=enum(2) (?)
+
+State 532 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 533 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 535 file tmp105.c line 362 function tmp105_event thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 540 file tmp105-test.c line 164 function test_eleven_bit_precision thread 0
+----------------------------------------------------
+  data=0 (00000000)
+
+State 543 file tmp105-test.c line 59 function write_byte thread 0
+----------------------------------------------------
+  data=&data!0@1 (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 544 file tmp105-test.c line 59 function write_byte thread 0
+----------------------------------------------------
+  size=1 (0000000000000000000000000000000000000000000000000000000000000001)
+
+State 545 file tmp105-test.c line 48 function write thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 548 file tmp105-test.c line 49 function write thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 549 file tmp105-test.c line 49 function write thread 0
+----------------------------------------------------
+  event=enum(1) (?)
+
+State 550 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 551 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 553 file tmp105.c line 362 function tmp105_event thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 555 file tmp105-test.c line 50 function write thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 559 file tmp105-test.c line 51 function write thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 560 file tmp105-test.c line 51 function write thread 0
+----------------------------------------------------
+  data=0 (00000000)
+
+State 561 file tmp105.c line 304 function tmp105_tx thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 562 file tmp105.c line 304 function tmp105_tx thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 563 file tmp105.c line 307 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 564 file tmp105.c line 307 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 565 file tmp105.c line 307 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp105_state.len=1 (00000001)
+
+State 567 file tmp105.c line 312 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp105_state.pointer=0 (00000000)
+
+State 571 file tmp105-test.c line 50 function write thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 576 file tmp105-test.c line 53 function write thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 577 file tmp105-test.c line 53 function write thread 0
+----------------------------------------------------
+  event=enum(2) (?)
+
+State 578 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 579 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 581 file tmp105.c line 362 function tmp105_event thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 585 file tmp105-test.c line 167 function test_eleven_bit_precision thread 0
+----------------------------------------------------
+  return_value_read_word$2=0 (0000000000000000)
+
+State 588 file tmp105-test.c line 35 function read_word thread 0
+----------------------------------------------------
+  word=0 (0000000000000000)
+
+State 591 file tmp105-test.c line 37 function read_word thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 592 file tmp105-test.c line 37 function read_word thread 0
+----------------------------------------------------
+  event=enum(0) (?)
+
+State 593 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 594 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 598 file tmp105.c line 360 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 599 file tmp105.c line 150 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 603 file tmp105.c line 50 function check_temperature thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 604 file tmp105.c line 50 function check_temperature thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 606 file tmp105.c line 171 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.os_trigger=FALSE (00000000)
+
+State 607 file tmp105.c line 173 function tmp105_read thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 608 file tmp105.c line 173 function tmp105_read thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 609 file tmp105.c line 173 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.len=1 (00000001)
+
+State 610 file tmp105.c line 173 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.buf[(long int)tmp_post$1!0@3]=0 (00000000)
+
+State 611 file tmp105.c line 177 function tmp105_read thread 0
+----------------------------------------------------
+  tmp_post$2=0 (00000000)
+
+State 612 file tmp105.c line 177 function tmp105_read thread 0
+----------------------------------------------------
+  tmp_post$2=1 (00000001)
+
+State 613 file tmp105.c line 177 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.len=2 (00000010)
+
+State 614 file tmp105.c line 177 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.buf[(long int)tmp_post$2!0@3]=0 (00000000)
+
+State 617 file tmp105.c line 362 function tmp105_event thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 619 file tmp105-test.c line 38 function read_word thread 0
+----------------------------------------------------
+  return_value_tmp105_rx$1=0 (00000000000000000000000000000000)
+
+State 622 file tmp105-test.c line 38 function read_word thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 623 file tmp105.c line 268 function tmp105_rx thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 624 file tmp105.c line 268 function tmp105_rx thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 628 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 629 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 630 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp105_state.len=1 (00000001)
+
+State 632 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  return_value_tmp105_rx$1=0 (00000000000000000000000000000000)
+
+State 634 file tmp105-test.c line 38 function read_word thread 0
+----------------------------------------------------
+  word=0 (0000000000000000)
+
+State 635 file tmp105-test.c line 39 function read_word thread 0
+----------------------------------------------------
+  return_value_tmp105_rx$2=0 (00000000000000000000000000000000)
+
+State 638 file tmp105-test.c line 39 function read_word thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 639 file tmp105.c line 268 function tmp105_rx thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 640 file tmp105.c line 268 function tmp105_rx thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 644 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 645 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp_post$1=1 (00000001)
+
+State 646 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp105_state.len=2 (00000010)
+
+State 648 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  return_value_tmp105_rx$2=0 (00000000000000000000000000000000)
+
+State 650 file tmp105-test.c line 39 function read_word thread 0
+----------------------------------------------------
+  word=0 (0000000000000000)
+
+State 653 file tmp105-test.c line 40 function read_word thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 654 file tmp105-test.c line 40 function read_word thread 0
+----------------------------------------------------
+  event=enum(2) (?)
+
+State 655 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 656 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 658 file tmp105.c line 362 function tmp105_event thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 661 file tmp105-test.c line 42 function read_word thread 0
+----------------------------------------------------
+  return_value_read_word$2=0 (0000000000000000)
+
+State 663 file tmp105-test.c line 167 function test_eleven_bit_precision thread 0
+----------------------------------------------------
+  temperature=0 (0000000000000000)
+
+State 667 file tmp105-test.c line 368 function main thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 668 file tmp105.c line 367 function tmp105_reset thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 669 file tmp105.c line 367 function tmp105_reset thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 670 file tmp105.c line 369 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.temperature=0 (0000000000000000)
+
+State 671 file tmp105.c line 370 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.pointer=0 (00000000)
+
+State 672 file tmp105.c line 371 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.config=0 (00000000)
+
+State 673 file tmp105.c line 372 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.faults=1 (00000000000000000000000000000001)
+
+State 674 file tmp105.c line 373 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.alarm=0 (00000000)
+
+State 675 file tmp105.c line 374 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.limit[0]=19200 (0100101100000000)
+
+State 676 file tmp105.c line 375 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.limit[1]=20480 (0101000000000000)
+
+State 677 file tmp105.c line 376 function tmp105_reset thread 0
+----------------------------------------------------
+  tmp105_state.os_trigger=FALSE (00000000)
+
+State 680 file tmp105.c line 381 function tmp105_reset thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 683 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  irq=&irq_state!0@1.handler (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 684 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  level=1 (00000000000000000000000000000001)
+
+State 688 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  opaque=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 689 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  n=3 (00000000000000000000000000000011)
+
+State 690 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  level=1 (00000000000000000000000000000001)
+
+State 691 file tmp105-test.c line 312 function tmp105_handler thread 0
+----------------------------------------------------
+  alarm_rang=TRUE (00000001)
+
+State 698 file tmp105-test.c line 183 function test_change_config thread 0
+----------------------------------------------------
+  config=64 (01000000)
+
+State 700 file tmp105-test.c line 190 function test_change_config thread 0
+----------------------------------------------------
+  new_config=0 (00000000)
+
+State 701 file tmp105-test.c line 191 function test_change_config thread 0
+----------------------------------------------------
+  data={ 0, 0 } ({ 00000000, 00000000 })
+
+State 702 file tmp105-test.c line 191 function test_change_config thread 0
+----------------------------------------------------
+  data={ 1, 64 } ({ 00000001, 01000000 })
+
+State 705 file tmp105-test.c line 194 function test_change_config thread 0
+----------------------------------------------------
+  data=1 (00000001)
+
+State 708 file tmp105-test.c line 59 function write_byte thread 0
+----------------------------------------------------
+  data=&data!0@2 (0000011100000000000000000000000000000000000000000000000000000000)
+
+State 709 file tmp105-test.c line 59 function write_byte thread 0
+----------------------------------------------------
+  size=1 (0000000000000000000000000000000000000000000000000000000000000001)
+
+State 710 file tmp105-test.c line 48 function write thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 713 file tmp105-test.c line 49 function write thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 714 file tmp105-test.c line 49 function write thread 0
+----------------------------------------------------
+  event=enum(1) (?)
+
+State 715 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 716 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 718 file tmp105.c line 362 function tmp105_event thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 720 file tmp105-test.c line 50 function write thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 724 file tmp105-test.c line 51 function write thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 725 file tmp105-test.c line 51 function write thread 0
+----------------------------------------------------
+  data=1 (00000001)
+
+State 726 file tmp105.c line 304 function tmp105_tx thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 727 file tmp105.c line 304 function tmp105_tx thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 728 file tmp105.c line 307 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 729 file tmp105.c line 307 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 730 file tmp105.c line 307 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp105_state.len=1 (00000001)
+
+State 732 file tmp105.c line 312 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp105_state.pointer=1 (00000001)
+
+State 736 file tmp105-test.c line 50 function write thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 741 file tmp105-test.c line 53 function write thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 742 file tmp105-test.c line 53 function write thread 0
+----------------------------------------------------
+  event=enum(2) (?)
+
+State 743 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 744 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 746 file tmp105.c line 362 function tmp105_event thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 752 file tmp105-test.c line 201 function test_change_config thread 0
+----------------------------------------------------
+  data=&data!0@1[0] (0000100000000000000000000000000000000000000000000000000000000000)
+
+State 753 file tmp105-test.c line 201 function test_change_config thread 0
+----------------------------------------------------
+  size=2 (0000000000000000000000000000000000000000000000000000000000000010)
+
+State 754 file tmp105-test.c line 48 function write thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 757 file tmp105-test.c line 49 function write thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 758 file tmp105-test.c line 49 function write thread 0
+----------------------------------------------------
+  event=enum(1) (?)
+
+State 759 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 760 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 762 file tmp105.c line 362 function tmp105_event thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 764 file tmp105-test.c line 50 function write thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 768 file tmp105-test.c line 51 function write thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 769 file tmp105-test.c line 51 function write thread 0
+----------------------------------------------------
+  data=1 (00000001)
+
+State 770 file tmp105.c line 304 function tmp105_tx thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 771 file tmp105.c line 304 function tmp105_tx thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 772 file tmp105.c line 307 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 773 file tmp105.c line 307 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 774 file tmp105.c line 307 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp105_state.len=1 (00000001)
+
+State 776 file tmp105.c line 312 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp105_state.pointer=1 (00000001)
+
+State 780 file tmp105-test.c line 50 function write thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 785 file tmp105-test.c line 51 function write thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 786 file tmp105-test.c line 51 function write thread 0
+----------------------------------------------------
+  data=64 (01000000)
+
+State 787 file tmp105.c line 304 function tmp105_tx thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 788 file tmp105.c line 304 function tmp105_tx thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 789 file tmp105.c line 307 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 790 file tmp105.c line 307 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp_post$1=1 (00000001)
+
+State 791 file tmp105.c line 307 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp105_state.len=2 (00000010)
+
+State 794 file tmp105.c line 319 function tmp105_tx thread 0
+----------------------------------------------------
+  tmp105_state.buf[(long int)(-1 + (signed int)(tmp105_state!0@1.len))]=64 (01000000)
+
+State 797 file tmp105.c line 321 function tmp105_tx thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 800 file tmp105.c line 221 function tmp105_write thread 0
+----------------------------------------------------
+  tmp105_state.os_trigger=FALSE (00000000)
+
+State 802 file tmp105.c line 235 function tmp105_write thread 0
+----------------------------------------------------
+  tmp105_state.config=0 (00000000)
+
+State 803 file tmp105.c line 236 function tmp105_write thread 0
+----------------------------------------------------
+  tmp105_state.faults=1 (00000000000000000000000000000001)
+
+State 806 file tmp105.c line 237 function tmp105_write thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 811 file tmp105.c line 120 function tmp105_alarm_update thread 0
+----------------------------------------------------
+  tmp105_state.alarm=0 (00000000)
+
+State 814 file tmp105.c line 123 function tmp105_alarm_update thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 817 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  irq=&irq_state!0@1.handler (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 818 file tmp105.c line 90 function tmp105_interrupt_update thread 0
+----------------------------------------------------
+  level=1 (00000000000000000000000000000001)
+
+State 822 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  opaque=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 823 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  n=3 (00000000000000000000000000000011)
+
+State 824 file irq.c line 17 function qemu_set_irq thread 0
+----------------------------------------------------
+  level=1 (00000000000000000000000000000001)
+
+State 825 file tmp105-test.c line 312 function tmp105_handler thread 0
+----------------------------------------------------
+  alarm_rang=TRUE (00000001)
+
+State 834 file tmp105-test.c line 50 function write thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 839 file tmp105-test.c line 53 function write thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 840 file tmp105-test.c line 53 function write thread 0
+----------------------------------------------------
+  event=enum(2) (?)
+
+State 841 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 842 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 844 file tmp105.c line 362 function tmp105_event thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 849 file tmp105-test.c line 23 function read_byte thread 0
+----------------------------------------------------
+  byte=0 (00000000)
+
+State 852 file tmp105-test.c line 25 function read_byte thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 853 file tmp105-test.c line 25 function read_byte thread 0
+----------------------------------------------------
+  event=enum(0) (?)
+
+State 854 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 855 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 859 file tmp105.c line 360 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 860 file tmp105.c line 150 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 864 file tmp105.c line 185 function tmp105_read thread 0
+----------------------------------------------------
+  tmp_post$3=0 (00000000)
+
+State 865 file tmp105.c line 185 function tmp105_read thread 0
+----------------------------------------------------
+  tmp_post$3=0 (00000000)
+
+State 866 file tmp105.c line 185 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.len=1 (00000001)
+
+State 867 file tmp105.c line 185 function tmp105_read thread 0
+----------------------------------------------------
+  tmp105_state.buf[(long int)tmp_post$3!0@4]=0 (00000000)
+
+State 870 file tmp105.c line 362 function tmp105_event thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 872 file tmp105-test.c line 26 function read_byte thread 0
+----------------------------------------------------
+  return_value_tmp105_rx$1=0 (00000000000000000000000000000000)
+
+State 875 file tmp105-test.c line 26 function read_byte thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 876 file tmp105.c line 268 function tmp105_rx thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 877 file tmp105.c line 268 function tmp105_rx thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 882 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 883 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp_post$1=0 (00000000)
+
+State 884 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  tmp105_state.len=1 (00000001)
+
+State 886 file tmp105.c line 298 function tmp105_rx thread 0
+----------------------------------------------------
+  return_value_tmp105_rx$1=0 (00000000000000000000000000000000)
+
+State 888 file tmp105-test.c line 26 function read_byte thread 0
+----------------------------------------------------
+  byte=0 (00000000)
+
+State 891 file tmp105-test.c line 27 function read_byte thread 0
+----------------------------------------------------
+  i2c=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 892 file tmp105-test.c line 27 function read_byte thread 0
+----------------------------------------------------
+  event=enum(2) (?)
+
+State 893 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=NULL (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 894 file tmp105.c line 357 function tmp105_event thread 0
+----------------------------------------------------
+  s=&tmp105_state!0@1.len (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 896 file tmp105.c line 362 function tmp105_event thread 0
+----------------------------------------------------
+  tmp105_state.len=0 (00000000)
+
+State 899 file tmp105-test.c line 29 function read_byte thread 0
+----------------------------------------------------
+  new_config=0 (00000000)
+
+Violated property:
+  file tmp105-test.c line 210 function test_change_config
+  assertion (new_config & 0x7f) == (config & 0x7f)
+  FALSE
+
+VERIFICATION FAILED
+make: *** [verify] Error 10
