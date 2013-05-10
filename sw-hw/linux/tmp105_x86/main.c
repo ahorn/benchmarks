@@ -30,6 +30,8 @@
 // From arch/x86/kernel/time.c
 unsigned long volatile jiffies = ((unsigned long)(unsigned int) (-300*HZ));
 
+int nondet_int();
+
 // TODO:
 // Replace: kstrtol (might easily blow up)
 //            
@@ -84,9 +86,11 @@ int main (int argc, char** argv) {
     int test_seq_len = 15; 
     for (int test_i = 0; test_i < test_seq_len; test_i++) {
         // We can split this into many different tests
-        int switch_case;
-
+#ifndef _KLEE_
+        int switch_case = nondet_int();
+#endif
 #ifdef _KLEE_
+	int switch_case;
 	klee_make_symbolic(&switch_case, sizeof(switch_case), "switch_case");
 #endif
 
