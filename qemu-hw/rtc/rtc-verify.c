@@ -359,13 +359,17 @@ void rtc_verify(void)
 #endif
 
 #ifdef __CBMC_TEST_HW__
-#ifndef __EXPOSE_BUG__
-    check_clock_cbmc();
-#else
+#ifdef __EXPOSE_BUG__
     register_b_set_flag();
     //simulate_bugs();
+#else
+   check_clock_cbmc();
 #endif
 #else 
+#ifdef __EXPOSE_BUG__
     check_time_with_current_mode();
+#else
+   check_clock_cbmc();
+#endif
 #endif
 }
