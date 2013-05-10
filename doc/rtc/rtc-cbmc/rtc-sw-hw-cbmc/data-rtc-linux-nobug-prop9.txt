@@ -1,0 +1,146 @@
+Compiling with goto-cc: main.c
+Verifying with CBMC: main.c
+Reading GOTO program from file
+Adding CPROVER library
+Function Pointer Removal
+Partial Inlining
+Generic Property Instrumentation
+Starting Bounded Model Checking
+**** WARNING: no body for function c::time
+**** WARNING: no body for function c::gmtime
+**** WARNING: no body for function c::clock_gettime
+**** WARNING: no body for function c::gettimeofday
+**** WARNING: no body for function c::gmtime_r
+**** WARNING: no body for function c::driver_register
+**** WARNING: no body for function c::driver_unregister
+**** WARNING: no body for function c::__const_udelay
+Unwinding loop c::__get_rtc_time.17 iteration 1 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::__get_rtc_time.17 iteration 2 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::__get_rtc_time.17 iteration 3 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::__get_rtc_time.17 iteration 4 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::__get_rtc_time.17 iteration 5 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::__get_rtc_time.17 iteration 6 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::__get_rtc_time.17 iteration 7 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::__get_rtc_time.17 iteration 8 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::__get_rtc_time.17 iteration 9 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::__get_rtc_time.17 iteration 10 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::__get_rtc_time.17 iteration 11 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::__get_rtc_time.17 iteration 12 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::__get_rtc_time.17 iteration 13 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::__get_rtc_time.17 iteration 14 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::__get_rtc_time.17 iteration 15 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::__get_rtc_time.17 iteration 16 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::__get_rtc_time.17 iteration 17 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::__get_rtc_time.17 iteration 18 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::__get_rtc_time.17 iteration 19 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::__get_rtc_time.17 iteration 20 file ../include/asm-generic/rtc.h line 64 function __get_rtc_time thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 1 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 2 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 3 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 4 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 5 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 6 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 7 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 8 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 9 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 10 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 1 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 2 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 3 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 4 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 5 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 6 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 7 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 8 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 9 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 10 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 1 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 2 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 3 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 4 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 5 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 6 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 7 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 8 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 9 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 10 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 1 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 2 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 3 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 4 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 5 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 6 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 7 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 8 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 9 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 10 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 1 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 2 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 3 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 4 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 5 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 6 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 7 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 8 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 9 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 10 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 1 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 2 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 3 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 4 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 5 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 6 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 7 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 8 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 9 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 10 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 1 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 2 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 3 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 4 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 5 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 6 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 7 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 8 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 9 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 10 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 1 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 2 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 3 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 4 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 5 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 6 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 7 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 8 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 9 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 10 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 1 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 2 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 3 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 4 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 5 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 6 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 7 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 8 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 9 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 10 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 1 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 2 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 3 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 4 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 5 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 6 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 7 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 8 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 9 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+Unwinding loop c::cmos_ioport_write.1 iteration 10 file ../../../qemu-hw/rtc/mc146818rtc.c line 605 function cmos_ioport_write thread 0
+size of program expression: 60294 assignments
+simple slicing removed 4462 assignments
+Generated 10 VCC(s), 10 remaining after simplification
+Passing problem to propositional reduction
+Running propositional reduction
+Solving with MiniSAT2 with simplifier
+8463868 variables, 24468704 clauses
+SAT checker inconsistent: negated claim is UNSATISFIABLE, i.e., holds
+Runtime decision procedure: 17.236s
+VERIFICATION SUCCESSFUL
