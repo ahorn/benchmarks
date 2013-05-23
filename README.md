@@ -92,8 +92,8 @@ useful resources.
 [ethoc-hw-experiments]: https://github.com/ahorn/benchmarks/blob/master/qemu-hw/ethoc/experiments.sh
 [ethoc-sw-hw-experiments]: https://github.com/ahorn/benchmarks/blob/master/sw-hw/linux/ethoc/experiments.sh
 [ethoc-prop5-msc-png]: https://raw.github.com/ahorn/benchmarks/master/doc/ethoc/prop5.png
-[ethoc-prop5-msc-svg]: https://raw.github.com/ahorn/benchmarks/master/doc/ethoc/prop5.svg
-[ethoc-prop5-rel-svg]: https://raw.github.com/ahorn/benchmarks/master/doc/ethoc/prop5-relations.svg
+[ethoc-prop5-msc-svg]: http://htmlpreview.github.com/?https://raw.github.com/ahorn/benchmarks/master/doc/ethoc/prop5.svg
+[ethoc-prop5-rel-svg]: http://htmlpreview.github.com/?https://raw.github.com/ahorn/benchmarks/master/doc/ethoc/prop5-relations.svg
 [ethoc-prop5-rel-pdf]: https://raw.github.com/ahorn/benchmarks/master/doc/ethoc/prop5-relations.pdf
 [cpbm]: http://www.cprover.org/software/benchmarks/
 [wiki]: https://github.com/ahorn/benchmarks/wiki/_pages
