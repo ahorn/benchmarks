@@ -2,7 +2,7 @@
 
 GOTO_CC=/nas/mictau/from-clpc8/cprover.git/src/goto-cc/goto-cc
 GOTO_INSTRUMENT=/nas/mictau/from-clpc8/cprover.git/src/goto-instrument/goto-instrument
-CBMC=/nas/mictau/from-clpc8/cprover.git/src/cbmc/cbmc
+CBMC=/nas/mictau/SVNS/cbmc-r2030+concurrency
 
 echo "SLOCCount says:"
 sloccount *.c *.h ../../../qemu-hw/ethoc/*.h ../../../qemu-hw/ethoc/{opencores_eth,irq,cpu}.c | grep "^Total Physical"
