@@ -19,9 +19,9 @@
   <body>
     <table border=1 class="exptable">
       <tr bgcolor=lightgrey>
-        <th colspan=25><font size=+1>* /nas/mictau/from-clpc8/cprover.git/src/cbmc/cbmc --unwind 1 --partial-loops --no-unwinding-assertions version 4.2 results *</font><br>
+        <th colspan=25><font size=+1>* /nas/mictau/SVNS/cbmc-r2030+concurrency --unwind 1 --partial-loops --no-unwinding-assertions version 4.2 results *</font><br>
           Timeout: -  Memory limit: unlimitedkb<br/>
-          Mon Jan 21 09:20:26 2013
+          Thu May 23 02:17:41 2013
         </th>
       </tr>
       <tr>
@@ -33,18 +33,18 @@
         <th align="middle">exitcode</th>
         <th align="middle">expected</th>
         <th align="middle">maxmem</th>
-        <th align="middle">mt_atomic-block</th>
-        <th align="middle">mt_fr</th>
+        <th align="middle">mt_atomic-block (**)</th>
+        <th align="middle">mt_fr (**)</th>
         <th align="middle">mt_max_per_address</th>
         <th align="middle">mt_num_unique_addresses</th>
-        <th align="middle">mt_po</th>
-        <th align="middle">mt_rf</th>
-        <th align="middle">mt_rf-at-least-one</th>
-        <th align="middle">mt_rfi</th>
-        <th align="middle">mt_thread-spawn</th>
+        <th align="middle">mt_po (**)</th>
+        <th align="middle">mt_rf (**)</th>
+        <th align="middle">mt_rf-at-least-one (**)</th>
+        <th align="middle">mt_rfi (**)</th>
+        <th align="middle">mt_thread-spawn (*) (**)</th>
         <th align="middle">mt_tot_subevent_count</th>
-        <th align="middle">mt_ws</th>
-        <th align="middle">mt_ws-preceding</th>
+        <th align="middle">mt_ws (**)</th>
+        <th align="middle">mt_ws-preceding (**)</th>
         <th align="middle">ssa-size</th>
         <th align="middle">time_dec_proc</th>
         <th align="middle">user</th>
@@ -52,14 +52,14 @@
         <th align="middle">wallclock</th>
       </tr>
       <tr>
-        <td align="left"><a href="https://github.com/ahorn/benchmarks/blob/master/doc/ethoc/ethoc-sw-hw.web/cbmc__ethoc_sw_hw_m32_prop5.gb_ALL_CLAIMS_2013-01-21_082457_fmA5FU.log.txt">ethoc_sw_hw_m32_prop5</a></td>
+        <td align="left"><a href="https://github.com/ahorn/benchmarks/blob/master/doc/ethoc/ethoc-sw-hw.web/cbmc__ethoc_sw_hw_m32_prop5.gb_ALL_CLAIMS_2013-05-23_013943_gfnCd7.log.txt">ethoc_sw_hw_m32_prop5</a></td>
         <td align="left">Property VIOLATED</td>
-        <td align="left">/nas/mictau/from-clpc8/cprover.git/src/cbmc/cbmc --unwind 1 --partial-loops --no-unwinding-assertions   ../ethoc_sw_hw_m32_prop5.gb</td>
-        <td align="left">Mon Jan 21 08:24:57 GMT 2013</td>
+        <td align="left">/nas/mictau/SVNS/cbmc-r2030+concurrency --unwind 1 --partial-loops --no-unwinding-assertions   ../ethoc_sw_hw_m32_prop5.gb</td>
+        <td align="left">Thu May 23 01:39:43 BST 2013</td>
         <td align="left">MiniSAT2 with simplifier</td>
         <td align="left">10</td>
         <td align="left">unknown</td>
-        <td align="left">152234272kb</td>
+        <td align="left">38641760kb</td>
         <td align="left">278</td>
         <td align="left">6335</td>
         <td align="left">179</td>
@@ -72,48 +72,48 @@
         <td align="left">560</td>
         <td align="left">1397</td>
         <td align="left">827</td>
-        <td align="left">18080</td>
-        <td align="left">1558.74</td>
+        <td align="left">16707</td>
+        <td align="left">1673.46</td>
         <td align="left">mictau</td>
-        <td align="left">1569.58</td>
-        <td align="left">26:29.53</td>
+        <td align="left">1680.67</td>
+        <td align="left">28:19.74</td>
       </tr>
       <tr>
-        <td align="left"><a href="https://github.com/ahorn/benchmarks/blob/master/doc/ethoc/ethoc-sw-hw.web/cbmc__ethoc_sw_hw_m32_prop6.gb_ALL_CLAIMS_2013-01-21_085128_nXDCL8.log.txt">ethoc_sw_hw_m32_prop6</a></td>
+        <td align="left"><a href="https://github.com/ahorn/benchmarks/blob/master/doc/ethoc/ethoc-sw-hw.web/cbmc__ethoc_sw_hw_m32_prop6.gb_ALL_CLAIMS_2013-05-23_020804_w4Eh7G.log.txt">ethoc_sw_hw_m32_prop6</a></td>
         <td align="left">Property HOLDS</td>
-        <td align="left">/nas/mictau/from-clpc8/cprover.git/src/cbmc/cbmc --unwind 1 --partial-loops --no-unwinding-assertions   ../ethoc_sw_hw_m32_prop6.gb</td>
-        <td align="left">Mon Jan 21 08:51:28 GMT 2013</td>
+        <td align="left">/nas/mictau/SVNS/cbmc-r2030+concurrency --unwind 1 --partial-loops --no-unwinding-assertions   ../ethoc_sw_hw_m32_prop6.gb</td>
+        <td align="left">Thu May 23 02:08:04 BST 2013</td>
         <td align="left">MiniSAT2 with simplifier</td>
         <td align="left">0</td>
         <td align="left">unknown</td>
-        <td align="left">152107856kb</td>
+        <td align="left">30618848kb</td>
         <td align="left">277</td>
-        <td align="left">6300</td>
-        <td align="left">178</td>
-        <td align="left">14</td>
-        <td align="left">546</td>
-        <td align="left">10726</td>
-        <td align="left">412</td>
-        <td align="left">412</td>
+        <td align="left">6331</td>
+        <td align="left">181</td>
+        <td align="left">13</td>
+        <td align="left">543</td>
+        <td align="left">10823</td>
+        <td align="left">409</td>
+        <td align="left">409</td>
         <td align="left">18</td>
-        <td align="left">565</td>
+        <td align="left">562</td>
         <td align="left">1397</td>
-        <td align="left">846</td>
-        <td align="left">18057</td>
-        <td align="left">1537.55</td>
+        <td align="left">827</td>
+        <td align="left">16683</td>
+        <td align="left">324.25</td>
         <td align="left">mictau</td>
-        <td align="left">1548.30</td>
-        <td align="left">26:07.89</td>
+        <td align="left">335.51</td>
+        <td align="left">5:46.00</td>
       </tr>
       <tr>
-        <td align="left"><a href="https://github.com/ahorn/benchmarks/blob/master/doc/ethoc/ethoc-sw-hw.web/cbmc__ethoc_sw_hw_m32_prop7.gb_ALL_CLAIMS_2013-01-21_091737_iHjVMl.log.txt">ethoc_sw_hw_m32_prop7</a></td>
+        <td align="left"><a href="https://github.com/ahorn/benchmarks/blob/master/doc/ethoc/ethoc-sw-hw.web/cbmc__ethoc_sw_hw_m32_prop7.gb_ALL_CLAIMS_2013-05-23_021351_lFJozP.log.txt">ethoc_sw_hw_m32_prop7</a></td>
         <td align="left">Property HOLDS</td>
-        <td align="left">/nas/mictau/from-clpc8/cprover.git/src/cbmc/cbmc --unwind 1 --partial-loops --no-unwinding-assertions   ../ethoc_sw_hw_m32_prop7.gb</td>
-        <td align="left">Mon Jan 21 09:17:37 GMT 2013</td>
+        <td align="left">/nas/mictau/SVNS/cbmc-r2030+concurrency --unwind 1 --partial-loops --no-unwinding-assertions   ../ethoc_sw_hw_m32_prop7.gb</td>
+        <td align="left">Thu May 23 02:13:51 BST 2013</td>
         <td align="left">MiniSAT2 with simplifier</td>
         <td align="left">0</td>
         <td align="left">unknown</td>
-        <td align="left">113612720kb</td>
+        <td align="left">29000892kb</td>
         <td align="left">277</td>
         <td align="left">6217</td>
         <td align="left">178</td>
@@ -126,21 +126,21 @@
         <td align="left">555</td>
         <td align="left">1397</td>
         <td align="left">827</td>
-        <td align="left">18008</td>
-        <td align="left">142.844</td>
+        <td align="left">16635</td>
+        <td align="left">208.367</td>
         <td align="left">mictau</td>
-        <td align="left">158.70</td>
-        <td align="left">2:48.19</td>
+        <td align="left">219.50</td>
+        <td align="left">3:48.87</td>
       </tr>
       <tr>
-        <td align="left"><a href="https://github.com/ahorn/benchmarks/blob/master/doc/ethoc/ethoc-sw-hw.web/cbmc__ethoc_sw_hw_m32_sequential_prop5.gb_ALL_CLAIMS_2013-01-21_080326_WbN54D.log.txt">ethoc_sw_hw_m32_sequential_prop5</a></td>
+        <td align="left"><a href="https://github.com/ahorn/benchmarks/blob/master/doc/ethoc/ethoc-sw-hw.web/cbmc__ethoc_sw_hw_m32_sequential_prop5.gb_ALL_CLAIMS_2013-05-23_011759_vVxYPZ.log.txt">ethoc_sw_hw_m32_sequential_prop5</a></td>
         <td align="left">Property HOLDS</td>
-        <td align="left">/nas/mictau/from-clpc8/cprover.git/src/cbmc/cbmc --unwind 1 --partial-loops --no-unwinding-assertions   ../ethoc_sw_hw_m32_sequential_prop5.gb</td>
-        <td align="left">Mon Jan 21 08:03:27 GMT 2013</td>
+        <td align="left">/nas/mictau/SVNS/cbmc-r2030+concurrency --unwind 1 --partial-loops --no-unwinding-assertions   ../ethoc_sw_hw_m32_sequential_prop5.gb</td>
+        <td align="left">Thu May 23 01:17:59 BST 2013</td>
         <td align="left">MiniSAT2 with simplifier</td>
         <td align="left">0</td>
         <td align="left">unknown</td>
-        <td align="left">33897120kb</td>
+        <td align="left">8917856kb</td>
         <td align="left"></td>
         <td align="left"></td>
         <td align="left"></td>
@@ -153,21 +153,21 @@
         <td align="left"></td>
         <td align="left"></td>
         <td align="left"></td>
-        <td align="left">18414</td>
-        <td align="left">396.892</td>
+        <td align="left">17710</td>
+        <td align="left">422.208</td>
         <td align="left">mictau</td>
-        <td align="left">424.81</td>
-        <td align="left">7:09.31</td>
+        <td align="left">426.76</td>
+        <td align="left">7:11.03</td>
       </tr>
       <tr>
-        <td align="left"><a href="cbmc__ethoc_sw_hw_m32_sequential_prop6.gb_ALL_CLAIMS_2013-01-21_081037_R8yqHF.log.txt">ethoc_sw_hw_m32_sequential_prop6</a></td>
+        <td align="left"><a href="https://github.com/ahorn/benchmarks/blob/master/doc/ethoc/ethoc-sw-hw.web/cbmc__ethoc_sw_hw_m32_sequential_prop6.gb_ALL_CLAIMS_2013-05-23_012511_FeAmBX.log.txt">ethoc_sw_hw_m32_sequential_prop6</a></td>
         <td align="left">Property HOLDS</td>
-        <td align="left">/nas/mictau/from-clpc8/cprover.git/src/cbmc/cbmc --unwind 1 --partial-loops --no-unwinding-assertions   ../ethoc_sw_hw_m32_sequential_prop6.gb</td>
-        <td align="left">Mon Jan 21 08:10:37 GMT 2013</td>
+        <td align="left">/nas/mictau/SVNS/cbmc-r2030+concurrency --unwind 1 --partial-loops --no-unwinding-assertions   ../ethoc_sw_hw_m32_sequential_prop6.gb</td>
+        <td align="left">Thu May 23 01:25:11 BST 2013</td>
         <td align="left">MiniSAT2 with simplifier</td>
         <td align="left">0</td>
         <td align="left">unknown</td>
-        <td align="left">34246448kb</td>
+        <td align="left">8844800kb</td>
         <td align="left"></td>
         <td align="left"></td>
         <td align="left"></td>
@@ -180,21 +180,21 @@
         <td align="left"></td>
         <td align="left"></td>
         <td align="left"></td>
-        <td align="left">18391</td>
-        <td align="left">402.314</td>
+        <td align="left">17686</td>
+        <td align="left">421.74</td>
         <td align="left">mictau</td>
-        <td align="left">430.60</td>
-        <td align="left">7:15.18</td>
+        <td align="left">426.14</td>
+        <td align="left">7:10.54</td>
       </tr>
       <tr>
-        <td align="left"><a href="https://github.com/ahorn/benchmarks/blob/master/doc/ethoc/ethoc-sw-hw.web/cbmc__ethoc_sw_hw_m32_sequential_prop7.gb_ALL_CLAIMS_2013-01-21_081753_QN7LT2.log.txt">ethoc_sw_hw_m32_sequential_prop7</a></td>
+        <td align="left"><a href="https://github.com/ahorn/benchmarks/blob/master/doc/ethoc/ethoc-sw-hw.web/cbmc__ethoc_sw_hw_m32_sequential_prop7.gb_ALL_CLAIMS_2013-05-23_013223_xiqoeu.log.txt">ethoc_sw_hw_m32_sequential_prop7</a></td>
         <td align="left">Property HOLDS</td>
-        <td align="left">/nas/mictau/from-clpc8/cprover.git/src/cbmc/cbmc --unwind 1 --partial-loops --no-unwinding-assertions   ../ethoc_sw_hw_m32_sequential_prop7.gb</td>
-        <td align="left">Mon Jan 21 08:17:53 GMT 2013</td>
+        <td align="left">/nas/mictau/SVNS/cbmc-r2030+concurrency --unwind 1 --partial-loops --no-unwinding-assertions   ../ethoc_sw_hw_m32_sequential_prop7.gb</td>
+        <td align="left">Thu May 23 01:32:23 BST 2013</td>
         <td align="left">MiniSAT2 with simplifier</td>
         <td align="left">0</td>
         <td align="left">unknown</td>
-        <td align="left">33388976kb</td>
+        <td align="left">8751412kb</td>
         <td align="left"></td>
         <td align="left"></td>
         <td align="left"></td>
@@ -207,15 +207,27 @@
         <td align="left"></td>
         <td align="left"></td>
         <td align="left"></td>
-        <td align="left">18352</td>
-        <td align="left">390.38</td>
+        <td align="left">17648</td>
+        <td align="left">431.17</td>
         <td align="left">mictau</td>
-        <td align="left">418.60</td>
-        <td align="left">7:02.81</td>
+        <td align="left">435.32</td>
+        <td align="left">7:19.82</td>
       </tr>
     </table>
 
-    The benchmarks were run on a Linux 2.6.32-43-server 8x Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz @@3058.865MHz system equipped with 49551072kb RAM.
+    <p>
+    The benchmarks were run on a Linux 3.5.0-26-generic 8x Intel(R) Xeon(R) CPU
+    X5667 (3.07GHz) system equipped with 49453040kb RAM.
+    </p>
+
+    <p>
+    (*) This is the total number of extra threads spawned in addition to the
+    main thread. In the paper we report that total number, i.e.,
+    mt_thread-spawn + 1.<br>
+    (**) The number of concurrency constraints reported in the paper is the sum
+    of all columns marked (**).<br>
+    </p>
+
 
   </body>
 </html>

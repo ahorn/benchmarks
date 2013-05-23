@@ -1,5 +1,5 @@
 ### uname -a:
-Linux dkr10 2.6.32-43-server #97-Ubuntu SMP Wed Sep 5 16:56:41 UTC 2012 x86_64 GNU/Linux
+Linux dkr12 3.5.0-26-generic #42-Ubuntu SMP Fri Mar 8 23:18:20 UTC 2013 x86_64 x86_64 x86_64 GNU/Linux
 ### cat /proc/cpuinfo:
 processor	: 0
 vendor_id	: GenuineIntel
@@ -7,7 +7,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -19,8 +20,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.73
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -32,7 +33,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -44,8 +46,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.96
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -57,7 +59,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -69,8 +72,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.96
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -82,7 +85,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -94,8 +98,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.96
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -107,7 +111,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -119,8 +124,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.96
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -132,7 +137,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -144,8 +150,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.96
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -157,7 +163,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -169,8 +176,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.95
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -182,7 +189,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -194,65 +202,66 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.96
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
 power management:
 ### cat /proc/meminfo:
-MemTotal:       49551072 kB
-MemFree:        47763628 kB
-Buffers:          173732 kB
-Cached:           501128 kB
-SwapCached:         2612 kB
-Active:           291200 kB
-Inactive:         390400 kB
-Active(anon):       2788 kB
-Inactive(anon):     3980 kB
-Active(file):     288412 kB
-Inactive(file):   386420 kB
+MemTotal:       49453040 kB
+MemFree:        40160872 kB
+Buffers:          296932 kB
+Cached:          3041744 kB
+SwapCached:            0 kB
+Active:          8221900 kB
+Inactive:         490660 kB
+Active(anon):    5373908 kB
+Inactive(anon):      268 kB
+Active(file):    2847992 kB
+Inactive(file):   490392 kB
 Unevictable:           0 kB
 Mlocked:               0 kB
-SwapTotal:       3906552 kB
-SwapFree:        3889892 kB
-Dirty:                 4 kB
+SwapTotal:       3906556 kB
+SwapFree:        3906556 kB
+Dirty:                 0 kB
 Writeback:             0 kB
-AnonPages:          5748 kB
-Mapped:             3976 kB
-Shmem:                20 kB
-Slab:             183856 kB
-SReclaimable:     159192 kB
-SUnreclaim:        24664 kB
-KernelStack:        1808 kB
-PageTables:         2444 kB
+AnonPages:       5373720 kB
+Mapped:            12212 kB
+Shmem:               304 kB
+Slab:             230280 kB
+SReclaimable:     195356 kB
+SUnreclaim:        34924 kB
+KernelStack:        1384 kB
+PageTables:        13576 kB
 NFS_Unstable:          0 kB
 Bounce:                0 kB
 WritebackTmp:          0 kB
-CommitLimit:    28682088 kB
-Committed_AS:     164128 kB
+CommitLimit:    28633076 kB
+Committed_AS:    5501980 kB
 VmallocTotal:   34359738367 kB
-VmallocUsed:      381900 kB
-VmallocChunk:   34359346384 kB
+VmallocUsed:      385044 kB
+VmallocChunk:   34359347816 kB
 HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
 HugePages_Total:       0
 HugePages_Free:        0
 HugePages_Rsvd:        0
 HugePages_Surp:        0
 Hugepagesize:       2048 kB
-DirectMap4k:        4580 kB
-DirectMap2M:     2082816 kB
-DirectMap1G:    48234496 kB
+DirectMap4k:       72164 kB
+DirectMap2M:     3063808 kB
+DirectMap1G:    47185920 kB
 ### date:
-Mon Jan 21 08:10:37 GMT 2013
+Thu May 23 01:32:23 BST 2013
 ### user:
 mictau
 ### ulimit -a:
 core file size          (blocks, -c) 0
 data seg size           (kbytes, -d) unlimited
-scheduling priority             (-e) 20
+scheduling priority             (-e) 0
 file size               (blocks, -f) unlimited
-pending signals                 (-i) 16382
+pending signals                 (-i) 386207
 max locked memory       (kbytes, -l) 64
 max memory size         (kbytes, -m) unlimited
 open files                      (-n) 1024
@@ -261,7 +270,7 @@ POSIX message queues     (bytes, -q) 819200
 real-time priority              (-r) 0
 stack size              (kbytes, -s) 8192
 cpu time               (seconds, -t) unlimited
-max user processes              (-u) unlimited
+max user processes              (-u) 386207
 virtual memory          (kbytes, -v) unlimited
 file locks                      (-x) unlimited
 ### timeout:
@@ -269,9 +278,9 @@ file locks                      (-x) unlimited
 ### tool version info:
 4.2
 ### tool command:
-/nas/mictau/from-clpc8/cprover.git/src/cbmc/cbmc --unwind 1 --partial-loops --no-unwinding-assertions
+/nas/mictau/SVNS/cbmc-r2030+concurrency --unwind 1 --partial-loops --no-unwinding-assertions
 ### full command line:
-/nas/mictau/from-clpc8/cprover.git/src/cbmc/cbmc --unwind 1 --partial-loops --no-unwinding-assertions   ../ethoc_sw_hw_m32_sequential_prop6.gb
+/nas/mictau/SVNS/cbmc-r2030+concurrency --unwind 1 --partial-loops --no-unwinding-assertions   ../ethoc_sw_hw_m32_sequential_prop7.gb
 ### expected verification result:
 unknown
 ###############################################################################
@@ -410,41 +419,38 @@ Unwinding loop c::ethoc_rx.0 iteration 1 file ethoc.c line 457 function ethoc_rx
 Unwinding recursion ethoc_write iteration 1 (1 max)
 Unwinding loop c::ethoc_tx.0 iteration 1 file ethoc.c line 539 function ethoc_tx thread 0
 Unwinding recursion ethoc_write iteration 1 (1 max)
-Unwinding loop c::main.4 iteration 1 file ethoc.c line 1084 function main thread 0
-Unwinding loop c::main.5 iteration 1 file ethoc.c line 1100 function main thread 0
-Unwinding loop c::main.6 iteration 1 file ethoc.c line 1067 function main thread 0
-size of program expression: 18391 assignments
-simple slicing removed 361 assignments
-Generated 14 VCC(s), 14 remaining after simplification
+size of program expression: 17648 assignments
+simple slicing removed 649 assignments
+Generated 23 VCC(s), 23 remaining after simplification
 Passing problem to propositional reduction
 Running propositional reduction
 Solving with MiniSAT2 with simplifier
-22171765 variables, 70096629 clauses
+22900340 variables, 71998722 clauses
 SAT checker: negated claim is UNSATISFIABLE, i.e., holds
-Runtime decision procedure: 402.314s
+Runtime decision procedure: 431.17s
 VERIFICATION SUCCESSFUL
 ###############################################################################
 ### exit code:
 0
 ### /usr/bin/time -v:
-	Command being timed: "/nas/mictau/from-clpc8/cprover.git/src/cbmc/cbmc --unwind 1 --partial-loops --no-unwinding-assertions ../ethoc_sw_hw_m32_sequential_prop6.gb"
-	User time (seconds): 430.60
+	Command being timed: "/nas/mictau/SVNS/cbmc-r2030+concurrency --unwind 1 --partial-loops --no-unwinding-assertions ../ethoc_sw_hw_m32_sequential_prop7.gb"
+	User time (seconds): 435.32
 	System time (seconds): 3.49
 	Percent of CPU this job got: 99%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 7:15.18
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 7:19.82
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 34246448
+	Maximum resident set size (kbytes): 8751412
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 2919935
-	Voluntary context switches: 21
-	Involuntary context switches: 2603
+	Minor (reclaiming a frame) page faults: 2986224
+	Voluntary context switches: 19
+	Involuntary context switches: 558
 	Swaps: 0
 	File system inputs: 0
-	File system outputs: 88
+	File system outputs: 64
 	Socket messages sent: 0
 	Socket messages received: 0
 	Signals delivered: 0

@@ -1,5 +1,5 @@
 ### uname -a:
-Linux dkr10 2.6.32-43-server #97-Ubuntu SMP Wed Sep 5 16:56:41 UTC 2012 x86_64 GNU/Linux
+Linux dkr12 3.5.0-26-generic #42-Ubuntu SMP Fri Mar 8 23:18:20 UTC 2013 x86_64 x86_64 x86_64 GNU/Linux
 ### cat /proc/cpuinfo:
 processor	: 0
 vendor_id	: GenuineIntel
@@ -7,7 +7,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -19,8 +20,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.73
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -32,7 +33,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -44,8 +46,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.96
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -57,7 +59,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -69,8 +72,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.96
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -82,7 +85,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -94,8 +98,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.96
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -107,7 +111,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -119,8 +124,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.96
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -132,7 +137,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -144,8 +150,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.96
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -157,7 +163,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -169,8 +176,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.95
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -182,7 +189,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -194,65 +202,66 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.96
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
 power management:
 ### cat /proc/meminfo:
-MemTotal:       49551072 kB
-MemFree:        47762940 kB
-Buffers:          173796 kB
-Cached:           501352 kB
-SwapCached:         2612 kB
-Active:           291632 kB
-Inactive:         390644 kB
-Active(anon):       3168 kB
-Inactive(anon):     3980 kB
-Active(file):     288464 kB
-Inactive(file):   386664 kB
+MemTotal:       49453040 kB
+MemFree:        40160636 kB
+Buffers:          296936 kB
+Cached:          3041940 kB
+SwapCached:            0 kB
+Active:          8222740 kB
+Inactive:         489948 kB
+Active(anon):    5373836 kB
+Inactive(anon):      268 kB
+Active(file):    2848904 kB
+Inactive(file):   489680 kB
 Unevictable:           0 kB
 Mlocked:               0 kB
-SwapTotal:       3906552 kB
-SwapFree:        3889892 kB
-Dirty:                 4 kB
-Writeback:            12 kB
-AnonPages:          5524 kB
-Mapped:             3900 kB
-Shmem:                20 kB
-Slab:             183768 kB
-SReclaimable:     159192 kB
-SUnreclaim:        24576 kB
-KernelStack:        1800 kB
-PageTables:         2416 kB
+SwapTotal:       3906556 kB
+SwapFree:        3906556 kB
+Dirty:                 0 kB
+Writeback:             4 kB
+AnonPages:       5373644 kB
+Mapped:            11688 kB
+Shmem:               304 kB
+Slab:             230180 kB
+SReclaimable:     195356 kB
+SUnreclaim:        34824 kB
+KernelStack:        1360 kB
+PageTables:        13552 kB
 NFS_Unstable:          0 kB
 Bounce:                0 kB
 WritebackTmp:          0 kB
-CommitLimit:    28682088 kB
-Committed_AS:     164128 kB
+CommitLimit:    28633076 kB
+Committed_AS:    5501972 kB
 VmallocTotal:   34359738367 kB
-VmallocUsed:      381900 kB
-VmallocChunk:   34359346384 kB
+VmallocUsed:      385044 kB
+VmallocChunk:   34359347816 kB
 HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
 HugePages_Total:       0
 HugePages_Free:        0
 HugePages_Rsvd:        0
 HugePages_Surp:        0
 Hugepagesize:       2048 kB
-DirectMap4k:        4580 kB
-DirectMap2M:     2082816 kB
-DirectMap1G:    48234496 kB
+DirectMap4k:       72164 kB
+DirectMap2M:     3063808 kB
+DirectMap1G:    47185920 kB
 ### date:
-Mon Jan 21 08:51:28 GMT 2013
+Thu May 23 02:08:04 BST 2013
 ### user:
 mictau
 ### ulimit -a:
 core file size          (blocks, -c) 0
 data seg size           (kbytes, -d) unlimited
-scheduling priority             (-e) 20
+scheduling priority             (-e) 0
 file size               (blocks, -f) unlimited
-pending signals                 (-i) 16382
+pending signals                 (-i) 386207
 max locked memory       (kbytes, -l) 64
 max memory size         (kbytes, -m) unlimited
 open files                      (-n) 1024
@@ -261,7 +270,7 @@ POSIX message queues     (bytes, -q) 819200
 real-time priority              (-r) 0
 stack size              (kbytes, -s) 8192
 cpu time               (seconds, -t) unlimited
-max user processes              (-u) unlimited
+max user processes              (-u) 386207
 virtual memory          (kbytes, -v) unlimited
 file locks                      (-x) unlimited
 ### timeout:
@@ -269,9 +278,9 @@ file locks                      (-x) unlimited
 ### tool version info:
 4.2
 ### tool command:
-/nas/mictau/from-clpc8/cprover.git/src/cbmc/cbmc --unwind 1 --partial-loops --no-unwinding-assertions
+/nas/mictau/SVNS/cbmc-r2030+concurrency --unwind 1 --partial-loops --no-unwinding-assertions
 ### full command line:
-/nas/mictau/from-clpc8/cprover.git/src/cbmc/cbmc --unwind 1 --partial-loops --no-unwinding-assertions   ../ethoc_sw_hw_m32_prop6.gb
+/nas/mictau/SVNS/cbmc-r2030+concurrency --unwind 1 --partial-loops --no-unwinding-assertions   ../ethoc_sw_hw_m32_prop6.gb
 ### expected verification result:
 unknown
 ###############################################################################
@@ -295,92 +304,92 @@ Unwinding loop c::main.3 iteration 1 file ethoc.c line 1002 function main thread
 Unwinding loop c::main.4 iteration 1 file ethoc.c line 1084 function main thread 0
 Unwinding loop c::main.5 iteration 1 file ethoc.c line 1100 function main thread 0
 Unwinding loop c::main.6 iteration 1 file ethoc.c line 1067 function main thread 0
-Unwinding loop 2:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 2
-Unwinding loop 2:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 2
 Unwinding loop 2:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 2
 Unwinding loop 2:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 2
 Unwinding loop 2:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 2
 Unwinding loop 2:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 2
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 3:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 3
-Unwinding loop 3:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 3
+Unwinding loop 2:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 2
+Unwinding loop 2:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 2
 Unwinding loop 3:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 3
 Unwinding loop 3:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 3
 Unwinding loop 3:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 3
 Unwinding loop 3:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 3
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 4:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 4
-Unwinding loop 4:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 4
+Unwinding loop 3:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 3
+Unwinding loop 3:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 3
 Unwinding loop 4:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 4
 Unwinding loop 4:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 4
 Unwinding loop 4:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 4
 Unwinding loop 4:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 4
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
+Unwinding loop 4:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 4
+Unwinding loop 4:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 4
 Unwinding loop 5:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 5
 Unwinding loop 5:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 5
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding loop 6:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 6
 Unwinding loop 6:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 6
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 7:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 7
-Unwinding loop 7:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 7
 Unwinding loop 7:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 7
 Unwinding loop 7:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 7
 Unwinding loop 7:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 7
 Unwinding loop 7:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 7
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 8:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 8
-Unwinding loop 8:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 8
+Unwinding loop 7:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 7
+Unwinding loop 7:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 7
 Unwinding loop 8:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 8
 Unwinding loop 8:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 8
 Unwinding loop 8:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 8
 Unwinding loop 8:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 8
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 9:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 9
-Unwinding loop 9:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 9
+Unwinding loop 8:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 8
+Unwinding loop 8:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 8
 Unwinding loop 9:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 9
 Unwinding loop 9:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 9
 Unwinding loop 9:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 9
 Unwinding loop 9:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 9
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 10:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 10
-Unwinding loop 10:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 10
+Unwinding loop 9:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 9
+Unwinding loop 9:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 9
 Unwinding loop 10:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 10
 Unwinding loop 10:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 10
 Unwinding loop 10:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 10
 Unwinding loop 10:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 10
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 11:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 11
-Unwinding loop 11:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 11
+Unwinding loop 10:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 10
+Unwinding loop 10:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 10
 Unwinding loop 11:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 11
 Unwinding loop 11:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 11
 Unwinding loop 11:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 11
 Unwinding loop 11:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 11
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 12:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 12
-Unwinding loop 12:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 12
+Unwinding loop 11:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 11
+Unwinding loop 11:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 11
 Unwinding loop 12:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 12
 Unwinding loop 12:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 12
 Unwinding loop 12:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 12
 Unwinding loop 12:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 12
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 13:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 13
-Unwinding loop 13:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 13
+Unwinding loop 12:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 12
+Unwinding loop 12:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 12
 Unwinding loop 13:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 13
 Unwinding loop 13:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 13
 Unwinding loop 13:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 13
 Unwinding loop 13:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 13
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
+Unwinding loop 13:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 13
+Unwinding loop 13:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 13
 Unwinding loop 14:c::test_rx.0 iteration 1 file ethoc.c line 839 function test_rx thread 14
 Unwinding loop 14:c::test_rx.1 iteration 1 file ethoc.c line 853 function test_rx thread 14
 Unwinding loop 14:c::open_eth_receive.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 197 function open_eth_receive thread 14
@@ -391,81 +400,81 @@ Unwinding loop 14:c::cpu_physical_memory_write.0 iteration 1 file ../../../qemu-
 Unwinding loop 14:c::open_eth_receive.1 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 268 function open_eth_receive thread 14
 Unwinding loop 14:c::cpu_physical_memory_write.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 18 function cpu_physical_memory_write thread 14
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 15:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 15
-Unwinding loop 15:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 15
 Unwinding loop 15:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 15
 Unwinding loop 15:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 15
 Unwinding loop 15:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 15
 Unwinding loop 15:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 15
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 16:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 16
-Unwinding loop 16:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 16
+Unwinding loop 15:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 15
+Unwinding loop 15:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 15
 Unwinding loop 16:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 16
 Unwinding loop 16:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 16
 Unwinding loop 16:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 16
 Unwinding loop 16:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 16
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 17:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 17
-Unwinding loop 17:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 17
+Unwinding loop 16:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 16
+Unwinding loop 16:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 16
 Unwinding loop 17:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 17
 Unwinding loop 17:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 17
 Unwinding loop 17:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 17
 Unwinding loop 17:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 17
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
+Unwinding loop 17:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 17
+Unwinding loop 17:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 17
 Unwinding recursion ethoc_write iteration 4294967283 (1 max)
 Unwinding recursion ethoc_write_bd iteration 4294967294 (1 max)
 Unwinding loop 18:c::ethoc_rx.0 iteration 1 file ethoc.c line 457 function ethoc_rx thread 18
 Unwinding recursion ethoc_write iteration 4294967283 (1 max)
 Unwinding loop 18:c::ethoc_tx.0 iteration 1 file ethoc.c line 539 function ethoc_tx thread 18
 Unwinding recursion ethoc_write iteration 4294967283 (1 max)
-size of program expression: 18057 assignments
-Generated 4 VCC(s), 4 remaining after simplification
+size of program expression: 16683 assignments
+Generated 3 VCC(s), 3 remaining after simplification
 Passing problem to propositional reduction
 Added partial-order constraints:
 atomic-block: 277
-fr: 6300
-max-per-address: 178
-num-unique-addresses: 14
-po: 546
-rf: 10726
-rf-at-least-one: 412
-rfi: 412
+fr: 6331
+max-per-address: 181
+num-unique-addresses: 13
+po: 543
+rf: 10823
+rf-at-least-one: 409
+rfi: 409
 thread-spawn: 18
-tot-subevent-count: 565
+tot-subevent-count: 562
 ws: 1397
-ws-preceding: 846
+ws-preceding: 827
 
 Running propositional reduction
 Solving with MiniSAT2 with simplifier
-69363691 variables, 248054764 clauses
+70521870 variables, 252154414 clauses
 SAT checker: negated claim is UNSATISFIABLE, i.e., holds
-Runtime decision procedure: 1537.55s
+Runtime decision procedure: 324.25s
 VERIFICATION SUCCESSFUL
 ###############################################################################
 ### exit code:
 0
 ### /usr/bin/time -v:
-	Command being timed: "/nas/mictau/from-clpc8/cprover.git/src/cbmc/cbmc --unwind 1 --partial-loops --no-unwinding-assertions ../ethoc_sw_hw_m32_prop6.gb"
-	User time (seconds): 1548.30
-	System time (seconds): 16.02
+	Command being timed: "/nas/mictau/SVNS/cbmc-r2030+concurrency --unwind 1 --partial-loops --no-unwinding-assertions ../ethoc_sw_hw_m32_prop6.gb"
+	User time (seconds): 335.51
+	System time (seconds): 9.68
 	Percent of CPU this job got: 99%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 26:07.89
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 5:46.00
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 152107856
+	Maximum resident set size (kbytes): 30618848
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 13244908
-	Voluntary context switches: 22
-	Involuntary context switches: 1640
+	Minor (reclaiming a frame) page faults: 8643204
+	Voluntary context switches: 20
+	Involuntary context switches: 438
 	Swaps: 0
 	File system inputs: 0
-	File system outputs: 104
+	File system outputs: 88
 	Socket messages sent: 0
 	Socket messages received: 0
 	Signals delivered: 0

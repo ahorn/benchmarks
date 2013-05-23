@@ -1,5 +1,5 @@
 ### uname -a:
-Linux dkr10 2.6.32-43-server #97-Ubuntu SMP Wed Sep 5 16:56:41 UTC 2012 x86_64 GNU/Linux
+Linux dkr12 3.5.0-26-generic #42-Ubuntu SMP Fri Mar 8 23:18:20 UTC 2013 x86_64 x86_64 x86_64 GNU/Linux
 ### cat /proc/cpuinfo:
 processor	: 0
 vendor_id	: GenuineIntel
@@ -7,7 +7,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -19,8 +20,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.73
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -32,7 +33,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -44,8 +46,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.96
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -57,7 +59,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -69,8 +72,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.96
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -82,7 +85,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -94,8 +98,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.96
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -107,7 +111,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -119,8 +124,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.96
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -132,7 +137,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -144,8 +150,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.96
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -157,7 +163,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -169,8 +176,8 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.95
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
@@ -182,7 +189,8 @@ cpu family	: 6
 model		: 44
 model name	: Intel(R) Xeon(R) CPU           X5667  @ 3.07GHz
 stepping	: 2
-cpu MHz		: 3058.865
+microcode	: 0xc
+cpu MHz		: 3059.200
 cache size	: 12288 KB
 physical id	: 1
 siblings	: 8
@@ -194,65 +202,66 @@ fpu		: yes
 fpu_exception	: yes
 cpuid level	: 11
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 6117.96
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 popcnt aes lahf_lm ida arat dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 6118.40
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 40 bits physical, 48 bits virtual
 power management:
 ### cat /proc/meminfo:
-MemTotal:       49551072 kB
-MemFree:        47763100 kB
-Buffers:          173772 kB
-Cached:           501172 kB
-SwapCached:         2612 kB
-Active:           292072 kB
-Inactive:         390464 kB
-Active(anon):       3632 kB
-Inactive(anon):     3980 kB
-Active(file):     288440 kB
-Inactive(file):   386484 kB
+MemTotal:       49453040 kB
+MemFree:        40160892 kB
+Buffers:          296932 kB
+Cached:          3041768 kB
+SwapCached:            0 kB
+Active:          8221928 kB
+Inactive:         490228 kB
+Active(anon):    5373480 kB
+Inactive(anon):      268 kB
+Active(file):    2848448 kB
+Inactive(file):   489960 kB
 Unevictable:           0 kB
 Mlocked:               0 kB
-SwapTotal:       3906552 kB
-SwapFree:        3889892 kB
+SwapTotal:       3906556 kB
+SwapFree:        3906556 kB
 Dirty:                 0 kB
 Writeback:             0 kB
-AnonPages:          6172 kB
-Mapped:             3976 kB
-Shmem:                20 kB
-Slab:             183848 kB
-SReclaimable:     159192 kB
-SUnreclaim:        24656 kB
-KernelStack:        1784 kB
-PageTables:         2568 kB
+AnonPages:       5373520 kB
+Mapped:            12196 kB
+Shmem:               304 kB
+Slab:             230280 kB
+SReclaimable:     195356 kB
+SUnreclaim:        34924 kB
+KernelStack:        1376 kB
+PageTables:        13612 kB
 NFS_Unstable:          0 kB
 Bounce:                0 kB
 WritebackTmp:          0 kB
-CommitLimit:    28682088 kB
-Committed_AS:     164112 kB
+CommitLimit:    28633076 kB
+Committed_AS:    5501976 kB
 VmallocTotal:   34359738367 kB
-VmallocUsed:      381900 kB
-VmallocChunk:   34359346384 kB
+VmallocUsed:      385044 kB
+VmallocChunk:   34359347816 kB
 HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
 HugePages_Total:       0
 HugePages_Free:        0
 HugePages_Rsvd:        0
 HugePages_Surp:        0
 Hugepagesize:       2048 kB
-DirectMap4k:        4580 kB
-DirectMap2M:     2082816 kB
-DirectMap1G:    48234496 kB
+DirectMap4k:       72164 kB
+DirectMap2M:     3063808 kB
+DirectMap1G:    47185920 kB
 ### date:
-Mon Jan 21 08:24:57 GMT 2013
+Thu May 23 01:39:43 BST 2013
 ### user:
 mictau
 ### ulimit -a:
 core file size          (blocks, -c) 0
 data seg size           (kbytes, -d) unlimited
-scheduling priority             (-e) 20
+scheduling priority             (-e) 0
 file size               (blocks, -f) unlimited
-pending signals                 (-i) 16382
+pending signals                 (-i) 386207
 max locked memory       (kbytes, -l) 64
 max memory size         (kbytes, -m) unlimited
 open files                      (-n) 1024
@@ -261,7 +270,7 @@ POSIX message queues     (bytes, -q) 819200
 real-time priority              (-r) 0
 stack size              (kbytes, -s) 8192
 cpu time               (seconds, -t) unlimited
-max user processes              (-u) unlimited
+max user processes              (-u) 386207
 virtual memory          (kbytes, -v) unlimited
 file locks                      (-x) unlimited
 ### timeout:
@@ -269,9 +278,9 @@ file locks                      (-x) unlimited
 ### tool version info:
 4.2
 ### tool command:
-/nas/mictau/from-clpc8/cprover.git/src/cbmc/cbmc --unwind 1 --partial-loops --no-unwinding-assertions
+/nas/mictau/SVNS/cbmc-r2030+concurrency --unwind 1 --partial-loops --no-unwinding-assertions
 ### full command line:
-/nas/mictau/from-clpc8/cprover.git/src/cbmc/cbmc --unwind 1 --partial-loops --no-unwinding-assertions   ../ethoc_sw_hw_m32_prop5.gb
+/nas/mictau/SVNS/cbmc-r2030+concurrency --unwind 1 --partial-loops --no-unwinding-assertions   ../ethoc_sw_hw_m32_prop5.gb
 ### expected verification result:
 unknown
 ###############################################################################
@@ -293,92 +302,92 @@ Unwinding loop c::ethoc_init_ring.0 iteration 1 file ethoc.c line 333 function e
 Unwinding loop c::ethoc_init_ring.1 iteration 1 file ethoc.c line 347 function ethoc_init_ring thread 0
 Unwinding loop c::main.3 iteration 1 file ethoc.c line 1002 function main thread 0
 Unwinding loop c::main.4 iteration 1 file ethoc.c line 1050 function main thread 0
-Unwinding loop 2:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 2
-Unwinding loop 2:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 2
 Unwinding loop 2:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 2
 Unwinding loop 2:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 2
 Unwinding loop 2:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 2
 Unwinding loop 2:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 2
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 3:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 3
-Unwinding loop 3:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 3
+Unwinding loop 2:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 2
+Unwinding loop 2:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 2
 Unwinding loop 3:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 3
 Unwinding loop 3:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 3
 Unwinding loop 3:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 3
 Unwinding loop 3:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 3
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 4:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 4
-Unwinding loop 4:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 4
+Unwinding loop 3:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 3
+Unwinding loop 3:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 3
 Unwinding loop 4:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 4
 Unwinding loop 4:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 4
 Unwinding loop 4:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 4
 Unwinding loop 4:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 4
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
+Unwinding loop 4:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 4
+Unwinding loop 4:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 4
 Unwinding loop 5:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 5
 Unwinding loop 5:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 5
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding loop 6:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 6
 Unwinding loop 6:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 6
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 7:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 7
-Unwinding loop 7:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 7
 Unwinding loop 7:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 7
 Unwinding loop 7:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 7
 Unwinding loop 7:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 7
 Unwinding loop 7:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 7
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 8:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 8
-Unwinding loop 8:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 8
+Unwinding loop 7:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 7
+Unwinding loop 7:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 7
 Unwinding loop 8:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 8
 Unwinding loop 8:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 8
 Unwinding loop 8:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 8
 Unwinding loop 8:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 8
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 9:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 9
-Unwinding loop 9:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 9
+Unwinding loop 8:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 8
+Unwinding loop 8:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 8
 Unwinding loop 9:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 9
 Unwinding loop 9:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 9
 Unwinding loop 9:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 9
 Unwinding loop 9:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 9
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 10:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 10
-Unwinding loop 10:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 10
+Unwinding loop 9:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 9
+Unwinding loop 9:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 9
 Unwinding loop 10:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 10
 Unwinding loop 10:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 10
 Unwinding loop 10:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 10
 Unwinding loop 10:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 10
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 11:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 11
-Unwinding loop 11:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 11
+Unwinding loop 10:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 10
+Unwinding loop 10:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 10
 Unwinding loop 11:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 11
 Unwinding loop 11:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 11
 Unwinding loop 11:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 11
 Unwinding loop 11:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 11
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 12:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 12
-Unwinding loop 12:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 12
+Unwinding loop 11:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 11
+Unwinding loop 11:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 11
 Unwinding loop 12:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 12
 Unwinding loop 12:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 12
 Unwinding loop 12:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 12
 Unwinding loop 12:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 12
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 13:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 13
-Unwinding loop 13:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 13
+Unwinding loop 12:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 12
+Unwinding loop 12:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 12
 Unwinding loop 13:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 13
 Unwinding loop 13:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 13
 Unwinding loop 13:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 13
 Unwinding loop 13:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 13
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
+Unwinding loop 13:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 13
+Unwinding loop 13:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 13
 Unwinding loop 14:c::test_rx.0 iteration 1 file ethoc.c line 839 function test_rx thread 14
 Unwinding loop 14:c::test_rx.1 iteration 1 file ethoc.c line 853 function test_rx thread 14
 Unwinding loop 14:c::open_eth_receive.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 197 function open_eth_receive thread 14
@@ -389,37 +398,37 @@ Unwinding loop 14:c::cpu_physical_memory_write.0 iteration 1 file ../../../qemu-
 Unwinding loop 14:c::open_eth_receive.1 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 268 function open_eth_receive thread 14
 Unwinding loop 14:c::cpu_physical_memory_write.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 18 function cpu_physical_memory_write thread 14
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 15:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 15
-Unwinding loop 15:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 15
 Unwinding loop 15:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 15
 Unwinding loop 15:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 15
 Unwinding loop 15:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 15
 Unwinding loop 15:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 15
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 16:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 16
-Unwinding loop 16:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 16
+Unwinding loop 15:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 15
+Unwinding loop 15:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 15
 Unwinding loop 16:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 16
 Unwinding loop 16:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 16
 Unwinding loop 16:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 16
 Unwinding loop 16:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 16
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
-Unwinding loop 17:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 17
-Unwinding loop 17:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 17
+Unwinding loop 16:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 16
+Unwinding loop 16:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 16
 Unwinding loop 17:c::open_eth_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 17
 Unwinding loop 17:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 17
 Unwinding loop 17:c::cpu_physical_memory_read.0 iteration 1 file ../../../qemu-hw/ethoc/cpu.c line 23 function cpu_physical_memory_read thread 17
 Unwinding loop 17:c::open_eth_start_xmit.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 328 function open_eth_start_xmit thread 17
 Unwinding recursion do_handler iteration 4294967295 (1 max)
 Unwinding recursion do_handler iteration 4294967295 (1 max)
+Unwinding loop 17:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 17
+Unwinding loop 17:c::mii_reset.0 iteration 1 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 17
 Unwinding recursion ethoc_write iteration 4294967283 (1 max)
 Unwinding recursion ethoc_write_bd iteration 4294967294 (1 max)
 Unwinding loop 18:c::ethoc_rx.0 iteration 1 file ethoc.c line 457 function ethoc_rx thread 18
 Unwinding recursion ethoc_write iteration 4294967283 (1 max)
 Unwinding loop 18:c::ethoc_tx.0 iteration 1 file ethoc.c line 539 function ethoc_tx thread 18
 Unwinding recursion ethoc_write iteration 4294967283 (1 max)
-size of program expression: 18080 assignments
+size of program expression: 16707 assignments
 Generated 3 VCC(s), 3 remaining after simplification
 Passing problem to propositional reduction
 Added partial-order constraints:
@@ -438,232 +447,194 @@ ws-preceding: 827
 
 Running propositional reduction
 Solving with MiniSAT2 with simplifier
-69419336 variables, 248327576 clauses
+70129654 variables, 250371908 clauses
 SAT checker: negated claim is SATISFIABLE, i.e., does not hold
-Runtime decision procedure: 1558.74s
+Runtime decision procedure: 1673.46s
 Building error trace
 
 Counterexample:
 
-State 20748 file ethoc.c line 806 thread 0
-----------------------------------------------------
-  dma_buf={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } ({ 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000 })
-
-State 20749 file ethoc.c line 807 thread 0
-----------------------------------------------------
-  dma_regions={ NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL } ({ 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 })
-
-State 20750 file ethoc.c line 808 thread 0
-----------------------------------------------------
-  packet_sizes={ 0, 0, 0, 0, 0, 0, 0, 0 } ({ 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 })
-
-State 20751 file ethoc.c line 809 thread 0
-----------------------------------------------------
-  packet_bytes={ 0, 0, 0, 0, 0, 0, 0, 0 } ({ 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000 })
-
-State 20752 file ethoc.c line 816 thread 0
-----------------------------------------------------
-  nc=((struct NetClientState *)NULL) (00000000000000000000000000000000)
-
-State 20753 file ../../../qemu-hw/ethoc/opencores_eth.c line 476 function open_eth_reg_write thread 0
-----------------------------------------------------
-  reg_write={ &open_eth_moder_host_write, &open_eth_int_source_host_write, &open_eth_int_mask_host_write, ((void (* )(struct OpenEthState * s, unsigned int val))NULL), 
-    ((void (* )(struct OpenEthState * s, unsigned int val))NULL), 
-    ((void (* )(struct OpenEthState * s, unsigned int val))NULL), 
-    ((void (* )(struct OpenEthState * s, unsigned int val))NULL), 
-    ((void (* )(struct OpenEthState * s, unsigned int val))NULL), 
-    ((void (* )(struct OpenEthState * s, unsigned int val))NULL), 
-    ((void (* )(struct OpenEthState * s, unsigned int val))NULL), 
-    ((void (* )(struct OpenEthState * s, unsigned int val))NULL), 
-    &open_eth_mii_command_host_write, ((void (* )(struct OpenEthState * s, unsigned int val))NULL), 
-    &open_eth_mii_tx_host_write, ((void (* )(struct OpenEthState * s, unsigned int val))NULL), 
-    &open_eth_ro, ((void (* )(struct OpenEthState * s, unsigned int val))NULL), 
-    ((void (* )(struct OpenEthState * s, unsigned int val))NULL), 
-    ((void (* )(struct OpenEthState * s, unsigned int val))NULL), 
-    ((void (* )(struct OpenEthState * s, unsigned int val))NULL), 
-    ((void (* )(struct OpenEthState * s, unsigned int val))NULL) } ({ 00001000000000000000000000000000, 00001001000000000000000000000000, 00001010000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00001011000000000000000000000000, 00000000000000000000000000000000, 00001100000000000000000000000000, 00000000000000000000000000000000, 00001101000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 })
-
-State 20754 file ethoc.c line 896 function main thread 0
-----------------------------------------------------
-  open_eth={ .nic=((struct NICState *)NULL), .irq=((struct IRQState *)NULL), .mii={ .regs={ 0, 0, 0, 0, 0, 0 }, .link_ok=FALSE, .$pad0=0 },
-    .$pad0=0,
-    .regs={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, .tx_desc=0,
-    .rx_desc=0, .desc={ { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 } }, .software=NULL } ({ 00000000000000000000000000000000, 00000000000000000000000000000000, { { 0000000000000000, 0000000000000000, 0000000000000000, 0000000000000000, 0000000000000000, 0000000000000000 }, 00000000, 00000000 }, 0000000000000000, { 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 }, 00000000000000000000000000000000, 00000000000000000000000000000000, { { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 } }, 00000000000000000000000000000000 })
-
-State 20755 file ethoc.c line 914 function main thread 0
-----------------------------------------------------
-  ethoc={ .num_tx=0, .cur_tx=0, .dty_tx=0, .num_rx=0, .cur_rx=0,
-    .dma_buf=NULL, .dma_regions=((void **)NULL), .netdev=((struct net_device *)NULL),
-    .napi={ .complete=0, .weight=0, .sched=0, .is_disabling=0, .poll=((int (* )(struct napi_struct *, int))NULL) },
-    .phy_id=0,
-    .$pad0=0, .open_eth=((struct OpenEthState *)NULL) } ({ 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, { 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 }, 00000000, 000000000000000000000000, 00000000000000000000000000000000 })
-
-State 20756 file ../../../qemu-hw/ethoc/cpu.c line 4 thread 0
-----------------------------------------------------
-  base_addr=0 (00000000000000000000000000000000)
-
-State 20757 file <built-in-additions> line 21 thread 0
-----------------------------------------------------
-  __CPROVER_threads_exited=0 (0000000000000000000000000000000000000000000000000000000000000000)
-
-State 20758 file <built-in-additions> line 22 thread 0
-----------------------------------------------------
-  __CPROVER_next_thread_id=0 (00000000000000000000000000000000)
-
-State 20759 file <built-in-additions> line 29 thread 0
-----------------------------------------------------
-  __CPROVER_deallocated=NULL (00000000000000000000000000000000)
-
-State 20760 file <built-in-additions> line 30 thread 0
-----------------------------------------------------
-  __CPROVER_malloc_object=NULL (00000000000000000000000000000000)
-
-State 20761 file <built-in-additions> line 31 thread 0
-----------------------------------------------------
-  __CPROVER_malloc_size=0 (00000000000000000000000000000000)
-
-State 20762 file <built-in-additions> line 32 thread 0
-----------------------------------------------------
-  __CPROVER_malloc_is_new_array=FALSE (0)
-
-State 20763 file <built-in-additions> line 64 thread 0
-----------------------------------------------------
-  __CPROVER_magic_pipe_offset=42 (00000000000000000000000000101010)
-
-State 20764 file bitrev.h line 6 thread 0
-----------------------------------------------------
-  byte_rev_table={ 0, 128, 64, 192, 32, 160, 96, 224, 16, 144, 80, 208, 48, 176, 112, 240, 8, 136, 72, 200, 40, 168, 104, 232, 24, 152, 88, 216, 56, 184, 120, 248, 4, 132, 68, 196, 36, 164, 100, 228, 20, 148, 84, 212, 52, 180, 116, 244, 12, 140, 76, 204, 44, 172, 108, 236, 28, 156, 92, 220, 60, 188, 124, 252, 2, 130, 66, 194, 34, 162, 98, 226, 18, 146, 82, 210, 50, 178, 114, 242, 10, 138, 74, 202, 42, 170, 106, 234, 26, 154, 90, 218, 58, 186, 122, 250, 6, 134, 70, 198, 38, 166, 102, 230, 22, 150, 86, 214, 54, 182, 118, 246, 14, 142, 78, 206, 46, 174, 110, 238, 30, 158, 94, 222, 62, 190, 126, 254, 1, 129, 65, 193, 33, 161, 97, 225, 17, 145, 81, 209, 49, 177, 113, 241, 9, 137, 73, 201, 41, 169, 105, 233, 25, 153, 89, 217, 57, 185, 121, 249, 5, 133, 69, 197, 37, 165, 101, 229, 21, 149, 85, 213, 53, 181, 117, 245, 13, 141, 77, 205, 45, 173, 109, 237, 29, 157, 93, 221, 61, 189, 125, 253, 3, 131, 67, 195, 35, 163, 99, 227, 19, 147, 83, 211, 51, 179, 115, 243, 11, 139, 75, 203, 43, 171, 107, 235, 27, 155, 91, 219, 59, 187, 123, 251, 7, 135, 71, 199, 39, 167, 103, 231, 23, 151, 87, 215, 55, 183, 119, 247, 15, 143, 79, 207, 47, 175, 111, 239, 31, 159, 95, 223, 63, 191, 127, 255 } ({ 00000000, 10000000, 01000000, 11000000, 00100000, 10100000, 01100000, 11100000, 00010000, 10010000, 01010000, 11010000, 00110000, 10110000, 01110000, 11110000, 00001000, 10001000, 01001000, 11001000, 00101000, 10101000, 01101000, 11101000, 00011000, 10011000, 01011000, 11011000, 00111000, 10111000, 01111000, 11111000, 00000100, 10000100, 01000100, 11000100, 00100100, 10100100, 01100100, 11100100, 00010100, 10010100, 01010100, 11010100, 00110100, 10110100, 01110100, 11110100, 00001100, 10001100, 01001100, 11001100, 00101100, 10101100, 01101100, 11101100, 00011100, 10011100, 01011100, 11011100, 00111100, 10111100, 01111100, 11111100, 00000010, 10000010, 01000010, 11000010, 00100010, 10100010, 01100010, 11100010, 00010010, 10010010, 01010010, 11010010, 00110010, 10110010, 01110010, 11110010, 00001010, 10001010, 01001010, 11001010, 00101010, 10101010, 01101010, 11101010, 00011010, 10011010, 01011010, 11011010, 00111010, 10111010, 01111010, 11111010, 00000110, 10000110, 01000110, 11000110, 00100110, 10100110, 01100110, 11100110, 00010110, 10010110, 01010110, 11010110, 00110110, 10110110, 01110110, 11110110, 00001110, 10001110, 01001110, 11001110, 00101110, 10101110, 01101110, 11101110, 00011110, 10011110, 01011110, 11011110, 00111110, 10111110, 01111110, 11111110, 00000001, 10000001, 01000001, 11000001, 00100001, 10100001, 01100001, 11100001, 00010001, 10010001, 01010001, 11010001, 00110001, 10110001, 01110001, 11110001, 00001001, 10001001, 01001001, 11001001, 00101001, 10101001, 01101001, 11101001, 00011001, 10011001, 01011001, 11011001, 00111001, 10111001, 01111001, 11111001, 00000101, 10000101, 01000101, 11000101, 00100101, 10100101, 01100101, 11100101, 00010101, 10010101, 01010101, 11010101, 00110101, 10110101, 01110101, 11110101, 00001101, 10001101, 01001101, 11001101, 00101101, 10101101, 01101101, 11101101, 00011101, 10011101, 01011101, 11011101, 00111101, 10111101, 01111101, 11111101, 00000011, 10000011, 01000011, 11000011, 00100011, 10100011, 01100011, 11100011, 00010011, 10010011, 01010011, 11010011, 00110011, 10110011, 01110011, 11110011, 00001011, 10001011, 01001011, 11001011, 00101011, 10101011, 01101011, 11101011, 00011011, 10011011, 01011011, 11011011, 00111011, 10111011, 01111011, 11111011, 00000111, 10000111, 01000111, 11000111, 00100111, 10100111, 01100111, 11100111, 00010111, 10010111, 01010111, 11010111, 00110111, 10110111, 01110111, 11110111, 00001111, 10001111, 01001111, 11001111, 00101111, 10101111, 01101111, 11101111, 00011111, 10011111, 01011111, 11011111, 00111111, 10111111, 01111111, 11111111 })
-
-State 20765 file ../../../qemu-hw/ethoc/opencores_eth.c line 75 function mii_write_host thread 0
-----------------------------------------------------
-  reg_write={ &mii_write_bmcr, &mii_ro, &mii_ro, &mii_ro, ((void (* )(struct Mii * s, unsigned short int v))NULL), 
-    ((void (* )(struct Mii * s, unsigned short int v))NULL) } ({ 00001110000000000000000000000000, 00001111000000000000000000000000, 00001111000000000000000000000000, 00001111000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 })
-
-State 20766 file ../../../qemu-hw/ethoc/opencores_eth.c line 194 function open_eth_receive thread 0
+State 20748 file ../../../qemu-hw/ethoc/opencores_eth.c line 194 function open_eth_receive thread 0
 ----------------------------------------------------
   bcast_addr={ 255, 255, 255, 255, 255, 255 } ({ 11111111, 11111111, 11111111, 11111111, 11111111, 11111111 })
 
-State 20767 file ../../../qemu-hw/ethoc/opencores_eth.c line 225 function open_eth_receive thread 0
+State 20749 file ../../../qemu-hw/ethoc/opencores_eth.c line 225 function open_eth_receive thread 0
 ----------------------------------------------------
   zero={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } ({ 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000 })
 
-State 20768 file ../../../qemu-hw/ethoc/opencores_eth.c line 361 function open_eth_reg_read thread 0
+State 20750 file ../../../qemu-hw/ethoc/opencores_eth.c line 361 function open_eth_reg_read thread 0
 ----------------------------------------------------
-  reg_read={ ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL), 
-    ((unsigned int (* )(struct OpenEthState * s))NULL) } ({ 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 })
+  reg_read={ NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL } ({ 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 })
 
-State 20772 file ethoc.c line 873 function main thread 0
+State 20751 file ../../../qemu-hw/ethoc/opencores_eth.c line 476 function open_eth_reg_write thread 0
 ----------------------------------------------------
-  irq_n=0 (00000000000000000000000000000000)
+  reg_write={ &open_eth_moder_host_write, &open_eth_int_source_host_write, &open_eth_int_mask_host_write, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &open_eth_mii_command_host_write, NULL, &open_eth_mii_tx_host_write, NULL, &open_eth_ro, NULL, NULL, NULL, NULL, NULL } ({ 00001000000000000000000000000000, 00001001000000000000000000000000, 00001010000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00001011000000000000000000000000, 00000000000000000000000000000000, 00001100000000000000000000000000, 00000000000000000000000000000000, 00001101000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 })
+
+State 20752 file ethoc.c line 806 thread 0
+----------------------------------------------------
+  dma_buf={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } ({ 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000 })
+
+State 20753 file ethoc.c line 807 thread 0
+----------------------------------------------------
+  dma_regions={ NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL } ({ 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 })
+
+State 20754 file ethoc.c line 808 thread 0
+----------------------------------------------------
+  packet_sizes={ 0, 0, 0, 0, 0, 0, 0, 0 } ({ 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 })
+
+State 20755 file ethoc.c line 809 thread 0
+----------------------------------------------------
+  packet_bytes={ 0, 0, 0, 0, 0, 0, 0, 0 } ({ 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000, 00000000 })
+
+State 20756 file ethoc.c line 816 thread 0
+----------------------------------------------------
+  nc=NULL (00000000000000000000000000000000)
+
+State 20757 file ethoc.c line 896 function main thread 0
+----------------------------------------------------
+  open_eth={ .nic=NULL, .irq=NULL, .mii={ .regs={ 0, 0, 0, 0, 0, 0 }, .link_ok=FALSE, .$pad0=0 }, .$pad0=0,
+    .regs={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, .tx_desc=0,
+    .rx_desc=0, .desc={ { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 } }, .software=NULL } ({ 00000000000000000000000000000000, 00000000000000000000000000000000, { { 0000000000000000, 0000000000000000, 0000000000000000, 0000000000000000, 0000000000000000, 0000000000000000 }, 00000000, 00000000 }, 0000000000000000, { 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 }, 00000000000000000000000000000000, 00000000000000000000000000000000, { { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 } }, 00000000000000000000000000000000 })
+
+State 20758 file ethoc.c line 914 function main thread 0
+----------------------------------------------------
+  ethoc={ .num_tx=0, .cur_tx=0, .dty_tx=0, .num_rx=0, .cur_rx=0,
+    .dma_buf=NULL, .dma_regions=NULL, .netdev=NULL,
+    .napi={ .complete=0, .weight=0, .sched=0, .is_disabling=0, .poll=NULL }, .phy_id=0,
+    .$pad0=0, .open_eth=NULL } ({ 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, { 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 }, 00000000, 000000000000000000000000, 00000000000000000000000000000000 })
+
+State 20759 file ../../../qemu-hw/ethoc/cpu.c line 4 thread 0
+----------------------------------------------------
+  base_addr=0 (00000000000000000000000000000000)
+
+State 20760 file <built-in-additions> line 21 thread 0
+----------------------------------------------------
+  __CPROVER_threads_exited=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 20761 file <built-in-additions> line 22 thread 0
+----------------------------------------------------
+  __CPROVER_next_thread_id=0 (00000000000000000000000000000000)
+
+State 20762 file <built-in-additions> line 29 thread 0
+----------------------------------------------------
+  __CPROVER_deallocated=NULL (00000000000000000000000000000000)
+
+State 20763 file <built-in-additions> line 30 thread 0
+----------------------------------------------------
+  __CPROVER_malloc_object=NULL (00000000000000000000000000000000)
+
+State 20764 file <built-in-additions> line 31 thread 0
+----------------------------------------------------
+  __CPROVER_malloc_size=0 (00000000000000000000000000000000)
+
+State 20765 file <built-in-additions> line 32 thread 0
+----------------------------------------------------
+  __CPROVER_malloc_is_new_array=FALSE (0)
+
+State 20766 file <built-in-additions> line 44 thread 0
+----------------------------------------------------
+  __CPROVER_rounding_mode=0 (00000000000000000000000000000000)
+
+State 20767 file <built-in-additions> line 64 thread 0
+----------------------------------------------------
+  __CPROVER_magic_pipe_offset=42 (00000000000000000000000000101010)
+
+State 20768 file bitrev.h line 6 thread 0
+----------------------------------------------------
+  byte_rev_table={ 0, 128, 64, 192, 32, 160, 96, 224, 16, 144, 80, 208, 48, 176, 112, 240, 8, 136, 72, 200, 40, 168, 104, 232, 24, 152, 88, 216, 56, 184, 120, 248, 4, 132, 68, 196, 36, 164, 100, 228, 20, 148, 84, 212, 52, 180, 116, 244, 12, 140, 76, 204, 44, 172, 108, 236, 28, 156, 92, 220, 60, 188, 124, 252, 2, 130, 66, 194, 34, 162, 98, 226, 18, 146, 82, 210, 50, 178, 114, 242, 10, 138, 74, 202, 42, 170, 106, 234, 26, 154, 90, 218, 58, 186, 122, 250, 6, 134, 70, 198, 38, 166, 102, 230, 22, 150, 86, 214, 54, 182, 118, 246, 14, 142, 78, 206, 46, 174, 110, 238, 30, 158, 94, 222, 62, 190, 126, 254, 1, 129, 65, 193, 33, 161, 97, 225, 17, 145, 81, 209, 49, 177, 113, 241, 9, 137, 73, 201, 41, 169, 105, 233, 25, 153, 89, 217, 57, 185, 121, 249, 5, 133, 69, 197, 37, 165, 101, 229, 21, 149, 85, 213, 53, 181, 117, 245, 13, 141, 77, 205, 45, 173, 109, 237, 29, 157, 93, 221, 61, 189, 125, 253, 3, 131, 67, 195, 35, 163, 99, 227, 19, 147, 83, 211, 51, 179, 115, 243, 11, 139, 75, 203, 43, 171, 107, 235, 27, 155, 91, 219, 59, 187, 123, 251, 7, 135, 71, 199, 39, 167, 103, 231, 23, 151, 87, 215, 55, 183, 119, 247, 15, 143, 79, 207, 47, 175, 111, 239, 31, 159, 95, 223, 63, 191, 127, 255 } ({ 00000000, 10000000, 01000000, 11000000, 00100000, 10100000, 01100000, 11100000, 00010000, 10010000, 01010000, 11010000, 00110000, 10110000, 01110000, 11110000, 00001000, 10001000, 01001000, 11001000, 00101000, 10101000, 01101000, 11101000, 00011000, 10011000, 01011000, 11011000, 00111000, 10111000, 01111000, 11111000, 00000100, 10000100, 01000100, 11000100, 00100100, 10100100, 01100100, 11100100, 00010100, 10010100, 01010100, 11010100, 00110100, 10110100, 01110100, 11110100, 00001100, 10001100, 01001100, 11001100, 00101100, 10101100, 01101100, 11101100, 00011100, 10011100, 01011100, 11011100, 00111100, 10111100, 01111100, 11111100, 00000010, 10000010, 01000010, 11000010, 00100010, 10100010, 01100010, 11100010, 00010010, 10010010, 01010010, 11010010, 00110010, 10110010, 01110010, 11110010, 00001010, 10001010, 01001010, 11001010, 00101010, 10101010, 01101010, 11101010, 00011010, 10011010, 01011010, 11011010, 00111010, 10111010, 01111010, 11111010, 00000110, 10000110, 01000110, 11000110, 00100110, 10100110, 01100110, 11100110, 00010110, 10010110, 01010110, 11010110, 00110110, 10110110, 01110110, 11110110, 00001110, 10001110, 01001110, 11001110, 00101110, 10101110, 01101110, 11101110, 00011110, 10011110, 01011110, 11011110, 00111110, 10111110, 01111110, 11111110, 00000001, 10000001, 01000001, 11000001, 00100001, 10100001, 01100001, 11100001, 00010001, 10010001, 01010001, 11010001, 00110001, 10110001, 01110001, 11110001, 00001001, 10001001, 01001001, 11001001, 00101001, 10101001, 01101001, 11101001, 00011001, 10011001, 01011001, 11011001, 00111001, 10111001, 01111001, 11111001, 00000101, 10000101, 01000101, 11000101, 00100101, 10100101, 01100101, 11100101, 00010101, 10010101, 01010101, 11010101, 00110101, 10110101, 01110101, 11110101, 00001101, 10001101, 01001101, 11001101, 00101101, 10101101, 01101101, 11101101, 00011101, 10011101, 01011101, 11011101, 00111101, 10111101, 01111101, 11111101, 00000011, 10000011, 01000011, 11000011, 00100011, 10100011, 01100011, 11100011, 00010011, 10010011, 01010011, 11010011, 00110011, 10110011, 01110011, 11110011, 00001011, 10001011, 01001011, 11001011, 00101011, 10101011, 01101011, 11101011, 00011011, 10011011, 01011011, 11011011, 00111011, 10111011, 01111011, 11111011, 00000111, 10000111, 01000111, 11000111, 00100111, 10100111, 01100111, 11100111, 00010111, 10010111, 01010111, 11010111, 00110111, 10110111, 01110111, 11110111, 00001111, 10001111, 01001111, 11001111, 00101111, 10101111, 01101111, 11101111, 00011111, 10011111, 01011111, 11011111, 00111111, 10111111, 01111111, 11111111 })
+
+State 20769 file ../../../qemu-hw/ethoc/opencores_eth.c line 75 function mii_write_host thread 0
+----------------------------------------------------
+  reg_write={ &mii_write_bmcr, &mii_ro, &mii_ro, &mii_ro, NULL, NULL } ({ 00001110000000000000000000000000, 00001111000000000000000000000000, 00001111000000000000000000000000, 00001111000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 })
 
 State 20773 file ethoc.c line 873 function main thread 0
 ----------------------------------------------------
   irq_n=0 (00000000000000000000000000000000)
 
-State 20774 file ethoc.c line 874 function main thread 0
+State 20774 file ethoc.c line 873 function main thread 0
 ----------------------------------------------------
-  flags=0 (00000000000000000000000000000000)
+  irq_n=0 (00000000000000000000000000000000)
 
 State 20775 file ethoc.c line 874 function main thread 0
 ----------------------------------------------------
-  flags=8 (00000000000000000000000000001000)
+  flags=0 (00000000000000000000000000000000)
 
-State 20776 file ethoc.c line 877 function main thread 0
+State 20776 file ethoc.c line 874 function main thread 0
 ----------------------------------------------------
-  nc_info={ .can_receive=((int (* )(struct NetClientState *))NULL), .receive=((int (* )(struct NetClientState *, const unsigned char *, unsigned int))NULL),
-    .link_status_changed=((void (* )(struct NetClientState *))NULL) } ({ 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 })
+  flags=131072 (00000000000000100000000000000000)
 
-State 20777 file ethoc.c line 878 function main thread 0
+State 20777 file ethoc.c line 877 function main thread 0
 ----------------------------------------------------
-  nc_info.can_receive=((int (* )(struct NetClientState *))NULL) (00000000000000000000000000000000)
+  nc_info={ .can_receive=NULL, .receive=NULL, .link_status_changed=NULL } ({ 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 })
 
-State 20778 file ethoc.c line 879 function main thread 0
+State 20778 file ethoc.c line 878 function main thread 0
 ----------------------------------------------------
-  nc_info.receive=((int (* )(struct NetClientState *, const unsigned char *, unsigned int))NULL) (00000000000000000000000000000000)
+  nc_info.can_receive=NULL (00000000000000000000000000000000)
 
-State 20779 file ethoc.c line 880 function main thread 0
+State 20779 file ethoc.c line 879 function main thread 0
 ----------------------------------------------------
-  nc_info.link_status_changed=((void (* )(struct NetClientState *))NULL) (00000000000000000000000000000000)
+  nc_info.receive=NULL (00000000000000000000000000000000)
 
-State 20780 file ethoc.c line 884 function main thread 0
+State 20780 file ethoc.c line 880 function main thread 0
 ----------------------------------------------------
-  nic={ .nc={ .info=&nc_info!0@1.can_receive, .link_down=0, .peer=((struct NetClientState *)NULL),
-    .receive_disabled=0 }, .opaque=&open_eth } ({ { 00010000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 }, 00000110001110000101000100000101 })
+  nc_info.link_status_changed=NULL (00000000000000000000000000000000)
 
-State 20781 file ethoc.c line 885 function main thread 0
+State 20781 file ethoc.c line 884 function main thread 0
+----------------------------------------------------
+  nic={ .nc={ .info=&nc_info!0@1.can_receive, .link_down=0, .peer=NULL,
+    .receive_disabled=0 }, .opaque=&open_eth } ({ { 00010000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 }, 00000110010010101011001000000101 })
+
+State 20782 file ethoc.c line 885 function main thread 0
 ----------------------------------------------------
   nic.nc.info=&nc_info!0@1.can_receive (00010000000000000000000000000000)
 
-State 20782 file ethoc.c line 886 function main thread 0
+State 20783 file ethoc.c line 886 function main thread 0
 ----------------------------------------------------
   nic.nc.link_down=0 (00000000000000000000000000000000)
 
-State 20783 file ethoc.c line 887 function main thread 0
+State 20784 file ethoc.c line 887 function main thread 0
 ----------------------------------------------------
-  nic.nc.peer=((struct NetClientState *)NULL) (00000000000000000000000000000000)
+  nic.nc.peer=NULL (00000000000000000000000000000000)
 
-State 20784 file ethoc.c line 888 function main thread 0
+State 20785 file ethoc.c line 888 function main thread 0
 ----------------------------------------------------
   nic.nc.receive_disabled=0 (00000000000000000000000000000000)
 
-State 20785 file ethoc.c line 891 function main thread 0
+State 20786 file ethoc.c line 891 function main thread 0
 ----------------------------------------------------
   irq={ .handler=&ethoc_interrupt, .opaque=NULL, .n=0 } ({ 00010001000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 })
 
-State 20786 file ethoc.c line 892 function main thread 0
+State 20787 file ethoc.c line 892 function main thread 0
 ----------------------------------------------------
   irq.n=0 (00000000000000000000000000000000)
 
-State 20787 file ethoc.c line 893 function main thread 0
+State 20788 file ethoc.c line 893 function main thread 0
 ----------------------------------------------------
   irq.handler=&ethoc_interrupt (00010001000000000000000000000000)
 
-State 20788 file ethoc.c line 897 function main thread 0
+State 20789 file ethoc.c line 897 function main thread 0
 ----------------------------------------------------
   open_eth.nic=&nic!0@1.nc (00000101000000000000000000000000)
 
-State 20789 file ethoc.c line 898 function main thread 0
+State 20790 file ethoc.c line 898 function main thread 0
 ----------------------------------------------------
   open_eth.irq=&irq!0@1.handler (00000100000000000000000000000000)
 
-State 20790 file ethoc.c line 899 function main thread 0
+State 20791 file ethoc.c line 899 function main thread 0
 ----------------------------------------------------
   open_eth.mii.link_ok=TRUE (00000001)
 
-State 20791 file ethoc.c line 901 function main thread 0
+State 20792 file ethoc.c line 901 function main thread 0
 ----------------------------------------------------
   irq.opaque=&open_eth.nic (00000110000000000000000000000000)
 
-State 20793 file ethoc.c line 903 function main thread 0
+State 20794 file ethoc.c line 903 function main thread 0
 ----------------------------------------------------
   s=NULL (00000000000000000000000000000000)
 
-State 20794 file ethoc.c line 903 function main thread 0
-----------------------------------------------------
-  s=&open_eth.mii (00000110000000000000000000001000)
-
 State 20795 file ethoc.c line 903 function main thread 0
 ----------------------------------------------------
-  c=0 (00000000000000000000000000000000)
+  s=&open_eth.mii (00000110000000000000000000001000)
 
 State 20796 file ethoc.c line 903 function main thread 0
 ----------------------------------------------------
@@ -671,50 +642,50 @@ State 20796 file ethoc.c line 903 function main thread 0
 
 State 20797 file ethoc.c line 903 function main thread 0
 ----------------------------------------------------
-  n=0 (00000000000000000000000000000000)
+  c=0 (00000000000000000000000000000000)
 
 State 20798 file ethoc.c line 903 function main thread 0
 ----------------------------------------------------
-  n=12 (00000000000000000000000000001100)
+  n=0 (00000000000000000000000000000000)
 
 State 20799 file ethoc.c line 903 function main thread 0
 ----------------------------------------------------
-  sp=((signed char *)NULL) (00000000000000000000000000000000)
+  n=12 (00000000000000000000000000001100)
 
 State 20800 file ethoc.c line 903 function main thread 0
 ----------------------------------------------------
-  sp=&open_eth.mii (00000110000000000000000000001000)
+  sp=NULL (00000000000000000000000000000000)
 
 State 20801 file ethoc.c line 903 function main thread 0
 ----------------------------------------------------
-  i=0 (00000000000000000000000000000000)
+  sp=&open_eth.mii (00000110000000000000000000001000)
 
 State 20802 file ethoc.c line 903 function main thread 0
 ----------------------------------------------------
   i=0 (00000000000000000000000000000000)
 
-State 20804 file ethoc.c line 903 function main thread 0
+State 20803 file ethoc.c line 903 function main thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 20805 file ethoc.c line 903 function main thread 0
 ----------------------------------------------------
   open_eth={ .nic=&nic!0@1.nc, .irq=&irq!0@1.handler, .mii={ .regs={ 0, 0, 0, 0, 0, 0 }, .link_ok=TRUE, .$pad0=0 },
     .$pad0=0,
     .regs={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, .tx_desc=0,
     .rx_desc=0, .desc={ { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 } }, .software=NULL } ({ 00000101000000000000000000000000, 00000100000000000000000000000000, { { 0000000000000000, 0000000000000000, 0000000000000000, 0000000000000000, 0000000000000000, 0000000000000000 }, 00000001, 00000000 }, 0000000000000000, { 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 }, 00000000000000000000000000000000, 00000000000000000000000000000000, { { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 } }, 00000000000000000000000000000000 })
 
-State 20805 file ethoc.c line 903 function main thread 0
+State 20806 file ethoc.c line 903 function main thread 0
 ----------------------------------------------------
   i=1 (00000000000000000000000000000001)
 
-State 20809 file ethoc.c line 904 function main thread 0
+State 20810 file ethoc.c line 904 function main thread 0
 ----------------------------------------------------
   s=NULL (00000000000000000000000000000000)
 
-State 20810 file ethoc.c line 904 function main thread 0
-----------------------------------------------------
-  s=open_eth.regs (00000110000000000000000000011000)
-
 State 20811 file ethoc.c line 904 function main thread 0
 ----------------------------------------------------
-  c=0 (00000000000000000000000000000000)
+  s=&open_eth.regs[0] (00000110000000000000000000011000)
 
 State 20812 file ethoc.c line 904 function main thread 0
 ----------------------------------------------------
@@ -722,50 +693,50 @@ State 20812 file ethoc.c line 904 function main thread 0
 
 State 20813 file ethoc.c line 904 function main thread 0
 ----------------------------------------------------
-  n=0 (00000000000000000000000000000000)
+  c=0 (00000000000000000000000000000000)
 
 State 20814 file ethoc.c line 904 function main thread 0
 ----------------------------------------------------
-  n=84 (00000000000000000000000001010100)
+  n=0 (00000000000000000000000000000000)
 
 State 20815 file ethoc.c line 904 function main thread 0
 ----------------------------------------------------
-  sp=((signed char *)NULL) (00000000000000000000000000000000)
+  n=84 (00000000000000000000000001010100)
 
 State 20816 file ethoc.c line 904 function main thread 0
 ----------------------------------------------------
-  sp=open_eth.regs (00000110000000000000000000011000)
+  sp=NULL (00000000000000000000000000000000)
 
 State 20817 file ethoc.c line 904 function main thread 0
 ----------------------------------------------------
-  i=0 (00000000000000000000000000000000)
+  sp=&open_eth.regs[0] (00000110000000000000000000011000)
 
 State 20818 file ethoc.c line 904 function main thread 0
 ----------------------------------------------------
   i=0 (00000000000000000000000000000000)
 
-State 20820 file ethoc.c line 904 function main thread 0
+State 20819 file ethoc.c line 904 function main thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 20821 file ethoc.c line 904 function main thread 0
 ----------------------------------------------------
   open_eth={ .nic=&nic!0@1.nc, .irq=&irq!0@1.handler, .mii={ .regs={ 0, 0, 0, 0, 0, 0 }, .link_ok=TRUE, .$pad0=0 },
     .$pad0=0,
     .regs={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, .tx_desc=0,
     .rx_desc=0, .desc={ { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 } }, .software=NULL } ({ 00000101000000000000000000000000, 00000100000000000000000000000000, { { 0000000000000000, 0000000000000000, 0000000000000000, 0000000000000000, 0000000000000000, 0000000000000000 }, 00000001, 00000000 }, 0000000000000000, { 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 }, 00000000000000000000000000000000, 00000000000000000000000000000000, { { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 } }, 00000000000000000000000000000000 })
 
-State 20821 file ethoc.c line 904 function main thread 0
+State 20822 file ethoc.c line 904 function main thread 0
 ----------------------------------------------------
   i=1 (00000000000000000000000000000001)
 
-State 20825 file ethoc.c line 905 function main thread 0
+State 20826 file ethoc.c line 905 function main thread 0
 ----------------------------------------------------
   s=NULL (00000000000000000000000000000000)
 
-State 20826 file ethoc.c line 905 function main thread 0
-----------------------------------------------------
-  s=open_eth.desc (00000110000000000000000001110100)
-
 State 20827 file ethoc.c line 905 function main thread 0
 ----------------------------------------------------
-  c=0 (00000000000000000000000000000000)
+  s=&open_eth.desc[0] (00000110000000000000000001110100)
 
 State 20828 file ethoc.c line 905 function main thread 0
 ----------------------------------------------------
@@ -773,88 +744,92 @@ State 20828 file ethoc.c line 905 function main thread 0
 
 State 20829 file ethoc.c line 905 function main thread 0
 ----------------------------------------------------
-  n=0 (00000000000000000000000000000000)
+  c=0 (00000000000000000000000000000000)
 
 State 20830 file ethoc.c line 905 function main thread 0
 ----------------------------------------------------
-  n=64 (00000000000000000000000001000000)
+  n=0 (00000000000000000000000000000000)
 
 State 20831 file ethoc.c line 905 function main thread 0
 ----------------------------------------------------
-  sp=((signed char *)NULL) (00000000000000000000000000000000)
+  n=64 (00000000000000000000000001000000)
 
 State 20832 file ethoc.c line 905 function main thread 0
 ----------------------------------------------------
-  sp=open_eth.desc (00000110000000000000000001110100)
+  sp=NULL (00000000000000000000000000000000)
 
 State 20833 file ethoc.c line 905 function main thread 0
 ----------------------------------------------------
-  i=0 (00000000000000000000000000000000)
+  sp=&open_eth.desc[0] (00000110000000000000000001110100)
 
 State 20834 file ethoc.c line 905 function main thread 0
 ----------------------------------------------------
   i=0 (00000000000000000000000000000000)
 
-State 20836 file ethoc.c line 905 function main thread 0
+State 20835 file ethoc.c line 905 function main thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 20837 file ethoc.c line 905 function main thread 0
 ----------------------------------------------------
   open_eth={ .nic=&nic!0@1.nc, .irq=&irq!0@1.handler, .mii={ .regs={ 0, 0, 0, 0, 0, 0 }, .link_ok=TRUE, .$pad0=0 },
     .$pad0=0,
     .regs={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, .tx_desc=0,
     .rx_desc=0, .desc={ { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 }, { .len_flags=0, .buf_ptr=0 } }, .software=NULL } ({ 00000101000000000000000000000000, 00000100000000000000000000000000, { { 0000000000000000, 0000000000000000, 0000000000000000, 0000000000000000, 0000000000000000, 0000000000000000 }, 00000001, 00000000 }, 0000000000000000, { 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 }, 00000000000000000000000000000000, 00000000000000000000000000000000, { { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 }, { 00000000000000000000000000000000, 00000000000000000000000000000000 } }, 00000000000000000000000000000000 })
 
-State 20837 file ethoc.c line 905 function main thread 0
+State 20838 file ethoc.c line 905 function main thread 0
 ----------------------------------------------------
   i=1 (00000000000000000000000000000001)
 
-State 20840 file ethoc.c line 907 function main thread 0
+State 20841 file ethoc.c line 907 function main thread 0
 ----------------------------------------------------
   nic.opaque=&open_eth.nic (00000110000000000000000000000000)
 
-State 20841 file ethoc.c line 908 function main thread 0
+State 20842 file ethoc.c line 908 function main thread 0
 ----------------------------------------------------
   nc=&nic!0@1.nc (00000101000000000000000000000000)
 
-State 20842 file ethoc.c line 911 function main thread 0
+State 20843 file ethoc.c line 911 function main thread 0
 ----------------------------------------------------
   return_value_open_eth_reg$1=0 (00000000000000000000000000000000)
-
-State 20844 file ../../../qemu-hw/ethoc/opencores_eth.h line 96 function open_eth_reg thread 0
-----------------------------------------------------
-  reg_ix=/*enum*/0 (?)
 
 State 20845 file ../../../qemu-hw/ethoc/opencores_eth.h line 96 function open_eth_reg thread 0
 ----------------------------------------------------
-  reg_ix=/*enum*/0 (?)
+  reg_ix=enum(0) (?)
 
 State 20846 file ../../../qemu-hw/ethoc/opencores_eth.h line 96 function open_eth_reg thread 0
 ----------------------------------------------------
-  return_value_open_eth_reg$1=0 (00000000000000000000000000000000)
+  reg_ix=enum(0) (?)
 
-State 20850 file ethoc.c line 911 function main thread 0
+State 20847 file ../../../qemu-hw/ethoc/opencores_eth.h line 96 function open_eth_reg thread 0
 ----------------------------------------------------
-  s=&open_eth.nic (00000110000000000000000000000000)
+  return_value_open_eth_reg$1=0 (00000000000000000000000000000000)
 
 State 20851 file ethoc.c line 911 function main thread 0
 ----------------------------------------------------
-  addr=0 (00000000000000000000000000000000)
+  s=&open_eth.nic (00000110000000000000000000000000)
 
 State 20852 file ethoc.c line 911 function main thread 0
 ----------------------------------------------------
-  val=2048 (00000000000000000000100000000000)
+  addr=0 (00000000000000000000000000000000)
 
-State 20853 file ../../../qemu-hw/ethoc/opencores_eth.c line 484 function open_eth_reg_write thread 0
+State 20853 file ethoc.c line 911 function main thread 0
 ----------------------------------------------------
-  idx=0 (00000000000000000000000000000000)
+  val=2048 (00000000000000000000100000000000)
 
 State 20854 file ../../../qemu-hw/ethoc/opencores_eth.c line 484 function open_eth_reg_write thread 0
 ----------------------------------------------------
   idx=0 (00000000000000000000000000000000)
 
-State 20858 file ../../../qemu-hw/ethoc/opencores_eth.c line 487 function open_eth_reg_write thread 0
+State 20855 file ../../../qemu-hw/ethoc/opencores_eth.c line 484 function open_eth_reg_write thread 0
+----------------------------------------------------
+  idx=0 (00000000000000000000000000000000)
+
+State 20859 file ../../../qemu-hw/ethoc/opencores_eth.c line 487 function open_eth_reg_write thread 0
 ----------------------------------------------------
   addr=0 (00000000000000000000000000000000)
 
-State 20859 file ../../../qemu-hw/ethoc/opencores_eth.c line 487 function open_eth_reg_write thread 0
+State 20860 file ../../../qemu-hw/ethoc/opencores_eth.c line 487 function open_eth_reg_write thread 0
 ----------------------------------------------------
   v=2048 (00000000000000000000100000000000)
 MAC[%x] <- %x
@@ -886,7 +861,7 @@ State 20877 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_e
 
 State 20878 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 0
 ----------------------------------------------------
-  s=open_eth.regs (00000110000000000000000000011000)
+  s=&open_eth.regs[0] (00000110000000000000000000011000)
 
 State 20879 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 0
 ----------------------------------------------------
@@ -906,11 +881,11 @@ State 20882 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_e
 
 State 20883 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 0
 ----------------------------------------------------
-  sp=((signed char *)NULL) (00000000000000000000000000000000)
+  sp=NULL (00000000000000000000000000000000)
 
 State 20884 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 0
 ----------------------------------------------------
-  sp=open_eth.regs (00000110000000000000000000011000)
+  sp=&open_eth.regs[0] (00000110000000000000000000011000)
 
 State 20885 file ../../../qemu-hw/ethoc/opencores_eth.c line 151 function open_eth_reset thread 0
 ----------------------------------------------------
@@ -1001,7 +976,7 @@ State 20911 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_res
 
 State 20912 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 0
 ----------------------------------------------------
-  sp=((signed char *)NULL) (00000000000000000000000000000000)
+  sp=NULL (00000000000000000000000000000000)
 
 State 20913 file ../../../qemu-hw/ethoc/opencores_eth.c line 51 function mii_reset thread 0
 ----------------------------------------------------
@@ -1141,8 +1116,8 @@ State 20954 file ../../../qemu-hw/ethoc/opencores_eth.c line 390 function open_e
 
 State 20961 file ethoc.c line 913 function main thread 0
 ----------------------------------------------------
-  netdev={ .mc={ .list={ .next=INVALID-255, .prev=INVALID-255 }, .count=-1 }, .mem_end=352321546,
-    .mem_start=352321536, .flags=8,
+  netdev={ .mc={ .list={ .next=INVALID-255, .prev=INVALID-255 }, .count=-1 }, .mem_end=352321551,
+    .mem_start=352321536, .flags=131072,
     .stats={ .rx_packets=0, .tx_packets=0, .rx_bytes=0, .tx_bytes=0,
     .rx_errors=0, .tx_errors=0, .rx_dropped=0,
     .tx_dropped=0, .multicast=0, .collisions=0,
@@ -1152,7 +1127,7 @@ State 20961 file ethoc.c line 913 function main thread 0
     .tx_carrier_errors=0, .tx_fifo_errors=0,
     .tx_heartbeat_errors=0, .tx_window_errors=0,
     .rx_compressed=0, .tx_compressed=0 }, .dev=irep("(\"nil\")"),
-    .priv=&ethoc.num_tx } ({ { { 11111111111111111111111111111111, 11111111111111111111111111111111 }, 11111111111111111111111111111111 }, 00010101000000000000000000001010, 00010101000000000000000000000000, 00000000000000000000000000001000, { 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 }, ?, 00000111000000000000000000000000 })
+    .priv=&ethoc.num_tx } ({ { { 11111111111111111111111111111111, 11111111111111111111111111111111 }, 11111111111111111111111111111111 }, 00010101000000000000000000001111, 00010101000000000000000000000000, 00000000000000100000000000000000, { 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000 }, ?, 00000111000000000000000000000000 })
 
 State 20962 file ethoc.c line 916 function main thread 0
 ----------------------------------------------------
@@ -1160,7 +1135,7 @@ State 20962 file ethoc.c line 916 function main thread 0
 
 State 20963 file ethoc.c line 917 function main thread 0
 ----------------------------------------------------
-  netdev.flags=8 (00000000000000000000000000001000)
+  netdev.flags=131072 (00000000000000100000000000000000)
 
 State 20964 file ethoc.c line 919 function main thread 0
 ----------------------------------------------------
@@ -1308,7 +1283,7 @@ State 21002 file ethoc.c line 963 function main thread 0
 
 State 21003 file ethoc.c line 963 function main thread 0
 ----------------------------------------------------
-  return_value_nondet_u8$3=1 (00000001)
+  return_value_nondet_u8$3=0 (00000000)
 
 State 21004 file ethoc.c line 964 function main thread 0
 ----------------------------------------------------
@@ -1340,11 +1315,11 @@ State 21010 file ethoc.c line 967 function main thread 0
 
 State 21011 file ethoc.c line 967 function main thread 0
 ----------------------------------------------------
-  return_value_nondet_u8$7=0 (00000000)
+  return_value_nondet_u8$7=2 (00000010)
 
 State 21012 file ethoc.c line 962 function main thread 0
 ----------------------------------------------------
-  mac_addr={ 0, 1, 0, 0, 0, 0 } ({ 00000000, 00000001, 00000000, 00000000, 00000000, 00000000 })
+  mac_addr={ 0, 0, 0, 0, 0, 2 } ({ 00000000, 00000000, 00000000, 00000000, 00000000, 00000010 })
 
 State 21013 file ethoc.c line 969 function main thread 0
 ----------------------------------------------------
@@ -1352,7 +1327,7 @@ State 21013 file ethoc.c line 969 function main thread 0
 
 State 21014 file ethoc.c line 969 function main thread 0
 ----------------------------------------------------
-  mem_size=10 (00000000000000000000000000001010)
+  mem_size=15 (00000000000000000000000000001111)
 
 State 21015 file ethoc.c line 971 function main thread 0
 ----------------------------------------------------
@@ -1360,11 +1335,11 @@ State 21015 file ethoc.c line 971 function main thread 0
 
 State 21017 file etherdevice.h line 65 function is_valid_ether_addr thread 0
 ----------------------------------------------------
-  addr=((const unsigned char *)NULL) (00000000000000000000000000000000)
+  addr=NULL (00000000000000000000000000000000)
 
 State 21018 file etherdevice.h line 65 function is_valid_ether_addr thread 0
 ----------------------------------------------------
-  addr=mac_addr!0@1 (00010100000000000000000000000000)
+  addr=&mac_addr!0@1[0] (00010100000000000000000000000000)
 
 State 21019 file etherdevice.h line 65 function is_valid_ether_addr thread 0
 ----------------------------------------------------
@@ -1372,11 +1347,11 @@ State 21019 file etherdevice.h line 65 function is_valid_ether_addr thread 0
 
 State 21021 file etherdevice.h line 49 function is_multicast_ether_addr thread 0
 ----------------------------------------------------
-  addr=((const unsigned char *)NULL) (00000000000000000000000000000000)
+  addr=NULL (00000000000000000000000000000000)
 
 State 21022 file etherdevice.h line 49 function is_multicast_ether_addr thread 0
 ----------------------------------------------------
-  addr=mac_addr!0@1 (00010100000000000000000000000000)
+  addr=&mac_addr!0@1[0] (00010100000000000000000000000000)
 
 State 21023 file etherdevice.h line 49 function is_multicast_ether_addr thread 0
 ----------------------------------------------------
@@ -1392,11 +1367,11 @@ State 21027 file etherdevice.h line 65 function is_valid_ether_addr thread 0
 
 State 21029 file etherdevice.h line 37 function is_zero_ether_addr thread 0
 ----------------------------------------------------
-  addr=((const unsigned char *)NULL) (00000000000000000000000000000000)
+  addr=NULL (00000000000000000000000000000000)
 
 State 21030 file etherdevice.h line 37 function is_zero_ether_addr thread 0
 ----------------------------------------------------
-  addr=mac_addr!0@1 (00010100000000000000000000000000)
+  addr=&mac_addr!0@1[0] (00010100000000000000000000000000)
 
 State 21031 file etherdevice.h line 37 function is_zero_ether_addr thread 0
 ----------------------------------------------------
@@ -1424,15 +1399,15 @@ State 21046 file ethoc.c line 979 function main thread 0
 
 State 21047 file ethoc.c line 980 function main thread 0
 ----------------------------------------------------
-  netdev.mem_end=352321546 (00010101000000000000000000001010)
+  netdev.mem_end=352321551 (00010101000000000000000000001111)
 
 State 21048 file ethoc.c line 981 function main thread 0
 ----------------------------------------------------
-  ethoc.dma_buf=dma_buf (00010101000000000000000000000000)
+  ethoc.dma_buf=&dma_buf[0] (00010101000000000000000000000000)
 
 State 21049 file ethoc.c line 982 function main thread 0
 ----------------------------------------------------
-  ethoc.dma_regions=dma_regions (00000010000000000000000000000000)
+  ethoc.dma_regions=&dma_regions[0] (00000010000000000000000000000000)
 
 State 21050 file ethoc.c line 985 function main thread 0
 ----------------------------------------------------
@@ -1452,11 +1427,11 @@ State 21053 file ethoc.c line 985 function main thread 0
 
 State 21054 file ethoc.c line 985 function main thread 0
 ----------------------------------------------------
-  __min2=5 (00000000000000000000000000000101)
+  __min2=8 (00000000000000000000000000001000)
 
 State 21055 file ethoc.c line 985 function main thread 0
 ----------------------------------------------------
-  num_bd=5 (00000000000000000000000000000101)
+  num_bd=8 (00000000000000000000000000001000)
 
 State 21057 file ethoc.c line 991 function main thread 0
 ----------------------------------------------------
@@ -1472,7 +1447,7 @@ State 21061 file log2.h line 72 function __rounddown_pow_of_two thread 0
 
 State 21062 file log2.h line 72 function __rounddown_pow_of_two thread 0
 ----------------------------------------------------
-  n=2 (00000000000000000000000000000010)
+  n=4 (00000000000000000000000000000100)
 
 State 21063 file log2.h line 72 function __rounddown_pow_of_two thread 0
 ----------------------------------------------------
@@ -1484,7 +1459,7 @@ State 21065 file bitops.h line 11 function fls_long thread 0
 
 State 21066 file bitops.h line 11 function fls_long thread 0
 ----------------------------------------------------
-  l=2 (00000000000000000000000000000010)
+  l=4 (00000000000000000000000000000100)
 
 State 21068 file bitops.h line 12 function fls_long thread 0
 ----------------------------------------------------
@@ -1496,7 +1471,7 @@ State 21070 file fls.h line 15 function fls thread 0
 
 State 21071 file fls.h line 15 function fls thread 0
 ----------------------------------------------------
-  x=2 (00000000000000000000000000000010)
+  x=4 (00000000000000000000000000000100)
 
 State 21072 file fls.h line 15 function fls thread 0
 ----------------------------------------------------
@@ -1508,7 +1483,7 @@ State 21073 file fls.h line 15 function fls thread 0
 
 State 21076 file fls.h line 20 function fls thread 0
 ----------------------------------------------------
-  x=131072 (00000000000000100000000000000000)
+  x=262144 (00000000000001000000000000000000)
 
 State 21077 file fls.h line 21 function fls thread 0
 ----------------------------------------------------
@@ -1516,7 +1491,7 @@ State 21077 file fls.h line 21 function fls thread 0
 
 State 21079 file fls.h line 24 function fls thread 0
 ----------------------------------------------------
-  x=33554432 (00000010000000000000000000000000)
+  x=67108864 (00000100000000000000000000000000)
 
 State 21080 file fls.h line 25 function fls thread 0
 ----------------------------------------------------
@@ -1524,43 +1499,43 @@ State 21080 file fls.h line 25 function fls thread 0
 
 State 21082 file fls.h line 28 function fls thread 0
 ----------------------------------------------------
-  x=536870912 (00100000000000000000000000000000)
+  x=1073741824 (01000000000000000000000000000000)
 
 State 21083 file fls.h line 29 function fls thread 0
 ----------------------------------------------------
   r=4 (00000000000000000000000000000100)
 
-State 21085 file fls.h line 32 function fls thread 0
+State 21086 file fls.h line 36 function fls thread 0
 ----------------------------------------------------
   x=-2147483648 (10000000000000000000000000000000)
 
-State 21086 file fls.h line 33 function fls thread 0
+State 21087 file fls.h line 37 function fls thread 0
 ----------------------------------------------------
-  r=2 (00000000000000000000000000000010)
+  r=3 (00000000000000000000000000000011)
 
 State 21088 file fls.h line 39 function fls thread 0
 ----------------------------------------------------
-  return_value_fls$1=2 (00000000000000000000000000000010)
+  return_value_fls$1=3 (00000000000000000000000000000011)
 
 State 21090 file bitops.h line 12 function fls_long thread 0
 ----------------------------------------------------
-  return_value_fls_long$1=2 (00000000000000000000000000000010)
+  return_value_fls_long$1=3 (00000000000000000000000000000011)
 
 State 21093 file log2.h line 72 function __rounddown_pow_of_two thread 0
 ----------------------------------------------------
-  return_value___rounddown_pow_of_two$80=2 (00000000000000000000000000000010)
+  return_value___rounddown_pow_of_two$80=4 (00000000000000000000000000000100)
 
 State 21095 file ethoc.c line 991 function main thread 0
 ----------------------------------------------------
-  tmp_if_expr$81=2 (00000000000000000000000000000010)
+  tmp_if_expr$81=4 (00000000000000000000000000000100)
 
 State 21096 file ethoc.c line 991 function main thread 0
 ----------------------------------------------------
-  ethoc.num_tx=2 (00000000000000000000000000000010)
+  ethoc.num_tx=4 (00000000000000000000000000000100)
 
 State 21097 file ethoc.c line 992 function main thread 0
 ----------------------------------------------------
-  ethoc.num_rx=3 (00000000000000000000000000000011)
+  ethoc.num_rx=4 (00000000000000000000000000000100)
 
 State 21098 file ethoc.c line 994 function main thread 0
 ----------------------------------------------------
@@ -1572,11 +1547,11 @@ State 21099 file ethoc.c line 994 function main thread 0
 
 State 21100 file ethoc.c line 994 function main thread 0
 ----------------------------------------------------
-  return_value_nondet_int$82=3 (00000000000000000000000000000011)
+  return_value_nondet_int$82=1 (00000000000000000000000000000001)
 
 State 21101 file ethoc.c line 994 function main thread 0
 ----------------------------------------------------
-  rx_packet_num=3 (00000000000000000000000000000011)
+  rx_packet_num=1 (00000000000000000000000000000001)
 
 State 21105 file ethoc.c line 998 function main thread 0
 ----------------------------------------------------
@@ -1584,11 +1559,11 @@ State 21105 file ethoc.c line 998 function main thread 0
 
 State 21106 file ethoc.c line 998 function main thread 0
 ----------------------------------------------------
-  addr=mac_addr!0@1 (00010100000000000000000000000000)
+  addr=&mac_addr!0@1[0] (00010100000000000000000000000000)
 
 State 21107 file ethoc.c line 741 function ethoc_set_mac_address thread 0
 ----------------------------------------------------
-  priv=((struct ethoc *)NULL) (00000000000000000000000000000000)
+  priv=NULL (00000000000000000000000000000000)
 
 State 21108 file ethoc.c line 741 function ethoc_set_mac_address thread 0
 ----------------------------------------------------
@@ -1596,7 +1571,7 @@ State 21108 file ethoc.c line 741 function ethoc_set_mac_address thread 0
 
 State 21110 file netdevice.h line 135 function netdev_priv thread 0
 ----------------------------------------------------
-  dev=((struct net_device *)NULL) (00000000000000000000000000000000)
+  dev=NULL (00000000000000000000000000000000)
 
 State 21111 file netdevice.h line 135 function netdev_priv thread 0
 ----------------------------------------------------
@@ -1612,11 +1587,11 @@ State 21114 file ethoc.c line 741 function ethoc_set_mac_address thread 0
 
 State 21115 file ethoc.c line 742 function ethoc_set_mac_address thread 0
 ----------------------------------------------------
-  mac=((unsigned char *)NULL) (00000000000000000000000000000000)
+  mac=NULL (00000000000000000000000000000000)
 
 State 21116 file ethoc.c line 742 function ethoc_set_mac_address thread 0
 ----------------------------------------------------
-  mac=mac_addr!0@1 (00010100000000000000000000000000)
+  mac=&mac_addr!0@1[0] (00010100000000000000000000000000)
 
 State 21117 file ethoc.c line 744 function ethoc_set_mac_address thread 0
 ----------------------------------------------------
@@ -1624,11 +1599,11 @@ State 21117 file ethoc.c line 744 function ethoc_set_mac_address thread 0
 
 State 21119 file etherdevice.h line 65 function is_valid_ether_addr thread 0
 ----------------------------------------------------
-  addr=((const unsigned char *)NULL) (00000000000000000000000000000000)
+  addr=NULL (00000000000000000000000000000000)
 
 State 21120 file etherdevice.h line 65 function is_valid_ether_addr thread 0
 ----------------------------------------------------
-  addr=mac_addr!0@1 (00010100000000000000000000000000)
+  addr=&mac_addr!0@1[0] (00010100000000000000000000000000)
 
 State 21121 file etherdevice.h line 65 function is_valid_ether_addr thread 0
 ----------------------------------------------------
@@ -1636,11 +1611,11 @@ State 21121 file etherdevice.h line 65 function is_valid_ether_addr thread 0
 
 State 21123 file etherdevice.h line 49 function is_multicast_ether_addr thread 0
 ----------------------------------------------------
-  addr=((const unsigned char *)NULL) (00000000000000000000000000000000)
+  addr=NULL (00000000000000000000000000000000)
 
 State 21124 file etherdevice.h line 49 function is_multicast_ether_addr thread 0
 ----------------------------------------------------
-  addr=mac_addr!0@1 (00010100000000000000000000000000)
+  addr=&mac_addr!0@1[0] (00010100000000000000000000000000)
 
 State 21125 file etherdevice.h line 49 function is_multicast_ether_addr thread 0
 ----------------------------------------------------
@@ -1656,11 +1631,11 @@ State 21129 file etherdevice.h line 65 function is_valid_ether_addr thread 0
 
 State 21131 file etherdevice.h line 37 function is_zero_ether_addr thread 0
 ----------------------------------------------------
-  addr=((const unsigned char *)NULL) (00000000000000000000000000000000)
+  addr=NULL (00000000000000000000000000000000)
 
 State 21132 file etherdevice.h line 37 function is_zero_ether_addr thread 0
 ----------------------------------------------------
-  addr=mac_addr!0@1 (00010100000000000000000000000000)
+  addr=&mac_addr!0@1[0] (00010100000000000000000000000000)
 
 State 21133 file etherdevice.h line 37 function is_zero_ether_addr thread 0
 ----------------------------------------------------
@@ -1684,7 +1659,7 @@ State 21143 file ethoc.c line 747 function ethoc_set_mac_address thread 0
 
 State 21144 file ethoc.c line 747 function ethoc_set_mac_address thread 0
 ----------------------------------------------------
-  data=0 (00000000000000000000000000000000)
+  data=2 (00000000000000000000000000000010)
 
 State 21153 file ethoc.c line 749 function ethoc_set_mac_address thread 0
 ----------------------------------------------------
@@ -1696,7 +1671,7 @@ State 21154 file ethoc.c line 749 function ethoc_set_mac_address thread 0
 
 State 21155 file ethoc.c line 749 function ethoc_set_mac_address thread 0
 ----------------------------------------------------
-  data=1 (00000000000000000000000000000001)
+  data=0 (00000000000000000000000000000000)
 
 State 21166 file ethoc.c line 999 function main thread 0
 ----------------------------------------------------
@@ -1704,7 +1679,7 @@ State 21166 file ethoc.c line 999 function main thread 0
 
 State 21167 file ethoc.c line 704 function ethoc_open thread 0
 ----------------------------------------------------
-  priv=((struct ethoc *)NULL) (00000000000000000000000000000000)
+  priv=NULL (00000000000000000000000000000000)
 
 State 21168 file ethoc.c line 704 function ethoc_open thread 0
 ----------------------------------------------------
@@ -1712,7 +1687,7 @@ State 21168 file ethoc.c line 704 function ethoc_open thread 0
 
 State 21170 file netdevice.h line 135 function netdev_priv thread 0
 ----------------------------------------------------
-  dev=((struct net_device *)NULL) (00000000000000000000000000000000)
+  dev=NULL (00000000000000000000000000000000)
 
 State 21171 file netdevice.h line 135 function netdev_priv thread 0
 ----------------------------------------------------
@@ -1760,7 +1735,7 @@ State 21184 file ethoc.c line 324 function ethoc_init_ring thread 0
 
 State 21185 file ethoc.c line 325 function ethoc_init_ring thread 0
 ----------------------------------------------------
-  buf=dma_buf (00010101000000000000000000000000)
+  buf=&dma_buf[0] (00010101000000000000000000000000)
 
 State 21188 file ethoc.c line 327 function ethoc_init_ring thread 0
 ----------------------------------------------------
@@ -1772,7 +1747,7 @@ State 21189 file ethoc.c line 327 function ethoc_init_ring thread 0
 
 State 21190 file ethoc.c line 327 function ethoc_init_ring thread 0
 ----------------------------------------------------
-  data=2 (00000000000000000000000000000010)
+  data=4 (00000000000000000000000000000100)
 
 State 21197 file ethoc.c line 330 function ethoc_init_ring thread 0
 ----------------------------------------------------
@@ -1828,11 +1803,11 @@ State 21221 file ethoc.c line 338 function ethoc_init_ring thread 0
 
 State 21222 file ethoc.c line 340 function ethoc_init_ring thread 0
 ----------------------------------------------------
-  dma_regions[(4 * i!0@1 + POINTER_OFFSET(ethoc.dma_regions)) / 4]={ dma_buf, NULL, NULL, NULL, NULL, NULL, NULL, NULL }[POINTER_OFFSET(dma_regions) / 4] (?)
+  dma_regions[(4 * i!0@1 + POINTER_OFFSET(ethoc.dma_regions)) / 4]={ &dma_buf[0], NULL, NULL, NULL, NULL, NULL, NULL, NULL }[POINTER_OFFSET(&dma_regions[0]) / 4] (?)
 
 State 21223 file ethoc.c line 341 function ethoc_init_ring thread 0
 ----------------------------------------------------
-  buf=dma_buf + -2 (00010101111111111111111111111110)
+  buf=&dma_buf[0] + -2 (00010101111111111111111111111110)
 
 State 21224 file ethoc.c line 333 function ethoc_init_ring thread 0
 ----------------------------------------------------
@@ -1856,7 +1831,7 @@ State 21233 file ethoc.c line 351 function ethoc_init_ring thread 0
 
 State 21234 file ethoc.c line 351 function ethoc_init_ring thread 0
 ----------------------------------------------------
-  index=2 (00000000000000000000000000000010)
+  index=4 (00000000000000000000000000000100)
 
 State 21235 file ethoc.c line 351 function ethoc_init_ring thread 0
 ----------------------------------------------------
@@ -1868,7 +1843,7 @@ State 21236 file ethoc.c line 272 function ethoc_write_bd thread 0
 
 State 21237 file ethoc.c line 272 function ethoc_write_bd thread 0
 ----------------------------------------------------
-  addr=16 (00000000000000000000000000010000)
+  addr=32 (00000000000000000000000000100000)
 
 State 21238 file ethoc.c line 273 function ethoc_write_bd thread 0
 ----------------------------------------------------
@@ -1888,7 +1863,7 @@ State 21241 file ethoc.c line 277 function ethoc_write_bd thread 0
 
 State 21250 file ethoc.c line 352 function ethoc_init_ring thread 0
 ----------------------------------------------------
-  dma_regions[(((int)ethoc.num_tx + (int)(unsigned int)i!0@1) * 4 + POINTER_OFFSET(ethoc.dma_regions)) / 4]={ dma_buf, NULL, dma_buf + -2, NULL, NULL, NULL, NULL, NULL }[(8 + POINTER_OFFSET(dma_regions)) / 4] (?)
+  dma_regions[(((signed int)(ethoc.num_tx) + (signed int)((unsigned int)i!0@1)) * 4 + POINTER_OFFSET(ethoc.dma_regions)) / 4]={ &dma_buf[0], NULL, NULL, NULL, &dma_buf[0] + -2, NULL, NULL, NULL }[(16 + POINTER_OFFSET(&dma_regions[0])) / 4] (?)
 
 State 21251 file ethoc.c line 354 function ethoc_init_ring thread 0
 ----------------------------------------------------
@@ -1896,7 +1871,7 @@ State 21251 file ethoc.c line 354 function ethoc_init_ring thread 0
 
 State 21252 file ethoc.c line 355 function ethoc_init_ring thread 0
 ----------------------------------------------------
-  buf=dma_buf + -4 (00010101111111111111111111111100)
+  buf=&dma_buf[0] + -4 (00010101111111111111111111111100)
 
 State 21253 file ethoc.c line 347 function ethoc_init_ring thread 0
 ----------------------------------------------------
@@ -1912,7 +1887,7 @@ State 21260 file ethoc.c line 363 function ethoc_reset thread 0
 
 State 21262 file ethoc.c line 311 function ethoc_disable_rx_and_tx thread 0
 ----------------------------------------------------
-  dev=((struct ethoc *)NULL) (00000000000000000000000000000000)
+  dev=NULL (00000000000000000000000000000000)
 
 State 21263 file ethoc.c line 311 function ethoc_disable_rx_and_tx thread 0
 ----------------------------------------------------
@@ -1924,7 +1899,7 @@ State 21264 file ethoc.c line 311 function ethoc_disable_rx_and_tx thread 0
 
 State 21266 file ethoc.c line 247 function ethoc_read thread 0
 ----------------------------------------------------
-  dev=((struct ethoc *)NULL) (00000000000000000000000000000000)
+  dev=NULL (00000000000000000000000000000000)
 
 State 21267 file ethoc.c line 247 function ethoc_read thread 0
 ----------------------------------------------------
@@ -1968,7 +1943,7 @@ State 21278 file ../../../qemu-hw/ethoc/opencores_eth.c line 364 function open_e
 
 State 21281 file ../../../qemu-hw/ethoc/opencores_eth.c line 370 function open_eth_reg_read thread 0
 ----------------------------------------------------
-  val=2048 (00000000000000000000100000000000)
+  val=0 (00000000000000000000000000000000)
 
 State 21284 file ../../../qemu-hw/ethoc/opencores_eth.c line 373 function open_eth_reg_read thread 0
 ----------------------------------------------------
@@ -1976,21 +1951,21 @@ State 21284 file ../../../qemu-hw/ethoc/opencores_eth.c line 373 function open_e
 
 State 21285 file ../../../qemu-hw/ethoc/opencores_eth.c line 373 function open_eth_reg_read thread 0
 ----------------------------------------------------
-  v=2048 (00000000000000000000100000000000)
+  v=0 (00000000000000000000000000000000)
 MAC[%x] -> %x
 
 
 State 21289 file ../../../qemu-hw/ethoc/opencores_eth.c line 375 function open_eth_reg_read thread 0
 ----------------------------------------------------
-  return_value_open_eth_reg_read$1=2048 (00000000000000000000100000000000)
+  return_value_open_eth_reg_read$1=0 (00000000000000000000000000000000)
 
 State 21291 file ethoc.c line 247 function ethoc_read thread 0
 ----------------------------------------------------
-  mode=2048 (00000000000000000000100000000000)
+  mode=0 (00000000000000000000000000000000)
 
 State 21293 file ethoc.c line 312 function ethoc_disable_rx_and_tx thread 0
 ----------------------------------------------------
-  mode=2048 (00000000000000000000100000000000)
+  mode=0 (00000000000000000000000000000000)
 
 State 21296 file ethoc.c line 313 function ethoc_disable_rx_and_tx thread 0
 ----------------------------------------------------
@@ -2002,11 +1977,11 @@ State 21297 file ethoc.c line 313 function ethoc_disable_rx_and_tx thread 0
 
 State 21298 file ethoc.c line 313 function ethoc_disable_rx_and_tx thread 0
 ----------------------------------------------------
-  data=2048 (00000000000000000000100000000000)
+  data=0 (00000000000000000000000000000000)
 
 State 21307 file ethoc.c line 247 function ethoc_read thread 0
 ----------------------------------------------------
-  dev=((struct ethoc *)NULL) (00000000000000000000000000000000)
+  dev=NULL (00000000000000000000000000000000)
 
 State 21308 file ethoc.c line 247 function ethoc_read thread 0
 ----------------------------------------------------
@@ -2050,7 +2025,7 @@ State 21319 file ../../../qemu-hw/ethoc/opencores_eth.c line 364 function open_e
 
 State 21322 file ../../../qemu-hw/ethoc/opencores_eth.c line 370 function open_eth_reg_read thread 0
 ----------------------------------------------------
-  val=2048 (00000000000000000000100000000000)
+  val=0 (00000000000000000000000000000000)
 
 State 21325 file ../../../qemu-hw/ethoc/opencores_eth.c line 373 function open_eth_reg_read thread 0
 ----------------------------------------------------
@@ -2058,21 +2033,21 @@ State 21325 file ../../../qemu-hw/ethoc/opencores_eth.c line 373 function open_e
 
 State 21326 file ../../../qemu-hw/ethoc/opencores_eth.c line 373 function open_eth_reg_read thread 0
 ----------------------------------------------------
-  v=2048 (00000000000000000000100000000000)
+  v=0 (00000000000000000000000000000000)
 MAC[%x] -> %x
 
 
 State 21330 file ../../../qemu-hw/ethoc/opencores_eth.c line 375 function open_eth_reg_read thread 0
 ----------------------------------------------------
-  return_value_open_eth_reg_read$1=2048 (00000000000000000000100000000000)
+  return_value_open_eth_reg_read$1=0 (00000000000000000000000000000000)
 
 State 21332 file ethoc.c line 247 function ethoc_read thread 0
 ----------------------------------------------------
-  mode=2048 (00000000000000000000100000000000)
+  mode=0 (00000000000000000000000000000000)
 
 State 21334 file ethoc.c line 373 function ethoc_reset thread 0
 ----------------------------------------------------
-  mode=43008 (00000000000000001010100000000000)
+  mode=40960 (00000000000000001010000000000000)
 
 State 21337 file ethoc.c line 374 function ethoc_reset thread 0
 ----------------------------------------------------
@@ -2084,11 +2059,11 @@ State 21338 file ethoc.c line 374 function ethoc_reset thread 0
 
 State 21339 file ethoc.c line 374 function ethoc_reset thread 0
 ----------------------------------------------------
-  data=43008 (00000000000000001010100000000000)
+  data=40960 (00000000000000001010000000000000)
 
 State 21347 file ethoc.c line 247 function ethoc_read thread 0
 ----------------------------------------------------
-  dev=((struct ethoc *)NULL) (00000000000000000000000000000000)
+  dev=NULL (00000000000000000000000000000000)
 
 State 21348 file ethoc.c line 247 function ethoc_read thread 0
 ----------------------------------------------------
@@ -2132,7 +2107,7 @@ State 21359 file ../../../qemu-hw/ethoc/opencores_eth.c line 364 function open_e
 
 State 21362 file ../../../qemu-hw/ethoc/opencores_eth.c line 370 function open_eth_reg_read thread 0
 ----------------------------------------------------
-  val=2048 (00000000000000000000100000000000)
+  val=0 (00000000000000000000000000000000)
 
 State 21365 file ../../../qemu-hw/ethoc/opencores_eth.c line 373 function open_eth_reg_read thread 0
 ----------------------------------------------------
@@ -2140,21 +2115,21 @@ State 21365 file ../../../qemu-hw/ethoc/opencores_eth.c line 373 function open_e
 
 State 21366 file ../../../qemu-hw/ethoc/opencores_eth.c line 373 function open_eth_reg_read thread 0
 ----------------------------------------------------
-  v=2048 (00000000000000000000100000000000)
+  v=0 (00000000000000000000000000000000)
 MAC[%x] -> %x
 
 
 State 21370 file ../../../qemu-hw/ethoc/opencores_eth.c line 375 function open_eth_reg_read thread 0
 ----------------------------------------------------
-  return_value_open_eth_reg_read$1=2048 (00000000000000000000100000000000)
+  return_value_open_eth_reg_read$1=0 (00000000000000000000000000000000)
 
 State 21372 file ethoc.c line 247 function ethoc_read thread 0
 ----------------------------------------------------
-  mode=2048 (00000000000000000000100000000000)
+  mode=0 (00000000000000000000000000000000)
 
 State 21374 file ethoc.c line 378 function ethoc_reset thread 0
 ----------------------------------------------------
-  mode=3072 (00000000000000000000110000000000)
+  mode=1024 (00000000000000000000010000000000)
 
 State 21377 file ethoc.c line 379 function ethoc_reset thread 0
 ----------------------------------------------------
@@ -2166,7 +2141,7 @@ State 21378 file ethoc.c line 379 function ethoc_reset thread 0
 
 State 21379 file ethoc.c line 379 function ethoc_reset thread 0
 ----------------------------------------------------
-  data=3072 (00000000000000000000110000000000)
+  data=1024 (00000000000000000000010000000000)
 
 State 21388 file ethoc.c line 380 function ethoc_reset thread 0
 ----------------------------------------------------
@@ -2182,7 +2157,7 @@ State 21390 file ethoc.c line 380 function ethoc_reset thread 0
 
 State 21398 file ethoc.c line 299 function ethoc_ack_irq thread 0
 ----------------------------------------------------
-  dev=((struct ethoc *)NULL) (00000000000000000000000000000000)
+  dev=NULL (00000000000000000000000000000000)
 
 State 21399 file ethoc.c line 299 function ethoc_ack_irq thread 0
 ----------------------------------------------------
@@ -2210,7 +2185,7 @@ State 21406 file ethoc.c line 299 function ethoc_ack_irq thread 0
 
 State 21415 file ethoc.c line 285 function ethoc_enable_irq thread 0
 ----------------------------------------------------
-  dev=((struct ethoc *)NULL) (00000000000000000000000000000000)
+  dev=NULL (00000000000000000000000000000000)
 
 State 21416 file ethoc.c line 285 function ethoc_enable_irq thread 0
 ----------------------------------------------------
@@ -2230,7 +2205,7 @@ State 21419 file ethoc.c line 285 function ethoc_enable_irq thread 0
 
 State 21421 file ethoc.c line 247 function ethoc_read thread 0
 ----------------------------------------------------
-  dev=((struct ethoc *)NULL) (00000000000000000000000000000000)
+  dev=NULL (00000000000000000000000000000000)
 
 State 21422 file ethoc.c line 247 function ethoc_read thread 0
 ----------------------------------------------------
@@ -2312,7 +2287,7 @@ State 21453 file ethoc.c line 287 function ethoc_enable_irq thread 0
 
 State 21462 file ethoc.c line 304 function ethoc_enable_rx_and_tx thread 0
 ----------------------------------------------------
-  dev=((struct ethoc *)NULL) (00000000000000000000000000000000)
+  dev=NULL (00000000000000000000000000000000)
 
 State 21463 file ethoc.c line 304 function ethoc_enable_rx_and_tx thread 0
 ----------------------------------------------------
@@ -2324,7 +2299,7 @@ State 21464 file ethoc.c line 304 function ethoc_enable_rx_and_tx thread 0
 
 State 21466 file ethoc.c line 247 function ethoc_read thread 0
 ----------------------------------------------------
-  dev=((struct ethoc *)NULL) (00000000000000000000000000000000)
+  dev=NULL (00000000000000000000000000000000)
 
 State 21467 file ethoc.c line 247 function ethoc_read thread 0
 ----------------------------------------------------
@@ -2368,7 +2343,7 @@ State 21478 file ../../../qemu-hw/ethoc/opencores_eth.c line 364 function open_e
 
 State 21481 file ../../../qemu-hw/ethoc/opencores_eth.c line 370 function open_eth_reg_read thread 0
 ----------------------------------------------------
-  val=2048 (00000000000000000000100000000000)
+  val=40960 (00000000000000001010000000000000)
 
 State 21484 file ../../../qemu-hw/ethoc/opencores_eth.c line 373 function open_eth_reg_read thread 0
 ----------------------------------------------------
@@ -2376,21 +2351,21 @@ State 21484 file ../../../qemu-hw/ethoc/opencores_eth.c line 373 function open_e
 
 State 21485 file ../../../qemu-hw/ethoc/opencores_eth.c line 373 function open_eth_reg_read thread 0
 ----------------------------------------------------
-  v=2048 (00000000000000000000100000000000)
+  v=40960 (00000000000000001010000000000000)
 MAC[%x] -> %x
 
 
 State 21489 file ../../../qemu-hw/ethoc/opencores_eth.c line 375 function open_eth_reg_read thread 0
 ----------------------------------------------------
-  return_value_open_eth_reg_read$1=2048 (00000000000000000000100000000000)
+  return_value_open_eth_reg_read$1=40960 (00000000000000001010000000000000)
 
 State 21491 file ethoc.c line 247 function ethoc_read thread 0
 ----------------------------------------------------
-  mode=2048 (00000000000000000000100000000000)
+  mode=40960 (00000000000000001010000000000000)
 
 State 21493 file ethoc.c line 305 function ethoc_enable_rx_and_tx thread 0
 ----------------------------------------------------
-  mode=2051 (00000000000000000000100000000011)
+  mode=40963 (00000000000000001010000000000011)
 
 State 21496 file ethoc.c line 306 function ethoc_enable_rx_and_tx thread 0
 ----------------------------------------------------
@@ -2402,7 +2377,7 @@ State 21497 file ethoc.c line 306 function ethoc_enable_rx_and_tx thread 0
 
 State 21498 file ethoc.c line 306 function ethoc_enable_rx_and_tx thread 0
 ----------------------------------------------------
-  data=2051 (00000000000000000000100000000011)
+  data=40963 (00000000000000001010000000000011)
 
 State 21508 file ethoc.c line 711 function ethoc_open thread 0
 ----------------------------------------------------
@@ -2410,7 +2385,7 @@ State 21508 file ethoc.c line 711 function ethoc_open thread 0
 
 State 21510 file netdevice.h line 149 function netif_queue_stopped thread 0
 ----------------------------------------------------
-  dev=((struct net_device *)NULL) (00000000000000000000000000000000)
+  dev=NULL (00000000000000000000000000000000)
 
 State 21511 file netdevice.h line 149 function netif_queue_stopped thread 0
 ----------------------------------------------------
@@ -2422,7 +2397,7 @@ State 21512 file netdevice.h line 149 function netif_queue_stopped thread 0
 
 State 21517 file netdevice.h line 173 function netif_start_queue thread 0
 ----------------------------------------------------
-  dev=((struct net_device *)NULL) (00000000000000000000000000000000)
+  dev=NULL (00000000000000000000000000000000)
 
 State 21518 file netdevice.h line 173 function netif_start_queue thread 0
 ----------------------------------------------------
@@ -2430,7 +2405,7 @@ State 21518 file netdevice.h line 173 function netif_start_queue thread 0
 
 State 21521 file napi.h line 114 function napi_enable thread 0
 ----------------------------------------------------
-  n=((struct napi_struct *)NULL) (00000000000000000000000000000000)
+  n=NULL (00000000000000000000000000000000)
 
 State 21522 file napi.h line 114 function napi_enable thread 0
 ----------------------------------------------------
@@ -2442,7 +2417,7 @@ State 21523 file napi.h line 114 function napi_enable thread 0
 
 State 21525 file napi.h line 50 function test_and_clear thread 0
 ----------------------------------------------------
-  flag=((int *)NULL) (00000000000000000000000000000000)
+  flag=NULL (00000000000000000000000000000000)
 
 State 21526 file napi.h line 50 function test_and_clear thread 0
 ----------------------------------------------------
@@ -2458,10 +2433,10 @@ State 21528 file napi.h line 51 function test_and_clear thread 0
 
 State 21529 file napi.h line 52 function test_and_clear thread 0
 ----------------------------------------------------
-  ethoc={ .num_tx=2, .cur_tx=0, .dty_tx=0, .num_rx=3, .cur_rx=0,
-    .dma_buf=dma_buf, .dma_regions=dma_regions, .netdev=&netdev!0@1.mc,
+  ethoc={ .num_tx=4, .cur_tx=0, .dty_tx=0, .num_rx=4, .cur_rx=0,
+    .dma_buf=&dma_buf[0], .dma_regions=&dma_regions[0], .netdev=&netdev!0@1.mc,
     .napi={ .complete=0, .weight=0, .sched=0, .is_disabling=0, .poll=&ethoc_poll }, .phy_id=1,
-    .$pad0=0, .open_eth=&open_eth.nic } ({ 00000000000000000000000000000010, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000011, 00000000000000000000000000000000, 00010101000000000000000000000000, 00000010000000000000000000000000, 00000011000000000000000000000000, { 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00010011000000000000000000000000 }, 00000001, 000000000000000000000000, 00000110000000000000000000000000 })
+    .$pad0=0, .open_eth=&open_eth.nic } ({ 00000000000000000000000000000100, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000100, 00000000000000000000000000000000, 00010101000000000000000000000000, 00000010000000000000000000000000, 00000011000000000000000000000000, { 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00010011000000000000000000000000 }, 00000001, 000000000000000000000000, 00000110000000000000000000000000 })
 
 State 21530 file napi.h line 54 function test_and_clear thread 0
 ----------------------------------------------------
@@ -2493,7 +2468,7 @@ State 21543 file ethoc.c line 1012 function main thread 0
 
 State 21546 file ethoc.c line 1017 function main thread 0
 ----------------------------------------------------
-  mac_addr=mac_addr!0@1 (00010100000000000000000000000000)
+  mac_addr=&mac_addr!0@1[0] (00010100000000000000000000000000)
 
 State 21547 file ethoc.c line 1017 function main thread 0
 ----------------------------------------------------
@@ -2517,7 +2492,7 @@ State 21561 file ethoc.c line 1036 function main thread 0
 
 State 21562 file ethoc.c line 728 function ethoc_stop thread 0
 ----------------------------------------------------
-  priv=((struct ethoc *)NULL) (00000000000000000000000000000000)
+  priv=NULL (00000000000000000000000000000000)
 
 State 21563 file ethoc.c line 728 function ethoc_stop thread 0
 ----------------------------------------------------
@@ -2525,7 +2500,7 @@ State 21563 file ethoc.c line 728 function ethoc_stop thread 0
 
 State 21565 file netdevice.h line 135 function netdev_priv thread 0
 ----------------------------------------------------
-  dev=((struct net_device *)NULL) (00000000000000000000000000000000)
+  dev=NULL (00000000000000000000000000000000)
 
 State 21566 file netdevice.h line 135 function netdev_priv thread 0
 ----------------------------------------------------
@@ -2541,7 +2516,7 @@ State 21569 file ethoc.c line 728 function ethoc_stop thread 0
 
 State 21571 file napi.h line 126 function napi_disable thread 0
 ----------------------------------------------------
-  n=((struct napi_struct *)NULL) (00000000000000000000000000000000)
+  n=NULL (00000000000000000000000000000000)
 
 State 21572 file napi.h line 126 function napi_disable thread 0
 ----------------------------------------------------
@@ -2549,10 +2524,10 @@ State 21572 file napi.h line 126 function napi_disable thread 0
 
 State 21573 file napi.h line 126 function napi_disable thread 0
 ----------------------------------------------------
-  ethoc={ .num_tx=2, .cur_tx=0, .dty_tx=0, .num_rx=3, .cur_rx=0,
-    .dma_buf=dma_buf, .dma_regions=dma_regions, .netdev=&netdev!0@1.mc,
+  ethoc={ .num_tx=4, .cur_tx=0, .dty_tx=0, .num_rx=4, .cur_rx=0,
+    .dma_buf=&dma_buf[0], .dma_regions=&dma_regions[0], .netdev=&netdev!0@1.mc,
     .napi={ .complete=0, .weight=0, .sched=0, .is_disabling=1, .poll=&ethoc_poll }, .phy_id=1,
-    .$pad0=0, .open_eth=&open_eth.nic } ({ 00000000000000000000000000000010, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000011, 00000000000000000000000000000000, 00010101000000000000000000000000, 00000010000000000000000000000000, 00000011000000000000000000000000, { 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000001, 00010011000000000000000000000000 }, 00000001, 000000000000000000000000, 00000110000000000000000000000000 })
+    .$pad0=0, .open_eth=&open_eth.nic } ({ 00000000000000000000000000000100, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000100, 00000000000000000000000000000000, 00010101000000000000000000000000, 00000010000000000000000000000000, 00000011000000000000000000000000, { 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000001, 00010011000000000000000000000000 }, 00000001, 000000000000000000000000, 00000110000000000000000000000000 })
 
 State 21574 file napi.h line 128 function napi_disable thread 0
 ----------------------------------------------------
@@ -2560,7 +2535,7 @@ State 21574 file napi.h line 128 function napi_disable thread 0
 
 State 21576 file napi.h line 37 function test_and_set thread 0
 ----------------------------------------------------
-  flag=((int *)NULL) (00000000000000000000000000000000)
+  flag=NULL (00000000000000000000000000000000)
 
 State 21577 file napi.h line 37 function test_and_set thread 0
 ----------------------------------------------------
@@ -2576,10 +2551,10 @@ State 21579 file napi.h line 38 function test_and_set thread 0
 
 State 21580 file napi.h line 39 function test_and_set thread 0
 ----------------------------------------------------
-  ethoc={ .num_tx=2, .cur_tx=0, .dty_tx=0, .num_rx=3, .cur_rx=0,
-    .dma_buf=dma_buf, .dma_regions=dma_regions, .netdev=&netdev!0@1.mc,
+  ethoc={ .num_tx=4, .cur_tx=0, .dty_tx=0, .num_rx=4, .cur_rx=0,
+    .dma_buf=&dma_buf[0], .dma_regions=&dma_regions[0], .netdev=&netdev!0@1.mc,
     .napi={ .complete=0, .weight=0, .sched=1, .is_disabling=1, .poll=&ethoc_poll }, .phy_id=1,
-    .$pad0=0, .open_eth=&open_eth.nic } ({ 00000000000000000000000000000010, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000011, 00000000000000000000000000000000, 00010101000000000000000000000000, 00000010000000000000000000000000, 00000011000000000000000000000000, { 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000001, 00000000000000000000000000000001, 00010011000000000000000000000000 }, 00000001, 000000000000000000000000, 00000110000000000000000000000000 })
+    .$pad0=0, .open_eth=&open_eth.nic } ({ 00000000000000000000000000000100, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000100, 00000000000000000000000000000000, 00010101000000000000000000000000, 00000010000000000000000000000000, 00000011000000000000000000000000, { 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000001, 00000000000000000000000000000001, 00010011000000000000000000000000 }, 00000001, 000000000000000000000000, 00000110000000000000000000000000 })
 
 State 21581 file napi.h line 41 function test_and_set thread 0
 ----------------------------------------------------
@@ -2587,14 +2562,14 @@ State 21581 file napi.h line 41 function test_and_set thread 0
 
 State 21583 file napi.h line 133 function napi_disable thread 0
 ----------------------------------------------------
-  ethoc={ .num_tx=2, .cur_tx=0, .dty_tx=0, .num_rx=3, .cur_rx=0,
-    .dma_buf=dma_buf, .dma_regions=dma_regions, .netdev=&netdev!0@1.mc,
+  ethoc={ .num_tx=4, .cur_tx=0, .dty_tx=0, .num_rx=4, .cur_rx=0,
+    .dma_buf=&dma_buf[0], .dma_regions=&dma_regions[0], .netdev=&netdev!0@1.mc,
     .napi={ .complete=0, .weight=0, .sched=1, .is_disabling=0, .poll=&ethoc_poll }, .phy_id=1,
-    .$pad0=0, .open_eth=&open_eth.nic } ({ 00000000000000000000000000000010, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000011, 00000000000000000000000000000000, 00010101000000000000000000000000, 00000010000000000000000000000000, 00000011000000000000000000000000, { 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000001, 00000000000000000000000000000000, 00010011000000000000000000000000 }, 00000001, 000000000000000000000000, 00000110000000000000000000000000 })
+    .$pad0=0, .open_eth=&open_eth.nic } ({ 00000000000000000000000000000100, 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000100, 00000000000000000000000000000000, 00010101000000000000000000000000, 00000010000000000000000000000000, 00000011000000000000000000000000, { 00000000000000000000000000000000, 00000000000000000000000000000000, 00000000000000000000000000000001, 00000000000000000000000000000000, 00010011000000000000000000000000 }, 00000001, 000000000000000000000000, 00000110000000000000000000000000 })
 
 State 21586 file ethoc.c line 311 function ethoc_disable_rx_and_tx thread 0
 ----------------------------------------------------
-  dev=((struct ethoc *)NULL) (00000000000000000000000000000000)
+  dev=NULL (00000000000000000000000000000000)
 
 State 21587 file ethoc.c line 311 function ethoc_disable_rx_and_tx thread 0
 ----------------------------------------------------
@@ -2606,7 +2581,7 @@ State 21588 file ethoc.c line 311 function ethoc_disable_rx_and_tx thread 0
 
 State 21590 file ethoc.c line 247 function ethoc_read thread 0
 ----------------------------------------------------
-  dev=((struct ethoc *)NULL) (00000000000000000000000000000000)
+  dev=NULL (00000000000000000000000000000000)
 
 State 21591 file ethoc.c line 247 function ethoc_read thread 0
 ----------------------------------------------------
@@ -2650,7 +2625,7 @@ State 21602 file ../../../qemu-hw/ethoc/opencores_eth.c line 364 function open_e
 
 State 21605 file ../../../qemu-hw/ethoc/opencores_eth.c line 370 function open_eth_reg_read thread 0
 ----------------------------------------------------
-  val=2048 (00000000000000000000100000000000)
+  val=1024 (00000000000000000000010000000000)
 
 State 21608 file ../../../qemu-hw/ethoc/opencores_eth.c line 373 function open_eth_reg_read thread 0
 ----------------------------------------------------
@@ -2658,21 +2633,21 @@ State 21608 file ../../../qemu-hw/ethoc/opencores_eth.c line 373 function open_e
 
 State 21609 file ../../../qemu-hw/ethoc/opencores_eth.c line 373 function open_eth_reg_read thread 0
 ----------------------------------------------------
-  v=2048 (00000000000000000000100000000000)
+  v=1024 (00000000000000000000010000000000)
 MAC[%x] -> %x
 
 
 State 21613 file ../../../qemu-hw/ethoc/opencores_eth.c line 375 function open_eth_reg_read thread 0
 ----------------------------------------------------
-  return_value_open_eth_reg_read$1=2048 (00000000000000000000100000000000)
+  return_value_open_eth_reg_read$1=1024 (00000000000000000000010000000000)
 
 State 21615 file ethoc.c line 247 function ethoc_read thread 0
 ----------------------------------------------------
-  mode=2048 (00000000000000000000100000000000)
+  mode=1024 (00000000000000000000010000000000)
 
 State 21617 file ethoc.c line 312 function ethoc_disable_rx_and_tx thread 0
 ----------------------------------------------------
-  mode=2048 (00000000000000000000100000000000)
+  mode=1024 (00000000000000000000010000000000)
 
 State 21620 file ethoc.c line 313 function ethoc_disable_rx_and_tx thread 0
 ----------------------------------------------------
@@ -2684,7 +2659,7 @@ State 21621 file ethoc.c line 313 function ethoc_disable_rx_and_tx thread 0
 
 State 21622 file ethoc.c line 313 function ethoc_disable_rx_and_tx thread 0
 ----------------------------------------------------
-  data=2048 (00000000000000000000100000000000)
+  data=1024 (00000000000000000000010000000000)
 
 State 21632 file ethoc.c line 1042 function main thread 0
 ----------------------------------------------------
@@ -2700,7 +2675,7 @@ State 21634 file ethoc.c line 1050 function main thread 0
 
 State 21637 file ethoc.c line 261 function ethoc_read_bd thread 0
 ----------------------------------------------------
-  dev=((struct ethoc *)NULL) (00000000000000000000000000000000)
+  dev=NULL (00000000000000000000000000000000)
 
 State 21638 file ethoc.c line 261 function ethoc_read_bd thread 0
 ----------------------------------------------------
@@ -2712,11 +2687,11 @@ State 21639 file ethoc.c line 261 function ethoc_read_bd thread 0
 
 State 21640 file ethoc.c line 261 function ethoc_read_bd thread 0
 ----------------------------------------------------
-  index=2 (00000000000000000000000000000010)
+  index=4 (00000000000000000000000000000100)
 
 State 21641 file ethoc.c line 261 function ethoc_read_bd thread 0
 ----------------------------------------------------
-  bd=((struct ethoc_bd *)NULL) (00000000000000000000000000000000)
+  bd=NULL (00000000000000000000000000000000)
 
 State 21642 file ethoc.c line 261 function ethoc_read_bd thread 0
 ----------------------------------------------------
@@ -2728,7 +2703,7 @@ State 21643 file ethoc.c line 261 function ethoc_read_bd thread 0
 
 State 21644 file ethoc.c line 261 function ethoc_read_bd thread 0
 ----------------------------------------------------
-  addr=16 (00000000000000000000000000010000)
+  addr=32 (00000000000000000000000000100000)
 
 State 21645 file ethoc.c line 262 function ethoc_read_bd thread 0
 ----------------------------------------------------
@@ -2740,7 +2715,7 @@ State 21648 file ethoc.c line 262 function ethoc_read_bd thread 0
 
 State 21649 file ethoc.c line 262 function ethoc_read_bd thread 0
 ----------------------------------------------------
-  addr=16 (00000000000000000000000000010000)
+  addr=32 (00000000000000000000000000100000)
 
 State 21650 file ../../../qemu-hw/ethoc/opencores_eth.c line 500 function open_eth_desc_read thread 0
 ----------------------------------------------------
@@ -2748,7 +2723,7 @@ State 21650 file ../../../qemu-hw/ethoc/opencores_eth.c line 500 function open_e
 
 State 21652 file ../../../qemu-hw/ethoc/opencores_eth.c line 100 function get_desc_at thread 0
 ----------------------------------------------------
-  s=((struct OpenEthState *)NULL) (00000000000000000000000000000000)
+  s=NULL (00000000000000000000000000000000)
 
 State 21653 file ../../../qemu-hw/ethoc/opencores_eth.c line 100 function get_desc_at thread 0
 ----------------------------------------------------
@@ -2760,11 +2735,11 @@ State 21654 file ../../../qemu-hw/ethoc/opencores_eth.c line 100 function get_de
 
 State 21655 file ../../../qemu-hw/ethoc/opencores_eth.c line 100 function get_desc_at thread 0
 ----------------------------------------------------
-  addr=16 (00000000000000000000000000010000)
+  addr=32 (00000000000000000000000000100000)
 
 State 21656 file ../../../qemu-hw/ethoc/opencores_eth.c line 100 function get_desc_at thread 0
 ----------------------------------------------------
-  addr=16 (00000000000000000000000000010000)
+  addr=32 (00000000000000000000000000100000)
 
 State 21657 file ../../../qemu-hw/ethoc/opencores_eth.c line 101 function get_desc_at thread 0
 ----------------------------------------------------
@@ -2772,7 +2747,7 @@ State 21657 file ../../../qemu-hw/ethoc/opencores_eth.c line 101 function get_de
 
 State 21661 file ../../../qemu-hw/ethoc/opencores_eth.c line 503 function open_eth_desc_read thread 0
 ----------------------------------------------------
-  addr=16 (00000000000000000000000000010000)
+  addr=32 (00000000000000000000000000100000)
 
 State 21662 file ../../../qemu-hw/ethoc/opencores_eth.c line 503 function open_eth_desc_read thread 0
 ----------------------------------------------------
@@ -2803,24 +2778,24 @@ VERIFICATION FAILED
 10
 ### /usr/bin/time -v:
 Command exited with non-zero status 10
-	Command being timed: "/nas/mictau/from-clpc8/cprover.git/src/cbmc/cbmc --unwind 1 --partial-loops --no-unwinding-assertions ../ethoc_sw_hw_m32_prop5.gb"
-	User time (seconds): 1569.58
-	System time (seconds): 16.31
+	Command being timed: "/nas/mictau/SVNS/cbmc-r2030+concurrency --unwind 1 --partial-loops --no-unwinding-assertions ../ethoc_sw_hw_m32_prop5.gb"
+	User time (seconds): 1680.67
+	System time (seconds): 15.23
 	Percent of CPU this job got: 99%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 26:29.53
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 28:19.74
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 152234272
+	Maximum resident set size (kbytes): 38641760
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 13301590
-	Voluntary context switches: 34
-	Involuntary context switches: 1897
+	Minor (reclaiming a frame) page faults: 13474908
+	Voluntary context switches: 27
+	Involuntary context switches: 2136
 	Swaps: 0
 	File system inputs: 0
-	File system outputs: 392
+	File system outputs: 368
 	Socket messages sent: 0
 	Socket messages received: 0
 	Signals delivered: 0
