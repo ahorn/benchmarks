@@ -65,6 +65,12 @@ the command:
 The __ETHOC__ benchmark exemplifies a known concurrency bug in a NAPI-enabled
 driver for an Ethernet MAC.
 
+The concurrent interactions of software and hardware are best clarified in the
+graphs showing the interleaving of software and hardware model threads. These
+are available in [PNG][ethoc-prop5-msc-png] and [SVG][ethoc-prop5-msc-svg]
+format (the corresponding partial orders used by CBMC are also available in
+graphical form, as [SVG][ethoc-prop5-rel-svg] or [PDF][ethoc-prop5-rel-pdf]).
+
 Summary tables and full log files of these experiments are available at
 [ethoc-hw] for the hardware model, and [ethoc-sw-hw] for the combined
 hardware+software implementation. These tables and results were generated using
@@ -85,5 +91,9 @@ useful resources.
 [ethoc-sw-hw]: http://htmlpreview.github.com/?https://github.com/ahorn/benchmarks/master/doc/ethoc/ethoc-sw-hw.web/index.html
 [ethoc-hw-experiments]: https://github.com/ahorn/benchmarks/blob/master/qemu-hw/ethoc/experiments.sh
 [ethoc-sw-hw-experiments]: https://github.com/ahorn/benchmarks/blob/master/sw-hw/linux/ethoc/experiments.sh
+[ethoc-prop5-msc-png]: https://raw.github.com/ahorn/benchmarks/master/doc/ethoc/prop5.png
+[ethoc-prop5-msc-svg]: https://raw.github.com/ahorn/benchmarks/master/doc/ethoc/prop5.svg
+[ethoc-prop5-rel-svg]: https://raw.github.com/ahorn/benchmarks/master/doc/ethoc/prop5-relations.svg
+[ethoc-prop5-rel-pdf]: https://raw.github.com/ahorn/benchmarks/master/doc/ethoc/prop5-relations.pdf
 [cpbm]: http://www.cprover.org/software/benchmarks/
 [wiki]: https://github.com/ahorn/benchmarks/wiki/_pages
