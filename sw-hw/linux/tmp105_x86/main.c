@@ -83,7 +83,7 @@ int main (int argc, char** argv) {
 #endif
 
     // The length of test sequence 
-    int test_seq_len = 20; 
+    int test_seq_len = 15; 
     for (int test_i = 0; test_i < test_seq_len; test_i++) {
         // We can split this into many different tests
 #ifndef _KLEE_
