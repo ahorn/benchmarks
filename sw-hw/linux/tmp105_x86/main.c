@@ -83,17 +83,20 @@ int main (int argc, char** argv) {
 #endif
 
     // The length of test sequence 
-    int test_seq_len = 15; 
+    int test_seq_len = 20; 
     for (int test_i = 0; test_i < test_seq_len; test_i++) {
         // We can split this into many different tests
 #ifndef _KLEE_
         int switch_case = nondet_int();
 #endif
+#ifdef _CBMC_
+	__CPROVER_assume(switch_case >= 0 && switch_case < 5);
+#endif
 #ifdef _KLEE_
 	int switch_case;
 	klee_make_symbolic(&switch_case, sizeof(switch_case), "switch_case");
+	klee_assume(switch_case >= 0 && switch_case < 5);
 #endif
-
         switch (switch_case) {
             case 0:
                 show_temp (&client.dev,
