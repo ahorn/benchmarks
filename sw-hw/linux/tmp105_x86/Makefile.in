@@ -1,4 +1,4 @@
-# Configure this 7 variables according to your computer environment
+# Configure the following variables according to your computer environment
 CC = gcc
 CBMC = cbmc
 GTCC = goto-cc

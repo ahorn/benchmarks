@@ -1,5 +1,5 @@
 # Configure this 4 variables according to your computer environment
-CBMC = ~/Work/tools/cbmc-4.3/cbmc
+CBMC = cbmc
 LLVM_GCC = llvm-gcc
 LLVM_LD = llvm-ld
 KLEE = klee
@@ -57,4 +57,4 @@ clean:
 
 clean-klee:
 	@echo ------------- Clean folers...
-	@rm -rf $(LLVM_BC) test.bc test  #klee*
+	@rm -rf $(LLVM_BC) test.bc test
