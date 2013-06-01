@@ -367,7 +367,7 @@ void rtc_verify(void)
 #endif
 #else 
 #ifdef __EXPOSE_BUG__
-    check_time_with_current_mode();
+   register_b_set_flag();
 #else
    check_clock_cbmc();
 #endif
