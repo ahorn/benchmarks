@@ -1,0 +1,7 @@
+KLEE: WARNING: undefined reference to function: fcntl
+KLEE: WARNING: undefined reference to function: ioctl
+KLEE: WARNING: undefined reference to function: time
+KLEE: WARNING: undefined reference to function: write
+KLEE: WARNING ONCE: calling external: ioctl(0, 21505, 39358784)
+KLEE: WARNING ONCE: calling external: time(39149616)
+KLEE: WARNING ONCE: calling external: gettimeofday(39535072, 0)

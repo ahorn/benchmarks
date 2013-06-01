@@ -1,0 +1,2 @@
+KLEE: ERROR: /users/lliang/benchmarks/qemu-hw/rtc/mc146818rtc.c:427: ASSERTION FAIL: s->cmos_data_copy[rtc_data_addr] == s->cmos_data[rtc_data_addr]
+KLEE: NOTE: now ignoring this error at this location

@@ -1,0 +1,7 @@
+Error: ASSERTION FAIL: s->cmos_data_copy[rtc_data_addr] == s->cmos_data[rtc_data_addr]
+File: /users/lliang/benchmarks/qemu-hw/rtc/mc146818rtc.c
+Line: 427
+Stack: 
+	#0 00001731 in qverify_outb (s.0.0.val=39351232, addr=113, value=38) at /users/lliang/benchmarks/qemu-hw/rtc/mc146818rtc.c:427
+	#1 00000159 in __user_main () at /users/lliang/benchmarks/qemu-hw/rtc/rtc-verify.c:259
+	#2 00002590 in main (=1, =37122560)
