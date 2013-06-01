@@ -1,7 +1,0 @@
-Error: ASSERTION FAIL: (((t - s) < 0) ? -(t - s) : (t - s)) <= wiggle
-File: /users/lliang/benchmarks/qemu-hw/rtc/rtc-verify.c
-Line: 153
-Stack: 
-	#0 00002401 in check_time () at /users/lliang/benchmarks/qemu-hw/rtc/rtc-verify.c:153
-	#1 00000155 in __user_main () at /users/lliang/benchmarks/qemu-hw/rtc/rtc-verify.c:161
-	#2 00003998 in main (=1, =44571504)
