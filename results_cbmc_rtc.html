@@ -1,0 +1,522 @@
+<html>
+  <head>
+    <title>Experimental Results for the RTC Benchmark</title>
+    <link rel="stylesheet" type="text/css" href="style/cprover.css">
+  </head>
+<body>
+<br>
+<h2>CBMC Experimental Results for the RTC Benchmark</h2>
+<table border="1" style="border-collapse: collapse">
+  <tr bgcolor=lightgrey>
+    <th colspan=25><font size=+1>RTC Hardware/Software Model (49119 Lines of Code)</th>
+  </tr>
+  <tr>
+    <th>Property</th>
+    <th>Result</th>
+    <th>No. of Constraints</th>
+    <th>No. of Clauses</th>
+    <th>No. of Variables</th>
+    <th>Runtime Decision Procedure</th>
+    <th>Runtime Total</th>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-nobug-prop1.txt">RTC.1</a></td>
+    <td>Pass</td>
+    <td>61314</td>
+    <td>25797536</td>
+    <td>8917160</td>
+    <td> 67.663s
+</td>
+    <td>2m2.497s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-bug-prop1.txt">RTC.1 (unfixed)</a></td>
+    <td>Failed</td>
+    <td>61065</td>
+    <td>25771226</td>
+    <td>8901239</td>
+    <td> 177.352s
+</td>
+    <td>3m45.268s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-nobug-prop2.txt">RTC.2</a></td>
+    <td>Pass</td>
+    <td>61314</td>
+    <td>26430338</td>
+    <td>9140440</td>
+    <td> 19.281s
+</td>
+    <td>1m11.653s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-bug-prop2.txt">RTC.2 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>61065</td>
+    <td>26403464</td>
+    <td>9124218</td>
+    <td> 19.303s
+</td>
+    <td>1m10.062s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-nobug-prop3.txt">RTC.3</a></td>
+    <td>Pass</td>
+    <td>60648</td>
+    <td>25769903</td>
+    <td>8913869</td>
+    <td> 18.737s
+</td>
+    <td>1m8.537s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-bug-prop3.txt">RTC.3 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>60399</td>
+    <td>25743651</td>
+    <td>8898038</td>
+    <td> 18.525s
+</td>
+    <td>1m11.430s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-nobug-prop4.txt">RTC.4</a></td>
+    <td>Pass</td>
+    <td>60766</td>
+    <td>26422852</td>
+    <td>9136690</td>
+    <td> 19.423s
+</td>
+    <td>1m9.654s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-bug-prop4.txt">RTC.4 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>60517</td>
+    <td>26395978</td>
+    <td>9120468</td>
+    <td> 19.173s
+</td>
+    <td>1m10.774s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-nobug-prop5.txt">RTC.5</a></td>
+    <td>Pass</td>
+    <td>60435</td>
+    <td>26425148</td>
+    <td>9133887</td>
+    <td> 18.884s
+</td>
+    <td>1m9.494s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-bug-prop5.txt">RTC.5 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>60186</td>
+    <td>26398274</td>
+    <td>9117665</td>
+    <td> 18.895s
+</td>
+    <td>1m10.208s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-nobug-prop6.txt">RTC.6</a></td>
+    <td>Pass</td>
+    <td>60295</td>
+    <td>8208764</td>
+    <td>2819538</td>
+    <td> 4.556s
+</td>
+    <td>0m54.136s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-bug-prop6.txt">RTC.6 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>60046</td>
+    <td>8200865</td>
+    <td>2814273</td>
+    <td> 4.551s
+</td>
+    <td>0m52.702s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-nobug-prop7.txt">RTC.7</a></td>
+    <td>Pass</td>
+    <td>60394</td>
+    <td>8759757</td>
+    <td>3004628</td>
+    <td> 4.77s
+</td>
+    <td>0m55.205s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-bug-prop7.txt">RTC.7 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>60145</td>
+    <td>8751259</td>
+    <td>2998972</td>
+    <td> 4.767s
+</td>
+    <td>0m54.128s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-nobug-prop8.txt">RTC.8</a></td>
+    <td>Pass</td>
+    <td>60294</td>
+    <td>24491011</td>
+    <td>8463827</td>
+    <td> 17.255s
+</td>
+    <td>1m9.055s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-bug-prop8.txt">RTC.8 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>60045</td>
+    <td>24465993</td>
+    <td>8448779</td>
+    <td> 17.218s
+</td>
+    <td>1m7.884s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-nobug-prop9.txt">RTC.9</a></td>
+    <td>Pass</td>
+    <td>60294</td>
+    <td>24468704</td>
+    <td>8463868</td>
+    <td> 17.236s
+</td>
+    <td>1m7.665s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-bug-prop9.txt">RTC.9 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>60045</td>
+    <td>24443686</td>
+    <td>8448820</td>
+    <td> 17.165s
+</td>
+    <td>1m6.689s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-nobug-prop10.txt">RTC.10</a></td>
+    <td>Pass</td>
+    <td>60294</td>
+    <td>24781142</td>
+    <td>8572052</td>
+    <td> 17.534s
+</td>
+    <td>1m8.610s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-bug-prop10.txt">RTC.10 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>60045</td>
+    <td>24755818</td>
+    <td>8556808</td>
+    <td> 17.463s
+</td>
+    <td>1m7.760s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-nobug-prop11.txt">RTC.11</a></td>
+    <td>Pass</td>
+    <td>60668</td>
+    <td>25231840</td>
+    <td>8718844</td>
+    <td> 58.963s
+</td>
+    <td>1m52.783s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-bug-prop11.txt">RTC.11 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>60419</td>
+    <td>25206208</td>
+    <td>8703404</td>
+    <td> 58.666s
+</td>
+    <td>1m50.010s
+</td>
+  </tr>
+</table>
+<br><br>
+<table border="1" style="border-collapse: collapse">
+  <tr bgcolor=lightgrey>
+    <th colspan=25><font size=+1>RTC QEMU Hardware Model (1567 Lines of Code)</th>
+  </tr>
+  <tr>
+    <th>Property</th>
+    <th>Result</th>
+    <th>No. of Constraints</th>
+    <th>No. of Clauses</th>
+    <th>No. of Variables</th>
+    <th>Runtime decision procedure</th>
+    <th>Runtime total</th>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-nobug-prop1.txt">RTC.1</a></td>
+    <td>Pass</td>
+    <td>58605</td>
+    <td>26136568</td>
+    <td>8910882</td>
+    <td> 66.092s
+</td>
+    <td>2m4.271s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-bug-prop1.txt">RTC.1 (unfixed)</a></td>
+    <td>Failed</td>
+    <td>24029</td>
+    <td>10180429</td>
+    <td>3475849</td>
+    <td> 39.563s
+</td>
+    <td>0m49.990s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-nobug-prop2.txt">RTC.2</a></td>
+    <td>Pass</td>
+    <td>58605</td>
+    <td>26772974</td>
+    <td>9132347</td>
+    <td> 21.064s
+</td>
+    <td>1m20.584s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-bug-prop2.txt">RTC.2 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>24029</td>
+    <td>10829048</td>
+    <td>3696758</td>
+    <td> 6.176s
+</td>
+    <td>0m15.874s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-nobug-prop3.txt">RTC.3</a></td>
+    <td>Pass</td>
+    <td>57153</td>
+    <td>26754219</td>
+    <td>9122440</td>
+    <td> 20.4s
+</td>
+    <td>1m16.104s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-bug-prop3.txt">RTC.3 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>23351</td>
+    <td>10822120</td>
+    <td>3692903</td>
+    <td> 6.131s
+</td>
+    <td>0m15.528s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-nobug-prop4.txt">RTC.4</a></td>
+    <td>Pass</td>
+    <td>56890</td>
+    <td>26753313</td>
+    <td>9121994</td>
+    <td> 21.519s
+</td>
+    <td>1m13.105s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-bug-prop4.txt">RTC.4 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>23238</td>
+    <td>10821848</td>
+    <td>3692723</td>
+    <td> 6.127s
+</td>
+    <td>0m15.520s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-nobug-prop5.txt">RTC.5</a></td>
+    <td>Pass</td>
+    <td>56933</td>
+    <td>26755420</td>
+    <td>9119008</td>
+    <td> 21.021s
+</td>
+    <td>1m18.661s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-bug-prop5.txt">RTC.5 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>23260</td>
+    <td>10821688</td>
+    <td>3691529</td>
+    <td> 6.118s
+</td>
+    <td>0m15.596s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-nobug-prop6.txt">RTC.6</a></td>
+    <td>Pass</td>
+    <td>56749</td>
+    <td>26752805</td>
+    <td>9121907</td>
+    <td> 20.689s
+</td>
+    <td>1m20.954s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-bug-prop6.txt">RTC.6 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>23177</td>
+    <td>10821606</td>
+    <td>3692677</td>
+    <td> 6.128s
+</td>
+    <td>0m15.625s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-nobug-prop7.txt">RTC.7</a></td>
+    <td>Pass</td>
+    <td>56821</td>
+    <td>26744792</td>
+    <td>9114308</td>
+    <td> 20.259s
+</td>
+    <td>1m16.474s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-bug-prop7.txt">RTC.7 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>23193</td>
+    <td>10819191</td>
+    <td>3690965</td>
+    <td> 6.158s
+</td>
+    <td>0m15.819s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-nobug-prop8.txt">RTC.8</a></td>
+    <td>Pass</td>
+    <td>56797</td>
+    <td>26752762</td>
+    <td>9121916</td>
+    <td> 21.589s
+</td>
+    <td>1m14.647s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-bug-prop8.txt">RTC.8 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>23203</td>
+    <td>10821647</td>
+    <td>3692691</td>
+    <td> 6.243s
+</td>
+    <td>0m16.147s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-nobug-prop9.txt">RTC.9</a></td>
+    <td>Pass</td>
+    <td>56797</td>
+    <td>26752806</td>
+    <td>9121938</td>
+    <td> 20.843s</td>
+    <td>1m18.580s</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-bug-prop9.txt">RTC.9 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>23203</td>
+    <td>10821667</td>
+    <td>3692701</td>
+    <td> 6.238s
+</td>
+    <td>0m16.124s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-nobug-prop10.txt">RTC.10</a></td>
+    <td>Pass</td>
+    <td>56797</td>
+    <td>26752828</td>
+    <td>9121938</td>
+    <td> 20.875s
+</td>
+    <td>1m21.256s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-bug-prop10.txt">RTC.10 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>23203</td>
+    <td>10821677</td>
+    <td>3692701</td>
+    <td> 6.236s
+</td>
+    <td>0m16.110s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-nobug-prop11.txt">RTC.11</a></td>
+    <td>Pass</td>
+    <td>57185</td>
+    <td>26796853</td>
+    <td>9127454</td>
+    <td> 78.632s
+</td>
+    <td>2m11.345s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-bug-prop11.txt">RTC.11 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>23371</td>
+    <td>10836330</td>
+    <td>3694769</td>
+    <td> 27.473s
+</td>
+    <td>0m37.653s
+</td>
+  </tr>
+</table>
+<br><br><br><br>
+</body>
+</html>

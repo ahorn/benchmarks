@@ -1,0 +1,256 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Formal Co-Validation of Low-Level Hardware/Software Interfaces</title>
+    <link rel="stylesheet" type="text/css" href="style/cprover.css">
+    <link rel="stylesheet" type="text/css" href="style/content.css">
+</head>
+<body>
+
+<div id="sidebar">
+
+<p>&nbsp;</p>
+<center>
+<a href="http://www.ox.ac.uk/">
+<img border="0" src="doc/ox_small_cmyk_pos.gif" alt="Oxford University">
+</a>
+</center>
+<p>&nbsp;</p>
+
+<div class="sticky-box">
+<div class="content">
+<div class="caption">Contents</div>
+<ul>
+  <!--<li><a href="#news">News</a></li>-->
+<li><a href="index.html#benchmark">Benchmarks</a></li>
+<li><a href="index.html#manual">Tool usage</a></li>
+<li><a href="index.html#experiment">Experimental results</a></li>
+<li><a href="index.html#people">People</a></li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="main">
+
+<h1 id="paper">Formal Co-Validation of Low-Level Hardware/Software Interfaces</h1>
+
+<h2>Abstract</h2>
+<p>Today's microelectronics industry is increasingly confronted with the challenge of developing and validating software that closely interacts with hardware. These interactions make it difficult to design and validate the hardware and software separately; instead, a verifiable co-design is required that takes them into account. This paper demonstrates a new approach to co-validation of hardware/software interfaces by formal, symbolic co-execution of an executable hardware model combined with the software that interacts with it.
+</p>
+<p>We illustrate and evaluate our technique on three realistic benchmarks in which software I/O is subject to hardware-specific protocol rules: a real-time clock, a temperature sensor on an I2C bus, and an Ethernet MAC. We provide experimental results that show our approach is both feasible as a bug-finding technique and scales to handle a significant degree of concurrency in the combined hardware/software model.
+</p>
+
+<!--<hr>
+<h3 id="news">News</h3>
+
+<ul>
+<li> 15rd of January 2013: Release of the tool </li>
+</ul>
+-->
+
+<hr>
+
+<h2 id="benchmark">Benchmarks</h2>
+
+<font size="3"><b>RTC</b></font>
+<p>The RTC benchmark illustrates the hardware/software interface for a real-time clock. The focus is on Register B and the ten time/calendar and alarm bytes:
+</p>
+
+<center>
+<img src="doc/rtc/rtc_registers.jpg" width="90%" height="60%" alt="RTC Registers">
+</center>
+
+<p>For more information about the RTC hardware, see <a href="http://www.freescale.com/files/microcontrollers/doc/data_sheet/MC146818.pdf">MC146818 data sheet</a>.
+</p>
+
+<font size="3"><b>I2C</b></h4>
+<p>The I2C benchmark illustrates hardware/software interface for a temperature sensor on a serial bus. Thus, this benchmark goes beyond fixed-sized register updates as illustrated by the following waveform:
+</p>
+
+<center>
+<img src="doc/i2c/tmp105-i2c-word-write.jpg" width="100%" height="35%" alt="MP105 I2C Write Word Protocol">
+</center>
+
+<p>For more information about the temperature sensor hardware, see <a href="http://www.ti.com/lit/ds/symlink/tmp105.pdf">TMP105 data sheet</a>.
+</p>
+
+<font size="3"><b>ETHOC	</b></font>
+<p>Our final benchmark concerns interrupt-driven software for an Ethernet
+MAC with a direct-memory access (DMA) ring. This OpenCores Ethernet MAC features 128 DMA buffer
+descriptors, each of which determines the memory that holds
+an Ethernet frame. In the case of RX frames (i.e. incoming frames), 
+the software sets bit 15 in a buffer descriptor to 1 when the associated DMA
+buffer can be overwritten by the hardware. The hardware clears bit 15 to signal to the
+software that the DMA buffer associated with a buffer descriptor contains a
+new RX frame.
+</p>
+
+<center>
+<img src="doc/ethoc/ethoc-arch.jpg" width="100%" height="35%" alt="Ethoc Architecture Overview">
+</center>
+
+<p>For more information about the temperature sensor hardware, see <a href="doc/ethoc/eth_speci.pdf">ETHOC data sheet</a>.
+</p>
+<p>The Ethernet MAC can be configured to generate a hardware interrupt for each RX frame. 
+When interrupts are disabled but RX frames should still be processed, the
+software polls for incoming data. Switching between polling and interrupt mode is known to be
+error-prone, so this benchmark is a good exemplar for concurrency bugs due
+to interrupts in a producer-consumer scenario (see our <a href="index.html#experiment">experimental results</a>).
+</p>
+
+<hr>
+
+<h2 id="manual">Tool usage</h2>
+<p>Our benchmarks can be downloaded <a href="benchmarks.tar">here</a>. We perform our experiments using <a href="http://www.cprover.org/cbmc/">CBMC</a> and <a href="http://klee.llvm.org/">KLEE</a>.
+</p>
+
+<font size="3"><b>RTC</b></font>
+<p>To run the experiments on the RTC HW/SW model using <a href="http://www.cprover.org/cbmc/">CBMC</a>, you can do the following steps from within the folder <tt>sw-hw/linux/rtc_x86</tt>:
+</p>
+
+<ol type="a">
+<li/>Set the environment variables GTCC, GTINST and CBMC in Makefile to locations of the goto-cc, goto-instrument and cbmc binaries. 
+
+<li/> If you want to expose the bug, add -D__EXPOSE_BUG__ to variable VERDEF in Makefile.
+
+<li>Then execute the following command: 
+<div class="instr">
+    $./run_expt.sh [Num of Runs] [Experiment Name] [Property No.(1 to 11)]
+</div></li>
+</ol>
+
+<p>To get the total runtime and runtime spent on the decision procedure, run
+the command:
+</p>
+<div class="instr">
+    $./get_result.sh [(Relative) Path to the Data Folder]
+</div>
+
+<p>You can also run the experiment from propery i to j <b>once</b> by exectuing the 
+following command within the same folder:
+</p>
+<div class="instr">
+    $./run_expt_all.sh [Experiment Name] [ i ] [ j ] 
+</div>
+
+<p>Use the same commands in the folder <tt>qemu-hw/rtc</tt> to run the experiments on the
+standalone HW model with <a href="http://www.cprover.org/cbmc/">CBMC</a>.
+</p>
+
+<p>Outputs of <a href="http://www.cprover.org/cbmc/">CBMC</a> can be found in file <tt>data/data-[Experiment Name]-prop[Property No.].txt</tt>
+</p>
+
+<p>To run experiments with <a href="http://klee.llvm.org/">KLEE</a>, do the following: 
+</p>
+<ol>
+<li/>In Makefile set varialbes LLVM_GCC, LLVM_LD and KLEE to locations of binaries llvm-gcc, llvm-ld and klee
+<li/>Run command
+<div class="instr"> 
+    $ make klee
+</div>
+</ol>
+
+<p>The output of KLEE can be found in folder <tt>klee-last</tt>.
+</p>
+
+<font size="3"><b>I2C</b></font>
+<p>
+Run the same commands as the RTC benchmach with CBMC and KLEE. Go to folder <tt>sw-hw/linux/tmp105_x86</tt> for the HW/SW model and <tt>qemu-hw/tmp105</tt> for the QEMU HW model. 
+</p>
+
+<font size="3"><b>ETHOC</b></font>
+<p>
+We performed all our experiments on the ETHOC benchmark using the <a href="/software/benchmarks">CPROVER benchmarking toolkit</a> and an implementation of a partial-order based approach built into <a href="http://www.cprover.org/cbmc/">CBMC</a>. Until a new version of CBMC is released, the binary (compiled for Linux, 64bit) can be found <a href="http://www.cprover.org/wpo/cbmc">here</a>. The corresponding source code patch is <a href="http://www.cprover.org/wpo/concurrency.patch">available as well</a>.
+</p>
+<p>To run CBMC, do the following:
+<ol type="a">
+<li/>Set the environment variables GOTO_CC, GOTO_INSTRUMENT and CBMC in experiments.sh to locations of goto-cc, goto-instrument and the partial-order based cbmc binary.
+
+<li>Run the command below from within the folder <tt>sw-hw/linux/ethoc</tt> and <tt>qemu-hw/ethoc</tt> to perform experiments on the HW/SW model and the QEMU HW model, repsectively.
+<div class="instr">
+    $./experiments.sh
+</div>
+</li>
+</ol>
+
+<p>Run the following command from within the folder <tt>sw-hw/linux/ethoc</tt> and <tt>qemu-hw/ethoc</tt> to perform experiments on the HW/SW model and the QEMU HW model with  <a href="http://klee.llvm.org/">KLEE</a>, repsectively.
+<div class="instr">
+    $ make klee
+</div>
+</p>
+
+<hr>
+
+<h2 id="experiment">Experimental Results</h2>
+<font size="3"><b>RTC</b></font>
+<p>
+We found a real <a href="http://git.qemu.org/?p=qemu.git;a=commit;h=02c6ccc6dde90dcbf5975b1c">bug</a> in the QEMU RTC hardware model. The bug is exposed through a test that first writes a time or calendar
+register and then writes to one of the control registers of the device. The CBMC logs for exposing the bug in the HW/SW model can be found <a href="doc/rtc/rtc-cbmc/rtc-sw-hw-cbmc/data-rtc-linux-bug-prop1.txt">here</a>. For the QEMU HW model, look see <a href="doc/rtc/rtc-cbmc/rtc-hw-cbmc/data-rtc-qemu-bug-prop1.txt">here</a>.
+</p>
+<p>For more information about our experimental results of RTC benchmarks, see <a href="results_cbmc_rtc.html">here</a> for CBMC and <a href="results_klee.html">here</a> for KLEE.
+</p>
+
+<font size="3"><b>I2C</b></font>
+<p>
+The temperature sensor benchmark also helped to expose a <a href="http://git.qemu.org/?p=qemu.git;a=commit;h=cb5ef3fa1871522a08866270">bug</a> in the QEMU hardware 
+model. The bug causes data on the I2C bus to be lost because of an off-by-one error. 
+The CBMC logs for exposing the bug in the HW/SW model can be found <a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop10.txt">here</a>.
+</p>
+<p>For the combined driver code and hardware model, the idea was to simulate all possible fixed-length sequences of invocations of the driver API, such as might arise in a typical interrupt-driven setting. Our experiments with a bound of 15 driver API calls in the test harness failed to expose a property violation. CBMC timed out after 1800s when the number of API function calls was set to 20.
+</a>
+<p>For more information about our experimental results of I2C benchmarks, see <a href="results_cbmc_i2c.html">here</a> for CBMC and <a href="results_klee.html">here</a> for KLEE.
+</p>
+
+<font size="3"><b>ETHOC</b></font>
+<p>
+The ETHOC benchmark exemplifies a known concurrency <a href="http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=20f70ddd6558a39a89dba4af675686c5a8dbd7b3">bug</a> in a NAPI-enabled driver for an Ethernet MAC. 
+The following figure shows an example, in which
+an RX frame (i.e. incoming frame) arrives just after the check for new RX frames but
+before the RX interrupt sources are cleared. This RX frame will not trigger
+an interrupt until another one arrives. If there are no other
+ones, the delayed RX frame will not be promoted to the socket layer. This
+happens when the driver is stopped, for example due to standby.
+</p>
+
+<center>
+<img src="doc/ethoc/ethoc-bug.jpg" width="80%" height="35%" alt="Incorrect handling of an empty RX buffer descriptor causes potential package loss">
+</center>
+
+<p>The figure below shows how the developer for the `ethoc' driver in the Linux 2.6.38 kernel release fixed the bug.
+</p>
+
+<center>
+<img src="doc/ethoc/ethoc-bug-fix.jpg" width="80%" height="35%" alt="A second buffer descriptor check, after the RX interrupt sources have been cleared, detects intermittent RX frame arrivals.">
+</center>
+
+<p>The concurrent interactions of software and hardware are best clarified in the
+graphs showing the interleaving of software and hardware model threads that reveals the bug. These
+are available in <a href="doc/ethoc/prop5.png">PNG</a> and <a href="doc/ethoc/prop5.svg">SVG</a>
+format (the corresponding partial orders used by CBMC are also available in
+graphical form, as <a href="doc/ethoc/prop5-relations.svg">SVG</a> or <a href="doc/ethoc/prop5-relations.pdf">PDF</a>).
+</p>
+<p>Summary tables and full log files of these experiments are available at
+<a href="doc/ethoc/ethoc-hw.web/index.html">ethoc-hw</a> for the hardware model, and <a href="doc/ethoc/ethoc-sw-hw.web/index.html">ethoc-sw-hw</a> for the combined hardware+software implementation. These tables and results were generated using our <a href="http://www.cprover.org/software/benchmarks/">benchmarking framework</a>.
+</p>
+<hr>
+
+<h2 id="people">People</h2>
+<ul>
+<li><a href="http://www.cs.ox.ac.uk/people/alex.horn">Alex Horn</a>
+</li>
+<li><a href="http://www.cs.ox.ac.uk/people/michael.tautschnig">Michael Tautschnig</a>
+</li>
+<li><a href="http://www.cs.ubc.ca/~vcelina/">Celina Val</a>
+</li>
+<li><a href="http://www.cs.ox.ac.uk/people/lihao.liang">Lihao Liang</a>
+</li>
+<li><a href="http://www.cs.ox.ac.uk/people/tom.melham">Tom Melham</a>
+</li>
+<li><a href="https://sites.google.com/site/grundyjim/home/professional">Jim Grundy</a>
+</li>
+<li><a href="http://www.cs.ox.ac.uk/people/daniel.kroening">Daniel Kroening</a>
+</li>
+</ul>
+
+</div>
+</body></html>

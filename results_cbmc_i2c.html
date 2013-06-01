@@ -1,0 +1,918 @@
+<html>
+  <head>
+    <title>Experimental Results for the I2C Benchmark</title>
+    <link rel="stylesheet" type="text/css" href="style/cprover.css">
+  </head>
+<body>
+<br>
+<h2>CBMC Experimental Results for the I2C Benchmark</h2>
+<table border="1" style="border-collapse: collapse">
+  <tr bgcolor=lightgrey>
+    <th colspan=25><font size=+1>I2C Hardware/Software Model (48946 Lines of Code)</th>
+  </tr>
+  <tr>
+    <th>Property</th>
+    <th>Result</th>
+    <th>No. of Constraints</th>
+    <th>No. of Clauses</th>
+    <th>No. of Variables</th>
+    <th>Runtime Decision Procedure</th>
+    <th>Runtime Total</th>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop1.txt">I2C.1</a></td>
+    <td>Pass</td>
+    <td>159481</td>
+    <td>20020885</td>
+    <td>7339850</td>
+    <td> 417.878s
+</td>
+    <td>13m23.886s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop1.txt">I2C.1 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>159744</td>
+    <td>19840615</td>
+    <td>7351520</td>
+    <td> 430.849s
+</td>
+    <td>13m59.182s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop2.txt">I2C.2</a></td>
+    <td>Pass</td>
+    <td>158391</td>
+    <td>19997082</td>
+    <td>7325831</td>
+    <td> 413.127s
+</td>
+    <td>13m13.083s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop2.txt">I2C.2 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>158654</td>
+    <td>19816812</td>
+    <td>7337501</td>
+    <td> 415.806s
+</td>
+    <td>13m15.252s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop3.txt">I2C.3</a></td>
+    <td>Pass</td>
+    <td>158556</td>
+    <td>20006113</td>
+    <td>7330617</td>
+    <td> 418.215s
+</td>
+    <td>13m15.815s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop3.txt">I2C.3 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>158819</td>
+    <td>19824200</td>
+    <td>7342354</td>
+    <td> 420.652s
+</td>
+    <td>13m14.180s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop4.txt">I2C.4</a></td>
+    <td>Pass</td>
+    <td>158556</td>
+    <td>20023452</td>
+    <td>7337759</td>
+    <td> 416.02s
+</td>
+    <td>13m7.066s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop4.txt">I2C.4 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>158819</td>
+    <td>19841537</td>
+    <td>7349496</td>
+    <td> 420.589s
+</td>
+    <td>13m18.512s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop5.txt">I2C.5</a></td>
+    <td>Pass</td>
+    <td>158556</td>
+    <td>20024494</td>
+    <td>7338044</td>
+    <td> 414.27s
+</td>
+    <td>13m6.194s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop5.txt">I2C.5 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>158819</td>
+    <td>19842551</td>
+    <td>7349781</td>
+    <td> 424.977s
+</td>
+    <td>13m39.940s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop6.txt">I2C.6</a></td>
+    <td>Pass</td>
+    <td>158436</td>
+    <td>19998982</td>
+    <td>7327197</td>
+    <td> 415.978s
+</td>
+    <td>13m3.400s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop6.txt">I2C.6 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>158699</td>
+    <td>19818647</td>
+    <td>7338867</td>
+    <td> 419.162s
+</td>
+    <td>13m25.647s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop7.txt">I2C.7</a></td>
+    <td>Pass</td>
+    <td>158436</td>
+    <td>20007984</td>
+    <td>7330738</td>
+    <td> 414.037s
+</td>
+    <td>13m6.050s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop7.txt">I2C.7 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>158699</td>
+    <td>19827649</td>
+    <td>7342408</td>
+    <td> 416.23s
+</td>
+    <td>13m8.062s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop8.txt">I2C.8</a></td>
+    <td>Pass</td>
+    <td>158436</td>
+    <td>20001601</td>
+    <td>7327333</td>
+    <td> 412.863s
+</td>
+    <td>13m0.486s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop8.txt">I2C.8 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>158699</td>
+    <td>19821266</td>
+    <td>7339003</td>
+    <td> 417.481s
+</td>
+    <td>13m17.503s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop9.txt">I2C.9</a></td>
+    <td>Pass</td>
+    <td>163866</td>
+    <td>20118277</td>
+    <td>7387280</td>
+    <td> 449.291s
+</td>
+    <td>14m14.420s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop9.txt">I2C.9 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>164144</td>
+    <td>19924513</td>
+    <td>7399382</td>
+    <td> 466.109s
+</td>
+    <td>14m31.211s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop10.txt">I2C.10</a></td>
+    <td>Pass</td>
+    <td>164547</td>
+    <td>20074751</td>
+    <td>7395672</td>
+    <td> 432.06s
+</td>
+    <td>14m1.016s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop10.txt">I2C.10 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>164810</td>
+    <td>19892935</td>
+    <td>7407563</td>
+    <td> 438.244s
+</td>
+    <td>14m15.764s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop11.txt">I2C.11</a></td>
+    <td>Pass</td>
+    <td>162381</td>
+    <td>20388706</td>
+    <td>7480868</td>
+    <td> 433.704s
+</td>
+    <td>13m28.636s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop11.txt">I2C.11 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>162644</td>
+    <td>20079411</td>
+    <td>7492508</td>
+    <td> 438.425s
+</td>
+    <td>13m47.399s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop12.txt">I2C.12</a></td>
+    <td>Pass</td>
+    <td>158556</td>
+    <td>20160928</td>
+    <td>7381603</td>
+    <td> 418.607s
+</td>
+    <td>13m9.419s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop12.txt">I2C.12 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>158819</td>
+    <td>19918604</td>
+    <td>7393408</td>
+    <td> 420.884s
+</td>
+    <td>13m16.875s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop13.txt">I2C.13</a></td>
+    <td>Pass</td>
+    <td>158811</td>
+    <td>20009910</td>
+    <td>7332076</td>
+    <td> 423.026s
+</td>
+    <td>13m24.312s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop13.txt">I2C.13 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>159074</td>
+    <td>19827807</td>
+    <td>7343833</td>
+    <td> 438.502s
+</td>
+    <td>13m42.182s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop14.txt">I2C.14</a></td>
+    <td>Pass</td>
+    <td>160596</td>
+    <td>20294436</td>
+    <td>7495055</td>
+    <td> 421.973s
+</td>
+    <td>13m18.677s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop14.txt">I2C.14 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>160859</td>
+    <td>20098988</td>
+    <td>7506796</td>
+    <td> 440.324s
+</td>
+    <td>14m15.961s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop15.txt">I2C.15</a></td>
+    <td>Pass</td>
+    <td>160596</td>
+    <td>20295406</td>
+    <td>7495337</td>
+    <td> 421.739s
+</td>
+    <td>13m20.781s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop15.txt">I2C.15 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>160859</td>
+    <td>20100004</td>
+    <td>7507072</td>
+    <td> 425.796s
+</td>
+    <td>13m32.659s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop16.txt">I2C.16</a></td>
+    <td>Pass</td>
+    <td>158391</td>
+    <td>19997740</td>
+    <td>7326173</td>
+    <td> 413.214s
+</td>
+    <td>13m8.866s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop16.txt">I2C.16 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>158654</td>
+    <td>19817320</td>
+    <td>7337852</td>
+    <td> 428.915s
+</td>
+    <td>13m37.658s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop17.txt">I2C.17</a></td>
+    <td>Pass</td>
+    <td>167481</td>
+    <td>20064678</td>
+    <td>7341968</td>
+    <td> 460.146s
+</td>
+    <td>15m12.867s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop17.txt">I2C.17 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>167744</td>
+    <td>19875712</td>
+    <td>7353727</td>
+    <td> 456.228s
+</td>
+    <td>14m59.372s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop18.txt">I2C.18</a></td>
+    <td>Pass</td>
+    <td>158301</td>
+    <td>19876465</td>
+    <td>7272193</td>
+    <td> 390.117s
+</td>
+    <td>12m41.857s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop18.txt">I2C.18 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>158564</td>
+    <td>19703324</td>
+    <td>7283456</td>
+    <td> 394.416s
+</td>
+    <td>12m49.405s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop19.txt">I2C.19</a></td>
+    <td>Pass</td>
+    <td>158301</td>
+    <td>19876465</td>
+    <td>7272193</td>
+    <td> 393.097s
+</td>
+    <td>12m46.586s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop19.txt">I2C.19 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>158564</td>
+    <td>19703324</td>
+    <td>7283456</td>
+    <td> 394.666s
+</td>
+    <td>12m52.450s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-nobug-prop20.txt">I2C.20</a></td>
+    <td>Pass</td>
+    <td>158301</td>
+    <td>19876465</td>
+    <td>7272193</td>
+    <td> 393.067s
+</td>
+    <td>12m47.983s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-sw-hw-cbmc/data-tmp105-linux-bug-prop20.txt">I2C.20 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>158564</td>
+    <td>19703324</td>
+    <td>7283456</td>
+    <td> 394.49s
+</td>
+    <td>16m7.878s
+</td>
+  </tr>
+</table>
+<br><br>
+<table border="1" style="border-collapse: collapse">
+  <tr bgcolor=lightgrey>
+    <th colspan=25><font size=+1>I2C QEMU Hardware Model (772 Lines of Code)</th>
+  </tr>
+  <tr>
+    <th>Property</th>
+    <th>Result</th>
+    <th>No. of Constraints</th>
+    <th>No. of Clauses</th>
+    <th>No. of Variables</th>
+    <th>Runtime decision procedure</th>
+    <th>Runtime total</th>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop1.txt">I2C.1</a></td>
+    <td>Pass</td>
+    <td>8703</td>
+    <td>181485</td>
+    <td>107104</td>
+    <td> 1.407s
+</td>
+    <td>0m3.609s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop1.txt">I2C.1 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>8202</td>
+    <td>165311</td>
+    <td>105380</td>
+    <td> 1.273s
+</td>
+    <td>0m3.367s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop2.txt">I2C.2</a></td>
+    <td>Pass</td>
+    <td>8493</td>
+    <td>177322</td>
+    <td>104986</td>
+    <td> 1.37s
+</td>
+    <td>0m3.504s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop2.txt">I2C.2 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>8007</td>
+    <td>161484</td>
+    <td>103413</td>
+    <td> 1.243s
+</td>
+    <td>0m3.286s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop3.txt">I2C.3</a></td>
+    <td>Pass</td>
+    <td>8503</td>
+    <td>176311</td>
+    <td>104953</td>
+    <td> 1.372s
+</td>
+    <td>0m3.514s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop3.txt">I2C.3 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>8021</td>
+    <td>160558</td>
+    <td>103384</td>
+    <td> 1.236s
+</td>
+    <td>0m3.278s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop4.txt">I2C.4</a></td>
+    <td>Pass</td>
+    <td>8525</td>
+    <td>179389</td>
+    <td>105503</td>
+    <td> 1.395s
+</td>
+    <td>0m3.537s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop4.txt">I2C.4 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>8043</td>
+    <td>163564</td>
+    <td>103934</td>
+    <td> 1.25s
+</td>
+    <td>0m3.300s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop5.txt">I2C.5</a></td>
+    <td>Pass</td>
+    <td>8525</td>
+    <td>179437</td>
+    <td>105513</td>
+    <td> 1.398s
+</td>
+    <td>0m3.535s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop5.txt">I2C.5 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>8043</td>
+    <td>163612</td>
+    <td>103944</td>
+    <td> 1.449s
+</td>
+    <td>0m3.555s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop6.txt">I2C.6</a></td>
+    <td>Pass</td>
+    <td>8537</td>
+    <td>178192</td>
+    <td>105029</td>
+    <td> 1.388s
+</td>
+    <td>0m3.530s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop6.txt">I2C.6 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>8051</td>
+    <td>162320</td>
+    <td>103456</td>
+    <td> 1.25s
+</td>
+    <td>0m3.309s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop7.txt">I2C.7</a></td>
+    <td>Pass</td>
+    <td>8537</td>
+    <td>179572</td>
+    <td>105713</td>
+    <td> 1.397s
+</td>
+    <td>0m3.545s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop7.txt">I2C.7 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>8051</td>
+    <td>163647</td>
+    <td>104128</td>
+    <td> 1.252s
+</td>
+    <td>0m3.309s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop8.txt">I2C.8</a></td>
+    <td>Pass</td>
+    <td>8537</td>
+    <td>179232</td>
+    <td>105054</td>
+    <td> 1.432s
+</td>
+    <td>0m3.553s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop8.txt">I2C.8 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>8051</td>
+    <td>163297</td>
+    <td>103480</td>
+    <td> 1.267s
+</td>
+    <td>0m3.368s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop9.txt">I2C.9</a></td>
+    <td>Pass</td>
+    <td>8559</td>
+    <td>179495</td>
+    <td>105689</td>
+    <td> 1.405s</td>
+    <td>0m3.602s</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop9.txt">I2C.9 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>8077</td>
+    <td>163678</td>
+    <td>104120</td>
+    <td> 1.252s
+</td>
+    <td>0m3.328s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop10.txt">I2C.10</a></td>
+    <td>Pass</td>
+    <td>9050</td>
+    <td>182631</td>
+    <td>108850</td>
+    <td> 1.489s
+</td>
+    <td>0m3.821s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop10.txt">I2C.10 (unfixed)</a></td>
+    <td>Failed</td>
+    <td>8564</td>
+    <td>166646</td>
+    <td>107234</td>
+    <td> 1.365s
+</td>
+    <td>0m3.641s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop11.txt">I2C.11</a></td>
+    <td>Pass</td>
+    <td>9053</td>
+    <td>199697</td>
+    <td>117187</td>
+    <td> 1.554s
+</td>
+    <td>0m3.840s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop11.txt">I2C.11 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>8571</td>
+    <td>180950</td>
+    <td>115618</td>
+    <td> 1.382s
+</td>
+    <td>0m3.600s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop12.txt">I2C.12</a></td>
+    <td>Pass</td>
+    <td>8525</td>
+    <td>181863</td>
+    <td>108755</td>
+    <td> 1.418s
+</td>
+    <td>0m3.578s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop12.txt">I2C.12 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>8043</td>
+    <td>164217</td>
+    <td>107186</td>
+    <td> 1.285s
+</td>
+    <td>0m3.435s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop13.txt">I2C.13</a></td>
+    <td>Pass</td>
+    <td>8613</td>
+    <td>180449</td>
+    <td>105183</td>
+    <td> 1.416s
+</td>
+    <td>0m3.606s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop13.txt">I2C.13 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>8131</td>
+    <td>164580</td>
+    <td>103614</td>
+    <td> 1.293s
+</td>
+    <td>0m3.415s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop14.txt">I2C.14</a></td>
+    <td>Pass</td>
+    <td>8701</td>
+    <td>192844</td>
+    <td>119177</td>
+    <td> 1.432s
+</td>
+    <td>0m3.599s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop14.txt">I2C.14 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>8219</td>
+    <td>176312</td>
+    <td>117608</td>
+    <td> 1.277s
+</td>
+    <td>0m3.347s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop15.txt">I2C.15</a></td>
+    <td>Pass</td>
+    <td>8701</td>
+    <td>192932</td>
+    <td>119187</td>
+    <td> 1.431s
+</td>
+    <td>0m3.615s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop15.txt">I2C.15 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>8219</td>
+    <td>176366</td>
+    <td>117618</td>
+    <td> 1.283s
+</td>
+    <td>0m3.361s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop16.txt">I2C.16</a></td>
+    <td>Pass</td>
+    <td>8493</td>
+    <td>177356</td>
+    <td>105034</td>
+    <td> 1.368s
+</td>
+    <td>0m3.489s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop16.txt">I2C.16 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>8007</td>
+    <td>161508</td>
+    <td>103457</td>
+    <td> 1.265s
+</td>
+    <td>0m3.328s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop17.txt">I2C.17</a></td>
+    <td>Pass</td>
+    <td>9397</td>
+    <td>189018</td>
+    <td>106090</td>
+    <td> 1.552s
+</td>
+    <td>0m4.012s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop17.txt">I2C.17 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>8915</td>
+    <td>172671</td>
+    <td>104521</td>
+    <td> 1.414s
+</td>
+    <td>0m3.748s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop18.txt">I2C.18</a></td>
+    <td>Pass</td>
+    <td>8441</td>
+    <td>176386</td>
+    <td>104944</td>
+    <td> 1.368s
+</td>
+    <td>0m3.489s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop18.txt">I2C.18 (unfixed)</a></td>
+    <td>Failed</td>
+    <td>7959</td>
+    <td>160615</td>
+    <td>103375</td>
+    <td> 1.276s
+</td>
+    <td>0m3.424s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop19.txt">I2C.19</a></td>
+    <td>Pass</td>
+    <td>8441</td>
+    <td>176459</td>
+    <td>104953</td>
+    <td> 1.364s
+</td>
+    <td>0m3.490s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop19.txt">I2C.19 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>7959</td>
+    <td>160686</td>
+    <td>103384</td>
+    <td> 1.26s
+</td>
+    <td>0m3.318s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-nobug-prop20.txt">I2C.20</a></td>
+    <td>Pass</td>
+    <td>8441</td>
+    <td>176495</td>
+    <td>104953</td>
+    <td> 1.364s
+</td>
+    <td>0m3.483s
+</td>
+  </tr>
+  <tr>
+    <td><a href="doc/i2c/tmp105-cbmc/tmp105-hw-cbmc/data-tmp105-qemu-bug-prop20.txt">I2C.20 (unfixed)</a></td>
+    <td>Pass</td>
+    <td>7959</td>
+    <td>160722</td>
+    <td>103384</td>
+    <td> 1.252s
+</td>
+    <td>0m3.292s
+</td>
+  </tr>
+</table>
+<br><br><br><br>
+</body>
+</html>
