@@ -35,12 +35,6 @@ do
     continue
   fi
   echo "Running iteration $i " `date`
-  # Set loop unwinding number  
-  if [[ $3 == 1  || $3 == 2 ]]; then
-    export UNWIND=11
-  else 
-    export UNWIND=1
-  fi 
   # Put the commands to actually run your program / system here
   (time make verify &> $outputFile) &>> $runtimeFile
   # Possibly put some clean up steps here or a sleep command if you want a delay between experiments
