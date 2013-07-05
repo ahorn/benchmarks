@@ -39,9 +39,10 @@ QLIB = -I $(QEMU_SRC)/
 
 MYLIB = -I modlib/
 
-# Add -D__EXPOSE_BUG__ if you want to expose the bug
+# Add -D__EXPOSE_BUG__ if you want to expose the bug using CBMC
 VERDEF = -D__KERNEL__ -DRTC_BENCHMARK_PROP_$(PROP_NO) -D__EXPOSE_BUG__ 
 
+# Add -D__EXPOSE_BUG__ if you want to expose the bug using KLEE 
 PROP = -DRTC_BENCHMARK_PROP_1 \
        -DRTC_BENCHMARK_PROP_2 \
        -DRTC_BENCHMARK_PROP_3 \
