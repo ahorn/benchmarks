@@ -45,7 +45,7 @@ Courtesy of [TMP105 data sheet][tmp105-datasheet]
 To run the experiments on the HW/SW model, execute the following command
 from within the folder `sw-hw/linux/tmp105_x86`:
 
-    $ ./run_expt.sh [Num of Runs] [Experiment Name] [Property No. (1 to 21)]
+    $ ./run_expt.sh [Num of Runs] [Experiment Name] [Property No. (1 to 17)]
 
 You can also run the experiment from propery i to j once by exectuing the 
 following command within the same folder:
@@ -53,7 +53,7 @@ following command within the same folder:
     $ ./run_expt_all.sh [Experiment Name] [i] [j]
 
 Use the same command in folder `qemu-hw/tmp105` to run experiments on the
-standalone HW model.
+standalone HW model (property no. 1 to 8, and 10 to 20).
 
 To get the total runtime and runtime spent on the decision procedure, run
 the command:
