@@ -27,10 +27,12 @@ following command within the same folder:
 Use the same command in the folder `qemu-hw/rtc` to run the experiments on the
 standalone HW model.
 
-To get the total runtime and runtime spent on the decision procedure, run
-the command:
+To get the total runtime and runtime spent on the decision procedure produced 
+by the script run_expt.sh, run the command:
 
     $ ./get_result.sh [(Relative) Path to the Data Folder]
+
+Note: get_result.sh does not work with the script run_expt_all.sh
 
 ## I2C Benchmark
 
@@ -55,10 +57,12 @@ following command within the same folder:
 Use the same command in folder `qemu-hw/tmp105` to run experiments on the
 standalone HW model (property no. 1 to 8, and 10 to 20).
 
-To get the total runtime and runtime spent on the decision procedure, run
-the command:
+To get the total runtime and runtime spent on the decision procedure produced 
+by the script run_expt.sh, run the command:
 
     $ ./get_result.sh [(Relative) Path to the Data Folder]
+
+Note: get_result.sh does not work with the script run_expt_all.sh
 
 ## ETHOC Benchmark
 
