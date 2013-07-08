@@ -5,14 +5,12 @@
 numberOfRuns=$1
 exptName=$2
 export PROP_NO=$3
-export UNWIND=$4
 outputFolder="data/output-$2-prop$3"
 runtimeFile="$outputFolder/runtime-$2-prop$3.txt"
 
-# For property 1 and 2, loop unwiding number needs to be >= 11, for other properties 1 is sufficient. 
-if [[ -z $numberOfRuns || -z $exptName || -z $3 || -z $4 ]]
+if [[ -z $numberOfRuns || -z $exptName || -z $3 ]]
 then
-  echo "ERROR: Requires 4 arguments: $0 [Num of Runs] [Experiment Name] [Property No.] [Num of Loop Unwindings]"
+  echo "ERROR: Requires 4 arguments: $0 [Num of Runs] [Experiment Name] [Property No.]"
   exit
 fi
 
@@ -36,6 +34,7 @@ do
     echo "WARNING: File $outputFile already exists -- skipping run $i"
     continue
   fi
+
   echo "Running iteration $i " `date`
   # Set loop unwinding number  
   if [[ $3 == 1  || $3 == 2 ]]; then
@@ -43,6 +42,7 @@ do
   else 
     export UNWIND=1
   fi 
+
   # Put the commands to actually run your program / system here
   (time make verify &> $outputFile) &>> $runtimeFile
   # Possibly put some clean up steps here or a sleep command if you want a delay between experiments

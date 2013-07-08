@@ -10,6 +10,7 @@ LLVM_BC = *.bc.o
 
 INCLUDE = -I ./
 
+# Add -D__EXPOSE_BUG__ if you want to expose the bug using KLEE 
 PROP = -DRTC_BENCHMARK_PROP_1 \
        -DRTC_BENCHMARK_PROP_2 \
        -DRTC_BENCHMARK_PROP_3 \
@@ -33,9 +34,9 @@ VERDEF = -D__KLEE_TEST_HW__ \
 all:
 	gcc ${SRC} -lrt
 
-# Add -D__EXPOSE_BUG__ if you want to expose the bug
+# Add -D__EXPOSE_BUG__ if you want to expose the bug using CBMC
 verify:
-	${CBMC} ${SRC} --unwind $(UNWIND) -D__CBMC_TEST_HW__ -D__NO_TIMER__ -DRTC_BENCHMARK_PROP_$(PROP_NO) -D__EXPOSE_BUG__ 
+	@${CBMC} ${SRC} --unwind $(UNWIND) -D__CBMC_TEST_HW__ -D__NO_TIMER__ -DRTC_BENCHMARK_PROP_$(PROP_NO) -D__EXPOSE_BUG__ 
 
 llvm-gcc:
 	@echo ------------- Compiling with llvm_gcc:

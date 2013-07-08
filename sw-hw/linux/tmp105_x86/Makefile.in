@@ -45,9 +45,11 @@ CFLAGS = -std=gnu99 -nostdinc $(MYLIB) $(KLIB) $(HLIB) $(QLIB) -I ./ $(HOSTCFLAG
 LDFLAGS = -l rt
 
 SYSDEF = -D__KERNEL__ -D_SYS_ -DCONFIG_I2C -DCONFIG_PM -U__i386__ 
-# Add -D__EXPOSE_BUG__ if you want to expose the bug
+
+# Add -D__EXPOSE_BUG__ if you want to expose the bug using CBMC
 VERDEF = -DI2C_BENCHMARK_PROP_$(PROP_NO) -D__EXPOSE_BUG__ 
 
+# Add -D__EXPOSE_BUG__ if you want to expose the bug using KLEE
 PROP = -DI2C_BENCHMARK_PROP_1 \
        -DI2C_BENCHMARK_PROP_2 \
        -DI2C_BENCHMARK_PROP_3 \

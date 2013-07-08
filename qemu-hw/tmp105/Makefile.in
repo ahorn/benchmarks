@@ -10,6 +10,7 @@ LLVM_BC = *.bc.o
 
 INCLUDE = -I ./
 
+# Add -D__EXPOSE_BUG__ if you want to expose the bug using KLEE 
 PROP = -DI2C_BENCHMARK_PROP_1 \
        -DI2C_BENCHMARK_PROP_2 \
        -DI2C_BENCHMARK_PROP_3 \
@@ -41,9 +42,9 @@ VERDEF = -D_KLEE_ \
 all:
 	gcc ${SRC}
 
-# Add -D__EXPOSE_BUG__ if you want to expose the bug
+# Add -D__EXPOSE_BUG__ if you want to expose the bug using CBMC
 verify:
-	${CBMC} ${SRC} --unwind 4 -D__CBMC_TEST_HW__ -DI2C_BENCHMARK_PROP_${PROP_NO} -D__EXPOSE_BUG__
+	@${CBMC} ${SRC} --unwind 4 -D__CBMC_TEST_HW__ -DI2C_BENCHMARK_PROP_${PROP_NO} -D__EXPOSE_BUG__
 
 llvm-gcc:
 	@echo ------------- Compiling with llvm_gcc:
