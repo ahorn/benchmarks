@@ -107,7 +107,7 @@ to interrupts in a producer-consumer scenario (see our <a href="index.html#exper
 <hr>
 
 <h2 id="manual">Tool usage</h2>
-<p>Our benchmarks can be downloaded <a href="benchmarks.tar.gz">here</a>. We perform our experiments using <a href="http://www.cprover.org/cbmc/">CBMC</a> and <a href="http://klee.llvm.org/">KLEE</a>.
+<p>Our benchmarks can be downloaded <a href="benchmarks.tar.gz">here</a>. Extract the archive and rename Makefile.in to Makefile for each benchmark. We perform our experiments using <a href="http://www.cprover.org/cbmc/">CBMC</a> and <a href="http://klee.llvm.org/">KLEE</a>.
 </p>
 
 <font size="3"><b>RTC</b></font>
@@ -117,7 +117,7 @@ to interrupts in a producer-consumer scenario (see our <a href="index.html#exper
 <ol type="a">
 <li/>Set the environment variables GTCC, GTINST and CBMC in Makefile to locations of the goto-cc, goto-instrument and cbmc binaries. 
 
-<li/> If you want to expose the bug, add -D__EXPOSE_BUG__ to variable VERDEF in Makefile.
+<li/>(Optional) If you want to expose the bug, add -D__EXPOSE_BUG__ to variable VERDEF in Makefile.
 
 <li>Then execute the following command: 
 <div class="instr">
@@ -152,6 +152,9 @@ standalone HW model with <a href="http://www.cprover.org/cbmc/">CBMC</a>.
 </p>
 <ol>
 <li/>In Makefile set varialbes LLVM_GCC, LLVM_LD and KLEE to locations of binaries llvm-gcc, llvm-ld and klee
+
+<li/>(Optional) If you want to expose the bug, add -D__EXPOSE_BUG__ to variable PROP in Makefile.
+
 <li/>Run command
 <div class="instr"> 
     $ make klee
