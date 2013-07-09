@@ -9,14 +9,17 @@ sloccount *.h opencores_eth-test.c opencores_eth.c irq.c cpu.c | grep "^Total Ph
 
 $GOTO_CC -m32 opencores_eth-test.c opencores_eth.c irq.c cpu.c -D_CBMC_\
   -DETHOC_BENCHMARK_PROP_1 -DETHOC_BENCHMARK_PROP_2 \
+  -D_NO_CBMC_ATOMIC_ \
   -o ethoc_hw_m32_prop1_prop2.gb
 $GOTO_INSTRUMENT --count-eloc ethoc_hw_m32_prop1_prop2.gb
 $GOTO_CC -m32 opencores_eth-test.c opencores_eth.c irq.c cpu.c -D_CBMC_\
   -DETHOC_BENCHMARK_PROP_1 -DETHOC_BENCHMARK_PROP_3 \
+  -D_NO_CBMC_ATOMIC_ \
   -o ethoc_hw_m32_prop1_prop3.gb
 $GOTO_INSTRUMENT --count-eloc ethoc_hw_m32_prop1_prop3.gb
 $GOTO_CC -m32 opencores_eth-test.c opencores_eth.c irq.c cpu.c -D_CBMC_\
   -DETHOC_BENCHMARK_PROP_1 -DETHOC_BENCHMARK_PROP_4 \
+  -D_NO_CBMC_ATOMIC_ \
   -o ethoc_hw_m32_prop1_prop4.gb
 $GOTO_INSTRUMENT --count-eloc ethoc_hw_m32_prop1_prop4.gb
 

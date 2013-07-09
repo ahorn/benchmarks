@@ -244,14 +244,14 @@ struct ethoc_bd {
 /* Calls OpenCores Ethernet MAC model */
 static inline u32 ethoc_read(struct ethoc *dev, loff_t offset)
 {
-        return open_eth_reg_read(dev->open_eth, offset);
+        return ATOMIC_FN(open_eth_reg_read)(dev->open_eth, offset);
 }
 
 /* Calls OpenCores Ethernet MAC model */
 static void ethoc_write(struct ethoc *dev, loff_t offset, u32 data)
 {
 __CPROVER_ASYNC_1:
-        open_eth_reg_write(dev->open_eth, offset, data);
+        ATOMIC_FN(open_eth_reg_write)(dev->open_eth, offset, data);
 }
 
 /* Calls OpenCores Ethernet MAC model */
@@ -259,7 +259,7 @@ static inline void ethoc_read_bd(struct ethoc *dev, int index,
 		struct ethoc_bd *bd)
 {
 	const hwaddr addr = index * sizeof(struct ethoc_bd);
-	const uint64_t desc_dword = open_eth_desc_read(dev->open_eth, addr);
+	const uint64_t desc_dword = ATOMIC_FN(open_eth_desc_read)(dev->open_eth, addr);
 
 	bd->stat = desc_dword & 0xffffffffLL;
 	bd->addr = (desc_dword >> 32) & 0xffffffffLL;
@@ -277,7 +277,7 @@ static void ethoc_write_bd(struct ethoc *dev, int index,
         desc |= bd->stat;
 
 __CPROVER_ASYNC_1:
-	open_eth_desc_write(dev->open_eth, addr, desc);
+	ATOMIC_FN(open_eth_desc_write)(dev->open_eth, addr, desc);
 }
 
 static inline void ethoc_enable_irq(struct ethoc *dev, u32 mask)
@@ -863,7 +863,7 @@ static void test_rx(const u8* mac_addr, int packet_id, u8 data, unsigned int pac
  	 * memory error. It is also assumed that calls of functions in
  	 * the hardware model are atomic.
  	 */
-	open_eth_receive(OPEN_ETH_STATE(nc), packet, packet_size);
+	ATOMIC_FN(open_eth_receive)(OPEN_ETH_STATE(nc), packet, packet_size);
 }
 
 static void test_rx_wrap(const u8* mac_addr, int packet_id, u8 data, unsigned int packet_size)
@@ -918,7 +918,7 @@ int main(void)
 	nc = &nic.nc;
 
 	/* reset MAC and MII */
-	open_eth_reg_write(&open_eth, open_eth_reg(MODER), MODER_RST);
+	ATOMIC_FN(open_eth_reg_write)(&open_eth, open_eth_reg(MODER), MODER_RST);
 
 	struct net_device netdev;
 	static struct ethoc ethoc;

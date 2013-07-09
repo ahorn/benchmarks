@@ -28,11 +28,15 @@ struct napi_struct {
 
 };
 
+#ifndef ATOMIC_FN
+#define ATOMIC_FN(f) __VERIFIER_atomic_##f
+#endif
+
 /**
  * In our analysis, this is an atomic test and set of the given flag.
  * It is assumed that this function also serves as a memory barrier.
  */
-static inline int test_and_set(int *flag)
+static inline int ATOMIC_FN(test_and_set)(int *flag)
 {
 #ifdef _CBMC_
 #ifndef _NO_CBMC_ATOMIC_
@@ -53,7 +57,7 @@ static inline int test_and_set(int *flag)
  * In our analysis, this is an atomic test and clear of the given flag.
  * It is assumed that this function also serves as a memory barrier.
  */
-static inline int test_and_clear(int *flag)
+static inline int ATOMIC_FN(test_and_clear)(int *flag)
 {
 #ifdef _CBMC_
 #ifndef _NO_CBMC_ATOMIC_
@@ -110,7 +114,7 @@ static inline void napi_poll_loop(struct napi_struct *n)
  */
 static inline void napi_schedule(struct napi_struct *n)
 {
-	if (!test_and_set(&n->sched) && !n->is_disabling) {
+	if (!ATOMIC_FN(test_and_set)(&n->sched) && !n->is_disabling) {
 		/* asynchronous call */
 		napi_poll_loop(n);
 	}
@@ -127,7 +131,7 @@ static inline void napi_schedule(struct napi_struct *n)
  */
 static inline void napi_enable(struct napi_struct *n)
 {
-	assert(test_and_clear(&n->sched));
+	assert(ATOMIC_FN(test_and_clear)(&n->sched));
 }
 
 /**
@@ -141,9 +145,9 @@ static inline void napi_disable(struct napi_struct *n)
 {
 	n->is_disabling = true;
 #ifdef _CBMC_
-  __CPROVER_assume(!test_and_set(&n->sched));
+  __CPROVER_assume(!ATOMIC_FN(test_and_set)(&n->sched));
 #else
-	while (test_and_set(&n->sched)) {
+	while (ATOMIC_FN(test_and_set)(&n->sched)) {
 	}
 #endif
 	n->is_disabling = false;
@@ -161,7 +165,7 @@ static inline void napi_complete(struct napi_struct *n)
 	/* happens-before order through napi_schedule() */
 	assert(n->sched);
 	n->complete = 1;
-	test_and_clear(&n->sched);
+	ATOMIC_FN(test_and_clear)(&n->sched);
 }
 
 #endif

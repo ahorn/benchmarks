@@ -329,6 +329,52 @@ typedef struct OpenEthState {
     void *software;
 } OpenEthState;
 
+#ifndef ATOMIC_FN
+#define ATOMIC_FN(f) __VERIFIER_atomic_##f
+#endif
+
+#define DECL_DEF_ATOMIC1(r, f, t1, a1) \
+  r f(t1 a1); \
+  inline r ATOMIC_FN(f)(t1 a1) \
+  { \
+    return f(a1); \
+  }
+
+#define DECL_DEF_ATOMIC2(r, f, t1, a1, t2, a2) \
+  r f(t1 a1, t2 a2); \
+  inline r ATOMIC_FN(f)(t1 a1, t2 a2) \
+  { \
+    return f(a1, a2); \
+  }
+
+#define DECL_DEF_ATOMIC3(r, f, t1, a1, t2, a2, t3, a3) \
+  r f(t1 a1, t2 a2, t3 a3); \
+  inline r ATOMIC_FN(f)(t1 a1, t2 a2, t3 a3) \
+  { \
+    return f(a1, a2, a3); \
+  }
+
+#define DECL_DEF_ATOMIC_void1(f, t1, a1) \
+  void f(t1 a1); \
+  inline void ATOMIC_FN(f)(t1 a1) \
+  { \
+    f(a1); \
+  }
+
+#define DECL_DEF_ATOMIC_void2(f, t1, a1, t2, a2) \
+  void f(t1 a1, t2 a2); \
+  inline void ATOMIC_FN(f)(t1 a1, t2 a2) \
+  { \
+    f(a1, a2); \
+  }
+
+#define DECL_DEF_ATOMIC_void3(f, t1, a1, t2, a2, t3, a3) \
+  void f(t1 a1, t2 a2, t3 a3); \
+  inline void ATOMIC_FN(f)(t1 a1, t2 a2, t3 a3) \
+  { \
+    f(a1, a2, a3); \
+  }
+
 /**
  * open_eth_reg_read:
  * @s: self object pointer
@@ -339,7 +385,7 @@ typedef struct OpenEthState {
  * @see_also: Chapter 3 in data sheet
  * @see_also: open_eth_reg()
  */
-uint32_t open_eth_reg_read(OpenEthState *s, hwaddr addr);
+DECL_DEF_ATOMIC2(uint32_t, open_eth_reg_read, OpenEthState *, s, hwaddr, addr)
 
 /**
  * open_eth_reg_write:
@@ -357,7 +403,7 @@ uint32_t open_eth_reg_read(OpenEthState *s, hwaddr addr);
  * @see_also: Chapter 3 in data sheet
  * @see_also: open_eth_reg()
  */
-void open_eth_reg_write(OpenEthState *s, hwaddr addr, uint32_t val);
+DECL_DEF_ATOMIC_void3(open_eth_reg_write, OpenEthState *, s, hwaddr, addr, uint32_t, val)
 
 /**
  * open_eth_desc_read:
@@ -372,7 +418,7 @@ void open_eth_reg_write(OpenEthState *s, hwaddr addr, uint32_t val);
  *
  * @see_also: Section 4.2.2 in data sheet
  */
-uint64_t open_eth_desc_read(OpenEthState *s, hwaddr addr);
+DECL_DEF_ATOMIC2(uint64_t, open_eth_desc_read, OpenEthState *, s, hwaddr, addr)
 
 /**
  * open_eth_desc_write:
@@ -388,7 +434,7 @@ uint64_t open_eth_desc_read(OpenEthState *s, hwaddr addr);
  *
  * @see_also: Section 4.2.2 in data sheet
  */
-void open_eth_desc_write(OpenEthState *s, hwaddr addr, uint64_t val);
+DECL_DEF_ATOMIC_void3(open_eth_desc_write, OpenEthState *, s, hwaddr, addr, uint64_t, val)
 
 /**
  * open_eth_can_receive:
@@ -396,7 +442,7 @@ void open_eth_desc_write(OpenEthState *s, hwaddr addr, uint64_t val);
  *
  * May the open_eth_receive(@s) function be called?
  */
-int open_eth_can_receive(OpenEthState *s);
+DECL_DEF_ATOMIC1(int, open_eth_can_receive, OpenEthState *, s)
 
 /**
  * open_eth_receive:
@@ -407,7 +453,7 @@ int open_eth_can_receive(OpenEthState *s);
  * Writes at most @size bytes in the read-only @buf array to memory according
  * to the direct-memory address (DMA) in the current buffer descriptor.
  */
-ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size);
+DECL_DEF_ATOMIC3(ssize_t, open_eth_receive, OpenEthState *, s, const uint8_t *, buf, size_t, size)
 
 /**
  * open_eth_set_link_status:
@@ -416,6 +462,6 @@ ssize_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size);
  *
  * Update net client's link status.
  */
-void open_eth_set_link_status(OpenEthState *s, bool link_down);
+DECL_DEF_ATOMIC_void2(open_eth_set_link_status, OpenEthState *, s, bool, link_down)
 
 #endif
