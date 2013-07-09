@@ -22,11 +22,12 @@ PROP = -DRTC_BENCHMARK_PROP_1 \
        -DRTC_BENCHMARK_PROP_9 \
        -DRTC_BENCHMARK_PROP_10 \
        -DRTC_BENCHMARK_PROP_11 \
+       -D__KLEE_TEST_HW__ \
        -D__EXPOSE_BUG__
 
-VERDEF = -D__KLEE_TEST_HW__ \
-         ${PROP}
-         #-DRTC_BENCHMARK_PROP_$(PROP_NO)
+# Add -D__EXPOSE_BUG__ if you want to expose the bug using CBMC
+VERDEF = -DRTC_BENCHMARK_PROP_$(PROP_NO) \
+         -D__EXPOSE_BUG__
 
 #PROP_NO = 2
 #UNWIND = 11
@@ -34,17 +35,16 @@ VERDEF = -D__KLEE_TEST_HW__ \
 all:
 	gcc ${SRC} -lrt
 
-# Add -D__EXPOSE_BUG__ if you want to expose the bug using CBMC
 verify:
-	@${CBMC} ${SRC} --unwind $(UNWIND) -D__CBMC_TEST_HW__ -D__NO_TIMER__ -DRTC_BENCHMARK_PROP_$(PROP_NO) -D__EXPOSE_BUG__ 
+	@${CBMC} ${SRC} --unwind $(UNWIND) -D__CBMC_TEST_HW__ -D__NO_TIMER__ ${VERDEF} 
 
 llvm-gcc:
 	@echo ------------- Compiling with llvm_gcc:
-	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c mc146818rtc.c -o mc146818rtc.bc.o $(VERDEF)
-	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c qemu-timer.c -o qemu-timer.bc.o $(VERDEF)
-	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c qverify.c -o qverify.bc.o $(VERDEF)
-	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c rtc-verify.c -o rtc-verify.bc.o $(VERDEF)
-	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c main.c -o main.bc.o $(VERDEF)
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c mc146818rtc.c -o mc146818rtc.bc.o $(PROP)
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c qemu-timer.c -o qemu-timer.bc.o $(PROP)
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c qverify.c -o qverify.bc.o $(PROP)
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c rtc-verify.c -o rtc-verify.bc.o $(PROP)
+	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c main.c -o main.bc.o $(PROP)
 
 llvm-ld:llvm-gcc
 	@echo ------------- Linking with llvm-ld:
