@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Intro to SMT Kit</title>
+    <meta charset='utf-8'>
+    <script src='static/slides.js'></script>
+  </head>
+  <body style='display: none'>
+    <section class='slides layout-widescreen'>
+      <article>
+        <h1>Formal Co-Validation of Low-Level Hardware/Software Interfaces</h1>
+          <div class="presenter">
+            <p>
+              <em>Alex Horn</em>,
+              Michael Tautschnig,
+              Celina Val,
+              Lihao Liang,
+            </p>
+            <p>
+              Tom Melham,
+              Jim Grundy,
+              Daniel Kroening
+            </p>
+          </div>
+      </article>
+
+      <article>
+        <h3>Emerging Challenges</h3>
+          <p>
+            Microelectronics industry:
+          </p>
+          <ul>
+            <li>Proliferation of on-chip micro-controllers</li>
+            <li>More semiconductor designs rely on firmware</li>
+            <li>Co-design of hardware alongside embedded, low-level software</li>
+          </ul>
+          <br/>
+          <p>
+            These trends are driven by market competition and engineering advantages:
+          </p>
+          <ul>
+            <li>Extracting complex control to firmware adds flexibility and survivability of products</li>
+            <li>Shifting work to micro-controllers can increase scalability</li>
+          </ul>
+          <br/>
+          <p>
+            Firmware is not just exciting; it is also worrying.
+          </p>
+      </article>
+
+      <article>
+        <h3>Emerging Challenges</h3>
+          <p>
+            Microelectronics industry concerns:
+          </p>
+          <ul>
+            <li>Team boundaries with sharp educational and skill differences</li>
+            <ul>
+              <li>Scope of misunderstandings is greater than usual</li>
+            </ul>
+            <li>Heterogeneous system with technological gaps</li>
+            <ul>
+              <li>Different languages are processed by different tool chains</li>
+            </ul>
+            <li>Nonstandard hardware-specific I/O primitives and concurrency semantics</li>
+            <ul>
+              <li>Memory-mapped I/O, special-purpose registers, interrupts etc.</li>
+            </ul>
+          </ul>
+      </article>
+
+      <article>
+        <h3>Emerging Challenges - Automated Verification</h3>
+          <p>
+            At FMCAD, audience's interests and priorities vary.
+          </p>
+          <br/>
+          <p>
+            Cannot ignore hardware/software interfaces:
+          </p>
+          <ol>
+            <li>Too many false alarms due to nondeterminism</li>
+            <li>Too few bugs (unsoundness) due to side effects</li>
+          </ol>
+          <p>
+            Research opportunities:
+          </p>
+          <ul>
+            <li>I/O is subject to hardware-specific protocol rules (particularly important for new projects)</li>
+            <li>Hardware (physical world) is common source of concurrency</li>
+            <li><b>But what are technical details of the problems?</b></li>
+            <li>&hellip;</li>
+          </ul>
+      </article>
+
+      <article>
+        <h3>Paper</h3>
+          <p>
+            Show the challenges and feasibility of semi-automatically finding bugs in the
+            interactions at hardware/software interfaces before a cycle-accurate model
+            of the hardware is available
+          <p>
+          <!--<ul>
+            <li>
+              Expose violations of hardware-specific pre- and post-conditions (properties)
+            </li>
+            <li>
+              Formal, symbolic co-execution of executable hardware models combined with software that interacts with it
+            </li>
+            <li>
+              Narrow the gap between engineering and science
+            </li>
+           </ul>
+          <br/>
+          -->
+          <p>
+            Three realistic, publicly available benchmarks:
+          </p>
+          <ol>
+            <li>RTC-MC146818 (real-time clock)</li>
+            <li>TMP105 (I&sup2;C temperature sensor)</li>
+            <li>ETHOC (Open Cores Ethernet MAC)</li>
+          </ol>
+      </article>
+
+      <article>
+        <h3>Approach - Diagram Descriptions</h3>
+          <p>
+            Hardware models as pre-silicon abstractions:
+          </p>
+          <ol>
+            <li>Extract executable device models from a virtual machine emulator (QEMU)</li>
+            <ul>
+              <li>Ignore QOM and QDev trees</li>
+            </ul>
+            <li>Extract relevant low-level code from a monolithic OS (Linux kernel) (o-r)</li>
+            <li>Specify hardware-specific I/O rules as C runtime assertions according to data sheets</li>
+            <li>Use symbolic execution to construct a quantifier-free formula that encodes the strongest postcondition for multiple execution paths up to a certain depth</li>
+            <ul>
+              <li>Encode concurrency as partial orders</li>
+              <li>Automatically find bugs with SAT/SMT solver</li>
+            </ul>
+          </ol>
+      </article>
+
+      <article>
+        <h2>TMP105: An I&sup2;C Temperature Sensor</h2>
+      </article> 
+
+      <article>
+        <h3>TMP105 Registers</h3>
+          <div class="image">
+            <img src="../i2c/tmp105-registers.png">
+          </div>
+      </article>
+
+      <article>
+        <h3>TMP105 Write Protocol over I&sup2;C Bus</h3>
+          <div class="image">
+            <img src="../i2c/tmp105-i2c-word-write.jpg" width="100%">
+          </div>
+      </article>
+
+      <article>
+        <h3>TMP105 Characteristics</h3>
+          <p>
+            Things to think about:
+          </p>
+          <ul>
+            <li>There are four external registers of different sizes.</li>
+            <li>Most are readable and writable (rw), but at least one is read-only.</li>
+            <li>However, at least one bit of a rw-register is write-only.</li>
+            <li>Temperature measurements can be continuous or not (shutdown mode).</li>
+            <li>&hellip;</li>
+          </ul>
+      </article>
+
+      <article>
+        <h3>TMP105 Properties</h3>
+          <p>
+            Encode properties as runtime assertions in executable hardware model:
+          </p>
+          <ul>
+            <li>
+              <p>
+                At most two bytes can be read or written of the temperature threshold registers.
+              </p>
+            </li>
+            <li>
+              <p>
+                Exactly one configuration byte can be read or written.
+              </p>
+            </li>
+            <li>
+              <p>
+                Each read of the temperature register is preceded by a write of
+                a 1 to the MSB of the configuration register if and only if its
+                LSB is a 1 (i.e. shutdown mode).
+              </p>
+            </li>
+            <li>
+              <p>
+                But when the MSB of the configuration register is read, it is zero
+                regardless of any previous writes to it.
+              </p>
+            </li>
+      </article>
+
+      <article>
+        <h3>Hardware/Software Interface Bug Bounty</h3>
+          <p>RTC and I&sup2;C benchmarks use sequential symbolic execution:</p>
+          <ul>
+            <li>
+              <a href="http://git.qemu.org/?p=qemu.git;a=commit;h=02c6ccc6dde90dcbf5975b1c" target="_blank">Real-time clock bug</a>: register values are erroneously overwritten.
+            </li>
+            <li>
+              <a href="http://git.qemu.org/?p=qemu.git;a=commit;h=cb5ef3fa1871522a08866270" target="_blank">TMP105 bug</a>: incorrect byte transfer causes data loss.
+            </li>
+      </article>
+
+      <article>
+        <h2>ETHOC: An Open Cores Ethernet MAC</h2>
+      </article> 
+
+      <article>
+        <h3>ETHOC Architecture</h3>
+          <div class="image">
+            <img src="../ethoc/ethoc-arch.jpg" width="80%">
+          </div>
+      </article>
+
+      <article>
+        <h3>ETHOC Characteristics</h3>
+          <p>
+            Things to think about:
+          </p>
+          <ul>
+            <li>Incoming Ethernet frames (RX) arrive continuously.</li>
+            <ul>
+              <li>An adequate model of concurrency is important.</li>
+            </ul>
+            <li>Software and hardware communicate through DMA buffer descriptors.</li>
+            <li>Driver supports polling and interrupt mode.</li>
+            <li>Hardware always sets interrupt status flags.</li>
+            <ul>
+              <li>Thus, interrupt sources must be cleared before switching to interrupt mode.</li>
+              <li>Otherwise, when RX interrupt source is re-enabled, a spurious interrupt could occur.</li>
+            </ul>
+            <li>&hellip;</li>
+          </ul>
+          <p>Code is good exemplar for concurrency bugs due to interrupts in producer-consumer cases.</p>
+      </article>
+
+      <article>
+        <h3>ETHOC RX Bug (Polling -> Interrupt Switch)</h3>
+          <div class="image">
+            <img src="../ethoc/ethoc-bug.jpg" width="70%">
+          </div>
+      </article>
+
+      <article>
+        <h3>ETHOC RX Bug Fix (Polling -> Interrupt Switch)</h3>
+          <div class="image">
+            <img src="../ethoc/ethoc-bug-fix.jpg" width="70%">
+          </div>
+          <p>We found the fix in the <a href="http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=20f70ddd6558a39a89dba4af675686c5a8dbd7b3" target="_blank">Linux 2.6.38 kernel</a> release.</p>
+      </article>
+
+      <article>
+        <h3>ETHOC Properties</h3>
+          <p>Expose concurrency bug:</p>
+          <ul>
+            <li>
+              When the software enables the MAC receiver, there exists at least one empty RX buffer descriptor.
+            </li>
+            <li>
+              The software must eventually process every RX frame. At the very latest, when it is stopped, all RX frames must have been processed.
+            </li>
+          </ul>
+      </article>
+
+      <article>
+        <h3>Limitations</h3>
+          <ul>
+            <li>
+              Manual extraction and slicing
+            </li>
+            <li>
+              No support for nested interrupts
+            </li>
+            <li>
+              Often prohibitively large partial order concurrency encoding (20+ GiB)
+            </li>
+          </ul>
+      </article>
+
+      <article>
+        <h3>Concluding Remarks</h3>
+          <p>New approach to co-validation of properties at the hardware/software boundary:</p>
+          <ul>
+            <li>
+              Formal symbolic co-execution of an executable hardware model and low-level software
+            </li>
+            <li>
+              Experiments adapt approach to a range of hardware/software interaction mechanisms
+            </li>
+            <li>
+              Exposed real bugs
+            </li>
+          </ul>
+          <p>Experimental research:</p>
+          <ul>
+            <li>
+              Identified a rich (openly available) source of typical hardware models
+            </li>
+            <li>
+              Combine these with real world low-level code from Linux drivers
+            </li>
+            <li>
+              Narrowed the gap between engineering and science concerning firmware validation
+            </li>
+            <ul>
+              <li>
+                Retain essential characteristics of production code
+              </li>
+              <li>
+                Facilitates collaboration with the systems community whose insights are important
+              </li>
+              <li>
+                Pave a way for more thorough problem analysis and systematic experiments 
+              </li>
+            </ul>
+          </ul>
+      </article>
+    </section>
+  </body>
+</html>
