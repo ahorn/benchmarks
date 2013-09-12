@@ -22,6 +22,7 @@ PROP = -DRTC_BENCHMARK_PROP_1 \
        -DRTC_BENCHMARK_PROP_9 \
        -DRTC_BENCHMARK_PROP_10 \
        -DRTC_BENCHMARK_PROP_11 \
+       -D_KLEE_ \
        -D__KLEE_TEST_HW__ \
        -D__EXPOSE_BUG__
 

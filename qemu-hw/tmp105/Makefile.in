@@ -31,7 +31,7 @@ PROP = -DI2C_BENCHMARK_PROP_1 \
        -DI2C_BENCHMARK_PROP_18 \
        -DI2C_BENCHMARK_PROP_19 \
        -DI2C_BENCHMARK_PROP_20 \
-       -D_KLEE_ \
+       -D__KLEE_TEST_HW__ \
        -D__EXPOSE_BUG__
 
 # Add -D__EXPOSE_BUG__ if you want to expose the bug using CBMC
