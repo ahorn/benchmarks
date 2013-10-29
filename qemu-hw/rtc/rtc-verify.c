@@ -250,7 +250,7 @@ static void register_b_set_flag(void)
 #ifdef __CBMC_TEST_HW__
     __CPROVER_assume( abcd >= 0 && abcd < 23 );
 #endif    
-#ifndef __KLEE_TEST_HW__
+#ifdef __KLEE_TEST_HW__
     klee_make_symbolic(&abcd, sizeof(abcd), "abcd");
     klee_assume( abcd >= 0 && abcd < 23 );
 #endif
@@ -260,13 +260,11 @@ static void register_b_set_flag(void)
     cmos_write(RTC_REG_A, 0x76);
     
 #if defined (__CBMC_TEST_HW__) || defined (__KLEE_TEST_HW__)
-    //cmos_write(RTC_HOURS, abcd);
-    //cmos_write(RTC_HOURS, 0x03);
+    cmos_write(RTC_HOURS, abcd);
 #else
     cmos_write(RTC_HOURS, 0x03);
 #endif
 
-    cmos_write(RTC_HOURS, 0x03);
     cmos_write(RTC_REG_A, 0x26);
 
     /* Exposes bug:
