@@ -37,6 +37,143 @@
 #define SET_REGFIELD(s, reg, field, data) \
     SET_FIELD((s)->regs[reg], reg ## _ ## field, data)
 
+#ifndef ATOMIC_FN
+#define ATOMIC_FN(f) __VERIFIER_atomic_##f
+#endif
+
+#define DECL_DEF_ATOMIC1(r, f, t1, a1) \
+  r f(t1 a1); \
+  inline r ATOMIC_FN(f)(t1 a1) \
+  { \
+    return f(a1); \
+  }
+
+#define DECL_DEF_ATOMIC2(r, f, t1, a1, t2, a2) \
+  r f(t1 a1, t2 a2); \
+  inline r ATOMIC_FN(f)(t1 a1, t2 a2) \
+  { \
+    return f(a1, a2); \
+  }
+
+#define DECL_DEF_ATOMIC3(r, f, t1, a1, t2, a2, t3, a3) \
+  r f(t1 a1, t2 a2, t3 a3); \
+  inline r ATOMIC_FN(f)(t1 a1, t2 a2, t3 a3) \
+  { \
+    return f(a1, a2, a3); \
+  }
+
+#define DECL_DEF_ATOMIC_void1(f, t1, a1) \
+  void f(t1 a1); \
+  inline void ATOMIC_FN(f)(t1 a1) \
+  { \
+    f(a1); \
+  }
+
+#define DECL_DEF_ATOMIC_void2(f, t1, a1, t2, a2) \
+  void f(t1 a1, t2 a2); \
+  inline void ATOMIC_FN(f)(t1 a1, t2 a2) \
+  { \
+    f(a1, a2); \
+  }
+
+#define DECL_DEF_ATOMIC_void3(f, t1, a1, t2, a2, t3, a3) \
+  void f(t1 a1, t2 a2, t3 a3); \
+  inline void ATOMIC_FN(f)(t1 a1, t2 a2, t3 a3) \
+  { \
+    f(a1, a2, a3); \
+  }
+
+/**
+ * open_eth_reg_read:
+ * @s: self object pointer
+ * @addr: address of register
+ *
+ * Returns the content of a register.
+ *
+ * @see_also: Chapter 3 in data sheet
+ * @see_also: open_eth_reg()
+ */
+DECL_DEF_ATOMIC2(uint32_t, open_eth_reg_read, OpenEthState *, s, hwaddr, addr)
+
+/**
+ * open_eth_reg_write:
+ * @s: self object pointer
+ * @addr: address of register
+ * @val: double word to be written
+ *
+ * Overwrites the content of a register with the given value.
+ *
+ * Note that certain register values (e.g. @TX_BD_NUM) should only be changed
+ * when the @MODER_TXEN and @MODER_RXEN bits are both disabled. The new value
+ * could also be subject to range restrictions. For example, @TX_BD_NUM should
+ * never be greater than 0x80h.
+ *
+ * @see_also: Chapter 3 in data sheet
+ * @see_also: open_eth_reg()
+ */
+DECL_DEF_ATOMIC_void3(open_eth_reg_write, OpenEthState *, s, hwaddr, addr, uint32_t, val)
+
+/**
+ * open_eth_desc_read:
+ * @s: self object pointer
+ * @addr: address of descriptor starting at zero
+ *
+ * Returns a single buffer descriptor out of a maximum of 128 possible ones.
+ * The register indexed by @TX_BD_NUM determines the address boundary between
+ * transmission and reception buffer descriptors. That is, every TX BD address
+ * must be strictly less than @TX_BD_NUM whereas every RX BD address must be
+ * greater or equal to @TX_BD_NUM.
+ *
+ * @see_also: Section 4.2.2 in data sheet
+ */
+DECL_DEF_ATOMIC2(uint64_t, open_eth_desc_read, OpenEthState *, s, hwaddr, addr)
+
+/**
+ * open_eth_desc_write:
+ * @s: self object pointer
+ * @addr: address of descriptor starting at zero
+ * @val: double word to be written
+ *
+ * Overwrites a buffer descriptor. Each descriptor is 64 bits wide.
+ * There are at most 128 such descriptors. The register indexed by
+ * @TX_BD_NUM should hold the actual number of used descriptors.
+ * The lower 32 bits hold the buffer descriptor's status whereas the
+ * upper 32 bits hold a DMA address.
+ *
+ * @see_also: Section 4.2.2 in data sheet
+ */
+DECL_DEF_ATOMIC_void3(open_eth_desc_write, OpenEthState *, s, hwaddr, addr, uint64_t, val)
+
+/**
+ * open_eth_can_receive:
+ * @s: self object pointer
+ *
+ * May the open_eth_receive(@s) function be called?
+ */
+DECL_DEF_ATOMIC1(int, open_eth_can_receive, OpenEthState *, s)
+
+/**
+ * open_eth_receive:
+ * @s: self object pointer
+ * @buf: bytes to be written
+ * @size: maximum number of bytes to be written
+ *
+ * Writes at most @size bytes in the read-only @buf array to memory according
+ * to the direct-memory address (DMA) in the current buffer descriptor.
+ */
+DECL_DEF_ATOMIC3(ssize_t, open_eth_receive, OpenEthState *, s, const uint8_t *, buf, size_t, size)
+
+/**
+ * open_eth_set_link_status:
+ * @s: self object pointer
+ * @link_down: flag to be written
+ *
+ * Update net client's link status.
+ */
+DECL_DEF_ATOMIC_void2(open_eth_set_link_status, OpenEthState *, s, bool, link_down)
+
+
+
 static void mii_set_link(Mii *s, bool link_ok)
 {
     if (link_ok) {
