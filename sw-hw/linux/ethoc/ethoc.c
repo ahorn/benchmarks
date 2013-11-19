@@ -1019,7 +1019,7 @@ int main(void)
 	const unsigned int rx_packet_num = nondet_int(3);
 #endif
 	if (rx_packet_num > ethoc.num_rx)
-		return;
+		return 1;
 
 	ethoc_set_mac_address(&netdev, mac_addr);
 	ethoc_open(&netdev);

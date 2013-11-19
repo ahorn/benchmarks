@@ -191,7 +191,7 @@ static void nc_open_eth_set_link_status(NetClientState *nc)
     open_eth_set_link_status(s, s->nic->nc.link_down);
 }
 
-void main(void)
+int main(void)
 {
     /* Implementation of basic Net API */
     NetClientInfo nc_info;
