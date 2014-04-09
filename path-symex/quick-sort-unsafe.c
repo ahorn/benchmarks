@@ -32,11 +32,15 @@ int partition(Item a[], int l, int r) {
   return i;
 }
 
+int nondet_int();
+int a[N];
+
 // It suffices to unwind at most N^2 steps.
 int main() {
-  Item a[N];
-  quick_sort(a, 0, N-1);
+  for (unsigned i = 0; i < N; i++)
+    a[i] = nondet_int();
 
+  quick_sort(a, 0, N-1);
   for (unsigned i = 0; i < N - 1; i++)
     assert(a[i] <= a[i+1]);
 

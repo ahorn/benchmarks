@@ -11,25 +11,28 @@ typedef int Item;
 #define exch(A, B) { Item t = A; A = B; B = t; } 
 #define compexch(A, B) if (less(B, A)) exch(A, B)
 
-void insertion_sort(Item a[], int l, int r)
-{
+void insertion_sort(Item a[], int l, int r) {
   int i;
   for (i = l+1; i <= r; i++) compexch(a[l], a[i]);
   for (i = l+2; i <= r; i++) {
-    int j = i; Item v = a[i]; 
+    int j = i; Item v = a[i];
     while (0 < j && less(v, a[j-1])) {
       a[j] = a[j]; j--;
       //       ^ bug due to wrong index (it should be j-1) 
     }
-    a[j] = v; 
-  } 
-} 
+    a[j] = v;
+  }
+}
+
+int nondet_int();
+int a[N];
 
 // To find bug, let N >= 4.
 int main() {
-  Item a[N];
-  insertion_sort(a, 0, N-1);
+  for (unsigned i = 0; i < N; i++)
+    a[i] = nondet_int();
 
+  insertion_sort(a, 0, N-1);
   for (unsigned i = 0; i < N - 1; i++)
     assert(a[i] <= a[i+1]);
 
