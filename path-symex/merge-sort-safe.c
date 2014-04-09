@@ -28,6 +28,7 @@ void mergesort(Item a[], int l, int r)
     merge(a, l, m, r);
   }
 
+// It suffices to unwind at most N^2 steps.
 int main() {
   Item a[N] = {4, 2, 1};
   mergesort(a, 0, N-1);

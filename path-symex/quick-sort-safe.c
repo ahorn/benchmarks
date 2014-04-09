@@ -31,6 +31,7 @@ int partition(Item a[], int l, int r) {
   return i;
 }
 
+// It suffices to unwind at most N^2 steps.
 int main() {
   Item a[N];
   quick_sort(a, 0, N-1);

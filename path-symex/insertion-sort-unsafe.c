@@ -17,7 +17,7 @@ void insertion_sort(Item a[], int l, int r)
   for (i = l+1; i <= r; i++) compexch(a[l], a[i]);
   for (i = l+2; i <= r; i++) {
     int j = i; Item v = a[i]; 
-    while (less(v, a[j-1])) {
+    while (0 < j && less(v, a[j-1])) {
       a[j] = a[j]; j--;
       //       ^ bug due to wrong index (it should be j-1) 
     }
@@ -26,7 +26,6 @@ void insertion_sort(Item a[], int l, int r)
 } 
 
 // To find bug, let N >= 4.
-// It suffices to unwind at most N^2 steps.
 int main() {
   Item a[N];
   insertion_sort(a, 0, N-1);
