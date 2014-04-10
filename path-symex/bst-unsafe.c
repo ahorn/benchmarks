@@ -21,7 +21,7 @@ struct STnode { Item item; link l, r; int n; };
 static link head, z;
 
 static link NEW(Item item, link l, link r, int n) {
-  link x = malloc(sizeof *x); 
+  link x = malloc(sizeof *x);
   x->item = item; x->l = l; x->r = r; x->n = n;
   return x;
 }
@@ -47,7 +47,7 @@ static link insertR(link h, Item item) {
 
 void STinsert(Item item) { head = insertR(head, item); }
 
-static void sortR(link h, void (*visit)(Item)) { 
+static void sortR(link h, void (*visit)(Item)) {
   if (h == z) return;
   sortR(h->l, visit);
   visit(h->item);
