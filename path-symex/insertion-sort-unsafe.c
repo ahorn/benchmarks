@@ -1,9 +1,13 @@
-#include <assert.h>
-
 // This file contains modified code snippets from "Algorithms in C, Third Edition,
 // Parts 1-4," by Robert Sedgewick. The code is intentionally buggy!
 //
 // For the correct code, see https://www.cs.princeton.edu/~rs/Algs3.c1-4/code.txt
+
+#include <assert.h>
+
+#ifdef ENABLE_KLEE
+#include <klee/klee.h>
+#endif
 
 typedef int Item;
 #define key(A) (A)
@@ -24,13 +28,13 @@ void insertion_sort(Item a[], int l, int r) {
   }
 }
 
-int nondet_int();
-int a[N];
-
 // To find bug, let N >= 4.
 int main() {
-  for (unsigned i = 0; i < N; i++)
-    a[i] = nondet_int();
+  int a[N];
+
+#ifdef ENABLE_KLEE
+  klee_make_symbolic(a, sizeof(a), "a");
+#endif
 
   insertion_sort(a, 0, N-1);
   for (unsigned i = 0; i < N - 1; i++)

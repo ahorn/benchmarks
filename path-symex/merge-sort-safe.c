@@ -1,9 +1,13 @@
-#include <assert.h>
-
 // This file contains code snippets from "Algorithms in C, Third Edition,
 // Parts 1-4," by Robert Sedgewick.
 //
 // See https://www.cs.princeton.edu/~rs/Algs3.c1-4/code.txt
+
+#include <assert.h>
+
+#ifdef ENABLE_KLEE
+#include <klee/klee.h>
+#endif
 
 typedef int Item;
 #define key(A) (A)
@@ -27,12 +31,12 @@ void mergesort(Item a[], int l, int r) {
   merge(a, l, m, r);
 }
 
-int nondet_int();
-int a[N];
-
 int main() {
-  for (unsigned i = 0; i < N; i++)
-    a[i] = nondet_int();
+  int a[N];
+
+#ifdef ENABLE_KLEE
+  klee_make_symbolic(a, sizeof(a), "a");
+#endif
 
   mergesort(a, 0, N-1);
   for (unsigned i = 0; i < N - 1; i++)

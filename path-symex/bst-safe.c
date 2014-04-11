@@ -6,6 +6,10 @@
 #include <stdlib.h>
 #include <assert.h>
 
+#ifdef ENABLE_KLEE
+#include <klee/klee.h>
+#endif
+
 typedef int Key;
 typedef int Item;
 
@@ -61,15 +65,27 @@ void sorter(Item item) {
   a[k++] = item;
 }
 
+#ifdef ENABLE_CPROVER
 int nondet_int();
+#endif
 
 // Unwind N+1 times
 int main() {
+#ifdef ENABLE_KLEE
+  klee_make_symbolic(a, sizeof(a), "a");
+#endif
+
   STinit();
 
   for (unsigned i = 0; i < N; i++) {
+#ifdef ENABLE_CPROVER
     STinsert(nondet_int());
+#elif ENABLE_KLEE
+    STinsert(a[i]);
+    a[i] = NULLitem;
+#endif
   }
+
   STsort(sorter);
 
   assert(k == N);
