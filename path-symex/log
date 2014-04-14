@@ -1,0 +1,84 @@
+Logbook, Alex Horn
+
+                |       modulus     |   concrete-sum    |        bst        |      counter      |  insertion-sort   |     merge-sort    |   sum-recursive   |
+                +-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+ 
+                | N=2000            | N=46340           | N=7               | N=500             | N=7               | N=7               | N=46              |
+                +---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+                | safe    |  unsafe | safe    | unsafe  | safe    | unsafe  | safe    | unsafe  | safe    | unsafe  | safe    | unsafe  | safe    | unsafe  |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+KLEE            | < 1s    | 24m     | < 1s    | < 1s    | 14m     | < 1s    | 7m 22s  | < 1s    | 36m     | < 1s    | 23m     | < 1s    | 23m     | 32m     |
+2014-04-12      |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+-no-output      |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+-search=dfs     |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+-exit-on-error  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+path-symex      | ERROR   | ERROR   | 3s      | 4s      | ERROR   | ERROR   | 1m 14s  | < 1s    | 36m     | 16m     | WRONG   | LIKELY  | WRONG   | LIKELY  |
+2014-04-12      | see     | see     |         |         | see     | see     | --unwind|--unwind |         |         | RESULT  | BAD     | RESULT  | BAD     |
+                | remark  | remark  |         |         | remark  | remark  |   500   |  500    |         |         |         | ANALYSIS|         | ANALYSIS|
+                |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+CBMC            | 3s      | 3s      | 6s      | 11s     | TIMEOUT |TIMEOUT  | 4s      | 2s      | 1m 36s  | < 1s    | 5s      | < 1s    | TIMEOUT | < 1s    |
+2014-04-12/13   |         |         |         |         | 11 h    |2h 30m   |         |         |         |         |         |         | 12 h    |         |
+                |         |         |         |         | --unwind|--unwind | --unwind| --unwind|         |         |         |         |         |         |
+                |         |         |         |         |   8     |  8      |   500   |   500   |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+                |
+                |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+                |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+                |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+                |
+                |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+                |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+                |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+
+
+Remarks (Mid April 2014):
+
+The majority of benchmarks with KLEE were run on machine dkr12. I had to switch
+to drk11 for "sum-recursive" and "counter", however, because someone else started
+to heavily use dkr12 in the middle of the experiments.
+
+For KLEE, the following types of commands were run:
+
+  $ llvm-gcc --emit-llvm -I ../../klee/include -D ENABLE_KLEE -D N=46 -std=c99 -c -g sum-recursive-safe.c
+  $ time klee -no-output -search=dfs -exit-on-error sum-recursive-safe.o
+
+All times correspond to "Elapsed time" as recorded by KLEE in its "info" file.
+As a sanity check, I have compared one of these times with the result of the
+"time" command on Linux, OK.
+
+Contrary to conventional wisdom, benchmark modulus-unsafe.c shows that symbolic
+execution can be much slower at finding a bug than proving program correctness.
+This is confirmed by the safe and unsafe "sum-recursive" benchmark where only the
+assertion is changed (== versus !=).
+
+If N is increased to eight (8) for insertion-sort/safe, then KLEE does not
+produce results within 45 minutes.
+
+For CBMC's path-symex tool, the following type of command was run:
+
+  $ symex -D N=2000 -D ENABLE_CPROVER modulus-safe.c
+
+When necessary "--unwind" was specified (see table).
+
+To avoid the overhead of file I/O, the output program statements in
+path_symex.cpp were disabled by modifying the source code.
+
+Both modulus-safe.c and modulus-unsafe.c gave the following errors with
+symex after around 3 minutes:
+
+  terminate called after throwing an instance of 'std::bad_alloc'
+    what():  std::bad_alloc
+  Aborted (core dumped)
+
+For these two benchmarks, I confirmed that decreasing N=1740
+gives the right results within around 2 minutes. The error
+starts to occur when N<=1745.
+
+Both bst-safe.c and bst-unsafe.c result in "failed to dereference `symbol'".
+
+merge-sort-unsafe.c and sum-recursive-unsafe.c complete in less than one
+second but the result is likely unjustified given that path-symex gives
+the wrong result for the corresponding safe benchmarks.
