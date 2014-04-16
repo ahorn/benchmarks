@@ -1,6 +1,7 @@
 #!/bin/bash
 
-SMTKIT_PREFIX=
+SMTKIT_PREFIX=/nas/ahorn/2014/smt-kit
+export LD_LIBRARY_PATH=/nas/ahorn/2014/smt-kit/solvers/z3/build:/nas/ahorn/2014/smt-kit/target/lib
 
 ./benchmark.sh "${SMTKIT_PREFIX}" "modulus-safe"
 ./benchmark.sh "${SMTKIT_PREFIX}" "modulus-unsafe"
