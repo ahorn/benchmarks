@@ -1,7 +1,6 @@
 #!/bin/bash
 
 CXX="clang++"
-CHRONO="/usr/bin/time"
 
 SMTKIT_PREFIX=$1
 BENCHMARK=$2
@@ -28,7 +27,7 @@ check_platform() {
 
 # Total runtime of compilation and symbolic execution
 run() {
-  ${CHRONO} sh -c "echo ${BENCHMARK}; ${CXX} -std=c++11 -I${SMTKIT_PREFIX}/include -L${SMTKIT_PREFIX}/target/lib -I${SMTKIT_PREFIX}/solvers/z3/src/api/c++ -I${SMTKIT_PREFIX}/solvers/z3/src/api -L${SMTKIT_PREFIX}/solvers/z3/build -lz3 -lsmt -o ${BENCHMARK} "${BENCHMARK}.cpp"; ./${BENCHMARK}"
+  time sh -c "echo ${BENCHMARK}; ${CXX} -std=c++11 -I${SMTKIT_PREFIX}/include -L${SMTKIT_PREFIX}/target/lib -I${SMTKIT_PREFIX}/solvers/z3/src/api/c++ -I${SMTKIT_PREFIX}/solvers/z3/src/api -L${SMTKIT_PREFIX}/solvers/z3/build -lz3 -I${SMTKIT_PREFIX}/solvers/msat/include -L${SMTKIT_PREFIX}/solvers/msat/lib -lmathsat -I${SMTKIT_PREFIX}/solvers/CVC4/target/include -L${SMTKIT_PREFIX}/solvers/CVC4/build/lib -lsmt -o ${BENCHMARK} "${BENCHMARK}.cpp" 2>>error.log; ./${BENCHMARK}"
 }
 
 # basic checks
