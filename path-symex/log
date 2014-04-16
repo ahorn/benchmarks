@@ -22,10 +22,10 @@ CBMC            | 3s      | 3s      | 6s      | 11s     | TIMEOUT |TIMEOUT  | 4s
                 |         |         |         |         | --unwind|--unwind | --unwind| --unwind|         |         |         |         |         |         |
                 |         |         |         |         |   8     |  8      |   500   |   500   |         |         |         |         |         |         |
 ----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
-                |
-                |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
-                |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
-                |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+NSE             | 46s     | 1m      | 3s      | 3s      | 6s      | 3s      | 2m 13s  | 5s      | 2m 2s   | 3s      | 11m 32s | 10m 7s  | 3s      | 3s      |
+2014-04-16      |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+Manual source   |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+transformation  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 ----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
                 |
                 |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
@@ -82,3 +82,29 @@ Both bst-safe.c and bst-unsafe.c result in "failed to dereference `symbol'".
 merge-sort-unsafe.c and sum-recursive-unsafe.c complete in less than one
 second but the result is likely unjustified given that path-symex gives
 the wrong result for the corresponding safe benchmarks.
+
+The experiments with NSE are currently carried out by first manually
+transforming the source code of the benchmarks. The resulting source
+code is stored in the "transform/" directory.
+
+The following types of commands are used to compile these sources:
+
+  $ clang++ -std=c++11 -I/path/to/smt-kit/include                 \
+                     -L/path/to/smt-kit/target/lib                \
+                     -I/path/to/smt-kit/solvers/z3/src/api/c++    \
+                     -I/path/to/smt-kit/solvers/z3/src/api        \
+                     -L/path/to/smt-kit/solvers/z3/build          \
+                     -lz3 -lsmt concrete-sum-safe.cpp
+
+We also need to set the library load path for Z3 to work.
+On OS X, this can be done as follows:
+
+  export DYLD_LIBRARY_PATH=/path/to/smt-kit/solvers/z3/build:/path/to/smt-kit/target/lib
+
+On Linux (i.e. dkr11 or dkr12), this export command should be run on
+the environment variable LD_LIBRARY_PATH.
+
+Noteworthy, each time in the NSE row is the sum of the compilation
+_and_ symbolic execution time. This is, for example, the reason why
+the concrete-sum benchmarks take three seconds (the actual runtime
+is negligible).
