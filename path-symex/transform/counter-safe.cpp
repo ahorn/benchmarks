@@ -12,10 +12,10 @@ void crv_main() {
   unsigned unwind = N;
 
   crv::Internal<int> n;
-  crv::tracer().add_assertion(0 <= n && n < N);
+  crv::dfs_prune_checker().add_assertion(0 <= n && n < N);
 
   crv::Internal<int> x = n, y = 0;
-  while (crv::tracer().decide_flip(x > 0)) {
+  while (crv::dfs_prune_checker().branch(x > 0)) {
     x = x - 1;
     y = y + 1;
 
@@ -25,19 +25,19 @@ void crv_main() {
       break;
   }
 
-  crv::tracer().add_error(!(0 <= y) || !(y == n));
+  crv::dfs_prune_checker().add_error(!(0 <= y) || !(y == n));
 }
 
 int main() {
-  crv::tracer().reset();
+  crv::dfs_prune_checker().reset();
   crv::Encoder encoder;
 
   bool error = false;
   do {
     crv_main();
 
-    error |= smt::sat == encoder.check(crv::tracer());
-  } while (crv::tracer().flip() && !error);
+    error |= smt::sat == encoder.check(crv::tracer(), crv::dfs_prune_checker());
+  } while (crv::dfs_prune_checker().find_next_path() && !error);
 
   if (error)
     std::cout << "Found bug!" << std::endl;

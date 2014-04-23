@@ -40,7 +40,7 @@ static link insertR(link h, const crv::Internal<Item>& item) {
   crv::Internal<Key> v = key(item), t = key(h->item);
   if (h == z) return new STnode(item, z, z, 1);
 
-  if (crv::tracer().decide_flip(less(v, t)))
+  if (crv::dfs_prune_checker().branch(less(v, t)))
     h->l = insertR(h->r, item);
     //                ^ bug due to wrong variable (it should be l)
   else
@@ -75,19 +75,19 @@ void sorter(const crv::Internal<Item>& item) {
 void crv_main() {
   STinit();
 
-  for (crv::Internal<unsigned> i = 0; crv::tracer().decide_flip(i < N); i = i+1) {
+  for (crv::Internal<unsigned> i = 0; crv::dfs_prune_checker().branch(i < N); i = i+1) {
     STinsert(crv::any<Item>());
   }
   STsort(sorter);
 
-  crv::tracer().add_error(!(k == N));
-  for (crv::Internal<unsigned> i = 0; crv::tracer().decide_flip(i < N - 1); i = i+1)
-    crv::tracer().add_error(!(a[i] <= a[i+1]));
+  crv::dfs_prune_checker().add_error(!(k == N));
+  for (crv::Internal<unsigned> i = 0; crv::dfs_prune_checker().branch(i < N - 1); i = i+1)
+    crv::dfs_prune_checker().add_error(!(a[i] <= a[i+1]));
 }
 
 // leaks memory but OK for this benchmark
 int main() {
-  crv::tracer().reset();
+  crv::dfs_prune_checker().reset();
   crv::Encoder encoder;
 
   bool error = false;
@@ -97,8 +97,8 @@ int main() {
 
     crv_main();
 
-    error |= smt::sat == encoder.check(crv::tracer());
-  } while (crv::tracer().flip() && !error);
+    error |= smt::sat == encoder.check(crv::tracer(), crv::dfs_prune_checker());
+  } while (crv::dfs_prune_checker().find_next_path() && !error);
 
   if (error)
     std::cout << "Found bug!" << std::endl;
