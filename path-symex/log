@@ -32,6 +32,11 @@ NSE             | 3s      | 1m 28s  | 3s      | 3s      | 8s      | 3s      | 3m
 Manual transform|         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 DfsPruneChecker |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 ----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+NSE             | 3s      | 56s     | 3s      | 3s      | 8s      | 3s      | 3m 21s  | 3s      | 21s     | 3s      | 22s     | 3s      | 3s      | 3s      |
+2014-04-24      |         |         |         |         |         |         |         |         |         |         | seconds | seconds |         |         |
+Manual transform|         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+DfsPruneChecker |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
                 |
                 |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
                 |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
@@ -113,3 +118,8 @@ Noteworthy, each time in the NSE row is the sum of the compilation
 _and_ symbolic execution time. This is, for example, the reason why
 the concrete-sum benchmarks take three seconds (the actual runtime
 is negligible).
+
+The NSE experiments on 2014-04-24 were like the one on day before except
+that we take the "false" branch by default. This is _not_ intended to be
+a heuristic but a way to avoid loop unwinding bounds (see "counter",
+particularly commit 61c82225d6bf2799c8b).
