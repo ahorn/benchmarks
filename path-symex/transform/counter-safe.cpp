@@ -9,8 +9,6 @@
 
 // It suffices to unwind N times
 void crv_main() {
-  unsigned unwind = N;
-
   crv::Internal<int> n;
   crv::dfs_prune_checker().add_assertion(0 <= n && n < N);
 
@@ -18,11 +16,6 @@ void crv_main() {
   while (crv::dfs_prune_checker().branch(x > 0)) {
     x = x - 1;
     y = y + 1;
-
-    unwind--;
-    if (unwind == 0)
-      // reached loop unrolling bound
-      break;
   }
 
   crv::dfs_prune_checker().add_error(!(0 <= y) || !(y == n));
