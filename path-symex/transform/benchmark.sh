@@ -3,10 +3,11 @@
 CXX="clang++"
 
 SMTKIT_PREFIX=$1
-BENCHMARK=$2
+GMP_DIR=$2
+BENCHMARK=$3
 
 usage() {
-  echo "Usage: $0 smt-kit-prefix benchmark"
+  echo "Usage: $0 /path/to/smt-kit /path/to/gmp benchmark"
   exit 1
 }
 
@@ -27,7 +28,7 @@ check_platform() {
 
 # Total runtime of compilation and symbolic execution
 run() {
-  time sh -c "echo ${BENCHMARK}; ${CXX} -std=c++11 -I${SMTKIT_PREFIX}/include -L${SMTKIT_PREFIX}/target/lib -I${SMTKIT_PREFIX}/solvers/z3/src/api/c++ -I${SMTKIT_PREFIX}/solvers/z3/src/api -L${SMTKIT_PREFIX}/solvers/z3/build -lz3 -I${SMTKIT_PREFIX}/solvers/msat/include -L${SMTKIT_PREFIX}/solvers/msat/lib -lmathsat -I${SMTKIT_PREFIX}/solvers/CVC4/target/include -L${SMTKIT_PREFIX}/solvers/CVC4/build/lib -lsmt -o ${BENCHMARK} "${BENCHMARK}.cpp" 2>>error.log; ./${BENCHMARK}"
+  time sh -c "echo ${BENCHMARK}; ${CXX} -std=c++11 -I${SMTKIT_PREFIX}/include -L${SMTKIT_PREFIX}/target/lib -lsmt -I${SMTKIT_PREFIX}/solvers/z3/src/api/c++ -I${SMTKIT_PREFIX}/solvers/z3/src/api -L${SMTKIT_PREFIX}/solvers/z3/build -lz3 -I${SMTKIT_PREFIX}/solvers/msat/include -L${SMTKIT_PREFIX}/solvers/msat/lib -lmathsat -I$GMP_DIR/include -L${GMP_DIR}/lib -lgmp -o ${BENCHMARK} "${BENCHMARK}.cpp"; ./${BENCHMARK}"
 }
 
 # basic checks
