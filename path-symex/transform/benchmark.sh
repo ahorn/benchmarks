@@ -28,7 +28,7 @@ check_platform() {
 
 # Total runtime of compilation and symbolic execution
 run() {
-  time sh -c "echo ${BENCHMARK}; ${CXX} -std=c++11 -I${SMTKIT_PREFIX}/include -L${SMTKIT_PREFIX}/target/lib -lsmt -I${SMTKIT_PREFIX}/solvers/z3/src/api/c++ -I${SMTKIT_PREFIX}/solvers/z3/src/api -L${SMTKIT_PREFIX}/solvers/z3/build -lz3 -I${SMTKIT_PREFIX}/solvers/msat/include -L${SMTKIT_PREFIX}/solvers/msat/lib -lmathsat -I$GMP_DIR/include -L${GMP_DIR}/lib -lgmp -I${SMTKIT_PREFIX}/solvers/CVC4/target/include -L${SMTKIT_PREFIX}/solvers/CVC4/build/lib -o ${BENCHMARK} "${BENCHMARK}.cpp" 2>>error.log; ./${BENCHMARK}"
+  time sh -c "echo ${BENCHMARK}; ${CXX} -std=c++11 -I${SMTKIT_PREFIX}/include -L${SMTKIT_PREFIX}/target/lib -lsmt -I${SMTKIT_PREFIX}/solvers/z3/src/api/c++ -I${SMTKIT_PREFIX}/solvers/z3/src/api -L${SMTKIT_PREFIX}/solvers/z3/build -lz3 -I${SMTKIT_PREFIX}/solvers/msat/include -L${SMTKIT_PREFIX}/solvers/msat/lib -lmathsat -I$GMP_DIR/include -L${GMP_DIR}/lib -lgmp -lgmpxx -I${SMTKIT_PREFIX}/solvers/CVC4/target/include -L${SMTKIT_PREFIX}/solvers/CVC4/builds/lib -lcvc4 -o ${BENCHMARK} "${BENCHMARK}.cpp" 2>>error.log; ./${BENCHMARK}"
 }
 
 # basic checks

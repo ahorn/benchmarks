@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SMTKIT_PREFIX=/nas/ahorn/2014/smt-kit
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/nas/ahorn/2014/smt-kit/solvers/z3/build:/nas/ahorn/2014/smt-kit/target/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/nas/ahorn/2014/smt-kit/solvers/z3/build:/nas/ahorn/2014/smt-kit/solvers/CVC4/builds/lib:/nas/ahorn/2014/smt-kit/solvers/msat/lib:/nas/ahorn/2014/smt-kit/target/lib
 
 rm modulus-safe \
    concrete-sum-safe \
