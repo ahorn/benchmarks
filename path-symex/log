@@ -32,10 +32,25 @@ NSE             | 3s      | 1m 28s  | 3s      | 3s      | 8s      | 3s      | 3m
 Manual transform|         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 DfsPruneChecker |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 ----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 NSE             | 3s      | 56s     | 3s      | 3s      | 8s      | 3s      | 3m 21s  | 3s      | 21s     | 3s      | 22s     | 3s      | 3s      | 3s      |
 2014-04-24      |         |         |         |         |         |         |         |         |         |         | seconds | seconds |         |         |
 Manual transform|         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 DfsPruneChecker |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+NSE             | 3s      | 1m 38s  | 3s      | 3s      | 8m 52s  | 3s      | 5m 56s  | 3s      | 15m 38s | 3s      | 7m      | 3s      | 3s      | 3s      |
+2014-04-28      |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+Manual transform|         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+DfsPruneChecker |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+Z3, BV          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+NSE             | 3s      | 5m 15s  | 3s      | 3s      | 2m 38s  | 3s      | 4m 11s  | 3s      | 6m 49s  | 3s      | 4m 23s  | 4s      | TIMEOUT | 3s      |
+2014-04-28      |         |         |         |         |         |         |         |         |         |         |         |         | 30m     |         |
+Manual transform|         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+DfsPruneChecker |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+MathSAT5, BV    |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 ----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
                 |
                 |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
@@ -123,3 +138,32 @@ The NSE experiments on 2014-04-24 were like the one on day before except
 that we take the "false" branch by default. This is _not_ intended to be
 a heuristic but a way to avoid loop unwinding bounds (see "counter",
 particularly commit 61c82225d6bf2799c8b).
+
+Remarks (End of April)
+
+Unlike the NSE experiments on the previous days, the experiments on
+2014-04-28 were with bit-vector theory (smt::QF_AUFBV_LOGIC). For MathSAT5,
+the latest version (Feb 21, 2014) was used. Note that the MathSAT5
+experiments were run on a OS X machine which is generally faster than
+dkr12 on which the Z3 experiments were run. Moreover, the MathSAT5
+experiments required DfsPruneChecker::find_next_path() to reset
+m_solver, i.e.
+
+  bool DfsPruneChecker::find_next_path()
+  {
+    m_solver.reset();
+    m_is_feasible = true;
+    return DfsChecker::find_next_path();
+  }
+
+where smt_msat.h was modified such that
+
+  virtual void __reset() override
+  {
+    msat_destroy_env(m_env);
+    m_env = msat_create_env(m_config);
+  }
+
+NB: originally, it was msat_reset_env(m_env) but
+it keeps the terms intact which causes obviously
+problems in the benchmarks.
