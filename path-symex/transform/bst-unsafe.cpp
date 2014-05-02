@@ -88,7 +88,6 @@ void crv_main() {
 // leaks memory but OK for this benchmark
 int main() {
   crv::dfs_prune_checker().reset();
-  crv::Encoder encoder;
 
   bool error = false;
   do {
@@ -97,7 +96,7 @@ int main() {
 
     crv_main();
 
-    error |= smt::sat == encoder.check(crv::tracer(), crv::dfs_prune_checker());
+    error |= smt::sat == crv::dfs_prune_checker().check(crv::tracer());
   } while (crv::dfs_prune_checker().find_next_path() && !error);
 
   if (error)
