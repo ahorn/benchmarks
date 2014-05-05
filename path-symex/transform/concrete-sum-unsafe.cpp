@@ -1,5 +1,5 @@
 #include <iostream>
-#include <crv.h>
+#include <nse_sequential.h>
 
 #define N 46340
 
@@ -7,23 +7,23 @@ void crv_main() {
   crv::Internal<unsigned> n = 1;
   crv::Internal<unsigned> sum = 0;
 
-  while (crv::dfs_prune_checker().branch(n <= N)) {
+  while (crv::sequential_dfs_checker().branch(n <= N)) {
     sum = sum + n;
     n = n + 1;
   }
 
-  crv::dfs_prune_checker().add_error(sum == ((N * (N + 1)) / 2));
+  crv::sequential_dfs_checker().add_error(sum == ((N * (N + 1)) / 2));
 }
 
 int main() {
-  crv::dfs_prune_checker().reset();
+  crv::sequential_dfs_checker().reset();
 
   bool error = false;
   do {
     crv_main();
 
-    error |= smt::sat == crv::dfs_prune_checker().check(crv::tracer());
-  } while (crv::dfs_prune_checker().find_next_path() && !error);
+    error |= smt::sat == crv::sequential_dfs_checker().check();
+  } while (crv::sequential_dfs_checker().find_next_path() && !error);
 
   if (error)
     std::cout << "Found bug!" << std::endl;

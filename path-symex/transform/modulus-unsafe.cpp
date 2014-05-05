@@ -1,30 +1,34 @@
 #include <iostream>
-#include <crv.h>
+#include <nse_sequential.h>
 
 #define N 2000
 
 void crv_main() {
   crv::Internal<int> k;
 
-  for(crv::Internal<int> n = 0; crv::dfs_prune_checker().branch(n < N); n = n + 1) {
-    if(crv::dfs_prune_checker().branch(k == 7)) {
+  for(crv::Internal<int> n = 0; crv::sequential_dfs_checker().branch(n < N); n = n + 1) {
+    if(crv::sequential_dfs_checker().branch(k == 7)) {
       k = 0;
     }
     k = k + 1;
+
+if (k.is_literal())
+std::cout << "k :" << k.literal() << std::endl;
   }
 
-  crv::dfs_prune_checker().add_error(!(k <= 7));
+  crv::sequential_dfs_checker().add_error(!(k <= 7));
 }
 
 int main() {
-  crv::dfs_prune_checker().reset();
+  crv::sequential_dfs_checker().reset();
 
   bool error = false;
   do {
     crv_main();
 
-    error |= smt::sat == crv::dfs_prune_checker().check(crv::tracer());
-  } while (crv::dfs_prune_checker().find_next_path() && !error);
+    error |= smt::sat == crv::sequential_dfs_checker().check();
+
+  } while (crv::sequential_dfs_checker().find_next_path() && !error);
 
   if (error)
     std::cout << "Found bug!" << std::endl;

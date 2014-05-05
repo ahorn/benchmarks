@@ -4,7 +4,7 @@
 // For the correct code, see https://www.cs.princeton.edu/~rs/Algs3.c1-4/code.txt
 
 #include <iostream>
-#include <crv.h>
+#include <nse_sequential.h>
 
 typedef int Key;
 typedef int Item;
@@ -40,7 +40,7 @@ static link insertR(link h, const crv::Internal<Item>& item) {
   crv::Internal<Key> v = key(item), t = key(h->item);
   if (h == z) return new STnode(item, z, z, 1);
 
-  if (crv::dfs_prune_checker().branch(less(v, t)))
+  if (crv::sequential_dfs_checker().branch(less(v, t)))
     h->l = insertR(h->r, item);
     //                ^ bug due to wrong variable (it should be l)
   else
@@ -75,19 +75,19 @@ void sorter(const crv::Internal<Item>& item) {
 void crv_main() {
   STinit();
 
-  for (crv::Internal<unsigned> i = 0; crv::dfs_prune_checker().branch(i < N); i = i+1) {
+  for (crv::Internal<unsigned> i = 0; crv::sequential_dfs_checker().branch(i < N); i = i+1) {
     STinsert(crv::any<Item>());
   }
   STsort(sorter);
 
-  crv::dfs_prune_checker().add_error(!(k == N));
-  for (crv::Internal<unsigned> i = 0; crv::dfs_prune_checker().branch(i < N - 1); i = i+1)
-    crv::dfs_prune_checker().add_error(!(a[i] <= a[i+1]));
+  crv::sequential_dfs_checker().add_error(!(k == N));
+  for (crv::Internal<unsigned> i = 0; crv::sequential_dfs_checker().branch(i < N - 1); i = i+1)
+    crv::sequential_dfs_checker().add_error(!(a[i] <= a[i+1]));
 }
 
 // leaks memory but OK for this benchmark
 int main() {
-  crv::dfs_prune_checker().reset();
+  crv::sequential_dfs_checker().reset();
 
   bool error = false;
   do {
@@ -96,8 +96,8 @@ int main() {
 
     crv_main();
 
-    error |= smt::sat == crv::dfs_prune_checker().check(crv::tracer());
-  } while (crv::dfs_prune_checker().find_next_path() && !error);
+    error |= smt::sat == crv::sequential_dfs_checker().check();
+  } while (crv::sequential_dfs_checker().find_next_path() && !error);
 
   if (error)
     std::cout << "Found bug!" << std::endl;

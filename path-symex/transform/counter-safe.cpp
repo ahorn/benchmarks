@@ -3,33 +3,33 @@
 // benchmarks with tools that are not bit precise.
 
 #include <iostream>
-#include <crv.h>
+#include <nse_sequential.h>
 
 #define N 500
 
 // It suffices to unwind N times
 void crv_main() {
   crv::Internal<int> n;
-  crv::dfs_prune_checker().add_assertion(0 <= n && n < N);
+  crv::sequential_dfs_checker().add_assertion(0 <= n && n < N);
 
   crv::Internal<int> x = n, y = 0;
-  while (crv::dfs_prune_checker().branch(x > 0)) {
+  while (crv::sequential_dfs_checker().branch(x > 0)) {
     x = x - 1;
     y = y + 1;
   }
 
-  crv::dfs_prune_checker().add_error(!(0 <= y) || !(y == n));
+  crv::sequential_dfs_checker().add_error(!(0 <= y) || !(y == n));
 }
 
 int main() {
-  crv::dfs_prune_checker().reset();
+  crv::sequential_dfs_checker().reset();
 
   bool error = false;
   do {
     crv_main();
 
-    error |= smt::sat == crv::dfs_prune_checker().check(crv::tracer());
-  } while (crv::dfs_prune_checker().find_next_path() && !error);
+    error |= smt::sat == crv::sequential_dfs_checker().check();
+  } while (crv::sequential_dfs_checker().find_next_path() && !error);
 
   if (error)
     std::cout << "Found bug!" << std::endl;
