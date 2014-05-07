@@ -6,8 +6,23 @@ Logbook, Alex Horn
                 +---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
                 | safe    |  unsafe | safe    | unsafe  | safe    | unsafe  | safe    | unsafe  | safe    | unsafe  | safe    | unsafe  | safe    | unsafe  |
 ----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
-KLEE            | < 1s    | 24m     | < 1s    | < 1s    | 14m     | < 1s    | 7m 22s  | < 1s    | 36m     | < 1s    | 23m     | < 1s    | 23m     | 32m     |
+KLEE, STP-r940  | < 1s    | 24m     | < 1s    | < 1s    | 14m     | < 1s    | 7m 22s  | < 1s    | 36m     | < 1s    | 23m     | < 1s    | 23m     | 32m     |
 2014-04-12      |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+-no-output      |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+-search=dfs     |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+-exit-on-error  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+KLEE, STP-r940  | < 1s    | 3m 50s  | < 1s    | < 1s    | 10m 47s | < 1s    | 11m 55s | < 1s    | 20m     | < 1s    | 16m     | < 1s    | 23m 29s | 49m23s  |
+2014-05-07      |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+-no-output      |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+-search=dfs     |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+-exit-on-error  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+-use-cache=false|         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+-use-cex-cache= |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+  false         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+KLEE, new STP   | < 1s    | 23m 30s | < 1s    | < 1s    | 8m 36s  | < 1s    | 1m 18s  | < 1s    | 21m 48s | < 1s    | 14m 56s | < 1s    | TIMEOUT | TIMEOUT |
+2014-05-02      |         |         |         |         |         |         |         |         |         |         |         |         | (6 h)   | (30 m)  |
 -no-output      |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 -search=dfs     |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 -exit-on-error  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
@@ -51,6 +66,18 @@ Manual transform|         |         |         |         |         |         |   
 DfsPruneChecker |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 MathSAT5, BV    |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 ----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+NSE             | 3s      | 3m 42s  | 3s      | 3s      | 1m 57s  | 3s      | 1m 7s   | 3s      | 5m 55s  | 3s      | 3m 21s  | 3s      | TIMEOUT | 3s      |
+2014-05-02      |         |         |         |         |         |         |         |         |         |         |         |         | 30m     |         |
+Manual transform|         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+DfsPruneChecker |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+MathSAT5,cach BV|         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+NSE             | 3s      | 5h 28m  | 2s      | 2s      | 10m 51s | 4s      | 6m 36s  | 2s      | 41m 29s | 3s      | 29m 47s | 3s      | 2s      | 2s      |
+2014-05-05      |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+Manual transform|         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+DfsPruneChecker |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+STP, old        |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 ----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
                 |
                 |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
@@ -61,9 +88,18 @@ MathSAT5, BV    |         |         |         |         |         |         |   
 
 Remarks (Mid April 2014):
 
-The majority of benchmarks with KLEE were run on machine dkr12. I had to switch
-to drk11 for "sum-recursive" and "counter", however, because someone else started
-to heavily use dkr12 in the middle of the experiments.
+KLEE was built as follows:
+
+  $ ./configure --with-llvm=/nas/ahorn/2014/klee-experiments/llvm-2.9 --with-stp=/nas/ahorn/2014/klee-experiments/stp-r940/install
+
+The majority of benchmarks with KLEE were run on machine dkr12 after executing
+the following command:
+
+  $ export PATH=$PATH:/nas/ahorn/2014/klee-experiments/llvm-gcc4.2-2.9-x86_64-linux/bin
+  $ export PATH=$PATH:/nas/ahorn/2014/klee-experiments/klee/Release+Asserts/bin
+
+I had to switch to drk11 for "sum-recursive" and "counter", however, because someone
+else started to heavily use dkr12 in the middle of the experiments.
 
 For KLEE, the following types of commands were run:
 
@@ -167,3 +203,169 @@ where smt_msat.h was modified such that
 NB: originally, it was msat_reset_env(m_env) but
 it keeps the terms intact which causes obviously
 problems in the benchmarks.
+
+Remarks (Beginning of May)
+
+On May 2nd, I've rerun the KLEE experiments with the newest
+version of STP. The following commands were used to setup the experiments:
+
+   $ git clone https://github.com/stp/stp.git stp-r940
+   $ cd stp-r940
+   $ mkdir install
+   $ mkdir build
+   $ cd build
+   $ cmake -G 'Unix Makefiles'  -DCMAKE_INSTALL_PREFIX=/path/to/stp-r940/install ..
+   $ make
+   $ make install
+   $ cd /path/to/klee
+   $ make clean
+   $ ./configure --with-llvm=/path/to/llvm-2.9 --with-stp=/path/to/stp-r940/install
+   $ make ENABLE_OPTIMIZED=1
+   $ make check
+   $ make unittests
+
+Unlike the KLEE experiments in April, I recorded the time it takes to
+compile to LLVM IR. The times are negligible (a few milliseconds). This time
+around I also did not specify the -g flag when invoking llvm-gcc (so no debug
+information in the object file in case it slows down KLEE). So the llvm-gcc
+commands look as follows:
+
+   $ llvm-gcc --emit-llvm -I ../../klee/include -D ENABLE_KLEE -std=c99 -D N=2000 -c modulus-safe.c
+   $ llvm-gcc --emit-llvm -I ../../klee/include -D ENABLE_KLEE -std=c99 -D N=2000 -c modulus-unsafe.c
+   $ llvm-gcc --emit-llvm -I ../../klee/include -D ENABLE_KLEE -std=c99 -D N=46340 -c concrete-sum-safe.c
+   $ llvm-gcc --emit-llvm -I ../../klee/include -D ENABLE_KLEE -std=c99 -D N=46340 -c concrete-sum-unsafe.c
+   $ llvm-gcc --emit-llvm -I ../../klee/include -D ENABLE_KLEE -std=c99 -D N=7 -c bst-safe.c
+   $ llvm-gcc --emit-llvm -I ../../klee/include -D ENABLE_KLEE -std=c99 -D N=7 -c bst-unsafe.c
+   $ llvm-gcc --emit-llvm -I ../../klee/include -D ENABLE_KLEE -std=c99 -D N=500 -c counter-safe.c
+   $ llvm-gcc --emit-llvm -I ../../klee/include -D ENABLE_KLEE -std=c99 -D N=500 -c counter-unsafe.c
+   $ llvm-gcc --emit-llvm -I ../../klee/include -D ENABLE_KLEE -std=c99 -D N=7 -c insertion-sort-safe.c
+   $ llvm-gcc --emit-llvm -I ../../klee/include -D ENABLE_KLEE -std=c99 -D N=7 -c insertion-sort-unsafe.c
+   $ llvm-gcc --emit-llvm -I ../../klee/include -D ENABLE_KLEE -std=c99 -D N=7 -c merge-sort-safe.c
+   $ llvm-gcc --emit-llvm -I ../../klee/include -D ENABLE_KLEE -std=c99 -D N=7 -c merge-sort-unsafe.c
+   $ llvm-gcc --emit-llvm -I ../../klee/include -D ENABLE_KLEE -std=c99 -D N=46 -c sum-recursive-safe.c
+   $ llvm-gcc --emit-llvm -I ../../klee/include -D ENABLE_KLEE -std=c99 -D N=46 -c sum-recursive-unsafe.c
+
+On May 5th, I've finally managed to get some experimental results for NSE with STP.
+Originally, I've tried to use the newest version of STP (particlarly since KLEE seems
+to fare well with the newest version, see May 2nd). However, NSE runs into a performance
+bug, see https://github.com/stp/stp/issues/101.
+
+To work around this, I've reverted to an older version of STP, stp-r940 as used by KLEE.
+However, stp-r940 only builds as a static library (libstp.a). So I refactored the NSE
+code to avoid having to mix dynamic and static libraries. This explains the purpose
+of the new nse_sequential.h header file.
+
+I found that stp-r940 does not compile on OS X. I therefore used dkr12. But linking
+stp-940 is still not easy even on Linux and I ended up building a custom version of
+SMT Kit locally on that machine. This involved changing the build system as follows:
+
+Makefile.am:
+--------------------------8<--------------------------
+
+# Build rules for libraries.
+lib_LTLIBRARIES = lib/libsmt.la
+
+lib_libsmt_la_SOURCES = \
+  src/smt.cpp \
+  src/nse_sequential.cpp
+
+pkginclude_HEADERS = \
+  include/smt \
+  include/smt.h \
+  include/smt_stp.h \
+  include/nse_sequential.h
+
+TESTS = test/smt
+check_PROGRAMS = test/smt
+
+test_smt_SOURCES = \
+  test/smt_test.cpp \
+  test/smt_stp_test.cpp \
+  test/nse_sequential_test.cpp \
+  test/crv_functional_test.cpp
+--------------------------8<--------------------------
+
+configure.ac:
+--------------------------8<--------------------------
+STP_DIR="solvers/stp"
+
+# Search for SMT and SAT solver libraries
+CXXFLAGS="$CXXFLAGS -I$STP_DIR/build/include"
+LDFLAGS="$LDFLAGS -L$STP_DIR/build/lib -static -lstp"
+
+AC_SEARCH_LIBS([vc_createValidityChecker], [stp], , AC_MSG_ERROR([Unable to find STP]))
+--------------------------8<--------------------------
+
+Notice how all the solvers except STP were removed from the build. We also use the -static flag!
+Note that crv.h is gone from the build; instead we only use nse_sequential.h. For this to work,
+I manually modified "test/crv_functional_test.cpp" such that only those test cases remained
+that use sequential_dfs_checker().
+
+The final step is the actual linking of the benchmark files (e.g. modulus-safe.cpp).
+For this, I've used commands of the following form:
+
+   $ g++ -std=c++11 -I/nas/ahorn/2014/smt-kit/include \
+                    -I/nas/ahorn/2014/smt-kit/solvers/stp/build/include \
+                    -o modulus-safe modulus-safe.cpp \
+                    /nas/ahorn/2014/smt-kit/target/lib/libsmt.a \
+                    /nas/ahorn/2014/smt-kit/solvers/stp/build/lib/libstp.a
+
+The .a files had to explicitly specified; otherwise, there are linking errors.
+
+The following shall script automates this a little bit:
+
+benchmark_stp.sh:
+--------------------------8<--------------------------
+#!/bin/bash
+
+CXX="g++"
+
+SMTKIT_PREFIX=$1
+GMP_DIR=$2
+BENCHMARK=$3
+
+usage() {
+  echo "Usage: $0 /path/to/smt-kit /path/to/gmp benchmark"
+  exit 1
+}
+
+error() {
+  echo "$@" 1>&2
+  exit 1
+}
+
+check_platform() {
+  case `uname -s` in
+    Darwin|Linux|CYGWIN_*)
+      ;;
+    *)
+      error "Unsupported platform `uname -s`"
+      ;;
+  esac
+}
+
+# Total runtime of compilation and symbolic execution
+run() {
+  time sh -c "echo ${BENCHMARK}; ${CXX} -std=c++11 -I${SMTKIT_PREFIX}/include -I${SMTKIT_PREFIX}/solvers/stp/build/include -o ${BENCHMARK} "${BENCHMARK}.cpp" ${SMTKIT_PREFIX}/target/lib/libsmt.a ${SMTKIT_PREFIX}/solvers/stp/build/lib/libstp.a; ./${BENCHMARK}"
+}
+
+# basic checks
+[[ $# -eq 0 ]] && usage
+
+[ -n "$SMTKIT_PREFIX" ] || error "Please specify SMT Kit prefix"
+[ -n "$BENCHMARK" ] || error "Please specify benchmark name"
+check_platform
+
+if ! [[ -f "${BENCHMARK}.cpp" ]]; then
+  error "Cannot find ${BENCHMARK}.cpp"
+else
+  run
+fi
+--------------------------8<--------------------------
+
+On May 7th, I rerun the KLEE experiments with the stp-r940 solver
+but with the following kinds of command:
+
+  $ klee -no-output -search=dfs -exit-on-error -use-cache=false -use-cex-cache=false modulus-safe.o
+
+The rationale is that KLEE does various caching whilst NSE uses does not.
