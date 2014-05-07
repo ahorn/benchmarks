@@ -55,7 +55,7 @@ DfsPruneChecker |         |         |         |         |         |         |   
 ----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 ----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 NSE             | 3s      | 1m 38s  | 3s      | 3s      | 8m 52s  | 3s      | 5m 56s  | 3s      | 15m 38s | 3s      | 7m      | 3s      | 3s      | 3s      |
-2014-04-28      |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+2014-04-28      |         | 59%     |         |         | 95%     |         | 71%     |         | 94%     |         | 90%     |         |         |         |
 Manual transform|         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 DfsPruneChecker |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 Z3, BV          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
@@ -178,8 +178,11 @@ particularly commit 61c82225d6bf2799c8b).
 Remarks (End of April)
 
 Unlike the NSE experiments on the previous days, the experiments on
-2014-04-28 were with bit-vector theory (smt::QF_AUFBV_LOGIC). For MathSAT5,
-the latest version (Feb 21, 2014) was used. Note that the MathSAT5
+2014-04-28 were with bit-vector theory (smt::QF_AUFBV_LOGIC). The
+percentage gives "Solver time / Total runtime", i.e. the time it
+took the solver to check SAT/UNSAT divided by the total runtime.
+
+For MathSAT5, the latest version (Feb 21, 2014) was used. The MathSAT5
 experiments were run on a OS X machine which is generally faster than
 dkr12 on which the Z3 experiments were run. Moreover, the MathSAT5
 experiments required DfsPruneChecker::find_next_path() to reset
