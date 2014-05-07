@@ -1,6 +1,8 @@
 #include <iostream>
 #include <nse_sequential.h>
 
+#include "report.h"
+
 #define N 2000
 
 void crv_main() {
@@ -11,29 +13,33 @@ void crv_main() {
       k = 0;
     }
     k = k + 1;
-
-if (k.is_literal())
-std::cout << "k :" << k.literal() << std::endl;
   }
 
   crv::sequential_dfs_checker().add_error(!(k <= 7));
 }
 
 int main() {
-  crv::sequential_dfs_checker().reset();
-
   bool error = false;
-  do {
-    crv_main();
 
-    error |= smt::sat == crv::sequential_dfs_checker().check();
+  std::chrono::seconds seconds(std::chrono::seconds::zero());
+  {
+    smt::internal::Timer<std::chrono::seconds> timer(seconds);
+    crv::sequential_dfs_checker().reset();
 
-  } while (crv::sequential_dfs_checker().find_next_path() && !error);
+    do {
+      crv_main();
+  
+      error |= smt::sat == crv::sequential_dfs_checker().check();
+  
+    } while (crv::sequential_dfs_checker().find_next_path() && !error);
+  }
 
   if (error)
     std::cout << "Found bug!" << std::endl;
   else
     std::cout << "Could not find any bugs." << std::endl;
+
+  report_time(seconds);
 
   return error;
 }

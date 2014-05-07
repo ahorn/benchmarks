@@ -6,6 +6,8 @@
 #include <iostream>
 #include <nse_sequential.h>
 
+#include "report.h"
+
 // Note that we do not instrument this type on purpose
 typedef int Item;
 
@@ -38,19 +40,26 @@ void crv_main() {
 }
 
 int main() {
-  crv::sequential_dfs_checker().reset();
-
   bool error = false;
-  do {
-    crv_main();
 
-    error |= smt::sat == crv::sequential_dfs_checker().check();
-  } while (crv::sequential_dfs_checker().find_next_path() && !error);
+  std::chrono::seconds seconds(std::chrono::seconds::zero());
+  {
+    smt::internal::Timer<std::chrono::seconds> timer(seconds);
+    crv::sequential_dfs_checker().reset();
+
+    do {
+      crv_main();
+  
+      error |= smt::sat == crv::sequential_dfs_checker().check();
+    } while (crv::sequential_dfs_checker().find_next_path() && !error);
+  }
 
   if (error)
     std::cout << "Found bug!" << std::endl;
   else
     std::cout << "Could not find any bugs." << std::endl;
+
+  report_time(seconds);
 
   return error;
 }
