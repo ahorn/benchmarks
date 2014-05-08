@@ -364,6 +364,17 @@ if ! [[ -f "${BENCHMARK}.cpp" ]]; then
 else
   run
 fi
+
+
+For the 2014-05-05 KLEE experiment, the modulus-unsafe time
+is several hours because it explores the "false" branch in
+each for-loop iteration. Unlike other solvers, STP very
+slow at solving the conjunction of path constraints for
+this problem. I've verified that choosing the "true" branch
+lets NSE complete on modulus-unsafe in less than 1 second
+even if STP is used as a back-end solver. This suggests
+that KLEE uses the "true" branch also.
+
 --------------------------8<--------------------------
 
 On May 7th, I rerun the KLEE experiments with the stp-r940 solver

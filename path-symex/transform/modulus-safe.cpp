@@ -23,9 +23,8 @@ int main() {
   bool error = false;
 
   std::chrono::seconds seconds(std::chrono::seconds::zero());
-  smt::internal::Timer<std::chrono::seconds> timer(seconds);
   {
-    crv::sequential_dfs_checker().reset();
+    smt::NonReentrantTimer<std::chrono::seconds> timer(seconds);
 
     do {
       crv_main();

@@ -93,8 +93,7 @@ int main() {
 
   std::chrono::seconds seconds(std::chrono::seconds::zero());
   {
-    smt::internal::Timer<std::chrono::seconds> timer(seconds);
-    crv::sequential_dfs_checker().reset();
+    smt::NonReentrantTimer<std::chrono::seconds> timer(seconds);
 
     do {
       k = 0;
