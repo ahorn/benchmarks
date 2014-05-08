@@ -1,0 +1,255 @@
+Run on OS X
+05-05-2014
+
+modulus-safe
+Could not find any bugs.
+-----------------------:
+Number of paths exlored: 8
+Literal branch percentage: 99%
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+
+real	0m1.572s
+user	0m1.490s
+sys	0m0.089s
+
+modulus-unsafe
+Found bug!
+-----------------------:
+Number of paths exlored: 2
+Literal branch percentage: 50%
+Total runtime (s): 77
+Encoder time (s): 0
+Solver time (s): 45
+Branch time (s): 76
+Replay time (s): 0
+Solver percentage: 59%
+Branch percentage: 99%
+Replay percentage: 0%
+
+real	1m19.560s
+user	1m19.249s
+sys	0m0.309s
+
+concrete-sum-safe
+Could not find any bugs.
+-----------------------:
+Number of paths exlored: 1
+Literal branch percentage: 100%
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+
+real	0m1.437s
+user	0m1.361s
+sys	0m0.083s
+
+concrete-sum-unsafe
+Found bug!
+-----------------------:
+Number of paths exlored: 1
+Literal branch percentage: 100%
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+
+real	0m1.431s
+user	0m1.356s
+sys	0m0.085s
+
+bst-safe
+Could not find any bugs.
+-----------------------:
+Number of paths exlored: 5040
+Literal branch percentage: 52%
+Total runtime (s): 312
+Encoder time (s): 0
+Solver time (s): 297
+Branch time (s): 6
+Replay time (s): 0
+Solver percentage: 95%
+Branch percentage: 2%
+Replay percentage: 0%
+
+real	5m14.866s
+user	5m14.286s
+sys	0m0.593s
+
+bst-unsafe
+Found bug!
+-----------------------:
+Number of paths exlored: 4
+Literal branch percentage: 41%
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+
+real	0m1.852s
+user	0m1.762s
+sys	0m0.094s
+
+counter-safe
+Could not find any bugs.
+-----------------------:
+Number of paths exlored: 501
+Literal branch percentage: 0%
+Total runtime (s): 356
+Encoder time (s): 0
+Solver time (s): 262
+Branch time (s): 179
+Replay time (s): 0
+Solver percentage: 73%
+Branch percentage: 50%
+Replay percentage: 0%
+
+real	5m57.886s
+user	5m56.774s
+sys	0m1.118s
+
+counter-unsafe
+Found bug!
+-----------------------:
+Number of paths exlored: 2
+Literal branch percentage: 0%
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+
+real	0m1.535s
+user	0m1.454s
+sys	0m0.087s
+
+insertion-sort-safe
+Could not find any bugs.
+-----------------------:
+Number of paths exlored: 10569
+Literal branch percentage: 63%
+Total runtime (s): 789
+Encoder time (s): 0
+Solver time (s): 743
+Branch time (s): 121
+Replay time (s): 0
+Solver percentage: 94%
+Branch percentage: 15%
+Replay percentage: 0%
+
+real	13m11.786s
+user	13m9.954s
+sys	0m1.818s
+
+insertion-sort-unsafe
+Found bug!
+-----------------------:
+Number of paths exlored: 4
+Literal branch percentage: 68%
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+
+real	0m1.872s
+user	0m1.778s
+sys	0m0.102s
+
+merge-sort-safe
+Could not find any bugs.
+-----------------------:
+Number of paths exlored: 14724
+Literal branch percentage: 79%
+Total runtime (s): 377
+Encoder time (s): 0
+Solver time (s): 342
+Branch time (s): 41
+Replay time (s): 0
+Solver percentage: 90%
+Branch percentage: 11%
+Replay percentage: 0%
+
+real	6m19.629s
+user	6m18.779s
+sys	0m0.762s
+
+merge-sort-unsafe
+Found bug!
+-----------------------:
+Number of paths exlored: 2
+Literal branch percentage: 79%
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+
+real	0m1.906s
+user	0m1.812s
+sys	0m0.098s
+
+sum-recursive-safe
+Could not find any bugs.
+-----------------------:
+Number of paths exlored: 1
+Literal branch percentage: 100%
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+
+real	0m1.512s
+user	0m1.436s
+sys	0m0.083s
+
+sum-recursive-unsafe
+Found bug!
+-----------------------:
+Number of paths exlored: 1
+Literal branch percentage: 100%
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+
+real	0m1.510s
+user	0m1.436s
+sys	0m0.085s
+
