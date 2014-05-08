@@ -375,6 +375,17 @@ lets NSE complete on modulus-unsafe in less than 1 second
 even if STP is used as a back-end solver. This suggests
 that KLEE uses the "true" branch also.
 
+Explored paths:
+
+* Noteworthy, NSE explores 10569 paths in insertion-sort-safe
+  whereas KLEE explores only 7423 paths in insertion-sort-safe.
+
+* NSE explores 14724 paths in merge-sort-safe
+  whereas KLEE explores only 6435 paths in merge-sort-safe. 
+
+In all other cases, NSE and KLEE explore the same number of
+paths +/- 1 (differences in how paths are counted).
+
 --------------------------8<--------------------------
 
 On May 7th, I rerun the KLEE experiments with the stp-r940 solver
