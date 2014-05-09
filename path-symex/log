@@ -394,3 +394,51 @@ but with the following kinds of command:
   $ klee -no-output -search=dfs -exit-on-error -use-cache=false -use-cex-cache=false modulus-safe.o
 
 The rationale is that KLEE does various caching whilst NSE uses does not.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+On May 9th, I've rerun the modulus-safe.c path-symex experiment with N=2000
+on OS X; it took 24 minutes to complete with the following configuration:
+
+#undef PATH_SYMEX_LAZY_STATE
+#undef PATH_SYMEX_FORK
+#define PATH_SYMEX_LAZY_BRANCH
+
+I repeated the experiment but this time with #define PATH_SYMEX_LAZY_STATE.
+Then the command "symex -D ENABLE_CPROVER -D N=2000 modulus-safe.c" took
+46 minutes to execute (almost twice as slow compared to the experiment
+where PATH_SYMEX_LAZY_STATE was undefined).
+
+Recall the path-symex experiment on 2014-04-12. It used the configuration
+where all three flags were _undefined_ which resulted in std::bad_alloc!
+The GDB backtrace looks as follows:
+
+  #0  0x0000003324a5f0e1 in __cxa_throw () from /lib64/libstdc++.so.6
+  #1  0x0000003324a5f6cd in operator new(unsigned long) () from /lib64/libstdc++.so.6
+  #2  0x000000000067cb21 in irept::detach (this=0x7fffffffc5c0) at irep.cpp:75
+  #3  0x0000000000480964 in irept::write (this=0x7fffffffc5c0) at ../util/irep.h:326
+  #4  0x00000000006cd9e6 in irept::get_named_sub (this=0x7fffffffc5c0) at irep.h:226
+  #5  0x000000000067d56e in irept::add (this=0x7fffffffc5c0, name=...) at irep.cpp:469
+  #6  0x0000000000480b9f in exprt::type (this=0x7fffffffc5c0) at ../util/expr.h:56
+  #7  0x000000000069e436 in simplify_exprt::simplify_inequality (this=0x7fffffffce40, expr=...) at simplify_expr.cpp:3121
+  #8  0x00000000006aa61a in simplify_exprt::simplify_node (this=0x7fffffffce40, expr=...) at simplify_expr.cpp:5348
+  #9  0x00000000006abdda in simplify_exprt::simplify_rec (this=0x7fffffffce40, expr=...) at simplify_expr.cpp:5513
+  #10 0x00000000006abd81 in simplify_exprt::simplify_rec (this=0x7fffffffce40, expr=...) at simplify_expr.cpp:5508
+  #11 0x00000000006da90f in simplify_exprt::simplify (this=0x7fffffffce40, expr=...) at simplify_expr_class.h:115
+  #12 0x00000000006abef9 in simplify_expr (src=..., ns=...) at simplify_expr.cpp:5560
+  #13 0x00000000006e997e in path_symex_statet::read (this=0x212b3d500, src=..., propagate=true) at path_symex_state.cpp:174
+  #14 0x00000000006f580b in path_symex_statet::read (this=0x212b3d500, src=...) at path_symex_state.h:243
+  Python Exception <type 'exceptions.IndexError'> list index out of range:
+  #15 0x00000000006f0610 in path_symext::do_goto (this=0x7fffffffd0ef, state=..., further_states=std::list) at path_symex.cpp:828
+  Python Exception <type 'exceptions.IndexError'> list index out of range:
+  #16 0x00000000006f0cc3 in path_symext::operator() (this=0x7fffffffd0ef, state=..., further_states=std::list) at path_symex.cpp:1021
+  Python Exception <type 'exceptions.IndexError'> list index out of range:
+  #17 0x00000000006f12a3 in path_symex (state=..., further_states=std::list) at path_symex.cpp:1163
+  #18 0x000000000070532e in path_searcht::operator() (this=0x7fffffffd3b0, goto_functions=...) at path_search.cpp:155
+  #19 0x0000000000701f39 in symex_parseoptionst::doit (this=0x7fffffffd6d0) at symex_parseoptions.cpp:259
+  #20 0x000000000068330c in parseoptions_baset::main (this=0x7fffffffd6d0) at parseoptions.cpp:104
+  #21 0x0000000000700842 in main (argc=6, argv=0x7fffffffdc28) at symex_main.cpp:36
+
+The problem cannot be reproduced on OS X where I rerun symex compiled
+without any of the three flags, i.e. #undef PATH_SYMEX_LAZY_STATE,
+PATH_SYMEX_FORK, and PATH_SYMEX_LAZY_BRANCH.
