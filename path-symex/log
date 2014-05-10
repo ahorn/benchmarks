@@ -442,3 +442,91 @@ The GDB backtrace looks as follows:
 The problem cannot be reproduced on OS X where I rerun symex compiled
 without any of the three flags, i.e. #undef PATH_SYMEX_LAZY_STATE,
 PATH_SYMEX_FORK, and PATH_SYMEX_LAZY_BRANCH.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Saturday, May 10th:
+
+It is natural to ask how NSE and path-symex compare.
+
+$ ./benchmark.sh "${SMTKIT_PREFIX}" "${GMP_DIR}" "modulus-safe"
+
+DfsChecker using Internal<T>:
+
+  modulus-safe
+  Could not find any bugs.
+  -----------------------:
+  Number of paths exlored: 2001
+  Literal branch percentage: 'undefined'
+  Total runtime (s): 28
+  Encoder time (s): 0
+  Solver time (s): 0
+  Branch time (s): 0
+  Replay time (s): 4
+  Solver percentage: 0%
+  Branch percentage: 0%
+  Replay percentage: 16%
+
+The above experiment with DfsChecker only uses Z3 for the
+final check of the verification condition. We fix the execution
+time to be 30s.
+
+As a sanity check, I've also run the experiment with
+SequentialDfsChecker where Z3 was used to prune infeasible
+branches.
+
+SequentialDfsChecker using Internal<T>:
+
+  modulus-safe
+  Could not find any bugs.
+  -----------------------:
+  Number of paths exlored: 8
+  Literal branch percentage: 99%
+  Total runtime (s): 0
+  Encoder time (s): 0
+  Solver time (s): 0
+  Branch time (s): 0
+  Replay time (s): 0
+  Solver percentage: 'undefined'
+  Branch percentage: 'undefined'
+  Replay percentage: 'undefined'
+
+So SequentialDfsChecker gives approximately a 30X speed up
+for the modulus-safe benchmark when compared to DfsCheck.
+
+I also compared DfsChecker and path-symex (r3815):
+
+  $ symex -D ENABLE_CPROVER -D N=2000 modulus-safe.c
+
+  file modulus-safe.c: Parsing
+  Converting
+  Type-checking modulus-safe
+  Generating GOTO Program
+  Adding CPROVER library
+  Partial Inlining
+  Generic Property Instrumentation
+  Checking property main.1
+  Post-processing
+  Solving with MiniSAT 2.2.0 with simplifier
+  122183 variables, 486475 clauses
+  SAT checker: negated claim is UNSATISFIABLE, i.e., holds
+  Number of paths: 2001
+  Number of instructions: 10311745
+  Number of dropped states: 0
+  Number of fast forward steps: 0
+  Generated 1 VCC(s), 1 remaining after simplification
+  Runtime: 1201.64s total, 3.665s SAT
+  [main.1] assertion k <= 7: OK
+
+Observe that path-symex explores the same number of states
+as NSE's DfsChecker. In this benchmark therefore, DfsChecker
+is approximately 40X faster than path-symex. Note that these
+figures preliminarily measure the efficiency of the symbolic
+execution tools' internal data structures because the SAT/SMT
+solvers are never called on branch conditions (only for the
+final check are the SAT/SMT solvers called; in the case
+of path-symex it takes less than 4 seconds).
+
+This is simple benchmark gives a first encouraging data point
+for the efficiency of NSE's internal data structures such as
+expression trees and constant propagation algorithm etc.
