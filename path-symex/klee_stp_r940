@@ -1,0 +1,115 @@
+May 12th, 2014
+On dkr10
+
+klee -no-output -search=dfs -exit-on-error -use-cache=false -use-cex-cache=false -simplify-expressions=false -use-independent-solver=false modulus-safe.o
+PID: 22079
+Started: 2014-05-12 12:07:43
+BEGIN searcher description
+DFSSearcher
+END searcher description
+Finished: 2014-05-12 12:07:43
+Elapsed: 00:00:00
+KLEE: done: explored paths = 9
+KLEE: done: avg. constructs per query = 67
+KLEE: done: total queries = 19
+KLEE: done: valid queries = 2
+KLEE: done: invalid queries = 17
+KLEE: done: query cex = 19
+
+KLEE: done: total instructions = 185800
+KLEE: done: completed paths = 9
+KLEE: done: generated tests = 0
+
+klee -no-output -search=dfs -exit-on-error -use-cache=false -use-cex-cache=false -simplify-expressions=false -use-independent-solver=false concrete-sum-safe.o
+PID: 26112
+Started: 2014-05-12 12:11:23
+BEGIN searcher description
+DFSSearcher
+END searcher description
+Finished: 2014-05-12 12:11:23
+Elapsed: 00:00:00
+KLEE: done: explored paths = 1
+KLEE: done: total queries = 0
+KLEE: done: valid queries = 0
+KLEE: done: invalid queries = 0
+KLEE: done: query cex = 0
+
+KLEE: done: total instructions = 509759
+KLEE: done: completed paths = 1
+KLEE: done: generated tests = 0
+
+klee -no-output -search=dfs -exit-on-error -use-cache=false -use-cex-cache=false -simplify-expressions=false -use-independent-solver=false bst-safe.o
+PID: 26114
+Started: 2014-05-12 12:11:23
+BEGIN searcher description
+DFSSearcher
+END searcher description
+Finished: 2014-05-12 12:26:12
+Elapsed: 00:14:49
+KLEE: done: explored paths = 5040
+KLEE: done: avg. constructs per query = 340
+KLEE: done: total queries = 70558
+KLEE: done: valid queries = 30240
+KLEE: done: invalid queries = 40318
+KLEE: done: query cex = 70558
+
+KLEE: done: total instructions = 3330051
+KLEE: done: completed paths = 5040
+KLEE: done: generated tests = 0
+
+klee -no-output -search=dfs -exit-on-error -use-cache=false -use-cex-cache=false -simplify-expressions=false -use-independent-solver=false counter-safe.o
+PID: 358
+Started: 2014-05-12 12:26:13
+BEGIN searcher description
+DFSSearcher
+END searcher description
+Finished: 2014-05-12 12:37:42
+Elapsed: 00:11:29
+KLEE: done: explored paths = 502
+KLEE: done: avg. constructs per query = 3786
+KLEE: done: total queries = 2004
+KLEE: done: valid queries = 501
+KLEE: done: invalid queries = 1503
+KLEE: done: query cex = 2004
+
+KLEE: done: total instructions = 11523
+KLEE: done: completed paths = 502
+KLEE: done: generated tests = 0
+
+klee -no-output -search=dfs -exit-on-error -use-cache=false -use-cex-cache=false -simplify-expressions=false -use-independent-solver=false insertion-sort-safe.o
+PID: 2622
+Started: 2014-05-12 12:37:42
+BEGIN searcher description
+DFSSearcher
+END searcher description
+Finished: 2014-05-12 13:04:47
+Elapsed: 00:27:05
+KLEE: done: explored paths = 7423
+KLEE: done: avg. constructs per query = 373
+KLEE: done: total queries = 116835
+KLEE: done: valid queries = 54307
+KLEE: done: invalid queries = 62528
+KLEE: done: query cex = 116835
+
+KLEE: done: total instructions = 1477741
+KLEE: done: completed paths = 7423
+KLEE: done: generated tests = 0
+
+klee -no-output -search=dfs -exit-on-error -use-cache=false -use-cex-cache=false -simplify-expressions=false -use-independent-solver=false merge-sort-safe.o
+PID: 22727
+Started: 2014-05-12 13:04:47
+BEGIN searcher description
+DFSSearcher
+END searcher description
+Finished: 2014-05-12 13:25:53
+Elapsed: 00:21:06
+KLEE: done: explored paths = 6435
+KLEE: done: avg. constructs per query = 327
+KLEE: done: total queries = 108515
+KLEE: done: valid queries = 48748
+KLEE: done: invalid queries = 59767
+KLEE: done: query cex = 108515
+
+KLEE: done: total instructions = 1473740
+KLEE: done: completed paths = 6435
+KLEE: done: generated tests = 0
