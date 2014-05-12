@@ -35,11 +35,7 @@ void insertion_sort(crv::Internal<Item[]>& a, const crv::Internal<int>& l, const
   }
 }
 
-#ifdef FORCE_BRANCH
-#define N 6
-#else
 #define N 7
-#endif
 
 void crv_main() {
   crv::Internal<int[]> a;

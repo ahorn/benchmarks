@@ -44,11 +44,7 @@ void mergesort(crv::Internal<Item[]>& a, const crv::Internal<int>& l, const crv:
   merge(a, l, m, r);
 }
 
-#ifdef FORCE_BRANCH
-#define N 6
-#else
 #define N 7
-#endif
 
 void crv_main() {
   crv::Internal<Item[]> a;
