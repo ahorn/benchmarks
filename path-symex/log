@@ -550,3 +550,219 @@ of path-symex it takes less than 4 seconds).
 This is simple benchmark gives a first encouraging data point
 for the efficiency of NSE's internal data structures such as
 expression trees and constant propagation algorithm etc.
+
+~~~~~~~~~~~~~~~~~~ FORCE_BRANCH ~~~~~~~~~~~~~~~~~~~~~~
+
+The aim of the following experiments is to measure the
+overhead of symbolic execution itself without a solver.
+
+                    |    modulus-safe   | concrete-sum-safe |     bst-safe      |insertion-sort-safe| merge-sort-safe   |sum-recursive-safe |
+                    +-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+ 
+                    | N=2000            | N=46340           | N=7               | N=7               | N=7               | N=46              |
+--------------------+-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+
+NSE                 | Total time: 11s   | Total time:   2s  | Total time: 2s    | Total time: 19s   | Total time: 3m 13s| Total time: < 1s  |
+2014-05-12          | Replay time: 8s   | Replay time: n/a  | Replay time: n/a  | Replay time: < 1s | Replay time: < 1s | Replay time: n/a  |
+Manual transform    | Paths: 2001       | Paths: 1          | Paths: 5040       | Paths: 161280     | Paths: 1048576    | Paths: 1          |
+SequentialDfsChecker|                   |                   |                   |                   |                   |                   |
+--------------------+-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+
+path-symex          | Total time: 17m39s| Total time: 24s   | ERROR             | ERROR             | ERROR             | Total time: < 1s  |
+2014-05-12          | Instr: 10307738   | Instr: 185380     | symbol not found  | wrong number of   | wrong number of   | Instr: 303        |
+                    | Paths: 2001       | Paths: 1          |                   | paths (one)       | paths (one)       | Paths: 1          |
+SequentialDfsChecker|                   |                   |                   |                   |                   |                   |
+--------------------+-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+
+KLEE-modified       | Total time: 24s   | Total time: 1s    | Total time: 3s    | ERROR             | Total time: 1m 37s| Total time: < 1s  |
+2014-05-12          | Instr: 26618466   | Instr: 509756     | Instr: 2745410    | wrong number of   | Instr: 64606714   | Instr: 1536       |
+-simplify-expression| Paths: 2003       | Paths: 1          | Paths: 5040       | paths (12)        | Paths: 1048576    | Paths: 3          |
+  s=false + remarks |                   |                   |                   |                   |                   |                   |
+--------------------+-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+
+KLEE-modified       | Total time: 24s   | Total time: < 1s  | Total time: 3s    | ERROR             | Total time: 22s   | Total time: < 1s  |
+2014-05-12          | Instr: 26618466   | Instr: 509756     | Instr: 2745410    | wrong number of   | Instr: 13079466   | Instr: 1536       |
+-simplify-expression| Paths: 2003       | Paths: 1          | Paths: 5040       | paths (12)        | Paths: 132416     | Paths: 3          |
+  s=true + remarks  |                   |                   |                   |                   |                   |                   |
+--------------------+-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+
+
+
+Remarks:
+
+Experiments were run on OS X. For all the experiments, "-D FORCE_BRANCH" was specified on the command line.
+The NSE times include compilation time with clang++, LLVM version 5.1 (clang-503.0.40) (based on LLVM 3.4svn).
+
+For path-symex, we run the following commands:
+
+  $ symex -D FORCE_BRANCH -D ENABLE_CPROVER -D N=2000 modulus-safe.c
+
+  file modulus-safe.c: Parsing
+  Converting
+  Type-checking modulus-safe
+  Generating GOTO Program
+  Adding CPROVER library
+  Partial Inlining
+  Generic Property Instrumentation
+  Number of paths: 2000
+  Number of instructions: 10307738
+  Number of dropped states: 0
+  Number of fast forward steps: 0
+  Generated 0 VCC(s), 0 remaining after simplification
+  Runtime: 1058.64s total, 0s SAT
+
+
+  $ symex -D FORCE_BRANCH -D ENABLE_CPROVER -D N=46340 concrete-sum-safe.c
+
+  file concrete-sum-safe.c: Parsing
+  Converting
+  Type-checking concrete-sum-safe
+  Generating GOTO Program
+  Adding CPROVER library
+  Partial Inlining
+  Generic Property Instrumentation
+  Number of paths: 0
+  Number of instructions: 185380
+  Number of dropped states: 0
+  Number of fast forward steps: 0
+  Generated 0 VCC(s), 0 remaining after simplification
+  Runtime: 23.512s total, 0s SAT
+
+
+  $ symex -D FORCE_BRANCH -D ENABLE_CPROVER -D N=7 bst-safe.c
+
+  file bst-safe.c: Parsing
+  Converting
+  Type-checking bst-safe
+  Generating GOTO Program
+  Adding CPROVER library
+  Partial Inlining
+  Generic Property Instrumentation
+  failed to dereference `symbol'
+
+
+  $ symex -D FORCE_BRANCH -D ENABLE_CPROVER -D N=7 insertion-sort-safe.c
+  file insertion-sort-safe.c: Parsing
+  Converting
+  Type-checking insertion-sort-safe
+  Generating GOTO Program
+  Adding CPROVER library
+  Partial Inlining
+  Generic Property Instrumentation
+  Number of paths: 0
+  Number of instructions: 16
+  Number of dropped states: 0
+  Number of fast forward steps: 0
+  Generated 0 VCC(s), 0 remaining after simplification
+  Runtime: 0.005s total, 0s SAT
+  **Note: wrong number of paths!
+
+
+  $ symex -D FORCE_BRANCH -D ENABLE_CPROVER -D N=7 merge-sort-safe.c
+  file merge-sort-safe.c: Parsing
+  Converting
+  Type-checking merge-sort-safe
+  Generating GOTO Program
+  Adding CPROVER library
+  Partial Inlining
+  Generic Property Instrumentation
+  Number of paths: 0
+  Number of instructions: 97
+  Number of dropped states: 0
+  Number of fast forward steps: 0
+  Generated 0 VCC(s), 0 remaining after simplification
+  Runtime: 0.017s total, 0s SAT
+  **Note: wrong number of paths!
+
+
+  $ symex -D FORCE_BRANCH -D ENABLE_CPROVER -D N=46 sum-recursive-safe.c
+  file sum-recursive-safe.c: Parsing
+  Converting
+  Type-checking sum-recursive-safe
+  Generating GOTO Program
+  Adding CPROVER library
+  Partial Inlining
+  Generic Property Instrumentation
+  Number of paths: 0
+  Number of instructions: 303
+  Number of dropped states: 0
+  Number of fast forward steps: 0
+  Generated 0 VCC(s), 0 remaining after simplification
+  Runtime: 0.065s total, 0s SAT
+
+For modulus-safe, NSE is almost two orders of magnitude faster than path-symex.
+For concrete-sum-safe, NSE is one order of magnitude faster than path-symex.
+
+The KLEE experiments required the source code of KLEE to be modified:
+
+KLEE_no_solver.diff:
+--------------------------8<--------------------------
+diff --git a/lib/Expr/Constraints.cpp b/lib/Expr/Constraints.cpp
+index 90d9bcd..1a66c26 100644
+--- a/lib/Expr/Constraints.cpp
++++ b/lib/Expr/Constraints.cpp
+@@ -129,8 +129,8 @@ void ConstraintManager::addConstraintInternal(ref<Expr> e) {
+
+   switch (e->getKind()) {
+   case Expr::Constant:
+-    assert(cast<ConstantExpr>(e)->isTrue() &&
+-           "attempt to add invalid (false) constraint");
++   // assert(cast<ConstantExpr>(e)->isTrue() &&
++   //        "attempt to add invalid (false) constraint");
+     break;
+
+     // split to enable finer grained independence and other optimizations
+diff --git a/lib/Solver/Solver.cpp b/lib/Solver/Solver.cpp
+index 22b1545..548e48c 100644
+--- a/lib/Solver/Solver.cpp
++++ b/lib/Solver/Solver.cpp
+@@ -491,6 +491,39 @@ Solver *klee::createDummySolver() {
+
+ /***/
+
++class QuiescentSolverImpl : public SolverImpl {
++public:
++  QuiescentSolverImpl() {}
++  ~QuiescentSolverImpl() {}
++
++  char *getConstraintLog(const Query&) {
++    assert(0 && "Unsupported getConstraintLog()");
++  }
++
++  void setCoreSolverTimeout(double _timeout) {
++  }
++
++  bool computeTruth(const Query&, bool &isValid) {
++    isValid = false;
++    return true;
++  }
++
++  bool computeValue(const Query&, ref<Expr> &result) {
++    assert(0 && "Unsupported computeValue()");
++  }
++
++  bool computeInitialValues(const Query&,
++                            const std::vector<const Array*> &objects,
++                            std::vector< std::vector<unsigned char> > &values,
++                            bool &hasSolution) {
++    assert(0 && "Unsupported computeInitialValues()");
++  }
++
++  SolverRunStatus getOperationStatusCode() {
++    return SolverImpl::SOLVER_RUN_STATUS_SUCCESS_SOLVABLE;
++  }
++};
++
+ class STPSolverImpl : public SolverImpl {
+ private:
+   /// The solver we are part of, for access to public information.
+@@ -565,7 +598,7 @@ STPSolverImpl::~STPSolverImpl() {
+ /***/
+
+ STPSolver::STPSolver(bool useForkedSTP, bool optimizeDivides)
+-  : Solver(new STPSolverImpl(this, useForkedSTP, optimizeDivides))
++  : Solver(new QuiescentSolverImpl())
+ {
+ }
+--------------------------8<--------------------------
+
+The KLEE experiments were run as follows with the appropriate filename:
+
+  $ time ${KLEE} -no-output -search=dfs -exit-on-error -use-cache=false -use-cex-cache=false -simplify-expressions=false -use-independent-solver=false file.o
+
+I also repeated the KLEE experiments with command line option -simplify-expressions=true.
+Noteworthy, these expression simplifications speed up merge-sort-safe pruning more branches.

@@ -1,0 +1,67 @@
+diff --git a/lib/Expr/Constraints.cpp b/lib/Expr/Constraints.cpp
+index 90d9bcd..1a66c26 100644
+--- a/lib/Expr/Constraints.cpp
++++ b/lib/Expr/Constraints.cpp
+@@ -129,8 +129,8 @@ void ConstraintManager::addConstraintInternal(ref<Expr> e) {
+
+   switch (e->getKind()) {
+   case Expr::Constant:
+-    assert(cast<ConstantExpr>(e)->isTrue() &&
+-           "attempt to add invalid (false) constraint");
++   // assert(cast<ConstantExpr>(e)->isTrue() &&
++   //        "attempt to add invalid (false) constraint");
+     break;
+
+     // split to enable finer grained independence and other optimizations
+diff --git a/lib/Solver/Solver.cpp b/lib/Solver/Solver.cpp
+index 22b1545..548e48c 100644
+--- a/lib/Solver/Solver.cpp
++++ b/lib/Solver/Solver.cpp
+@@ -491,6 +491,39 @@ Solver *klee::createDummySolver() {
+
+ /***/
+
++class QuiescentSolverImpl : public SolverImpl {
++public:
++  QuiescentSolverImpl() {}
++  ~QuiescentSolverImpl() {}
++
++  char *getConstraintLog(const Query&) {
++    assert(0 && "Unsupported getConstraintLog()");
++  }
++
++  void setCoreSolverTimeout(double _timeout) {
++  }
++
++  bool computeTruth(const Query&, bool &isValid) {
++    isValid = false;
++    return true;
++  }
++
++  bool computeValue(const Query&, ref<Expr> &result) {
++    assert(0 && "Unsupported computeValue()");
++  }
++
++  bool computeInitialValues(const Query&,
++                            const std::vector<const Array*> &objects,
++                            std::vector< std::vector<unsigned char> > &values,
++                            bool &hasSolution) {
++    assert(0 && "Unsupported computeInitialValues()");
++  }
++
++  SolverRunStatus getOperationStatusCode() {
++    return SolverImpl::SOLVER_RUN_STATUS_SUCCESS_SOLVABLE;
++  }
++};
++
+ class STPSolverImpl : public SolverImpl {
+ private:
+   /// The solver we are part of, for access to public information.
+@@ -565,7 +598,7 @@ STPSolverImpl::~STPSolverImpl() {
+ /***/
+
+ STPSolver::STPSolver(bool useForkedSTP, bool optimizeDivides)
+-  : Solver(new STPSolverImpl(this, useForkedSTP, optimizeDivides))
++  : Solver(new QuiescentSolverImpl())
+ {
+ }
