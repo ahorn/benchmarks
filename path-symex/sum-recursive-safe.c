@@ -43,7 +43,9 @@ int main() {
 #endif
 
   int result = sumR(a, b, N);
+#ifndef FORCE_BRANCH
   assert(result == ((a*(N+1)) + (b*(N+1)*(N/2))));
+#endif
 
   return 0;
 }

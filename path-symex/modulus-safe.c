@@ -29,5 +29,7 @@ int main(void) {
     k = k + 1;
   }
 
+#ifndef FORCE_BRANCH
   assert(k <= 7);
+#endif
 }

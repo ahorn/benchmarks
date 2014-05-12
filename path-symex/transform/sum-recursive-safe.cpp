@@ -7,9 +7,15 @@
 
 #include "report.h"
 
+#ifdef FORCE_BRANCH
+#define BRANCH_CALL force_branch
+#else
+#define BRANCH_CALL branch
+#endif
+
 crv::Internal<int> sumR(const crv::Internal<int>& a, const crv::Internal<int>& b, const crv::Internal<int>& k) {
   crv::Internal<int> sum = a + b*k;
-  if (crv::sequential_dfs_checker().branch(k > 0))
+  if (crv::sequential_dfs_checker().BRANCH_CALL(k > 0))
     return sum + sumR(a, b, k-1);
   else
     return sum;
@@ -37,7 +43,9 @@ int main() {
     do {
       crv_main();
   
+#ifndef FORCE_BRANCH
       error |= smt::sat == crv::sequential_dfs_checker().check();
+#endif
     } while (crv::sequential_dfs_checker().find_next_path() && !error);
   }
 

@@ -3,6 +3,12 @@
 
 #include "report.h"
 
+#ifdef FORCE_BRANCH
+#define BRANCH_CALL force_branch
+#else
+#define BRANCH_CALL branch
+#endif
+
 #define N 46340
 
 // conservatively safe for N <= 46340
@@ -10,7 +16,7 @@ void crv_main() {
   crv::Internal<unsigned> n = 1;
   crv::Internal<unsigned> sum = 0;
 
-  while (crv::sequential_dfs_checker().branch(n <= N)) {
+  while (crv::sequential_dfs_checker().BRANCH_CALL(n <= N)) {
     sum = sum + n;
     n = n + 1;
   }
@@ -28,7 +34,9 @@ int main() {
     do {
       crv_main();
 
+#ifndef FORCE_BRANCH
       error |= smt::sat == crv::sequential_dfs_checker().check();
+#endif
     } while (crv::sequential_dfs_checker().find_next_path() && !error);
   }
 

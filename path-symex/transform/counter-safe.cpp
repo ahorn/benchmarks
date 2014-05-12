@@ -7,6 +7,12 @@
 
 #include "report.h"
 
+#ifdef FORCE_BRANCH
+#define BRANCH_CALL force_branch
+#else
+#define BRANCH_CALL branch
+#endif
+
 #define N 500
 
 // It suffices to unwind N times
@@ -15,7 +21,7 @@ void crv_main() {
   crv::sequential_dfs_checker().add_assertion(0 <= n && n < N);
 
   crv::Internal<int> x = n, y = 0;
-  while (crv::sequential_dfs_checker().branch(x > 0)) {
+  while (crv::sequential_dfs_checker().BRANCH_CALL(x > 0)) {
     x = x - 1;
     y = y + 1;
   }
@@ -33,7 +39,9 @@ int main() {
     do {
       crv_main();
   
+#ifndef FORCE_BRANCH
       error |= smt::sat == crv::sequential_dfs_checker().check();
+#endif
     } while (crv::sequential_dfs_checker().find_next_path() && !error);
   }
 

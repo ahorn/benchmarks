@@ -34,9 +34,11 @@ int main() {
   klee_make_symbolic(a, sizeof(a), "a");
 #endif
 
+#ifndef FORCE_BRANCH
   insertion_sort(a, 0, N-1);
   for (unsigned i = 0; i < N - 1; i++)
     assert(a[i] <= a[i+1]);
+#endif
 
   return 0;
 }

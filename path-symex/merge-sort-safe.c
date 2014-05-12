@@ -39,8 +39,11 @@ int main() {
 #endif
 
   mergesort(a, 0, N-1);
+
+#ifndef FORCE_BRANCH
   for (unsigned i = 0; i < N - 1; i++)
     assert(a[i] <= a[i+1]);
+#endif
 
   return 0;
 }

@@ -88,9 +88,11 @@ int main() {
 
   STsort(sorter);
 
+#ifndef FORCE_BRANCH
   assert(k == N);
   for (unsigned i = 0; i < N - 1; i++)
     assert(a[i] <= a[i+1]);
+#endif
 
   return 0;
 }

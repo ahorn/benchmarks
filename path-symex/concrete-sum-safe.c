@@ -11,7 +11,9 @@ int main(void) {
     n = n + 1;
   }
 
+#ifndef FORCE_BRANCH
   assert(sum == ((N * (N + 1)) / 2));
+#endif
 
   return 0;
 }
