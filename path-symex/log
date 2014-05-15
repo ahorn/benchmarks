@@ -565,6 +565,21 @@ NSE                 | Total time: 11s   | Total time:   2s  | Total time: 2s    
 Manual transform    | Paths: 2001       | Paths: 1          | Paths: 5040       | Paths: 161280     | Paths: 1048576    | Paths: 1          |
 SequentialDfsChecker|                   |                   |                   |                   |                   |                   |
 --------------------+-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+
+NSE                 | Total time: 8s    | Total time:   2s  | Total time: 2s    | Total time: 14s   | Total time: 2m 19s| Total time: < 1s  |
+2014-05-14          | Replay time: 4s   | Replay time: n/a  | Replay time: n/a  | Replay time: < 1s | Replay time: < 1s | Replay time: n/a  |
+Manual transform    | Paths: 2001       | Paths: 1          | Paths: 5040       | Paths: 161280     | Paths: 1048576    | Paths: 1          |
+SequentialDfsChecker|                   |                   |                   |                   |                   |                   |
+--------------------+-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+
+NSE                 | Total time: 8s    | Total time:   2s  | Total time: 2s    | Total time: 13s   | Total time: 1m 57s| Total time: < 1s  |
+2014-05-14          | Replay time: 4s   | Replay time: n/a  | Replay time: n/a  | Replay time: < 1s | Replay time: < 1s | Replay time: n/a  |
+Manual transform    | Paths: 2001       | Paths: 1          | Paths: 5040       | Paths: 161280     | Paths: 1048576    | Paths: 1          |
+SequentialDfsChecker|                   |                   |                   |                   |                   |                   |
+--------------------+-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+
+NSE                 | Total time: 7s    | Total time:   2s  | Total time: 2s    | Total time: 11s   | Total time: 1m 48s| Total time: < 1s  |
+2014-05-15          | Replay time: 4s   | Replay time: n/a  | Replay time: n/a  | Replay time: < 1s | Replay time: < 1s | Replay time: n/a  |
+Manual transform    | Paths: 2001       | Paths: 1          | Paths: 5040       | Paths: 161280     | Paths: 1048576    | Paths: 1          |
+SequentialDfsChecker|                   |                   |                   |                   |                   |                   |
+--------------------+-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+
 path-symex          | Total time: 17m39s| Total time: 24s   | ERROR             | ERROR             | ERROR             | Total time: < 1s  |
 2014-05-12          | Instr: 10307738   | Instr: 185380     | symbol not found  | wrong number of   | wrong number of   | Instr: 303        |
                     | Paths: 2001       | Paths: 1          |                   | paths (one)       | paths (one)       | Paths: 1          |
@@ -766,3 +781,19 @@ The KLEE experiments were run as follows with the appropriate filename:
 
 I also repeated the KLEE experiments with command line option -simplify-expressions=true.
 Noteworthy, these expression simplifications speed up merge-sort-safe pruning more branches.
+
+The NSE experiments on 2014-05-14 take advenatage of the following optimizations:
+  * custom smart pointer implementation (see commit 15776fc48d46ca7452a518c38)
+  * std::vector for flips (see commit cee106de83e44f145dcfdf7a8)
+
+The smart pointer implementation seems to make a bigger difference for gcc's
+standard C++ library implementation than clang's (the row shows experiments
+on dkr10 with gcc).
+
+The second NSE experiment on that day (2014-05-14) shows the effects of avoiding
+string copies (see commit 2aa7e01167412307480b321cc45). The difference was
+particularly noticeable for merge-sort-safe on OS X with clang++ where an
+improvement from 3m 53s to 2m 40s could be consistently observed.
+
+The NSE experiments on 2014-05-15 benefit from RVO (see commits
+d59b998e0b115b2d6219c4a831 and f1548adde4bfbcdd03166e).
