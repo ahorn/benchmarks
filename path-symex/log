@@ -782,6 +782,10 @@ The KLEE experiments were run as follows with the appropriate filename:
 I also repeated the KLEE experiments with command line option -simplify-expressions=true.
 Noteworthy, these expression simplifications speed up merge-sort-safe pruning more branches.
 
+I've verified that the option "-use-construct-hash" has no effect. This is expected because
+the code that implements this option is in lib/Solver/STPBuilder.cpp (unreachable since
+we replaced the STPSolverImpl by a trivial solver implementation that does nothing).
+
 The NSE experiments on 2014-05-14 take advenatage of the following optimizations:
   * custom smart pointer implementation (see commit 15776fc48d46ca7452a518c38)
   * std::vector for flips (see commit cee106de83e44f145dcfdf7a8)
@@ -797,3 +801,33 @@ improvement from 3m 53s to 2m 40s could be consistently observed.
 
 The NSE experiments on 2014-05-15 benefit from RVO (see commits
 d59b998e0b115b2d6219c4a831 and f1548adde4bfbcdd03166e).
+
+I analyzed NSE with gperftools; the following commands were used:
+
+  $ export DYLD_LIBRARY_PATH=/Users/ahorn/Github/smt-kit-z3/target/lib:/Users/ahorn/Github/smt-kit-z3/solvers/z3/build
+
+  $ clang++ -Wl,-no_pie -g -std=c++11 -I/Users/ahorn/Github/smt-kit-z3/include -L/Users/ahorn/Github/smt-kit-z3/target/lib -lsmt -I/Users/ahorn/Github/smt-kit-z3/solvers/z3/src/api/c++ -I/Users/ahorn/Github/smt-kit-z3/solvers/z3/src/api -L/Users/ahorn/Github/smt-kit-z3/solvers/z3/build -lz3 -I/Users/ahorn/Github/smt-kit-z3/solvers/msat/include -I/opt/local/include -I/Users/ahorn/Github/smt-kit-z3/solvers/stp/build/include -L /Users/ahorn/Github/smt-kit-z3/gperftools/gperftools-2.2/target/lib -lprofiler -g -D FORCE_BRANCH -o merge-sort-safe merge-sort-safe.cpp
+
+  $ CPUPROFILE=merge-sort-cpu-profile ./merge-sort-safe
+
+
+MEMORY CONSUMPTION (Expressions)
+
+One main difference between KLEE and the current reference implementation
+of native symbolic execution is memory consumption. KLEE's memory
+consumption seems constant (it stays the same). In contrast, NSE shows
+a more linear growth in memory consumption as symbolic execution progresses.
+So analyze the difference in more detail, I've modified both KLEE and NSE
+to report how many times the Expr constructor and destructor are called.
+In KLEE, this required modifying the class definition in lib/Expr/Expr.h.
+
+                 |     NSE    |    KLEE
+-----------------+------------+------------
+Expr constructor | 111,149,057 | 566,741,509
+Expr destructor  | 111,149,057 | 566,741,509
+
+Two obvious observations:
+
+(1) KLEE creates approximately fives times (5X) more expressions than NSE,
+(2) Neither KLEE nor NSE (see commit 28eb51a287f5dcd664f92a7ccf485f0a7) leak
+    memory for expressions.
