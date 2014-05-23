@@ -92,6 +92,35 @@ Manual transform|         |         |         |         |         |         |   
 DfsPruneChecker |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 MathSAT5,cach BV|         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 ----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+NSE, OS X       | 3s      | 4m 30s  | 2s      | 2s      | 2m 5s   | 3s      | 1m 34s  | 3s      | 6m 43s  | 3s      | 4m 14s  | 3s      | n/a     | n/a     |
+2014-05-23      |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+Manual transform|         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+SequentialDfs   |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+MathSAT5, BV    |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+HASH_CONS = ON  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+NSE, dkr10      | 2s      | 3m 41s  | 2s      | 2s      | 2m 16s  | 3s      | 1m 2s   | 3s      | 6m 47s  | 3s      | 3m 31s  | 3s      | n/a     | n/a     |
+2014-05-23      |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+Manual transform|         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+SequentialDfs   |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+MathSAT5, BV    |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+Version 5.2.10  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+HASH_CONS = ON  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+NSE, OS X       | 1s      | 4m 30s  | 1s      | 1s      | 2m 8s   | 2s      | 1m 33s  | < 1s    | 6m 46s  | 1s      | 4m 6s   | 3s      | n/a     | n/a     |
+2014-05-23      |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+Manual transform|         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+SequentialDfs   |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+MathSAT5, BV    |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+HASH_CONS = OFF |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+NSE             | 3s      | 1m 24s  | 2s      | 2s      | 5m 54s  | 3s      | 7m 2s   | 3s      | 16m 49s | 3s      | 8m 8s   | 3s      | < 1s    | 3s      |
+2014-04-28      |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+Manual transform|         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+DfsPruneChecker |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+Z3, BV          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+HASH_CONS = ON  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 NSE             | 3s      | 5h 28m  | 2s      | 2s      | 10m 51s | 4s      | 6m 36s  | 2s      | 41m 29s | 3s      | 29m 47s | 3s      | 2s      | 2s      |
 2014-05-05      |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 Manual transform|         |         |         |         |         |         |         |         |         |         |         |         |         |         |
@@ -579,6 +608,18 @@ NSE                 | Total time: 7s    | Total time:   2s  | Total time: 2s    
 2014-05-15          | Replay time: 4s   | Replay time: n/a  | Replay time: n/a  | Replay time: < 1s | Replay time: < 1s | Replay time: n/a  |
 Manual transform    | Paths: 2001       | Paths: 1          | Paths: 5040       | Paths: 161280     | Paths: 1048576    | Paths: 1          |
 SequentialDfsChecker|                   |                   |                   |                   |                   |                   |
+--------------------+-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+
+NSE                 | Total time: 9s    | Total time:   1s  | Total time: 2s    | Total time: 16s   | Total time: 3m 4s | Total time: 1s    |
+2014-05-20          | Replay time: 6s   | Replay time: n/a  | Replay time: < 1s | Replay time: < 1s | Replay time: < 1s | Replay time: n/a  |
+Manual transform    | Paths: 2001       | Paths: 1          | Paths: 5040       | Paths: 161280     | Paths: 1048576    | Paths: 1          |
+SequentialDfsChecker|                   |                   |                   |                   |                   |                   |
+ENABLE_HASH_CONS=OFF|                   |                   |                   |                   |                   |                   |
+--------------------+-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+
+NSE                 | Total time: 19s   | Total time:   2s  | Total time: 4s    | Total time: 30s   | Total time: 4m 29s| Total time: 3s    |
+2014-05-20          | Replay time: 15s  | Replay time: n/a  | Replay time: < 1s | Replay time: < 1s | Replay time: < 1s | Replay time: n/a  |
+Manual transform    | Paths: 2001       | Paths: 1          | Paths: 5040       | Paths: 161280     | Paths: 1048576    | Paths: 1          |
+SequentialDfsChecker|                   |                   |                   |                   |                   |                   |
+ENABLE_HASH_CONS=ON |                   |                   |                   |                   |                   |                   |
 --------------------+-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+
 path-symex          | Total time: 17m39s| Total time: 24s   | ERROR             | ERROR             | ERROR             | Total time: < 1s  |
 2014-05-12          | Instr: 10307738   | Instr: 185380     | symbol not found  | wrong number of   | wrong number of   | Instr: 303        |
