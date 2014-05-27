@@ -10,7 +10,7 @@ void report_time(T total_time) {
   const std::chrono::seconds total_seconds =
     std::chrono::duration_cast<std::chrono::seconds>(total_time);
 
-  const smt::Solver::Stats& solver_stats = crv::sequential_dfs_checker().solver().stats();
+  const smt::Solver::Stats& solver_stats = dfs_checker().solver().stats();
   const smt::Solver::ElapsedTime check_elapsed_time = solver_stats.check_elapsed_time;
   const smt::Solver::ElapsedTime encode_elapsed_time = solver_stats.encode_elapsed_time;
 
@@ -20,7 +20,7 @@ void report_time(T total_time) {
   const std::chrono::seconds encode_elapsed_seconds =
     std::chrono::duration_cast<std::chrono::seconds>(encode_elapsed_time);
 
-  const crv::SequentialDfsChecker::Stats& stats = crv::sequential_dfs_checker().stats();
+  const auto& stats = dfs_checker().stats();
 
   const std::chrono::seconds branch_seconds =
     std::chrono::duration_cast<std::chrono::seconds>(stats.branch_time);
@@ -29,7 +29,7 @@ void report_time(T total_time) {
     std::chrono::duration_cast<std::chrono::seconds>(stats.replay_time);
 
   std::cout << "-----------------------:" << std::endl;
-  std::cout << "Number of paths exlored: " <<  crv::sequential_dfs_checker().path_cnt() << std::endl;
+  std::cout << "Number of paths exlored: " <<  dfs_checker().path_cnt() << std::endl;
 
   if (stats.branch_cnt == 0)
     std::cout << "Literal branch percentage: 'undefined'" << std::endl;

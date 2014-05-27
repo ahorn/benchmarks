@@ -5,11 +5,15 @@
 #include <iostream>
 #include <nse_sequential.h>
 
+#ifndef dfs_checker
+#define dfs_checker crv::backtrack_dfs_checker
+#endif
+
 #include "report.h"
 
 crv::Internal<int> sumR(const crv::Internal<int>& a, const crv::Internal<int>& b, const crv::Internal<int>& k) {
   crv::Internal<int> sum = a + b*k;
-  if (crv::sequential_dfs_checker().branch(k > 0))
+  if (dfs_checker().branch(k > 0))
     return sum + sumR(a, b, k-1);
   else
     return sum;
@@ -20,11 +24,11 @@ crv::Internal<int> sumR(const crv::Internal<int>& a, const crv::Internal<int>& b
 // N must be even
 void crv_main() {
   crv::Internal<int> a, b;
-  crv::sequential_dfs_checker().add_assertion(a < 16384);
-  crv::sequential_dfs_checker().add_assertion(b < 16384);
+  dfs_checker().add_assertion(a < 16384);
+  dfs_checker().add_assertion(b < 16384);
 
   crv::Internal<int> result = sumR(a, b, N);
-  crv::sequential_dfs_checker().add_error(result == ((a*(N+1)) + (b*(N+1)*(N/2))));
+  dfs_checker().add_error(result == ((a*(N+1)) + (b*(N+1)*(N/2))));
 }
 
 int main() {
@@ -37,8 +41,8 @@ int main() {
     do {
       crv_main();
   
-      error |= smt::sat == crv::sequential_dfs_checker().check();
-    } while (crv::sequential_dfs_checker().find_next_path() && !error);
+      error |= smt::sat == dfs_checker().check();
+    } while (dfs_checker().find_next_path() && !error);
   }
 
   if (error)

@@ -5,6 +5,10 @@
 #include <iostream>
 #include <nse_sequential.h>
 
+#ifndef dfs_checker
+#define dfs_checker crv::backtrack_dfs_checker
+#endif
+
 #include "report.h"
 
 #define N 500
@@ -12,15 +16,15 @@
 // It suffices to unwind N times
 void crv_main() {
   crv::Internal<int> n;
-  crv::sequential_dfs_checker().add_assertion(0 <= n && n < N);
+  dfs_checker().add_assertion(0 <= n && n < N);
 
   crv::Internal<int> x = n, y = 0;
-  while (crv::sequential_dfs_checker().branch(x > 0)) {
+  while (dfs_checker().branch(x > 0)) {
     x = x - 1;
     y = y + 1;
   }
 
-  crv::sequential_dfs_checker().add_error(0 <= y && y == n);
+  dfs_checker().add_error(0 <= y && y == n);
 }
 
 int main() {
@@ -33,8 +37,8 @@ int main() {
     do {
       crv_main();
   
-      error |= smt::sat == crv::sequential_dfs_checker().check();
-    } while (crv::sequential_dfs_checker().find_next_path() && !error);
+      error |= smt::sat == dfs_checker().check();
+    } while (dfs_checker().find_next_path() && !error);
   }
 
   if (error)

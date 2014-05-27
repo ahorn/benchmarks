@@ -1,6 +1,10 @@
 #include <iostream>
 #include <nse_sequential.h>
 
+#ifndef dfs_checker
+#define dfs_checker crv::backtrack_dfs_checker
+#endif
+
 #include "report.h"
 
 #define N 2000
@@ -8,14 +12,14 @@
 void crv_main() {
   crv::Internal<int> k;
 
-  for(crv::Internal<int> n = 0; crv::sequential_dfs_checker().branch(n < N); n = n + 1) {
-    if(crv::sequential_dfs_checker().branch(k == 7)) {
+  for(crv::Internal<int> n = 0; dfs_checker().branch(n < N); n = n + 1) {
+    if(dfs_checker().branch(k == 7)) {
       k = 0;
     }
     k = k + 1;
   }
 
-  crv::sequential_dfs_checker().add_error(!(k <= 7));
+  dfs_checker().add_error(!(k <= 7));
 }
 
 int main() {
@@ -28,9 +32,9 @@ int main() {
     do {
       crv_main();
   
-      error |= smt::sat == crv::sequential_dfs_checker().check();
+      error |= smt::sat == dfs_checker().check();
   
-    } while (crv::sequential_dfs_checker().find_next_path() && !error);
+    } while (dfs_checker().find_next_path() && !error);
   }
 
   if (error)

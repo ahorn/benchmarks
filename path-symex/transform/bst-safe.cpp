@@ -6,6 +6,10 @@
 #include <iostream>
 #include <nse_sequential.h>
 
+#ifndef dfs_checker
+#define dfs_checker crv::backtrack_dfs_checker
+#endif
+
 #include "report.h"
 
 #ifdef FORCE_BRANCH
@@ -48,7 +52,7 @@ static link insertR(link h, const crv::Internal<Item>& item) {
   crv::Internal<Key> v = key(item), t = key(h->item);
   if (h == z) return new STnode(item, z, z, 1);
 
-  if (crv::sequential_dfs_checker().BRANCH_CALL(less(v, t)))
+  if (dfs_checker().BRANCH_CALL(less(v, t)))
     h->l = insertR(h->l, item);
   else
     h->r = insertR(h->r, item);
@@ -82,14 +86,14 @@ void sorter(const crv::Internal<Item>& item) {
 void crv_main() {
   STinit();
 
-  for (crv::Internal<unsigned> i = 0; crv::sequential_dfs_checker().BRANCH_CALL(i < N); i = i+1) {
+  for (crv::Internal<unsigned> i = 0; dfs_checker().BRANCH_CALL(i < N); i = i+1) {
     STinsert(crv::any<Item>());
   }
   STsort(sorter);
 
-  crv::sequential_dfs_checker().add_error(!(k == N));
-  for (crv::Internal<unsigned> i = 0; crv::sequential_dfs_checker().BRANCH_CALL(i < N - 1); i = i+1)
-    crv::sequential_dfs_checker().add_error(!(a[i] <= a[i+1]));
+  dfs_checker().add_error(!(k == N));
+  for (crv::Internal<unsigned> i = 0; dfs_checker().BRANCH_CALL(i < N - 1); i = i+1)
+    dfs_checker().add_error(!(a[i] <= a[i+1]));
 }
 
 // leaks memory but OK for this benchmark
@@ -107,9 +111,9 @@ int main() {
       crv_main();
 
 #ifndef FORCE_BRANCH
-      error |= smt::sat == crv::sequential_dfs_checker().check();
+      error |= smt::sat == dfs_checker().check();
 #endif
-    } while (crv::sequential_dfs_checker().find_next_path() && !error);
+    } while (dfs_checker().find_next_path() && !error);
   }
 
   if (error)

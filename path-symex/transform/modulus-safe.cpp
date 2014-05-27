@@ -1,6 +1,10 @@
 #include <iostream>
 #include <nse_sequential.h>
 
+#ifndef dfs_checker
+#define dfs_checker crv::backtrack_dfs_checker
+#endif
+
 #include "report.h"
 
 #ifdef FORCE_BRANCH
@@ -13,16 +17,16 @@
 
 void crv_main() {
   crv::Internal<int> k;
-  crv::sequential_dfs_checker().add_assertion(0 <= k && k < 7);
+  dfs_checker().add_assertion(0 <= k && k < 7);
 
-  for(crv::Internal<int> n = 0; crv::sequential_dfs_checker().BRANCH_CALL(n < N); n = n + 1) {
-    if(crv::sequential_dfs_checker().BRANCH_CALL(k == 7)) {
+  for(crv::Internal<int> n = 0; dfs_checker().BRANCH_CALL(n < N); n = n + 1) {
+    if(dfs_checker().BRANCH_CALL(k == 7)) {
       k = 0;
     }
     k = k + 1;
   }
 
-  crv::sequential_dfs_checker().add_error(!(k <= 7));
+  dfs_checker().add_error(!(k <= 7));
 }
 
 int main() {
@@ -36,9 +40,9 @@ int main() {
       crv_main();
 
 #ifndef FORCE_BRANCH
-      error |= smt::sat == crv::sequential_dfs_checker().check();
+      error |= smt::sat == dfs_checker().check();
 #endif
-    } while (crv::sequential_dfs_checker().find_next_path() && !error);
+    } while (dfs_checker().find_next_path() && !error);
   }
 
   if (error)

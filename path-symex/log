@@ -129,9 +129,16 @@ Z3, BV          |         |         |         |         |         |         |   
 HASH_CONS = ON  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 ----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 NSE, Nary, dkr10| 3s      | 1m 35s  | 2s      | 2s      | 5m 38s  | 5s      | 5m 35s  | 3s      | 12m 56s | 3s      | 6m 52s  | 3s      | 2s      | 2s      |
-2014-05-23      |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
-Manual transform|         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+2014-05-23      | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  |
+Manual transform| 8       | 2       | 1       | 1       | 5040    | 4       | 501     | 2       | 10569   |  4      | 14724   | 2       | 1       | 1       |
 SequentialDfs   |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+Z3, BV          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+HASH_CONS = ON  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+NSE, Nary, OS X | 3s      | 3s      | 3s      | 3s      | 2m 5s   | 3s      | 5m 50s  | 3s      | 8m 12s  | 3s      | 4m 1s   | 3s      | 2s      | 2s      |
+2014-05-27      | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  |
+Manual transform| 9       | 2       | 1       | 1       | 5040    | 5       | 501     | 2       | 26120   | 4       | 17380   | 2       | 1       | 1       |
+BacktrackDfs    |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 Z3, BV          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 HASH_CONS = ON  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 ----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
@@ -593,6 +600,16 @@ of path-symex it takes less than 4 seconds).
 This is simple benchmark gives a first encouraging data point
 for the efficiency of NSE's internal data structures such as
 expression trees and constant propagation algorithm etc.
+
+The NSE experiments on 2014-05-27 use a new symbolic execution
+technique: non-chronological symbolic execution
+
+  https://github.com/ahorn/smt-kit/commit/79b852b1eb7335a6a415cc76db0876c115d0777c
+
+Even though the current BacktrackDfsChecker implementation cannot
+sometimes prune as many paths in "safe" benchmarks, the overall
+performance  tends to be better than in previous experiments. This
+somewhat goes against conventional wisdom which emphasises path pruning.
 
 ~~~~~~~~~~~~~~~~~~ FORCE_BRANCH ~~~~~~~~~~~~~~~~~~~~~~
 
