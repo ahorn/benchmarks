@@ -128,6 +128,14 @@ SequentialDfs   |         |         |         |         |         |         |   
 Z3, BV          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 HASH_CONS = ON  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 ----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+NSE, Nary, OS X | 3s      | 1m 34s  | 2s      | 2s      | 5m 45s  | 3s      | 7m 6s   | 3s      | 12m 49s | 3s      | 8m 57s  | 3s      | 2s      | 2s      |
+2014-05-27      |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+Manual transform|         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+SequentialDfs   |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+Z3, BV          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+HASH_CONS = ON  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+is_feasible fix |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 NSE, Nary, dkr10| 3s      | 1m 35s  | 2s      | 2s      | 5m 38s  | 5s      | 5m 35s  | 3s      | 12m 56s | 3s      | 6m 52s  | 3s      | 2s      | 2s      |
 2014-05-23      | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  |
 Manual transform| 8       | 2       | 1       | 1       | 5040    | 4       | 501     | 2       | 10569   |  4      | 14724   | 2       | 1       | 1       |
@@ -610,6 +618,10 @@ Even though the current BacktrackDfsChecker implementation cannot
 sometimes prune as many paths in "safe" benchmarks, the overall
 performance  tends to be better than in previous experiments. This
 somewhat goes against conventional wisdom which emphasises path pruning.
+
+The "is_feasible fix" (see commit 1f97130bb8cd30a6d861) NSE
+experiments on 2014-05-27 confirm that this potential performance
+bug does not manifest itself in the current benchmarks.
 
 ~~~~~~~~~~~~~~~~~~ FORCE_BRANCH ~~~~~~~~~~~~~~~~~~~~~~
 
