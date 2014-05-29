@@ -636,6 +636,7 @@ somewhat goes against conventional wisdom which emphasises path pruning.
 The "is_feasible fix" (see commit 1f97130bb8cd30a6d861) NSE
 experiments on 2014-05-27 confirm that this potential performance
 bug does not manifest itself in the current benchmarks.
+  Edit: this "fix" experiment is irrelevant
 
 ~~~~~~~~~~~~~~~~~~ FORCE_BRANCH ~~~~~~~~~~~~~~~~~~~~~~
 
