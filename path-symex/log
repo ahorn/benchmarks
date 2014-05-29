@@ -157,6 +157,13 @@ BacktrackDfs    |         |         |         |         |         |         |   
 Z3, BV, non-inc |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 HASH_CONS = ON  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 ----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+NSE, Nary, OS X | 3s      | 3s      | 3s      | 3s      | 1m 31s  | 3s      | 4m 29s  | 3s      | 10m 36s | 3s      | 3m 13s  | 3s      | 2s      | 2s      |
+2014-05-29      | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  |
+Manual transform| 9       | 2       | 1       | 1       | 5040    | 5       | 501     | 2       | 1       | 4       | 17392   | 2       | 1       | 1       |
+BacktrackDfs    |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+Z3, BV          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+HASH_CONS = ON  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
+----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 NSE, Nary, OS X | 3s      | 3s      | 3s      | 3s      | 2m 13s  | 3s      | 42s     | 3s      | 10m 45s | 3s      | 5m 22s  | 3s      | n/a     | n/a     |
 2014-05-29      | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  |         |         |
 Manual transform| 9       | 2       | 1       | 1       | 5040    | 5       | 501     | 2       | 1       |  4      | 17323   | 2       |         |         |
@@ -637,6 +644,189 @@ The "is_feasible fix" (see commit 1f97130bb8cd30a6d861) NSE
 experiments on 2014-05-27 confirm that this potential performance
 bug does not manifest itself in the current benchmarks.
   Edit: this "fix" experiment is irrelevant
+
+I've run more experiments with Z3 and the SequentialDfsChecker.
+The question was whether it is faster to add assertions to the
+solver directly or maintain guards as a separate data structure
+and call m_solver.add(smt::conjunction(m_guards)) in more like
+a "batch mode". The approach where guards are added on an individual
+basis to the solver shows performance improvements for the
+"modulus", "concrete" and "bst" benchmarks. However, this
+approach causes a significant drop in performance on the
+"insertion-sort" benchmark.
+
+Here are the stats in the case where each individual guard is
+added as soon as it's encountered by calling m_solver.add():
+
+Z3 Stats: (:added-eqs           1
+ :binary-propagations 207501
+ :bv->core-eq         1
+ :conflicts           2116
+ :decisions           15844
+ :del-clause          5380
+ :final-checks        4
+ :minimized-lits      1820
+ :mk-clause           8130
+ :num-checks          8
+ :propagations        293048
+ :restarts            18)
+Z3 Stats: (:added-eqs           1
+ :binary-propagations 209437
+ :bv->core-eq         1
+ :conflicts           2118
+ :decisions           16079
+ :del-clause          5791
+ :final-checks        5
+ :minimized-lits      1820
+ :mk-clause           8541
+ :num-checks          9
+ :propagations        295930
+ :restarts            18)
+Z3 Stats: (:added-eqs           2
+ :binary-propagations 224757
+ :bv->core-eq         2
+ :conflicts           2277
+ :decisions           17186
+ :del-clause          6358
+ :final-checks        6
+ :minimized-lits      1848
+ :mk-clause           9233
+ :num-checks          10
+ :propagations        317174
+ :restarts            19)
+1328
+Z3 Stats: (:binary-propagations 18704
+ :conflicts           115
+ :decisions           3255
+ :del-clause          524
+ :final-checks        1
+ :minimized-lits      43
+ :mk-clause           3524
+ :num-checks          1
+ :propagations        24986
+ :restarts            1)
+1329
+1330
+Z3 Stats: (:binary-propagations 60278
+ :conflicts           170
+ :decisions           4861
+ :del-clause          577
+ :minimized-lits      28
+ :mk-clause           2952
+ :num-checks          1
+ :propagations        84527
+ :restarts            1)
+Z3 Stats: (:binary-propagations 111767
+ :conflicts           579
+ :decisions           6886
+ :del-clause          1391
+ :minimized-lits      461
+ :mk-clause           3766
+ :num-checks          2
+ :propagations        153482
+ :restarts            4)
+
+In comparison, here are the stats for check() where guards
+are stored in a vector and then added by calling
+m_solver.add(smt::conjunction(m_guards)):
+
+Z3 Stats: (:added-eqs      1
+ :bv->core-eq    1
+ :conflicts      1394
+ :decisions      22557
+ :del-clause     51459
+ :final-checks   4
+ :minimized-lits 761
+ :mk-clause      60461
+ :num-checks     7
+ :propagations   301911
+ :restarts       10)
+Z3 Stats: (:added-eqs      1
+ :bv->core-eq    1
+ :conflicts      1891
+ :decisions      27541
+ :del-clause     60878
+ :final-checks   4
+ :minimized-lits 1224
+ :mk-clause      70315
+ :num-checks     8
+ :propagations   387854
+ :restarts       14)
+Z3 Stats: (:added-eqs      1
+ :bv->core-eq    1
+ :conflicts      1982
+ :decisions      30421
+ :del-clause     70315
+ :final-checks   5
+ :minimized-lits 1233
+ :mk-clause      79790
+ :num-checks     9
+ :propagations   419145
+ :restarts       14)
+Z3 Stats: (:added-eqs      2
+ :bv->core-eq    2
+ :conflicts      2031
+ :decisions      32328
+ :del-clause     80008
+ :final-checks   6
+ :minimized-lits 1236
+ :mk-clause      89630
+ :num-checks     10
+ :propagations   433256
+ :restarts       14)
+1328
+Z3 Stats: (:conflicts      72
+ :decisions      2557
+ :del-clause     230
+ :final-checks   1
+ :minimized-lits 2
+ :mk-clause      10272
+ :num-checks     1
+ :propagations   18618)
+1329
+1330
+Z3 Stats: (:conflicts      410
+ :decisions      5420
+ :del-clause     183
+ :minimized-lits 218
+ :mk-clause      8553
+ :num-checks     1
+ :propagations   68731
+ :restarts       3)
+Z3 Stats: (:conflicts      676
+ :decisions      8005
+ :del-clause     9040
+ :minimized-lits 500
+ :mk-clause      16961
+ :num-checks     2
+ :propagations   107137
+ :restarts       5)
+1331
+Z3 Stats: (:added-eqs    1
+ :bv->core-eq  1
+ :decisions    470
+ :del-clause   124
+ :final-checks 1
+ :mk-clause    6120
+ :num-checks   1
+ :propagations 1629)
+Z3 Stats: (:added-eqs    1
+ :bv->core-eq  1
+ :decisions    951
+ :del-clause   6120
+ :final-checks 2
+ :mk-clause    12648
+ :num-checks   2
+ :propagations 3372)
+
+Once difference is that the latter (the faster approach) lists
+no :binary-propagations. I manually disabled binary clause
+propagation in z3/src/smt/params/smt_params.h. The particular
+spike around the 1328 mark disappears but overall performance
+does not improve significantly. So for now I will store the
+guards in a separate vector instead of calling Solver::add()
+on each branch statement. NB: No such performance degradation
+was observed for MathSAT5.
 
 ~~~~~~~~~~~~~~~~~~ FORCE_BRANCH ~~~~~~~~~~~~~~~~~~~~~~
 
