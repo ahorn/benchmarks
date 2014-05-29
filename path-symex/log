@@ -157,16 +157,16 @@ BacktrackDfs    |         |         |         |         |         |         |   
 Z3, BV, non-inc |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 HASH_CONS = ON  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 ----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
-NSE, Nary, OS X | 3s      | 3s      | 3s      | 3s      | 1m 31s  | 3s      | 4m 29s  | 3s      | 10m 36s | 3s      | 3m 13s  | 3s      | 2s      | 2s      |
+NSE, Nary, OS X | 3s      | 3s      | 3s      | 3s      | 1m 31s  | 3s      | 4m 29s  | 3s      | 7m 45s  | 3s      | 3m 13s  | 3s      | 2s      | 2s      |
 2014-05-29      | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  |
-Manual transform| 9       | 2       | 1       | 1       | 5040    | 5       | 501     | 2       | 1       | 4       | 17392   | 2       | 1       | 1       |
+Manual transform| 9       | 2       | 1       | 1       | 5040    | 5       | 501     | 2       | 26252   | 4       | 17392   | 2       | 1       | 1       |
 BacktrackDfs    |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 Z3, BV          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 HASH_CONS = ON  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 ----------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
-NSE, Nary, OS X | 3s      | 3s      | 3s      | 3s      | 2m 13s  | 3s      | 42s     | 3s      | 10m 45s | 3s      | 5m 22s  | 3s      | n/a     | n/a     |
+NSE, Nary, OS X | 3s      | 3s      | 3s      | 3s      | 2m 13s  | 3s      | 42s     | 3s      | 11m 10s | 3s      | 5m 22s  | 3s      | n/a     | n/a     |
 2014-05-29      | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  | Paths:  |         |         |
-Manual transform| 9       | 2       | 1       | 1       | 5040    | 5       | 501     | 2       | 1       |  4      | 17323   | 2       |         |         |
+Manual transform| 9       | 2       | 1       | 1       | 5040    | 5       | 501     | 2       | 31097   |  4      | 17323   | 2       |         |         |
 BacktrackDfs    |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 MathSAT5, BV    |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
 HASH_CONS = ON  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |
