@@ -1099,6 +1099,12 @@ I analyzed NSE with gperftools; the following commands were used:
 
   $ CPUPROFILE=merge-sort-cpu-profile ./merge-sort-safe
 
+I've repeated the merge-sort-safe benchmark such that the array "a"
+is declared as a static scope. The suspicion was that perhaps the
+local scope of "a" would significantly slow down symbolic execution.
+This suspicion has proved to be false: it does not matter whether
+"a" is defined locally or globally.
+
 
 MEMORY CONSUMPTION (Expressions)
 
