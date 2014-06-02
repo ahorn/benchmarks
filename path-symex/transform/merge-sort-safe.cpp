@@ -5,8 +5,7 @@
 
 #include <iostream>
 #include <nse_sequential.h>
-
-#include "report.h"
+#include <nse_report.h>
 
 #ifndef dfs_checker
 #define dfs_checker crv::sequential_dfs_checker
