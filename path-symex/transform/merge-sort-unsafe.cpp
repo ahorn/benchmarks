@@ -6,11 +6,11 @@
 #include <iostream>
 #include <nse_sequential.h>
 
+#include "report.h"
+
 #ifndef dfs_checker
 #define dfs_checker crv::backtrack_dfs_checker
 #endif
-
-#include "report.h"
 
 // Note that we do not instrument this type on purpose
 typedef int Item;
@@ -63,7 +63,7 @@ int main() {
 
     do {
       // global array ought to be initially nondeterministic
-      make_any(aux);
+      crv::make_any(aux);
   
       crv_main();
   
@@ -76,7 +76,7 @@ int main() {
   else
     std::cout << "Could not find any bugs." << std::endl;
 
-  report_time(seconds);
+  report_statistics(dfs_checker().solver().stats(), dfs_checker().stats(), seconds);
 
   return error;
 }

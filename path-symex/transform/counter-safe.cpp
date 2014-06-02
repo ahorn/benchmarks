@@ -5,11 +5,11 @@
 #include <iostream>
 #include <nse_sequential.h>
 
+#include "report.h"
+
 #ifndef dfs_checker
 #define dfs_checker crv::backtrack_dfs_checker
 #endif
-
-#include "report.h"
 
 #ifdef FORCE_BRANCH
 #define BRANCH_CALL force_branch
@@ -54,7 +54,7 @@ int main() {
   else
     std::cout << "Could not find any bugs." << std::endl;
 
-  report_time(seconds);
+  report_statistics(dfs_checker().solver().stats(), dfs_checker().stats(), seconds);
 
   return error;
 }

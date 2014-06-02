@@ -5,11 +5,11 @@
 #include <iostream>
 #include <nse_sequential.h>
 
+#include "report.h"
+
 #ifndef dfs_checker
 #define dfs_checker crv::backtrack_dfs_checker
 #endif
-
-#include "report.h"
 
 crv::Internal<int> sumR(const crv::Internal<int>& a, const crv::Internal<int>& b, const crv::Internal<int>& k) {
   crv::Internal<int> sum = a + b*k;
@@ -50,7 +50,7 @@ int main() {
   else
     std::cout << "Could not find any bugs." << std::endl;
 
-  report_time(seconds);
+  report_statistics(dfs_checker().solver().stats(), dfs_checker().stats(), seconds);
 
   return error;
 }
