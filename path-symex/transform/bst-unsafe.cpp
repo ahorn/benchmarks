@@ -29,7 +29,7 @@ struct STnode {
   link l, r;
   crv::Internal<int> n;
 
-  STnode(const crv::Internal<Item>& _item, link _l, link _r, const crv::Internal<int>& _n)
+  STnode(const crv::Internal<Item> _item, link _l, link _r, const crv::Internal<int> _n)
   : item(_item), l(_l), r(_r), n(_n) {}
 };
 
@@ -41,7 +41,7 @@ void STinit() {
 
 crv::Internal<int> STcount() { return head->n; }
 
-static link insertR(link h, const crv::Internal<Item>& item) {
+static link insertR(link h, const crv::Internal<Item> item) {
   crv::Internal<Key> v = key(item), t = key(h->item);
   if (h == z) return new STnode(item, z, z, 1);
 
@@ -55,26 +55,26 @@ static link insertR(link h, const crv::Internal<Item>& item) {
   return h;
 }
 
-void STinsert(const crv::Internal<Item>& item) { head = insertR(head, item); }
+void STinsert(const crv::Internal<Item> item) { head = insertR(head, item); }
 
-static void sortR(link h, void (*visit)(const crv::Internal<Item>&)) {
+static void sortR(link h, void (*visit)(const crv::Internal<Item>)) {
   if (h == z) return;
   sortR(h->l, visit);
   visit(h->item);
   sortR(h->r, visit);
 }
 
-void STsort(void (*visit)(const crv::Internal<Item>&)) { sortR(head, visit); }
+void STsort(void (*visit)(const crv::Internal<Item>)) { sortR(head, visit); }
 
-static crv::Internal<Item[]> a;
+#define N 7
+
+static crv::Internal<Item[N]> a;
 static crv::Internal<unsigned> k;
 
-void sorter(const crv::Internal<Item>& item) {
+void sorter(const crv::Internal<Item> item) {
   a[k] = item;
   k = k+1;
 }
-
-#define N 7
 
 // It suffices to unwind N+1 times where N > 2
 void crv_main() {

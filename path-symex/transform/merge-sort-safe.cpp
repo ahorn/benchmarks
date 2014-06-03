@@ -23,8 +23,10 @@ typedef int Item;
 #define key(A) (A)
 #define less(A, B) (key(A) < key(B))
 
-crv::Internal<Item[]> aux;
-void merge(crv::Internal<Item[]>& a, const crv::Internal<int>& l, const crv::Internal<int>& m, const crv::Internal<int>& r) {
+#define N 7
+
+crv::Internal<Item[N]> aux;
+void merge(crv::Internal<Item*> a, const crv::Internal<int> l, const crv::Internal<int> m, const crv::Internal<int> r) {
   crv::Internal<int> i, j, k;
   for (i = m+1; dfs_checker().BRANCH_CALL(i > l); i = i-1) aux[i-1] = a[i-1];
   for (j = m; dfs_checker().BRANCH_CALL(j < r); j = j+1) aux[r+m-j] = a[j+1];
@@ -39,7 +41,7 @@ void merge(crv::Internal<Item[]>& a, const crv::Internal<int>& l, const crv::Int
     }
 }
 
-void mergesort(crv::Internal<Item[]>& a, const crv::Internal<int>& l, const crv::Internal<int>& r) {
+void mergesort(crv::Internal<Item*> a, const crv::Internal<int> l, const crv::Internal<int> r) {
   crv::Internal<int> m = (r+l)/2;
   if (dfs_checker().BRANCH_CALL(r <= l)) return;
   mergesort(a, l, m);
@@ -47,10 +49,8 @@ void mergesort(crv::Internal<Item[]>& a, const crv::Internal<int>& l, const crv:
   merge(a, l, m, r);
 }
 
-#define N 7
-
 void crv_main() {
-  crv::Internal<Item[]> a;
+  crv::Internal<Item[N]> a;
 
   mergesort(a, 0, N-1);
   for (crv::Internal<unsigned> i = 0; dfs_checker().BRANCH_CALL(i < N - 1); i = i+1)

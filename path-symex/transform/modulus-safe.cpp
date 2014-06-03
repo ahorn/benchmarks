@@ -1,4 +1,3 @@
-#include <iostream>
 #include <nse_sequential.h>
 #include <nse_report.h>
 

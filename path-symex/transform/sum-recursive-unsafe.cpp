@@ -10,7 +10,7 @@
 #define dfs_checker crv::backtrack_dfs_checker
 #endif
 
-crv::Internal<int> sumR(const crv::Internal<int>& a, const crv::Internal<int>& b, const crv::Internal<int>& k) {
+crv::Internal<int> sumR(const crv::Internal<int> a, const crv::Internal<int> b, const crv::Internal<int> k) {
   crv::Internal<int> sum = a + b*k;
   if (dfs_checker().branch(k > 0))
     return sum + sumR(a, b, k-1);

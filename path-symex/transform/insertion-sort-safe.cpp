@@ -25,7 +25,7 @@ typedef int Item;
 #define exch(A, B) { crv::Internal<Item> t = A; A = B; B = t; } 
 #define compexch(A, B) if (dfs_checker().BRANCH_CALL(less(B, A))) exch(A, B)
 
-void insertion_sort(crv::Internal<Item[]>& a, const crv::Internal<int>& l, const crv::Internal<int>& r) {
+void insertion_sort(crv::Internal<Item*> a, const crv::Internal<int> l, const crv::Internal<int> r) {
   crv::Internal<int> i;
   for (i = l+1; dfs_checker().BRANCH_CALL(i <= r); i = i+1) compexch(a[l], a[i]);
   for (i = l+2; dfs_checker().BRANCH_CALL(i <= r); i = i+1) {
@@ -41,7 +41,7 @@ void insertion_sort(crv::Internal<Item[]>& a, const crv::Internal<int>& l, const
 #define N 7
 
 void crv_main() {
-  crv::Internal<int[]> a;
+  crv::Internal<int[N]> a;
 
   insertion_sort(a, 0, N-1);
   for (crv::Internal<unsigned> i = 0; dfs_checker().BRANCH_CALL(i < N - 1); i = i+1)
