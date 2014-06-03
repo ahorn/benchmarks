@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CXX="clang++"
+CXX="/usr/bin/clang++"
 
 SMTKIT_PREFIX=$1
 GMP_DIR=$2
