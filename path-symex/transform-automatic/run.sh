@@ -12,8 +12,8 @@ export PATH=$PATH:${CLANG_NSE_PREFIX}
 # subdirectory with the GMP library and header, respectively
 GMP_DIR=/opt/local
 
-export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:${SMT_KIT_PREFIX}/solvers/CVC4/target/lib:${SMT_KIT_PREFIX}/solvers/msat/lib:${SMTKIT_PREFIX}/target/lib:${SMTKIT_PREFIX}/solvers/z3/build
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${SMT_KIT_PREFIX}/solvers/CVC4/target/lib:${SMT_KIT_PREFIX}/solvers/msat/lib:${SMTKIT_PREFIX}/target/lib:${SMTKIT_PREFIX}/solvers/z3/build
+export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:${SMTKIT_PREFIX}/solvers/CVC4/target/lib:${SMTKIT_PREFIX}/solvers/msat/lib:${SMTKIT_PREFIX}/target/lib:${SMTKIT_PREFIX}/solvers/z3/build
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${SMTKIT_PREFIX}/solvers/CVC4/target/lib:${SMTKIT_PREFIX}/solvers/msat/lib:${SMTKIT_PREFIX}/target/lib:${SMTKIT_PREFIX}/solvers/z3/build
 
 BENCHMARK_FILES="modulus-safe
     modulus-unsafe 
