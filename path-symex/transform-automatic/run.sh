@@ -4,6 +4,9 @@
 SMTKIT_PREFIX=/path/to/smt-kit
 
 NSE_REWRITE=/path/to/nse-rewrite.sh
+CLANG_NSE=/path/to/llvm/target/bin/clang-nse
+
+export PATH=${CLANG_NSE}:$PATH
 
 # Absolute path to directory that contains a lib/ and include/
 # subdirectory with the GMP library and header, respectively
