@@ -1,9 +1,6 @@
 extern int nse_symbolic_int(); 
 
-void nse_assert(bool)
-{
-  assert(c);
-}
+void nse_assert(bool);
 
 int nse_symbolic_int();
 
