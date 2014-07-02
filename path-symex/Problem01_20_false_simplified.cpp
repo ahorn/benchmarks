@@ -1,7 +1,4 @@
-void nse_assert(bool c)
-{
-  assert(c);
-}
+void nse_assert(bool c);
 
 int nse_symbolic_int();
 
