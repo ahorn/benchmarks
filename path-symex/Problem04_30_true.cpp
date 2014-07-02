@@ -4807,7 +4807,7 @@ int main()
 	int output = -1;
 
 	// main i/o-loop
-        for(int i = 0; i < 2; ++i)
+        for(int i = 0; i < 5; ++i)
 	{
 		// read input
 		int input = nse_symbolic_int();

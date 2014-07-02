@@ -1,4 +1,7 @@
-void nse_assert(bool);
+void nse_assert(bool c)
+{
+  assert(c);
+}
 
 int nse_symbolic_int();
 
@@ -397,7 +400,7 @@ int main()
 	int output = -1;
 
 	// main i/o-loop
-	for(int i=1; i < 6; ++i)
+	for(int i=1; i < 8; ++i)
 	{
 		// read input
 		int input = nse_symbolic_int();
