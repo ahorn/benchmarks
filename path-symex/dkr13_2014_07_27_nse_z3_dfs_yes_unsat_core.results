@@ -1,0 +1,1163 @@
+Problem01_00_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 16
+Number of solver calls: 71
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+Problem01_20_false
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 16567
+Number of solver calls: 207231
+Literal branch percentage: 'undefined'
+Total runtime (s): 348
+Encoder time (s): 0
+Solver time (s): 194
+Branch time (s): 0
+Replay time (s): 37
+Solver percentage: 55%
+Branch percentage: 0%
+Replay percentage: 10%
+Problem01_20_false_simplified
+Found bug!
+-----------------------:
+Number of paths explored: 317326
+Number of solver calls: 3576595
+Literal branch percentage: 'undefined'
+Total runtime (s): 8090
+Encoder time (s): 369
+Solver time (s): 4217
+Branch time (s): 0
+Replay time (s): 1032
+Solver percentage: 52%
+Branch percentage: 0%
+Replay percentage: 12%
+Problem02_30_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 22428
+Number of solver calls: 98591
+Literal branch percentage: 'undefined'
+Total runtime (s): 168
+Encoder time (s): 0
+Solver time (s): 67
+Branch time (s): 0
+Replay time (s): 32
+Solver percentage: 40%
+Branch percentage: 0%
+Replay percentage: 19%
+Problem02_50_false
+Found bug!
+-----------------------:
+Number of paths explored: 1649
+Number of solver calls: 6792
+Literal branch percentage: 'undefined'
+Total runtime (s): 9
+Encoder time (s): 0
+Solver time (s): 2
+Branch time (s): 0
+Replay time (s): 1
+Solver percentage: 30%
+Branch percentage: 0%
+Replay percentage: 14%
+Problem02_60_false
+Found bug!
+-----------------------:
+Number of paths explored: 1571
+Number of solver calls: 6411
+Literal branch percentage: 'undefined'
+Total runtime (s): 8
+Encoder time (s): 0
+Solver time (s): 2
+Branch time (s): 0
+Replay time (s): 1
+Solver percentage: 31%
+Branch percentage: 0%
+Replay percentage: 15%
+Problem03_00_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 478
+Number of solver calls: 15470
+Literal branch percentage: 'undefined'
+Total runtime (s): 31
+Encoder time (s): 0
+Solver time (s): 19
+Branch time (s): 0
+Replay time (s): 2
+Solver percentage: 61%
+Branch percentage: 0%
+Replay percentage: 8%
+Problem03_10_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 478
+Number of solver calls: 15470
+Literal branch percentage: 'undefined'
+Total runtime (s): 30
+Encoder time (s): 0
+Solver time (s): 18
+Branch time (s): 0
+Replay time (s): 2
+Solver percentage: 62%
+Branch percentage: 0%
+Replay percentage: 8%
+Problem03_50_false
+Found bug!
+-----------------------:
+Number of paths explored: 9999
+Number of solver calls: 395390
+Literal branch percentage: 'undefined'
+Total runtime (s): 1579
+Encoder time (s): 20
+Solver time (s): 1187
+Branch time (s): 0
+Replay time (s): 134
+Solver percentage: 75%
+Branch percentage: 0%
+Replay percentage: 8%
+Problem03_60_false
+Found bug!
+-----------------------:
+Number of paths explored: 2
+Number of solver calls: 6
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+ssh_s3_clnt_1_false.cil
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 3
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+ssh_s3_clnt_1_true.cil
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 53409
+Number of solver calls: 138825
+Literal branch percentage: 'undefined'
+Total runtime (s): 347
+Encoder time (s): 0
+Solver time (s): 256
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 73%
+Branch percentage: 0%
+Replay percentage: 0%
+ssh_s3_clnt_2_false.cil
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 3
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+ssh_s3_clnt_2_true.cil
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 53409
+Number of solver calls: 138825
+Literal branch percentage: 'undefined'
+Total runtime (s): 349
+Encoder time (s): 0
+Solver time (s): 259
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 74%
+Branch percentage: 0%
+Replay percentage: 0%
+ssh_s3_clnt_3.cil_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 53409
+Number of solver calls: 139473
+Literal branch percentage: 'undefined'
+Total runtime (s): 363
+Encoder time (s): 0
+Solver time (s): 273
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 75%
+Branch percentage: 0%
+Replay percentage: 0%
+ssh_s3_clnt_3_false.cil
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 3
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+ssh_s3_clnt_3_true.cil
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 53409
+Number of solver calls: 139473
+Literal branch percentage: 'undefined'
+Total runtime (s): 374
+Encoder time (s): 0
+Solver time (s): 281
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 75%
+Branch percentage: 0%
+Replay percentage: 0%
+ssh_s3_clnt_4_false.cil
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 3
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+ssh_s3_clnt_4_true.cil
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 53409
+Number of solver calls: 138825
+Literal branch percentage: 'undefined'
+Total runtime (s): 353
+Encoder time (s): 0
+Solver time (s): 262
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 74%
+Branch percentage: 0%
+Replay percentage: 0%
+ssh_s3_srvr_11_false.cil
+Found bug!
+-----------------------:
+Number of paths explored: 16153
+Number of solver calls: 29703
+Literal branch percentage: 'undefined'
+Total runtime (s): 87
+Encoder time (s): 0
+Solver time (s): 66
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 76%
+Branch percentage: 0%
+Replay percentage: 0%
+ssh_s3_srvr_12_false.cil
+Found bug!
+-----------------------:
+Number of paths explored: 177
+Number of solver calls: 239
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+ssh_s3_srvr_14_false.cil
+Found bug!
+-----------------------:
+Number of paths explored: 2883
+Number of solver calls: 6440
+Literal branch percentage: 'undefined'
+Total runtime (s): 15
+Encoder time (s): 0
+Solver time (s): 10
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 71%
+Branch percentage: 0%
+Replay percentage: 0%
+ssh_s3_srvr_1_false.cil
+Found bug!
+-----------------------:
+Number of paths explored: 34
+Number of solver calls: 60
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+ssh_s3_srvr_1_true.cil
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 189492
+Number of solver calls: 434070
+Literal branch percentage: 'undefined'
+Total runtime (s): 1453
+Encoder time (s): 0
+Solver time (s): 1147
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 78%
+Branch percentage: 0%
+Replay percentage: 0%
+ssh_s3_srvr_1a_true.cil
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 51
+Number of solver calls: 138
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+ssh_s3_srvr_1b_true.cil
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 46
+Number of solver calls: 155
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+ssh_s3_srvr_2_false.cil
+Found bug!
+-----------------------:
+Number of paths explored: 34
+Number of solver calls: 60
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+ssh_s3_srvr_2_true.cil
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 447864
+Number of solver calls: 1248624
+Literal branch percentage: 'undefined'
+Total runtime (s): 5151
+Encoder time (s): 0
+Solver time (s): 4259
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 82%
+Branch percentage: 0%
+Replay percentage: 0%
+ssh_s3_srvr_3_true.cil
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 180348
+Number of solver calls: 417906
+Literal branch percentage: 'undefined'
+Total runtime (s): 1354
+Encoder time (s): 0
+Solver time (s): 1060
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 78%
+Branch percentage: 0%
+Replay percentage: 0%
+ssh_s3_srvr_4_true.cil
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 180348
+Number of solver calls: 417906
+Literal branch percentage: 'undefined'
+Total runtime (s): 1373
+Encoder time (s): 0
+Solver time (s): 1080
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 78%
+Branch percentage: 0%
+Replay percentage: 0%
+ssh_s3_srvr_6_false.cil
+Found bug!
+-----------------------:
+Number of paths explored: 23
+Number of solver calls: 65
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+ssh_s3_srvr_6_true.cil
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 180348
+Number of solver calls: 441936
+Literal branch percentage: 'undefined'
+Total runtime (s): 1357
+Encoder time (s): 0
+Solver time (s): 1056
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 77%
+Branch percentage: 0%
+Replay percentage: 0%
+ssh_s3_srvr_7_true.cil
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 180348
+Number of solver calls: 473112
+Literal branch percentage: 'undefined'
+Total runtime (s): 1366
+Encoder time (s): 0
+Solver time (s): 1054
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 77%
+Branch percentage: 0%
+Replay percentage: 0%
+ssh_s3_srvr_8_true.cil
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 180348
+Number of solver calls: 444708
+Literal branch percentage: 'undefined'
+Total runtime (s): 1360
+Encoder time (s): 0
+Solver time (s): 1058
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 77%
+Branch percentage: 0%
+Replay percentage: 0%
+loops_array_false
+Found bug!
+-----------------------:
+Number of paths explored: 16385
+Number of solver calls: 49155
+Literal branch percentage: 'undefined'
+Total runtime (s): 641
+Encoder time (s): 0
+Solver time (s): 608
+Branch time (s): 0
+Replay time (s): 300
+Solver percentage: 94%
+Branch percentage: 0%
+Replay percentage: 46%
+loops_array_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 32768
+Number of solver calls: 98304
+Literal branch percentage: 'undefined'
+Total runtime (s): 1277
+Encoder time (s): 0
+Solver time (s): 1208
+Branch time (s): 0
+Replay time (s): 540
+Solver percentage: 94%
+Branch percentage: 0%
+Replay percentage: 42%
+loops_count_up_down_false
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 3
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_count_up_down_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 1027
+Number of solver calls: 3079
+Literal branch percentage: 'undefined'
+Total runtime (s): 962
+Encoder time (s): 295
+Solver time (s): 645
+Branch time (s): 0
+Replay time (s): 16
+Solver percentage: 67%
+Branch percentage: 0%
+Replay percentage: 1%
+loops_eureka_01_false
+Found bug!
+-----------------------:
+Number of paths explored: 506
+Number of solver calls: 1389
+Literal branch percentage: 'undefined'
+Total runtime (s): 8
+Encoder time (s): 0
+Solver time (s): 7
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 90%
+Branch percentage: 0%
+Replay percentage: 0%
+loops_eureka_01_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 1
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_eureka_05_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 1
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_for_bounded_loop1_false
+Found bug!
+-----------------------:
+Number of paths explored: 2
+Number of solver calls: 5
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_heavy_false
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 1
+Literal branch percentage: 'undefined'
+Total runtime (s): 307
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 0%
+Branch percentage: 0%
+Replay percentage: 0%
+loops_heavy_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 1
+Literal branch percentage: 'undefined'
+Total runtime (s): 308
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 0%
+Branch percentage: 0%
+Replay percentage: 0%
+loops_insertion_sort_false
+Found bug!
+-----------------------:
+Number of paths explored: 3
+Number of solver calls: 9
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_insertion_sort_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 40320
+Number of solver calls: 120960
+Literal branch percentage: 'undefined'
+Total runtime (s): 1625
+Encoder time (s): 0
+Solver time (s): 1512
+Branch time (s): 0
+Replay time (s): 1213
+Solver percentage: 93%
+Branch percentage: 0%
+Replay percentage: 74%
+loops_invert_string_false
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 1
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_invert_string_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 1
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_linear_search_false
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 3
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_n.c11_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 1
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_n.c40_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 2
+Number of solver calls: 2
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_nec11_false
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 1
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_nec20_false
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 3
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_nec40_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 2
+Number of solver calls: 2
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_string_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 133
+Number of solver calls: 362
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_sum01_bug02_false
+Found bug!
+-----------------------:
+Number of paths explored: 7
+Number of solver calls: 21
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_sum01_bug02_sum01_bug02_base.case_false
+Found bug!
+-----------------------:
+Number of paths explored: 5
+Number of solver calls: 15
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_sum01_false
+Found bug!
+-----------------------:
+Number of paths explored: 11
+Number of solver calls: 33
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_sum01_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 1
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_sum03_false
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 1
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_sum03_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 1
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_sum04_false
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 1
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_sum04_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 1
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_sum_array_false
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 1
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_sum_array_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 1
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_terminator_02_false
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 3
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_terminator_03_false
+Found bug!
+-----------------------:
+Number of paths explored: 2
+Number of solver calls: 6
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_trex01_false
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 3
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_trex02_false
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 3
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_trex03_false
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 3
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_vogal_false
+Found bug!
+-----------------------:
+Number of paths explored: 6
+Number of solver calls: 15
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+loops_vogal_true
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 953
+Number of solver calls: 2653
+Literal branch percentage: 'undefined'
+Total runtime (s): 1
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 0%
+Branch percentage: 0%
+Replay percentage: 0%
+modulus-safe
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 9
+Number of solver calls: 24
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+modulus-unsafe
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 3
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+concrete-sum-safe
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 1
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+concrete-sum-unsafe
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 1
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+bst-safe
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 5040
+Number of solver calls: 15120
+Literal branch percentage: 'undefined'
+Total runtime (s): 115
+Encoder time (s): 0
+Solver time (s): 103
+Branch time (s): 0
+Replay time (s): 52
+Solver percentage: 89%
+Branch percentage: 0%
+Replay percentage: 45%
+bst-unsafe
+counter-safe
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 501
+Number of solver calls: 1501
+Literal branch percentage: 'undefined'
+Total runtime (s): 231
+Encoder time (s): 28
+Solver time (s): 190
+Branch time (s): 0
+Replay time (s): 1
+Solver percentage: 82%
+Branch percentage: 0%
+Replay percentage: 0%
+counter-unsafe
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 3
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+insertion-sort-safe
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 16108
+Number of solver calls: 41430
+Literal branch percentage: 'undefined'
+Total runtime (s): 486
+Encoder time (s): 0
+Solver time (s): 452
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 93%
+Branch percentage: 0%
+Replay percentage: 0%
+insertion-sort-unsafe
+Found bug!
+-----------------------:
+Number of paths explored: 3
+Number of solver calls: 9
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
+merge-sort-safe
+Could not find any bugs.
+-----------------------:
+Number of paths explored: 14719
+Number of solver calls: 38338
+Literal branch percentage: 'undefined'
+Total runtime (s): 246
+Encoder time (s): 0
+Solver time (s): 217
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 88%
+Branch percentage: 0%
+Replay percentage: 0%
+merge-sort-unsafe
+Found bug!
+-----------------------:
+Number of paths explored: 1
+Number of solver calls: 3
+Literal branch percentage: 'undefined'
+Total runtime (s): 0
+Encoder time (s): 0
+Solver time (s): 0
+Branch time (s): 0
+Replay time (s): 0
+Solver percentage: 'undefined'
+Branch percentage: 'undefined'
+Replay percentage: 'undefined'
