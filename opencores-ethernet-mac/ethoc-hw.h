@@ -378,6 +378,9 @@ typedef struct OpenEthState {
     open_eth_desc desc[_ETHOC_DESC_SIZE_];
 
 #ifndef _CBMC_
+    /*
+     * non-reentrant
+     */
     pthread_mutex_t lock;
 #endif
 
@@ -394,6 +397,7 @@ typedef struct OpenEthState {
  *
  * @see_also: Chapter 3 in data sheet
  * @see_also: open_eth_reg()
+ * @warning: non-reentrant
  */
 uint32_t open_eth_reg_read(OpenEthState *s, hwaddr addr);
 
@@ -412,6 +416,7 @@ uint32_t open_eth_reg_read(OpenEthState *s, hwaddr addr);
  *
  * @see_also: Chapter 3 in data sheet
  * @see_also: open_eth_reg()
+ * @warning: non-reentrant
  */
 void open_eth_reg_write(OpenEthState *s, hwaddr addr, uint32_t val);
 
@@ -427,6 +432,7 @@ void open_eth_reg_write(OpenEthState *s, hwaddr addr, uint32_t val);
  * whereas every RX BD address must be greater or equal to @TX_BD_NUM.
  *
  * @see_also: Section 4.2.2 in data sheet
+ * @warning: non-reentrant
  */
 uint64_t open_eth_desc_read(OpenEthState *s, hwaddr addr);
 
@@ -443,6 +449,7 @@ uint64_t open_eth_desc_read(OpenEthState *s, hwaddr addr);
  * hold a DMA address.
  *
  * @see_also: Section 4.2.2 in data sheet
+ * @warning: non-reentrant
  */
 void open_eth_desc_write(OpenEthState *s, hwaddr addr, uint64_t val);
 
@@ -451,6 +458,8 @@ void open_eth_desc_write(OpenEthState *s, hwaddr addr, uint64_t val);
  * @s: self object pointer
  *
  * Atomically checks whether open_eth_receive(@s) can be called.
+ *
+ * @warning: non-reentrant
  */
 int open_eth_can_receive(OpenEthState *s);
 
@@ -462,6 +471,8 @@ int open_eth_can_receive(OpenEthState *s);
  *
  * Atomically writes at most @size bytes in the read-only @buf array to memory
  * according to the direct-memory address (DMA) in the current buffer descriptor.
+ *
+ * @warning: non-reentrant
  */
 size_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size);
 
@@ -471,6 +482,8 @@ size_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size);
  * @link_down: flag to be written
  *
  * Atomically update net client's link status.
+ *
+ * @warning: non-reentrant
  */
 void open_eth_set_link_status(OpenEthState *s, bool link_down);
 

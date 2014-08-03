@@ -163,14 +163,19 @@ static void open_eth_int_source_write(OpenEthState *s,
             s->regs[INT_SOURCE] & s->regs[INT_MASK]);
 }
 
-void open_eth_set_link_status(OpenEthState *s, bool link_down)
+static void internal_open_eth_set_link_status(OpenEthState *s, bool link_down)
 {
-    ATOMIC_BEGIN;
-
     if (GET_REGBIT(s, MIICOMMAND, SCANSTAT)) {
         SET_REGFIELD(s, MIISTATUS, LINKFAIL, link_down);
     }
     mii_set_link(&s->mii, !link_down);
+}
+
+void open_eth_set_link_status(OpenEthState *s, bool link_down)
+{
+    ATOMIC_BEGIN;
+
+    internal_open_eth_set_link_status(s, link_down);
 
     ATOMIC_END;
 }
@@ -194,16 +199,21 @@ static void open_eth_reset(OpenEthState *s)
     s->rx_desc = s->regs[TX_BD_NUM];
 
     mii_reset(&s->mii);
-    open_eth_set_link_status(s, s->nic->nc.link_down);
+    internal_open_eth_set_link_status(s, s->nic->nc.link_down);
+}
+
+static int internal_open_eth_can_receive(OpenEthState *s)
+{
+    return GET_REGBIT(s, MODER, RXEN) &&
+        (s->regs[TX_BD_NUM] < _ETHOC_DESC_SIZE_) &&
+        (rx_desc(s)->len_flags & RXD_E);
 }
 
 int open_eth_can_receive(OpenEthState *s)
 {
     ATOMIC_BEGIN;
 
-    int bit = GET_REGBIT(s, MODER, RXEN) &&
-        (s->regs[TX_BD_NUM] < _ETHOC_DESC_SIZE_) &&
-        (rx_desc(s)->len_flags & RXD_E);
+    int bit = internal_open_eth_can_receive(s);
 
     ATOMIC_END;
 
@@ -457,7 +467,7 @@ static void open_eth_moder_host_write(OpenEthState *s, uint32_t val)
  	 *     exist at least one empty RX buffer descriptor.
  	 */ 
 #ifdef _ETHOC_PROP_1_
-	assert(open_eth_can_receive(s));
+	assert(internal_open_eth_can_receive(s));
 #endif
     }
     if (set & MODER_TXEN) {
