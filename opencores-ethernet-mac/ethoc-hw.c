@@ -24,7 +24,10 @@
 
 #include <assert.h>
 
-#ifndef _CBMC_ 
+#ifdef _CBMC_
+#define ATOMIC_BEGIN  __CPROVER_atomic_begin()
+#define ATOMIC_END  __CPROVER_atomic_end()
+#else
 #define ATOMIC_BEGIN pthread_mutex_lock(&s->lock)
 #define ATOMIC_END pthread_mutex_unlock(&s->lock)
 #endif

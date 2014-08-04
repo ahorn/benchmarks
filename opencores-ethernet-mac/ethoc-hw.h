@@ -18,6 +18,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
 
 #include "hwaddr.h"
 
@@ -130,7 +131,7 @@ enum OpenEthReg {
  * This hardware address can be used for @open_eth_reg_read() and
  * @open_eth_reg_write() calls.
  */
-static inline hwaddr open_eth_reg(enum OpenEthReg reg_ix)
+inline hwaddr open_eth_reg(enum OpenEthReg reg_ix)
 {
     return reg_ix * 4;
 }
