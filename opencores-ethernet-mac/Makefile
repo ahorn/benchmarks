@@ -15,15 +15,13 @@ PROP = -D_ETHOC_PROP_1_ \
        -D_ETHOC_PROP_2_ \
        -D_ETHOC_PROP_3_ \
        -D_ETHOC_PROP_4_ \
-       -D_ETHOC_PROP_5_ \
-       -D_ETHOC_PROP_6_ \
-       -D_ETHOC_PROP_7_
+       -D_ETHOC_PROP_5_
 
 ethoc-hw-concrete:
 	@${CC} -g $(SRC) $(PROP)
 
 ethoc-hw-cbmc:
-	@${CBMC} $(SRC) $(PROP) -D_SYMBOLIC_EXECUTION_
+	@${CBMC} $(SRC) $(PROP) -D_SYMBOLIC_EXECUTION_ -D_CBMC_
 
 ethoc-hw-llvm-gcc:
 	@echo ------------- Compiling with llvm_gcc:

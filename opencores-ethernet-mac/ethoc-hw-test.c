@@ -107,7 +107,6 @@ static void test_rx(void)
 
 static void test_rx_busy(void)
 {
-    const uint64_t tx_bd_num = _ETHOC_DESC_SIZE_-1;
     uint64_t desc;
     hwaddr desc_addr;
 
@@ -130,7 +129,65 @@ static void test_rx_busy(void)
     open_eth_reg_write(s, open_eth_reg(MODER), MODER_RST);
 
     /* allocate only one RX buffer descriptor */
-    open_eth_reg_write(s, open_eth_reg(TX_BD_NUM), tx_bd_num);
+    open_eth_reg_write(s, open_eth_reg(TX_BD_NUM), _ETHOC_DESC_SIZE_-1);
+
+    /* setup MAC address */
+    open_eth_reg_write(s, open_eth_reg(MAC_ADDR0), 0x56789ABC);
+    open_eth_reg_write(s, open_eth_reg(MAC_ADDR1), 0x1234);
+
+    /* enable IRQ for incoming packets */
+    open_eth_reg_write(s, open_eth_reg(INT_MASK), INT_MASK_RXF_M);
+
+    /* setup address map to allow 32 bit hardware addresses */
+    cpu_physical_memory_init((uintptr_t) rx_packet);
+
+    /* calculate lowest rx buffer descriptor address */
+    desc_addr = (_ETHOC_DESC_SIZE_-1) * 8;
+
+    /* setup rx buffer descriptor for DMA on rx_packet */
+    desc = (uint32_t) (uintptr_t) rx_packet;
+    desc <<= 32;
+    desc |= RXD_E | RXD_IRQ;
+    open_eth_desc_write(s, desc_addr, desc);
+
+    /* enable receiver and unmask BUSY interrupt */
+    open_eth_reg_write(s, open_eth_reg(MODER), MODER_RXEN);
+
+    assert((_ETHOC_DESC_SIZE_-1) == s->regs[TX_BD_NUM]);
+    assert(s->rx_desc == s->regs[TX_BD_NUM]);
+    assert((s->desc[_ETHOC_DESC_SIZE_-1].len_flags & RXD_E) == RXD_E);
+
+    /* trigger DMA operations */
+    open_eth_receive(s, tx_packet, sizeof(tx_packet));
+    assert((open_eth_reg_read(s, open_eth_reg(INT_SOURCE)) & INT_SOURCE_BUSY) == 0);
+
+    assert((_ETHOC_DESC_SIZE_ - 1) == s->regs[TX_BD_NUM]);
+    assert(s->rx_desc == (_ETHOC_DESC_SIZE_-1));
+    assert((s->desc[_ETHOC_DESC_SIZE_-1].len_flags & RXD_E) == 0);
+
+    open_eth_receive(s, tx_packet, sizeof(tx_packet));
+
+    assert((_ETHOC_DESC_SIZE_-1) == s->regs[TX_BD_NUM]);
+    assert(s->rx_desc == s->regs[TX_BD_NUM]);
+    assert((open_eth_reg_read(s, open_eth_reg(INT_SOURCE)) & INT_SOURCE_BUSY) == INT_SOURCE_BUSY);
+}
+
+static void test_can_receive(void)
+{
+    const uint64_t tx_bd_num = _ETHOC_DESC_SIZE_/2;
+    uint64_t desc;
+    hwaddr desc_addr;
+
+    /* setup rx DMA buffer */
+    uint8_t rx_packet[2];
+    memset(rx_packet, 0, sizeof(rx_packet));
+
+    OpenEthState *s = OPEN_ETH_STATE(nc);
+
+    /* reset MAC and MII */
+    open_eth_reg_write(s, open_eth_reg(MODER), MODER_RST);
+    assert(tx_bd_num == open_eth_reg_read(s, open_eth_reg(TX_BD_NUM)));
+    assert(tx_bd_num == s->regs[TX_BD_NUM]);
 
     /* setup MAC address */
     open_eth_reg_write(s, open_eth_reg(MAC_ADDR0), 0x56789ABC);
@@ -151,14 +208,15 @@ static void test_rx_busy(void)
     desc |= RXD_E | RXD_IRQ;
     open_eth_desc_write(s, desc_addr, desc);
 
+    assert(s->desc[tx_bd_num].len_flags & (RXD_E | RXD_IRQ));
+
     /* enable receiver and unmask BUSY interrupt */
     open_eth_reg_write(s, open_eth_reg(MODER), MODER_RXEN);
+    assert(tx_bd_num == s->regs[TX_BD_NUM]);
+    assert(s->rx_desc == s->regs[TX_BD_NUM]);
+    assert(s->desc[tx_bd_num].len_flags & (RXD_E | RXD_IRQ));
 
-    /* trigger DMA operations */
-    open_eth_receive(s, tx_packet, sizeof(tx_packet));
-    assert((open_eth_reg_read(s, open_eth_reg(INT_SOURCE)) & INT_SOURCE_BUSY) == 0);
-    open_eth_receive(s, tx_packet, sizeof(tx_packet));
-    assert((open_eth_reg_read(s, open_eth_reg(INT_SOURCE)) & INT_SOURCE_BUSY) == INT_SOURCE_BUSY);
+    assert(open_eth_can_receive(s));
 }
 
 static irqreturn_t rx_handler(void *opaque, int n, int level)
@@ -169,36 +227,26 @@ static irqreturn_t rx_handler(void *opaque, int n, int level)
     return IRQ_HANDLED;
 }
 
-static int nc_open_eth_can_receive(NetClientState *nc)
-{
-    return open_eth_can_receive(OPEN_ETH_STATE(nc));
-}
-
-static ssize_t nc_open_eth_receive(NetClientState *nc,
-                                     const uint8_t *buf, size_t size)
-{
-    return open_eth_receive(OPEN_ETH_STATE(nc), buf, size);
-}
-
+/*
+ * Note: we around nested atomic sections in CBMC or the need for reentrant
+ * POSIX locks by creating an internal version of open_eth_set_link_status.
+ */
 static void nc_open_eth_set_link_status(NetClientState *nc)
 {
     OpenEthState *s = OPEN_ETH_STATE(nc);
-    open_eth_set_link_status(s, s->nic->nc.link_down);
+    internal_open_eth_set_link_status(s, s->nic->nc.link_down);
 }
 
 int main(void)
 {
     /* Implementation of basic Net API */
     NetClientInfo nc_info;
-    nc_info.can_receive = nc_open_eth_can_receive;
-    nc_info.receive = nc_open_eth_receive;
     nc_info.link_status_changed = nc_open_eth_set_link_status;
 
     /* NIC which can receive but not transmit packets */
     NICState nic;
     nic.nc.info = &nc_info;
     nic.nc.link_down = 0;
-    nic.nc.peer = NULL;
     nic.nc.receive_disabled = 0;
 
     /* Interrupt handler for incoming packets */
@@ -213,7 +261,11 @@ int main(void)
     eth.mii.link_ok = true;
 
 #ifndef _CBMC_
-    pthread_mutex_init(&eth.lock, NULL);
+    /*
+     * We avoid the need for reentrant locks (i.e. PTHREAD_MUTEX_RECURSIVE lock
+     * attribute) by specifying the expected behaviour of callbacks in "net.h".
+     */
+    pthread_mutex_init(&eth.lock, &attr);
 #endif
 
     memset(eth.mii.regs, 0, sizeof(eth.mii.regs));
@@ -270,9 +322,12 @@ int main(void)
     test_init();
 #endif
 #ifdef _ETHOC_PROP_3_
-    test_rx();
+    test_can_receive();
 #endif
 #ifdef _ETHOC_PROP_4_
+    test_rx();
+#endif
+#ifdef _ETHOC_PROP_5_
     test_rx_busy();
 #endif
 }

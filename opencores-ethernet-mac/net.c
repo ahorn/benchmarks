@@ -2,26 +2,6 @@
 
 #include "net.h"
 
-bool can_send_packet(NetClientState *sender)
-{
-    NetClientState *peer = sender->peer;
-
-    return peer && !peer->receive_disabled &&
-        (!peer->info->can_receive || peer->info->can_receive(peer));
-}
-
-ssize_t send_packet(NetClientState *sender, const uint8_t *buf, size_t size)
-{
-    NetClientState *peer;
-
-    if (can_send_packet(sender)) {
-        peer = sender->peer;
-        return peer->info->receive(peer, buf, size);
-    }
-
-    return -EINVAL;
-}
-
 unsigned compute_mcast_idx(const uint8_t *ep)
 {
     uint32_t crc;

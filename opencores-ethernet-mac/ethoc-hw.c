@@ -166,7 +166,7 @@ static void open_eth_int_source_write(OpenEthState *s,
             s->regs[INT_SOURCE] & s->regs[INT_MASK]);
 }
 
-static void internal_open_eth_set_link_status(OpenEthState *s, bool link_down)
+void internal_open_eth_set_link_status(OpenEthState *s, bool link_down)
 {
     if (GET_REGBIT(s, MIICOMMAND, SCANSTAT)) {
         SET_REGFIELD(s, MIISTATUS, LINKFAIL, link_down);
@@ -345,7 +345,7 @@ size_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
 
         SET_FIELD(desc->len_flags, RXD_LEN, copy_size);
 
-        if ((desc->len_flags & RXD_WRAP) || s->rx_desc == 0x7f) {
+        if ((desc->len_flags & RXD_WRAP) || s->rx_desc == (_ETHOC_DESC_SIZE_-1)) {
             s->rx_desc = s->regs[TX_BD_NUM];
         } else {
             ++s->rx_desc;
@@ -369,6 +369,9 @@ out:
 
 static void open_eth_start_xmit(OpenEthState *s, open_eth_desc *tx)
 {
+    uint32_t tx_bd_num = s->regs[TX_BD_NUM];
+    open_eth_desc rx_desc = s->desc[tx_bd_num];
+
     uint8_t buf[65536];
     unsigned len = GET_FIELD(tx->len_flags, TXD_LEN);
     unsigned tx_len = len;
@@ -397,8 +400,6 @@ static void open_eth_start_xmit(OpenEthState *s, open_eth_desc *tx)
     }
 #endif
 
-    send_packet(&s->nic->nc, buf, tx_len);
-
     if (tx->len_flags & TXD_WR) {
         s->tx_desc = 0;
     } else {
@@ -413,6 +414,13 @@ static void open_eth_start_xmit(OpenEthState *s, open_eth_desc *tx)
         open_eth_int_source_write(s, s->regs[INT_SOURCE] | INT_SOURCE_TXB);
     }
 
+    /*
+     * VC: Trying to transmit something never changes the RX buffer descriptors.
+     *     Note that here we only check the current RX buffer descriptor.
+     */
+    assert(tx_bd_num == s->regs[TX_BD_NUM]);
+    assert(rx_desc.len_flags == s->desc[tx_bd_num].len_flags);
+    assert(rx_desc.buf_ptr == s->desc[tx_bd_num].buf_ptr);
 }
 
 static void open_eth_check_start_xmit(OpenEthState *s)

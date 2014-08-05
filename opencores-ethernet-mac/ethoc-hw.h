@@ -131,7 +131,7 @@ enum OpenEthReg {
  * This hardware address can be used for @open_eth_reg_read() and
  * @open_eth_reg_write() calls.
  */
-inline hwaddr open_eth_reg(enum OpenEthReg reg_ix)
+static inline hwaddr open_eth_reg(enum OpenEthReg reg_ix)
 {
     return reg_ix * 4;
 }
@@ -487,5 +487,16 @@ size_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size);
  * @warning: non-reentrant
  */
 void open_eth_set_link_status(OpenEthState *s, bool link_down);
+
+
+/**
+ * internal_open_eth_set_link_status:
+ * @s: self object pointer
+ * @link_down: flag to be written
+ *
+ * Update net client's link status. Call this function only when the
+ * lock on the hardware model has been already aquired!
+ */
+void internal_open_eth_set_link_status(OpenEthState *s, bool link_down);
 
 #endif
