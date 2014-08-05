@@ -12,8 +12,11 @@
 #include "ethoc-hw.h"
 #include "osdep.h"
 #include "sys.h"
-#include "cpu.h"
 #include "net.h"
+
+#ifndef _SYMBOLIC_EXECUTION_
+#include "cpu.h"
+#endif
 
 #define OPEN_ETH_STATE(nc) \
     ((OpenEthState *) container_of(nc, NICState, nc)->opaque)
