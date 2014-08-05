@@ -14,10 +14,6 @@
 #include "sys.h"
 #include "net.h"
 
-#ifndef _SYMBOLIC_EXECUTION_
-#include "cpu.h"
-#endif
-
 #define OPEN_ETH_STATE(nc) \
     ((OpenEthState *) container_of(nc, NICState, nc)->opaque)
 
@@ -83,9 +79,6 @@ static void test_rx(void)
     /* enable IRQ for incoming packets */
     open_eth_reg_write(s, open_eth_reg(INT_MASK), INT_MASK_RXF_M);
 
-    /* setup address map to allow 32 bit hardware addresses */
-    cpu_physical_memory_init((uintptr_t) rx_packet);
-
     /* calculate lowest rx buffer descriptor address */
     desc_addr = tx_bd_num * 8;
 
@@ -146,9 +139,6 @@ static void test_rx_busy(void)
     /* enable IRQ for incoming packets */
     open_eth_reg_write(s, open_eth_reg(INT_MASK), INT_MASK_RXF_M);
 
-    /* setup address map to allow 32 bit hardware addresses */
-    cpu_physical_memory_init((uintptr_t) rx_packet);
-
     /* calculate lowest rx buffer descriptor address */
     desc_addr = (_ETHOC_DESC_SIZE_-1) * 8;
 
@@ -203,9 +193,6 @@ static void test_can_receive(void)
 
     /* enable IRQ for incoming packets */
     open_eth_reg_write(s, open_eth_reg(INT_MASK), INT_MASK_RXF_M);
-
-    /* setup address map to allow 32 bit hardware addresses */
-    cpu_physical_memory_init((uintptr_t) rx_packet);
 
     /* calculate lowest rx buffer descriptor address */
     desc_addr = tx_bd_num * 8;

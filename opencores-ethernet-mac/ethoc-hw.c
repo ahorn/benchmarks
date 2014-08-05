@@ -19,7 +19,6 @@
 
 #ifndef _SYMBOLIC_EXECUTION_
 #include "trace.h"
-#include "cpu.h"
 #endif
 
 #include <assert.h>
@@ -324,35 +323,18 @@ size_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
         }
 #endif
 
-#ifndef _SYMBOLIC_EXECUTION_
-        cpu_physical_memory_write(desc->buf_ptr, buf, copy_size);
-#endif
-
         if (GET_REGBIT(s, MODER, PAD) && copy_size < minfl) {
             if (minfl - copy_size > fcsl) {
                 fcsl = 0;
             } else {
                 fcsl -= minfl - copy_size;
             }
-#ifndef _SYMBOLIC_EXECUTION_
-            while (copy_size < minfl) {
-                size_t zero_sz = minfl - copy_size < sizeof(zero) ?
-                    minfl - copy_size : sizeof(zero);
-
-                cpu_physical_memory_write(desc->buf_ptr + copy_size,
-                        zero, zero_sz);
-                copy_size += zero_sz;
-            }
-#endif
         }
 
         /* There's no FCS in the frames handed to us by the QEMU, zero fill it.
          * Don't do it if the frame is cut at the MAXFL or padded with 4 or
          * more bytes to the MINFL.
          */
-#ifndef _SYMBOLIC_EXECUTION_
-        cpu_physical_memory_write(desc->buf_ptr + copy_size, zero, fcsl);
-#endif
         copy_size += fcsl;
 
         SET_FIELD(desc->len_flags, RXD_LEN, copy_size);
@@ -404,13 +386,6 @@ static void open_eth_start_xmit(OpenEthState *s, open_eth_desc *tx)
     if (len > tx_len) {
         len = tx_len;
     }
-
-#ifndef _SYMBOLIC_EXECUTION_
-    cpu_physical_memory_read(tx->buf_ptr, buf, len);
-    if (tx_len > len) {
-        memset(buf + len, 0, tx_len - len);
-    }
-#endif
 
     if (tx->len_flags & TXD_WR) {
         s->tx_desc = 0;
