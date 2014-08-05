@@ -361,7 +361,7 @@ typedef struct open_eth_desc {
  * checks had to be rewritten to make sure that the _ETHOC_DESC_SIZE_
  * constant is checked instead.
  *
- * \pre: size must be an even number greater than or equal to 2
+ * \pre: size must be a power of two, greater than or equal to 4
  */
 #define _ETHOC_DESC_SIZE_ 8
 
