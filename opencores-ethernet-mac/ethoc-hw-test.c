@@ -265,7 +265,7 @@ int main(void)
      * We avoid the need for reentrant locks (i.e. PTHREAD_MUTEX_RECURSIVE lock
      * attribute) by specifying the expected behaviour of callbacks in "net.h".
      */
-    pthread_mutex_init(&eth.lock, &attr);
+    pthread_mutex_init(&eth.lock, NULL);
 #endif
 
     memset(eth.mii.regs, 0, sizeof(eth.mii.regs));

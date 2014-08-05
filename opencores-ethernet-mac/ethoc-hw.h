@@ -386,7 +386,7 @@ typedef struct OpenEthState {
 #endif
 
     /* object of low-level software which controls the MAC */
-    void *software;
+    void *fw;
 } OpenEthState;
 
 /**
