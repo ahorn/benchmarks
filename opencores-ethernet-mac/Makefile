@@ -11,17 +11,29 @@ INCLUDE = -I ./
 
 VERDEF = -D_KLEE_ $(PROP)
 
-PROP = -D_ETHOC_PROP_1_ \
-       -D_ETHOC_PROP_2_ \
-       -D_ETHOC_PROP_3_ \
-       -D_ETHOC_PROP_4_ \
-       -D_ETHOC_PROP_5_
+ALL_PROP = -D_ETHOC_PROP_1_ \
+           -D_ETHOC_TEST_1_ \
+           -D_ETHOC_TEST_2_ \
+           -D_ETHOC_TEST_3_ \
+           -D_ETHOC_TEST_4_
 
 ethoc-hw-concrete:
-	@${CC} -g $(SRC) $(PROP)
+	@${CC} -g $(SRC) $(ALL_PROP)
 
 ethoc-hw-cbmc:
-	@${CBMC} $(SRC) $(PROP) -D_SYMBOLIC_EXECUTION_ -D_CBMC_
+	@${CBMC} $(SRC) $(ALL_PROP) -D_SYMBOLIC_EXECUTION_ -D_CBMC_
+
+ethoc-hw-cbmc-test-1:
+	@${CBMC} $(SRC) -D_ETHOC_PROP_1_ -D_ETHOC_TEST_1_ -D_SYMBOLIC_EXECUTION_ -D_CBMC_
+
+ethoc-hw-cbmc-test-2:
+	@${CBMC} $(SRC) -D_ETHOC_PROP_1_ -D_ETHOC_TEST_2_ -D_SYMBOLIC_EXECUTION_ -D_CBMC_
+
+ethoc-hw-cbmc-test-3:
+	@${CBMC} $(SRC) -D_ETHOC_PROP_1_ -D_ETHOC_TEST_3_ -D_SYMBOLIC_EXECUTION_ -D_CBMC_
+
+ethoc-hw-cbmc-test-4:
+	@${CBMC} $(SRC) -D_ETHOC_PROP_1_ -D_ETHOC_TEST_4_ -D_SYMBOLIC_EXECUTION_ -D_CBMC_
 
 ethoc-hw-llvm-gcc:
 	@echo ------------- Compiling with llvm_gcc:

@@ -32,15 +32,27 @@
 #define ATOMIC_END pthread_mutex_unlock(&s->lock)
 #endif
 
+#ifdef _CBMC_
+void do_handler(hw_irq irq, int level)
+{
+  int n = irq->n;
+__CPROVER_ASYNC_1: irq->handler(irq->opaque, n, level);
+}
+#endif
+
 /*
- * Enable/disable interrupt
+ * Fire interrupt if applicable
  */
 void hw_set_irq(hw_irq irq, int level)
 {
     if (!irq)
         return;
 
+#ifdef _CBMC_
+    do_handler(irq, level);
+#else
     irq->handler(irq->opaque, irq->n, level);
+#endif
 }
 
 /* RECSMALL is not used because it breaks tap networking in linux:
@@ -282,7 +294,7 @@ size_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
 
         if ((desc->len_flags & RXD_E) == 0) {
             /* As long as the RX buffer descriptor
-             * is empty, it won't be used.
+             * is nonempty, it won't be used.
              */
             open_eth_int_source_write(s,
                         s->regs[INT_SOURCE] | INT_SOURCE_BUSY);

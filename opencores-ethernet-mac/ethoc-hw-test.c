@@ -105,7 +105,12 @@ static void test_rx(void)
     /* validate DMA buffer content and IRQ */
     assert(sizeof(tx_packet) == sizeof(rx_packet));
     assert((open_eth_reg_read(s, open_eth_reg(INT_SOURCE)) & INT_SOURCE_BUSY) == 0);
-    assert(raised_irq == true);
+
+    /*
+     * Expected to fail when _CBMC_ is enabled because
+     * the interrupt will be fired asynchronously
+     */
+    assert(raised_irq);
 }
 
 static void test_rx_busy(void)
@@ -240,6 +245,10 @@ static void nc_open_eth_set_link_status(NetClientState *nc)
     internal_open_eth_set_link_status(s, s->nic->nc.link_down);
 }
 
+/*
+ * All tests are expected to pass except the last assertion
+ * about `raised_irq` in `test_rx` when _CBMC_ is enabled.
+ */
 int main(void)
 {
     /* Implementation of basic Net API */
@@ -321,16 +330,16 @@ int main(void)
     nic.opaque = &eth;
     nc = &nic.nc;
 
-#ifdef _ETHOC_PROP_2_
+#ifdef _ETHOC_TEST_1_
     test_init();
 #endif
-#ifdef _ETHOC_PROP_3_
+#ifdef _ETHOC_TEST_2_
     test_can_receive();
 #endif
-#ifdef _ETHOC_PROP_4_
+#ifdef _ETHOC_TEST_3_
     test_rx();
 #endif
-#ifdef _ETHOC_PROP_5_
+#ifdef _ETHOC_TEST_4_
     test_rx_busy();
 #endif
 }
