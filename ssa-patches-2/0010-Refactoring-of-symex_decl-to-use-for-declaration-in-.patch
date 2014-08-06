@@ -1,0 +1,99 @@
+From 8110ca6a335228bb340ba97b729fb7106e9973a5 Mon Sep 17 00:00:00 2001
+From: Michael Tautschnig <mt@debian.org>
+Date: Tue, 5 Aug 2014 17:54:44 +0100
+Subject: [PATCH 10/12] Refactoring of symex_decl to use for declaration in
+ quantified expressions
+
+---
+ src/goto-symex/goto_symex.h   |  1 +
+ src/goto-symex/symex_decl.cpp | 25 +++++++++++++++++++++----
+ src/goto-symex/symex_main.cpp |  6 +++---
+ 3 files changed, 25 insertions(+), 7 deletions(-)
+
+diff --git a/src/goto-symex/goto_symex.h b/src/goto-symex/goto_symex.h
+index 5fe744b..626f071 100644
+--- a/src/goto-symex/goto_symex.h
++++ b/src/goto-symex/goto_symex.h
+@@ -152,6 +152,7 @@ protected:
+   virtual void symex_atomic_begin(statet &state);
+   virtual void symex_atomic_end(statet &state);  
+   virtual void symex_decl(statet &state);
++  virtual void symex_decl(statet &state, const symbol_exprt &expr);
+   virtual void symex_dead(statet &state);
+   virtual void symex_return(statet &state);
+ 
+diff --git a/src/goto-symex/symex_decl.cpp b/src/goto-symex/symex_decl.cpp
+index d48c55f..88a47fc 100644
+--- a/src/goto-symex/symex_decl.cpp
++++ b/src/goto-symex/symex_decl.cpp
+@@ -45,10 +45,27 @@ void goto_symext::symex_decl(statet &state)
+   if(code.op0().id()!=ID_symbol)
+     throw "decl expects symbol as first operand";
+ 
++  symex_decl(state, to_symbol_expr(code.op0()));
++}
++
++/*******************************************************************\
++
++Function: goto_symext::symex_decl
++
++  Inputs:
++
++ Outputs:
++
++ Purpose:
++
++\*******************************************************************/
++
++void goto_symext::symex_decl(statet &state, const symbol_exprt &expr)
++{
+   // We increase the L2 renaming to make these non-deterministic.
+   // We also prevent propagation of old values.
+   
+-  ssa_exprt ssa(to_symbol_expr(code.op0()));
++  ssa_exprt ssa(expr);
+   state.rename(ssa, ns, goto_symex_statet::L1);
+ 
+   // rename type to L2
+@@ -56,10 +73,10 @@ void goto_symext::symex_decl(statet &state)
+   ssa.update_type();
+ 
+   // in case of pointers, put something into the value set
+-  if(ns.follow(code.op0().type()).id()==ID_pointer)
++  if(ns.follow(expr.type()).id()==ID_pointer)
+   {
+     exprt failed=
+-      get_failed_symbol(to_symbol_expr(code.op0()), ns);
++      get_failed_symbol(expr, ns);
+     
+     exprt rhs;
+     
+@@ -67,7 +84,7 @@ void goto_symext::symex_decl(statet &state)
+     {
+       address_of_exprt address_of_expr;
+       address_of_expr.object()=failed;
+-      address_of_expr.type()=code.op0().type();
++      address_of_expr.type()=expr.type();
+       rhs=address_of_expr;
+     }
+     else
+diff --git a/src/goto-symex/symex_main.cpp b/src/goto-symex/symex_main.cpp
+index 248497a..0a9b607 100644
+--- a/src/goto-symex/symex_main.cpp
++++ b/src/goto-symex/symex_main.cpp
+@@ -129,9 +129,9 @@ void goto_symext::rewrite_quantifiers(exprt &expr, statet &state)
+     // we keep the quantified variable unique by means of L2 renaming
+     assert(expr.operands().size()==2);
+     assert(expr.op0().id()==ID_symbol);
+-    symbol_exprt tmp0=to_symbol_expr(expr.op0());
+-    state.rename(tmp0, ns, goto_symex_statet::L1);
+-    state.level2.increase_counter(tmp0.get_identifier());
++    symbol_exprt tmp0=
++      to_symbol_expr(to_ssa_expr(expr.op0()).get_original_expr());
++    symex_decl(state, tmp0);
+     exprt tmp=expr.op1();
+     expr.swap(tmp);
+   }
+-- 
+2.0.1
+

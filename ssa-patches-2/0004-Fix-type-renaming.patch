@@ -1,0 +1,84 @@
+From 3469a48dc3880487da5f25812b42f46f8226871d Mon Sep 17 00:00:00 2001
+From: Michael Tautschnig <mt@debian.org>
+Date: Tue, 5 Aug 2014 15:12:53 +0100
+Subject: [PATCH 04/12] Fix type renaming
+
+---
+ src/goto-symex/goto_symex_state.h | 10 +++++-----
+ src/goto-symex/symex_decl.cpp     | 14 ++++++++------
+ 2 files changed, 13 insertions(+), 11 deletions(-)
+
+diff --git a/src/goto-symex/goto_symex_state.h b/src/goto-symex/goto_symex_state.h
+index 9715dce..033a0fa 100644
+--- a/src/goto-symex/goto_symex_state.h
++++ b/src/goto-symex/goto_symex_state.h
+@@ -130,6 +130,11 @@ public:
+ 
+   // performs renaming _up to_ the given level
+   void rename(exprt &expr, const namespacet &ns, levelt level=L2);
++  void rename(
++    typet &type,
++    const irep_idt &l1_identifier,
++    const namespacet &ns,
++    levelt level=L2);
+   
+   void assignment(
+     ssa_exprt &lhs, // L0/L1
+@@ -145,11 +150,6 @@ public:
+   void get_original_name(exprt &expr) const;
+   void get_original_name(typet &type) const;
+ protected:
+-  void rename(
+-    typet &type,
+-    const irep_idt &l1_identifier,
+-    const namespacet &ns,
+-    levelt level=L2);
+   void rename_address(exprt &expr, const namespacet &ns, levelt level);
+ 
+   void set_ssa_indices(ssa_exprt &expr, const namespacet &ns, levelt level=L2);
+diff --git a/src/goto-symex/symex_decl.cpp b/src/goto-symex/symex_decl.cpp
+index 110761a..c2215c8 100644
+--- a/src/goto-symex/symex_decl.cpp
++++ b/src/goto-symex/symex_decl.cpp
+@@ -48,6 +48,11 @@ void goto_symext::symex_decl(statet &state)
+   
+   ssa_exprt ssa(to_symbol_expr(code.op0()));
+   state.rename(ssa, ns, goto_symex_statet::L1);
++  const irep_idt &l1_identifier=ssa.get_identifier();
++
++  // rename type to L2
++  state.rename(ssa.type(), l1_identifier, ns);
++  ssa.update_type();
+ 
+   // in case of pointers, put something into the value set
+   if(ns.follow(code.op0().type()).id()==ID_pointer)
+@@ -71,9 +76,6 @@ void goto_symext::symex_decl(statet &state)
+     state.value_set.assign(ssa, rhs, ns);
+   }
+   
+-  ssa_exprt ssa_lhs=to_ssa_expr(ssa);
+-  const irep_idt &l1_identifier=ssa_lhs.get_identifier();
+-
+   // prevent propagation
+   state.propagation.remove(l1_identifier);
+ 
+@@ -82,13 +84,13 @@ void goto_symext::symex_decl(statet &state)
+   // within the same L1 context
+   if(state.level2.current_names.find(l1_identifier)==
+      state.level2.current_names.end())
+-    state.level2.current_names[l1_identifier]=std::make_pair(ssa_lhs, 0);
++    state.level2.current_names[l1_identifier]=std::make_pair(ssa, 0);
+   state.level2.increase_counter(l1_identifier);
+-  state.rename(ssa_lhs, ns);
++  state.rename(ssa, ns);
+ 
+   // record the declaration
+   target.decl(
+     state.guard.as_expr(),
+-    ssa_lhs,
++    ssa,
+     state.source);
+ }
+-- 
+2.0.1
+

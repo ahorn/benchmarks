@@ -1,0 +1,44 @@
+From 54959f4b3a86445e0c3eefa3b4526c0313b89952 Mon Sep 17 00:00:00 2001
+From: Michael Tautschnig <mt@debian.org>
+Date: Mon, 10 Sep 2012 22:51:53 +0100
+Subject: [PATCH 06/12] Cleanup restore_from code
+
+---
+ src/goto-symex/goto_symex_state.h | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
+
+diff --git a/src/goto-symex/goto_symex_state.h b/src/goto-symex/goto_symex_state.h
+index f54936f..2a1c541 100644
+--- a/src/goto-symex/goto_symex_state.h
++++ b/src/goto-symex/goto_symex_state.h
+@@ -91,13 +91,22 @@ public:
+ 
+     void restore_from(const current_namest &other)
+     {
++      current_namest::iterator it=current_names.begin();
+       for(current_namest::const_iterator
+-          it=other.begin();
+-          it!=other.end();
+-          it++)
++          ito=other.begin();
++          ito!=other.end();
++          ++ito)
+       {
+-        // could be done faster exploing ordering
+-        current_names[it->first]=it->second;
++        while(it!=current_names.end() && it->first<ito->first)
++          ++it;
++        if(it==current_names.end() || ito->first<it->first)
++          current_names.insert(it, *ito);
++        else if(it!=current_names.end())
++        {
++          assert(it->first==ito->first);
++          it->second=ito->second;
++          ++it;
++        }
+       }
+     }
+ 
+-- 
+2.0.1
+

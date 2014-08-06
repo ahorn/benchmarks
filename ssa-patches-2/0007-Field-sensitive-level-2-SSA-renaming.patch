@@ -1,0 +1,725 @@
+From 890b036cccd18e077fe120562bd1cc90a15b291d Mon Sep 17 00:00:00 2001
+From: Michael Tautschnig <mt@debian.org>
+Date: Thu, 10 Jul 2014 22:03:53 +0200
+Subject: [PATCH 07/12] Field-sensitive level-2 SSA renaming
+
+- Currently for structs only, extension to arrays pending
+---
+ regression/cbmc/Function_Pointer17/test.desc  |   2 +-
+ regression/cbmc/Struct_Propagation1/main.c    |  34 ++++
+ regression/cbmc/Struct_Propagation1/test.desc |   9 +
+ src/goto-symex/Makefile                       |   2 +-
+ src/goto-symex/field_sensitivity.cpp          | 253 ++++++++++++++++++++++++++
+ src/goto-symex/field_sensitivity.h            |  52 ++++++
+ src/goto-symex/goto_symex_state.cpp           |   8 +
+ src/goto-symex/goto_symex_state.h             |   2 +
+ src/goto-symex/symex_assign.cpp               |   3 +
+ src/goto-symex/symex_dead.cpp                 |  43 ++++-
+ src/goto-symex/symex_decl.cpp                 |  69 ++++---
+ src/goto-symex/symex_dereference.cpp          |   2 +
+ src/goto-symex/symex_goto.cpp                 |   2 +
+ src/goto-symex/symex_main.cpp                 |   4 +
+ src/goto-symex/symex_start_thread.cpp         |   9 +-
+ src/util/std_expr.h                           |   2 -
+ 16 files changed, 451 insertions(+), 45 deletions(-)
+ create mode 100644 regression/cbmc/Struct_Propagation1/main.c
+ create mode 100644 regression/cbmc/Struct_Propagation1/test.desc
+ create mode 100644 src/goto-symex/field_sensitivity.cpp
+ create mode 100644 src/goto-symex/field_sensitivity.h
+
+diff --git a/regression/cbmc/Function_Pointer17/test.desc b/regression/cbmc/Function_Pointer17/test.desc
+index 52168c7..9efefbc 100644
+--- a/regression/cbmc/Function_Pointer17/test.desc
++++ b/regression/cbmc/Function_Pointer17/test.desc
+@@ -1,4 +1,4 @@
+-KNOWNBUG
++CORE
+ main.c
+ 
+ ^EXIT=0$
+diff --git a/regression/cbmc/Struct_Propagation1/main.c b/regression/cbmc/Struct_Propagation1/main.c
+new file mode 100644
+index 0000000..dc7b46a
+--- /dev/null
++++ b/regression/cbmc/Struct_Propagation1/main.c
+@@ -0,0 +1,34 @@
++struct S
++{
++  int v;
++  struct Inner
++  {
++    int x;
++  } inner;
++};
++
++struct S works;
++
++int main()
++{
++  struct S fails;
++
++  works.v=2;
++  fails.v=2;
++
++  while(works.v>0)
++    --(works.v);
++
++  while(fails.v>0)
++    --(fails.v);
++
++  __CPROVER_assert(works.inner.x==0, "");
++
++  _Bool b;
++  if(b)
++  {
++    struct S s={ 42, { 42 } };
++  }
++
++  return 0;
++}
+diff --git a/regression/cbmc/Struct_Propagation1/test.desc b/regression/cbmc/Struct_Propagation1/test.desc
+new file mode 100644
+index 0000000..7b0e2fd
+--- /dev/null
++++ b/regression/cbmc/Struct_Propagation1/test.desc
+@@ -0,0 +1,9 @@
++CORE
++main.c
++--unwind 5
++^EXIT=0$
++^SIGNAL=0$
++^VERIFICATION SUCCESSFUL$
++\(Starting CEGAR Loop\|VCC(s), 0 remaining after simplification$\)
++--
++^warning: ignoring
+diff --git a/src/goto-symex/Makefile b/src/goto-symex/Makefile
+index b4cae66..ff9fce6 100644
+--- a/src/goto-symex/Makefile
++++ b/src/goto-symex/Makefile
+@@ -8,7 +8,7 @@ SRC = symex_target.cpp symex_target_equation.cpp goto_symex.cpp \
+       symex_catch.cpp symex_start_thread.cpp symex_assign.cpp \
+       symex_throw.cpp symex_atomic_section.cpp memory_model.cpp \
+       memory_model_sc.cpp partial_order_concurrency.cpp \
+-      memory_model_tso.cpp memory_model_pso.cpp
++      memory_model_tso.cpp memory_model_pso.cpp field_sensitivity.cpp
+ 
+ INCLUDES= -I ..
+ 
+diff --git a/src/goto-symex/field_sensitivity.cpp b/src/goto-symex/field_sensitivity.cpp
+new file mode 100644
+index 0000000..f6ec85a
+--- /dev/null
++++ b/src/goto-symex/field_sensitivity.cpp
+@@ -0,0 +1,253 @@
++/*******************************************************************\
++
++Module: Field-sensitive SSA
++
++Author: Michael Tautschnig, mt@eecs.qmul.ac.uk
++
++\*******************************************************************/
++
++#include <util/simplify_expr.h>
++#include <util/std_expr.h>
++
++#include "symex_target.h"
++#include "goto_symex_state.h"
++
++#include "field_sensitivity.h"
++
++/*******************************************************************\
++
++Function: field_sensitivityt::operator()
++
++  Inputs:
++
++ Outputs:
++
++ Purpose:
++
++\*******************************************************************/
++
++void field_sensitivityt::operator()(
++  const namespacet &ns,
++  exprt &expr,
++  bool write) const
++{
++#if 1
++  if(expr.id()!=ID_address_of)
++    Forall_operands(it, expr)
++      operator()(ns, *it, write);
++
++  if(expr.id()==ID_symbol &&
++     expr.get_bool(ID_C_SSA_symbol) &&
++     !write)
++  {
++    ssa_exprt ssa=to_ssa_expr(expr);
++    get_fields(ns, ssa, expr);
++  }
++  else if(!write &&
++          expr.id()==ID_member &&
++          to_member_expr(expr).struct_op().id()==ID_struct)
++  {
++    simplify(expr, ns);
++  }
++  else if(write && expr.id()==ID_member)
++  {
++    member_exprt &member=to_member_expr(expr);
++
++    if(member.struct_op().id()==ID_symbol &&
++       member.struct_op().get_bool(ID_C_SSA_symbol) &&
++       ns.follow(member.struct_op().type()).id()==ID_struct)
++    {
++      ssa_exprt tmp=to_ssa_expr(member.struct_op());
++
++      member.struct_op()=tmp.get_original_expr();
++
++      tmp.type()=member.type();
++      tmp.set(ID_expression, member);
++      tmp.update_identifier();
++
++      expr.swap(tmp);
++    }
++  }
++#endif
++}
++
++/*******************************************************************\
++
++Function: field_sensitivityt::get_fields
++
++  Inputs:
++
++ Outputs:
++
++ Purpose:
++
++\*******************************************************************/
++
++void field_sensitivityt::get_fields(
++  const namespacet &ns,
++  const ssa_exprt &ssa_expr,
++  exprt &dest) const
++{
++#if 1
++  if(ns.follow(ssa_expr.type()).id()==ID_struct)
++  {
++    const exprt &struct_op=ssa_expr.get_original_expr();
++
++    const struct_typet &type=
++      to_struct_type(ns.follow(ssa_expr.type()));
++
++    const struct_union_typet::componentst &components=
++      type.components();
++
++    dest=struct_exprt(ssa_expr.type());
++    dest.reserve_operands(components.size());
++
++    for(struct_union_typet::componentst::const_iterator
++        it=components.begin();
++        it!=components.end();
++        ++it)
++    {
++      member_exprt member(struct_op, it->get_name(), it->type());
++
++      ssa_exprt tmp=ssa_expr;
++
++      tmp.type()=member.type();
++      tmp.set(ID_expression, member);
++      tmp.update_identifier();
++
++      exprt tmp_dest;
++      get_fields(ns, tmp, tmp_dest);
++      dest.copy_to_operands(tmp_dest);
++    }
++  }
++  else
++#endif
++    dest=ssa_expr;
++}
++
++/*******************************************************************\
++
++Function: field_sensitivityt::field_assignments
++
++  Inputs:
++
++ Outputs:
++
++ Purpose:
++
++\*******************************************************************/
++
++void field_sensitivityt::field_assignments(
++  const namespacet &ns,
++  goto_symex_statet &state,
++  symex_targett &target,
++  const exprt &lhs) const
++{
++  exprt lhs_fs=lhs;
++  operator()(ns, lhs_fs, false);
++
++  field_assignments_rec(ns, state, target, lhs_fs, lhs);
++}
++
++/*******************************************************************\
++
++Function: field_sensitivityt::field_assignments_rec
++
++  Inputs:
++
++ Outputs:
++
++ Purpose:
++
++\*******************************************************************/
++
++void field_sensitivityt::field_assignments_rec(
++  const namespacet &ns,
++  goto_symex_statet &state,
++  symex_targett &target,
++  const exprt &lhs_fs,
++  const exprt &lhs) const
++{
++  if(lhs==lhs_fs)
++    return;
++  else if(lhs_fs.id()==ID_symbol &&
++          lhs_fs.get_bool(ID_C_SSA_symbol))
++  {
++    exprt ssa_rhs=lhs;
++
++    state.rename(ssa_rhs, ns);
++    simplify(ssa_rhs, ns);
++
++    ssa_exprt ssa_lhs=to_ssa_expr(lhs_fs);
++    state.assignment(ssa_lhs, ssa_rhs, ns, true);
++
++    // do the assignment
++    target.assignment(
++      state.guard.as_expr(),
++      ssa_lhs,
++      ssa_lhs, ssa_lhs.get_original_expr(),
++      ssa_rhs,
++      state.source,
++      symex_targett::STATE);
++  }
++  else if(ns.follow(lhs.type()).id()==ID_struct)
++  {
++    const struct_typet &type=
++      to_struct_type(ns.follow(lhs.type()));
++
++    const struct_union_typet::componentst &components=
++      type.components();
++
++    assert(lhs_fs.has_operands() &&
++           lhs_fs.operands().size()==components.size());
++
++    unsigned number=0;
++    for(struct_union_typet::componentst::const_iterator
++        it=components.begin();
++        it!=components.end();
++        ++it, ++number)
++    {
++      member_exprt member_rhs(lhs, it->get_name(), it->type());
++      exprt member_lhs=lhs_fs.operands()[number];
++
++      field_assignments_rec(ns, state, target, member_lhs, member_rhs);
++    }
++  }
++  else if(lhs_fs.has_operands())
++  {
++    assert(lhs.has_operands() &&
++           lhs_fs.operands().size()==lhs.operands().size());
++
++    exprt::operandst::const_iterator fs_it=lhs_fs.operands().begin();
++    for(exprt::operandst::const_iterator it=lhs.operands().begin();
++        it!=lhs.operands().end();
++        ++it, ++fs_it)
++      field_assignments_rec(ns, state, target, *fs_it, *it);
++  }
++  else
++  {
++    assert(false);
++  }
++}
++
++/*******************************************************************\
++
++Function: field_sensitivityt::is_indivisible
++
++  Inputs:
++
++ Outputs:
++
++ Purpose:
++
++\*******************************************************************/
++
++bool field_sensitivityt::is_indivisible(
++  const namespacet &ns,
++  const ssa_exprt &expr) const
++{
++  exprt tmp;
++  get_fields(ns, expr, tmp);
++
++  return expr==tmp;
++}
+diff --git a/src/goto-symex/field_sensitivity.h b/src/goto-symex/field_sensitivity.h
+new file mode 100644
+index 0000000..9e507a2
+--- /dev/null
++++ b/src/goto-symex/field_sensitivity.h
+@@ -0,0 +1,52 @@
++/*******************************************************************\
++
++Module: Field-sensitive SSA
++
++Author: Michael Tautschnig, mt@eecs.qmul.ac.uk
++
++\*******************************************************************/
++
++#ifndef CPROVER_FIELD_SENSITIVITY_H
++#define CPROVER_FIELD_SENSITIVITY_H
++
++class exprt;
++class ssa_exprt;
++class namespacet;
++class goto_symex_statet;
++class symex_targett;
++
++/*! \brief Control granularity of object accesses
++*/
++class field_sensitivityt
++{
++public:
++  void operator()(
++    const namespacet &ns,
++    exprt &expr,
++    bool write) const;
++
++  void get_fields(
++    const namespacet &ns,
++    const ssa_exprt &ssa_expr,
++    exprt &dest) const;
++
++  void field_assignments(
++    const namespacet &ns,
++    goto_symex_statet &state,
++    symex_targett &target,
++    const exprt &lhs) const;
++
++  bool is_indivisible(
++    const namespacet &ns,
++    const ssa_exprt &expr) const;
++
++private:
++  void field_assignments_rec(
++    const namespacet &ns,
++    goto_symex_statet &state,
++    symex_targett &target,
++    const exprt &lhs_fs,
++    const exprt &lhs) const;
++};
++
++#endif
+diff --git a/src/goto-symex/goto_symex_state.cpp b/src/goto-symex/goto_symex_state.cpp
+index 2a75118..62b1ce9 100644
+--- a/src/goto-symex/goto_symex_state.cpp
++++ b/src/goto-symex/goto_symex_state.cpp
+@@ -655,6 +655,10 @@ bool goto_symex_statet::l2_thread_read_encoding(
+       !dirty->is_dirty(obj_identifier)))
+     return false;
+ 
++  // is it an indivisible object being accessed?
++  if(!field_sensitivity.is_indivisible(ns, expr))
++    return false;
++
+   ssa_exprt ssa_l1=expr;
+   ssa_l1.remove_level_2();
+   const irep_idt &l1_identifier=ssa_l1.get_identifier();
+@@ -799,6 +803,10 @@ bool goto_symex_statet::l2_thread_write_encoding(
+      (!ns.lookup(obj_identifier).is_shared() &&
+       !dirty->is_dirty(obj_identifier)))
+     return false; // not shared
++
++  // is it an indivisible object being accessed?
++  if(!field_sensitivity.is_indivisible(ns, expr))
++    return false;
+     
+   // see whether we are within an atomic section
+   if(atomic_section_id!=0)
+diff --git a/src/goto-symex/goto_symex_state.h b/src/goto-symex/goto_symex_state.h
+index 2a1c541..5cddef2 100644
+--- a/src/goto-symex/goto_symex_state.h
++++ b/src/goto-symex/goto_symex_state.h
+@@ -19,6 +19,7 @@ Author: Daniel Kroening, kroening@kroening.com
+ #include <goto-programs/goto_functions.h>
+ 
+ #include "symex_target.h"
++#include "field_sensitivity.h"
+ 
+ class dirtyt;
+ 
+@@ -308,6 +309,7 @@ public:
+   bool record_events;
+ 
+   const dirtyt * dirty;
++  field_sensitivityt field_sensitivity;
+ };
+ 
+ #endif
+diff --git a/src/goto-symex/symex_assign.cpp b/src/goto-symex/symex_assign.cpp
+index e69d550..8b0e5e7 100644
+--- a/src/goto-symex/symex_assign.cpp
++++ b/src/goto-symex/symex_assign.cpp
+@@ -262,6 +262,9 @@ void goto_symext::symex_assign_symbol(
+     ssa_rhs, 
+     state.source,
+     symex_targett::STATE);
++
++  state.field_sensitivity.field_assignments(
++    ns, state, target, lhs);
+ }
+ 
+ /*******************************************************************\
+diff --git a/src/goto-symex/symex_dead.cpp b/src/goto-symex/symex_dead.cpp
+index 6e5ca9c..c3a7c2b 100644
+--- a/src/goto-symex/symex_dead.cpp
++++ b/src/goto-symex/symex_dead.cpp
+@@ -11,8 +11,10 @@ Author: Daniel Kroening, kroening@kroening.com
+ #include <util/expr_util.h>
+ #include <util/rename.h>
+ #include <util/std_expr.h>
++#include <util/find_symbols.h>
+ 
+ #include <pointer-analysis/add_failed_symbols.h>
++#include <analyses/dirty.h>
+ 
+ #include "goto_symex.h"
+ 
+@@ -68,14 +70,37 @@ void goto_symext::symex_dead(statet &state)
+     state.value_set.assign(ssa, rhs, ns);
+   }
+ 
+-  ssa_exprt ssa_lhs=to_ssa_expr(ssa);
+-  const irep_idt &l1_identifier=ssa_lhs.get_identifier();
++  exprt l2_fields;
++  state.field_sensitivity.get_fields(ns, ssa, l2_fields);
++  std::set<exprt> l2_fields_set;
++  find_symbols(l2_fields, l2_fields_set);
+ 
+-  // prevent propagation
+-  state.propagation.remove(l1_identifier);
+-
+-  // L2 renaming
+-  if(state.level2.current_names.find(l1_identifier)!=
+-     state.level2.current_names.end())
+-    state.level2.increase_counter(l1_identifier);
++  for(std::set<exprt>::const_iterator it=l2_fields_set.begin();
++      it!=l2_fields_set.end();
++      ++it)
++  {
++    ssa_exprt ssa_lhs=to_ssa_expr(*it);
++    const irep_idt &l1_identifier=ssa_lhs.get_identifier();
++
++    // prevent propagation
++    state.propagation.remove(l1_identifier);
++
++    // L2 renaming
++    if(state.level2.current_names.find(l1_identifier)!=
++       state.level2.current_names.end())
++      state.level2.increase_counter(l1_identifier);
++    const bool record_events=state.record_events;
++    state.record_events=false;
++    state.rename(ssa_lhs, ns);
++    state.record_events=record_events;
++
++    assert(state.dirty);
++    if(state.dirty->is_dirty(ssa_lhs.get_object_name()) &&
++       state.atomic_section_id==0)
++      target.shared_write(
++        state.guard.as_expr(),
++        ssa_lhs,
++        state.atomic_section_id,
++        state.source);
++  }
+ }
+diff --git a/src/goto-symex/symex_decl.cpp b/src/goto-symex/symex_decl.cpp
+index 5e04428..d48c55f 100644
+--- a/src/goto-symex/symex_decl.cpp
++++ b/src/goto-symex/symex_decl.cpp
+@@ -11,6 +11,7 @@ Author: Daniel Kroening, kroening@kroening.com
+ #include <util/expr_util.h>
+ #include <util/rename.h>
+ #include <util/std_expr.h>
++#include <util/find_symbols.h>
+ 
+ #include <pointer-analysis/add_failed_symbols.h>
+ #include <analyses/dirty.h>
+@@ -49,10 +50,9 @@ void goto_symext::symex_decl(statet &state)
+   
+   ssa_exprt ssa(to_symbol_expr(code.op0()));
+   state.rename(ssa, ns, goto_symex_statet::L1);
+-  const irep_idt &l1_identifier=ssa.get_identifier();
+ 
+   // rename type to L2
+-  state.rename(ssa.type(), l1_identifier, ns);
++  state.rename(ssa.type(), ssa.get_identifier(), ns);
+   ssa.update_type();
+ 
+   // in case of pointers, put something into the value set
+@@ -77,33 +77,46 @@ void goto_symext::symex_decl(statet &state)
+     state.value_set.assign(ssa, rhs, ns);
+   }
+   
+-  // prevent propagation
+-  state.propagation.remove(l1_identifier);
+-
+-  // L2 renaming
+-  // inlining may yield multiple declarations of the same identifier
+-  // within the same L1 context
+-  if(state.level2.current_names.find(l1_identifier)==
+-     state.level2.current_names.end())
+-    state.level2.current_names[l1_identifier]=std::make_pair(ssa, 0);
+-  state.level2.increase_counter(l1_identifier);
+-  const bool record_events=state.record_events;
+-  state.record_events=false;
+-  state.rename(ssa, ns);
+-  state.record_events=record_events;
+-
+-  // record the declaration
+-  target.decl(
+-    state.guard.as_expr(),
+-    ssa,
+-    state.source);
+-
+-  assert(state.dirty);
+-  if(state.dirty->is_dirty(ssa_lhs.get_object_name()) &&
+-     state.atomic_section_id==0)
+-    target.shared_write(
++  exprt l2_fields;
++  state.field_sensitivity.get_fields(ns, ssa, l2_fields);
++  std::set<exprt> l2_fields_set;
++  find_symbols(l2_fields, l2_fields_set);
++
++  for(std::set<exprt>::const_iterator it=l2_fields_set.begin();
++      it!=l2_fields_set.end();
++      ++it)
++  {
++    ssa_exprt ssa_lhs=to_ssa_expr(*it);
++    const irep_idt &l1_identifier=ssa_lhs.get_identifier();
++
++    // prevent propagation
++    state.propagation.remove(l1_identifier);
++
++    // L2 renaming
++    // inlining may yield multiple declarations of the same identifier
++    // within the same L1 context
++    if(state.level2.current_names.find(l1_identifier)==
++       state.level2.current_names.end())
++      state.level2.current_names[l1_identifier]=std::make_pair(ssa_lhs, 0);
++    state.level2.increase_counter(l1_identifier);
++    const bool record_events=state.record_events;
++    state.record_events=false;
++    state.rename(ssa_lhs, ns);
++    state.record_events=record_events;
++
++    // record the declaration
++    target.decl(
+       state.guard.as_expr(),
+       ssa_lhs,
+-      state.atomic_section_id,
+       state.source);
++
++    assert(state.dirty);
++    if(state.dirty->is_dirty(ssa_lhs.get_object_name()) &&
++       state.atomic_section_id==0)
++      target.shared_write(
++        state.guard.as_expr(),
++        ssa_lhs,
++        state.atomic_section_id,
++        state.source);
++  }
+ }
+diff --git a/src/goto-symex/symex_dereference.cpp b/src/goto-symex/symex_dereference.cpp
+index 0fccc23..a6c6721 100644
+--- a/src/goto-symex/symex_dereference.cpp
++++ b/src/goto-symex/symex_dereference.cpp
+@@ -404,6 +404,7 @@ void goto_symext::dereference(
+   // symbols whose address is taken.
+   assert(!state.call_stack().empty());
+   state.rename(expr, ns, goto_symex_statet::L1);
++  state.field_sensitivity(ns, expr, write);
+ 
+   // start the recursion!
+   guardt guard;  
+@@ -411,4 +412,5 @@ void goto_symext::dereference(
+   // dereferencing may introduce new symbol_exprt
+   // (like __CPROVER_memory)
+   state.rename(expr, ns, goto_symex_statet::L1);
++  state.field_sensitivity(ns, expr, write);
+ }
+diff --git a/src/goto-symex/symex_goto.cpp b/src/goto-symex/symex_goto.cpp
+index c15bdbd..360f3c2 100644
+--- a/src/goto-symex/symex_goto.cpp
++++ b/src/goto-symex/symex_goto.cpp
+@@ -321,6 +321,8 @@ void goto_symext::phi_function(
+       continue; // not at all changed
+ 
+     // changed!
++    if(!dest_state.field_sensitivity.is_indivisible(ns, *it))
++      continue; // not a canonical field
+ 
+     // shared variables are renamed on every access anyway, we don't need to
+     // merge anything
+diff --git a/src/goto-symex/symex_main.cpp b/src/goto-symex/symex_main.cpp
+index 3f2213f..248497a 100644
+--- a/src/goto-symex/symex_main.cpp
++++ b/src/goto-symex/symex_main.cpp
+@@ -347,6 +347,10 @@ void goto_symext::symex_step(
+         clean_expr(*it, state, false);
+     
+       symex_function_call(goto_functions, state, deref_code);
++
++      if(deref_code.lhs().is_not_nil())
++        state.field_sensitivity.field_assignments(
++          ns, state, target, deref_code.lhs());
+     }
+     else
+       state.source.pc++;
+diff --git a/src/goto-symex/symex_start_thread.cpp b/src/goto-symex/symex_start_thread.cpp
+index 2e3f010..1cce369 100644
+--- a/src/goto-symex/symex_start_thread.cpp
++++ b/src/goto-symex/symex_start_thread.cpp
+@@ -73,10 +73,11 @@ void goto_symext::symex_start_thread(statet &state)
+     lhs.set_level_0(t);
+ 
+     // setup L1 name
+-    if(!state.level1.current_names.insert(
+-        std::make_pair(lhs.get_l1_object_identifier(),
+-                       std::make_pair(lhs, 0))).second)
+-      assert(false);
++    // with field sensitivity this insert may happen multiple times
++    state.level1.current_names.insert(
++      std::make_pair(lhs.get_l1_object_identifier(),
++                     std::make_pair(lhs, 0)));
++
+     state.rename(lhs, ns, goto_symex_statet::L1);
+     const irep_idt l1_name=lhs.get_l1_object_identifier();
+     // store it
+diff --git a/src/util/std_expr.h b/src/util/std_expr.h
+index 41d6189..08835df 100644
+--- a/src/util/std_expr.h
++++ b/src/util/std_expr.h
+@@ -3144,8 +3144,6 @@ public:
+ 
+   inline void update_type()
+   {
+-    // TODO: field sensitive SSA requires more work here
+-    assert(static_cast<const exprt &>(find(ID_expression)).id()==ID_symbol);
+     static_cast<exprt &>(add(ID_expression)).type()=type();
+   }
+ 
+-- 
+2.0.1
+

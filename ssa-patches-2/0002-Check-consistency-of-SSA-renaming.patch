@@ -1,0 +1,149 @@
+From 8fe4b1402ac6a47e6870dd19deb1e1ff83b63cf9 Mon Sep 17 00:00:00 2001
+From: Michael Tautschnig <mt@debian.org>
+Date: Tue, 5 Aug 2014 15:12:33 +0100
+Subject: [PATCH 02/12] Check consistency of SSA renaming
+
+---
+ src/goto-symex/goto_symex_state.cpp | 105 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 105 insertions(+)
+
+diff --git a/src/goto-symex/goto_symex_state.cpp b/src/goto-symex/goto_symex_state.cpp
+index 2a1f463..517d4c3 100644
+--- a/src/goto-symex/goto_symex_state.cpp
++++ b/src/goto-symex/goto_symex_state.cpp
+@@ -286,6 +286,103 @@ Function: goto_symex_statet::assignment
+ 
+ \*******************************************************************/
+ 
++static bool check_renaming(const exprt &expr);
++
++static bool check_renaming(const typet &type)
++{
++  if(type.id()==ID_array)
++    return check_renaming(to_array_type(type).size());
++  else if(type.id()==ID_struct ||
++          type.id()==ID_union ||
++          type.id()==ID_class)
++  {
++    const struct_union_typet &s_u_type=to_struct_union_type(type);
++    const struct_union_typet::componentst &components=s_u_type.components();
++
++    for(struct_union_typet::componentst::const_iterator
++        it=components.begin();
++        it!=components.end();
++        ++it)
++      if(check_renaming(it->type()))
++        return true;
++  }
++  else if(type.has_subtype())
++    return check_renaming(type.subtype());
++
++  return false;
++}
++
++static bool check_renaming_l1(const exprt &expr)
++{
++  if(check_renaming(expr.type())) return true;
++
++  if(expr.id()==ID_symbol)
++  {
++    if(!expr.get_bool(ID_C_SSA_symbol)) return expr.type().id()!=ID_code;
++    if(!to_ssa_expr(expr).get_level_2().empty()) return true;
++    if(to_ssa_expr(expr).get_original_expr().type()!=expr.type()) return true;
++  }
++  else
++  {
++    forall_operands(it, expr)
++      if(check_renaming_l1(*it)) return true;
++  }
++
++  return false;
++}
++
++static bool check_renaming(const exprt &expr)
++{
++  if(check_renaming(expr.type())) return true;
++
++  if(expr.id()==ID_address_of &&
++     expr.op0().id()==ID_symbol)
++    return check_renaming_l1(expr.op0());
++  else if(expr.id()==ID_address_of &&
++          expr.op0().id()==ID_index)
++    return check_renaming_l1(expr.op0().op0()) ||
++           check_renaming(expr.op0().op1());
++  else if(expr.id()==ID_symbol)
++  {
++    if(!expr.get_bool(ID_C_SSA_symbol)) return expr.type().id()!=ID_code;
++    if(to_ssa_expr(expr).get_level_2().empty()) return true;
++    if(to_ssa_expr(expr).get_original_expr().type()!=expr.type()) return true;
++  }
++  else
++  {
++    forall_operands(it, expr)
++      if(check_renaming(*it)) return true;
++  }
++
++  return false;
++}
++
++static void assert_l1_renaming(const exprt &expr)
++{
++  #if 1
++  if(check_renaming_l1(expr))
++  {
++    std::cerr << expr.pretty() << std::endl;
++    assert(false);
++  }
++  #else
++  (void)expr;
++  #endif
++}
++
++static void assert_l2_renaming(const exprt &expr)
++{
++  #if 1
++  if(check_renaming(expr))
++  {
++    std::cerr << expr.pretty() << std::endl;
++    assert(false);
++  }
++  #else
++  (void)expr;
++  #endif
++}
++
+ void goto_symex_statet::assignment(
+   ssa_exprt &lhs, // L0/L1
+   const exprt &rhs,  // L2
+@@ -299,6 +396,8 @@ void goto_symex_statet::assignment(
+   rename(lhs, ns, L1);
+   irep_idt l1_identifier=lhs.get_identifier();
+ 
++  assert_l1_renaming(lhs);
++
+   #if 0  
+   assert(l1_identifier != get_original_name(l1_identifier)
+       || l1_identifier=="goto_symex::\\guard"
+@@ -316,6 +415,9 @@ void goto_symex_statet::assignment(
+   // in case we happen to be multi-threaded, record the memory access
+   bool is_shared=l2_thread_write_encoding(lhs, ns);
+ 
++  assert_l2_renaming(lhs);
++  assert_l2_renaming(rhs);
++
+   // for value propagation -- the RHS is L2
+   
+   if(!is_shared && record_value && constant_propagation(rhs))
+@@ -332,6 +434,9 @@ void goto_symex_statet::assignment(
+     ssa_exprt l1_lhs(lhs);
+     get_l1_name(l1_lhs);
+ 
++    assert_l1_renaming(l1_lhs);
++    assert_l1_renaming(l1_rhs);
++
+     value_set.assign(l1_lhs, l1_rhs, ns, is_shared);  
+   }
+   
+-- 
+2.0.1
+

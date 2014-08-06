@@ -1,0 +1,461 @@
+From f4c9a1965b1af1ffabc565d0bf0848c9b16125f2 Mon Sep 17 00:00:00 2001
+From: Michael Tautschnig <mt@debian.org>
+Date: Fri, 11 Jul 2014 15:08:26 +0200
+Subject: [PATCH 09/12] Field sensitivity for arrays
+
+- Regression test struct_and_array1 changed to unix file line feeds, assigned
+  array value fixed
+---
+ .../cbmc-concurrency/struct_and_array1/main.c      |  80 ++++++++--------
+ .../cbmc-concurrency/struct_and_array1/test.desc   |   2 +-
+ regression/cbmc/Array_Propagation1/main.c          |  21 +++++
+ regression/cbmc/Array_Propagation1/test.desc       |   9 ++
+ src/goto-symex/field_sensitivity.cpp               | 104 +++++++++++++++++++--
+ src/goto-symex/symex_assign.cpp                    |  60 +++++++++++-
+ src/goto-symex/symex_clean_expr.cpp                |   9 ++
+ src/goto-symex/symex_other.cpp                     |   9 +-
+ 8 files changed, 243 insertions(+), 51 deletions(-)
+ create mode 100644 regression/cbmc/Array_Propagation1/main.c
+ create mode 100644 regression/cbmc/Array_Propagation1/test.desc
+
+diff --git a/regression/cbmc-concurrency/struct_and_array1/main.c b/regression/cbmc-concurrency/struct_and_array1/main.c
+index cc3dd60..b7b0369 100644
+--- a/regression/cbmc-concurrency/struct_and_array1/main.c
++++ b/regression/cbmc-concurrency/struct_and_array1/main.c
+@@ -1,40 +1,40 @@
+-#include <pthread.h>
+-
+-typedef struct st_t
+-{
+-  unsigned char x;
+-  unsigned char y;
+-} ST;
+-
+-ST st;
+-
+-char my_array[10];
+-
+-_Bool done1, done2;
+-
+-void *foo1(void *arg1)
+-{
+-  st.x = 1;
+-  my_array[1]=1;
+-  done1 = 1;
+-}
+-
+-void *foo2(void *arg2)
+-{
+-  st.y = 1;
+-  my_array[2]=2;
+-  done2 = 1;
+-}
+-
+-int main()
+-{
+-  pthread_t t;
+-  pthread_create(&t,NULL,foo1,NULL);
+-  pthread_create(&t,NULL,foo2,NULL);
+-  
+-  if(done1 && done2)
+-  {
+-    assert(st.x==st.y);
+-    assert(my_array[1]==my_array[2]);
+-  }
+-}
++#include <pthread.h>
++
++typedef struct st_t
++{
++  unsigned char x;
++  unsigned char y;
++} ST;
++
++ST st;
++
++char my_array[10];
++
++_Bool done1, done2;
++
++void *foo1(void *arg1)
++{
++  st.x = 1;
++  my_array[1]=1;
++  done1 = 1;
++}
++
++void *foo2(void *arg2)
++{
++  st.y = 1;
++  my_array[2]=1;
++  done2 = 1;
++}
++
++int main()
++{
++  pthread_t t;
++  pthread_create(&t,NULL,foo1,NULL);
++  pthread_create(&t,NULL,foo2,NULL);
++
++  if(done1 && done2)
++  {
++    assert(st.x==st.y);
++    assert(my_array[1]==my_array[2]);
++  }
++}
+diff --git a/regression/cbmc-concurrency/struct_and_array1/test.desc b/regression/cbmc-concurrency/struct_and_array1/test.desc
+index 52168c7..9efefbc 100644
+--- a/regression/cbmc-concurrency/struct_and_array1/test.desc
++++ b/regression/cbmc-concurrency/struct_and_array1/test.desc
+@@ -1,4 +1,4 @@
+-KNOWNBUG
++CORE
+ main.c
+ 
+ ^EXIT=0$
+diff --git a/regression/cbmc/Array_Propagation1/main.c b/regression/cbmc/Array_Propagation1/main.c
+new file mode 100644
+index 0000000..0329681
+--- /dev/null
++++ b/regression/cbmc/Array_Propagation1/main.c
+@@ -0,0 +1,21 @@
++#include <assert.h>
++
++struct S
++{
++  int a;
++};
++
++int main()
++{
++  struct S s;
++  s.a=1;
++
++  assert(s.a==1);
++
++  int A[1];
++  A[0]=1;
++
++  assert(A[0]==1);
++
++  return 0;
++}
+diff --git a/regression/cbmc/Array_Propagation1/test.desc b/regression/cbmc/Array_Propagation1/test.desc
+new file mode 100644
+index 0000000..d6dafe1
+--- /dev/null
++++ b/regression/cbmc/Array_Propagation1/test.desc
+@@ -0,0 +1,9 @@
++CORE
++main.c
++
++^EXIT=0$
++^SIGNAL=0$
++^VERIFICATION SUCCESSFUL$
++\(Starting CEGAR Loop\|VCC(s), 0 remaining after simplification$\)
++--
++^warning: ignoring
+diff --git a/src/goto-symex/field_sensitivity.cpp b/src/goto-symex/field_sensitivity.cpp
+index f6ec85a..ecea799 100644
+--- a/src/goto-symex/field_sensitivity.cpp
++++ b/src/goto-symex/field_sensitivity.cpp
+@@ -8,6 +8,9 @@ Author: Michael Tautschnig, mt@eecs.qmul.ac.uk
+ 
+ #include <util/simplify_expr.h>
+ #include <util/std_expr.h>
++#include <util/arith_tools.h>
++
++#include <ansi-c/c_types.h>
+ 
+ #include "symex_target.h"
+ #include "goto_symex_state.h"
+@@ -49,6 +52,12 @@ void field_sensitivityt::operator()(
+   {
+     simplify(expr, ns);
+   }
++  else if(!write &&
++          expr.id()==ID_index &&
++          to_index_expr(expr).array().id()==ID_array)
++  {
++    simplify(expr, ns);
++  }
+   else if(write && expr.id()==ID_member)
+   {
+     member_exprt &member=to_member_expr(expr);
+@@ -68,6 +77,29 @@ void field_sensitivityt::operator()(
+       expr.swap(tmp);
+     }
+   }
++  else if(write && expr.id()==ID_index)
++  {
++    index_exprt &index=to_index_expr(expr);
++    simplify(index.index(), ns);
++
++    if(index.array().id()==ID_symbol &&
++       index.array().get_bool(ID_C_SSA_symbol) &&
++       ns.follow(index.array().type()).id()==ID_array &&
++       index.index().id()==ID_constant &&
++       to_array_type(ns.follow(index.array().type())).size().id()==ID_constant &&
++       !to_array_type(ns.follow(index.array().type())).size().is_zero())
++    {
++      ssa_exprt tmp=to_ssa_expr(index.array());
++
++      index.array()=tmp.get_original_expr();
++
++      tmp.type()=index.type();
++      tmp.set(ID_expression, index);
++      tmp.update_identifier();
++
++      expr.swap(tmp);
++    }
++  }
+ #endif
+ }
+ 
+@@ -89,12 +121,13 @@ void field_sensitivityt::get_fields(
+   exprt &dest) const
+ {
+ #if 1
+-  if(ns.follow(ssa_expr.type()).id()==ID_struct)
++  const typet &followed_type=ns.follow(ssa_expr.type());
++
++  if(followed_type.id()==ID_struct)
+   {
+     const exprt &struct_op=ssa_expr.get_original_expr();
+ 
+-    const struct_typet &type=
+-      to_struct_type(ns.follow(ssa_expr.type()));
++    const struct_typet &type=to_struct_type(followed_type);
+ 
+     const struct_union_typet::componentst &components=
+       type.components();
+@@ -120,6 +153,40 @@ void field_sensitivityt::get_fields(
+       dest.copy_to_operands(tmp_dest);
+     }
+   }
++  else if(followed_type.id()==ID_array &&
++          to_array_type(followed_type).size().id()==ID_constant &&
++          !to_array_type(followed_type).size().is_zero())
++  {
++    const exprt &array=ssa_expr.get_original_expr();
++
++    const array_typet &type=to_array_type(followed_type);
++
++    mp_integer array_size;
++    if(to_integer(type.size(), array_size))
++      assert(false);
++    unsigned array_size_u=integer2unsigned(array_size);
++
++    dest=array_exprt(type);
++    dest.reserve_operands(array_size_u);
++    index_exprt index;
++    index.array()=array;
++    index.type()=type.subtype();
++
++    for(unsigned i=0; i<array_size_u; ++i)
++    {
++      index.index()=from_integer(i, index_type());
++
++      ssa_exprt tmp=ssa_expr;
++
++      tmp.type()=index.type();
++      tmp.set(ID_expression, index);
++      tmp.update_identifier();
++
++      exprt tmp_dest;
++      get_fields(ns, tmp, tmp_dest);
++      dest.copy_to_operands(tmp_dest);
++    }
++  }
+   else
+ #endif
+     dest=ssa_expr;
+@@ -168,6 +235,8 @@ void field_sensitivityt::field_assignments_rec(
+   const exprt &lhs_fs,
+   const exprt &lhs) const
+ {
++  const typet &followed_type=ns.follow(lhs.type());
++
+   if(lhs==lhs_fs)
+     return;
+   else if(lhs_fs.id()==ID_symbol &&
+@@ -190,10 +259,9 @@ void field_sensitivityt::field_assignments_rec(
+       state.source,
+       symex_targett::STATE);
+   }
+-  else if(ns.follow(lhs.type()).id()==ID_struct)
++  else if(followed_type.id()==ID_struct)
+   {
+-    const struct_typet &type=
+-      to_struct_type(ns.follow(lhs.type()));
++    const struct_typet &type=to_struct_type(followed_type);
+ 
+     const struct_union_typet::componentst &components=
+       type.components();
+@@ -213,6 +281,30 @@ void field_sensitivityt::field_assignments_rec(
+       field_assignments_rec(ns, state, target, member_lhs, member_rhs);
+     }
+   }
++  else if(followed_type.id()==ID_array)
++  {
++    const array_typet &type=to_array_type(followed_type);
++
++    mp_integer array_size;
++    if(to_integer(type.size(), array_size))
++      assert(false);
++    unsigned array_size_u=integer2unsigned(array_size);
++
++    assert(lhs_fs.has_operands() &&
++           lhs_fs.operands().size()==array_size_u);
++
++    index_exprt index_rhs;
++    index_rhs.array()=lhs;
++    index_rhs.type()=type.subtype();
++
++    for(unsigned i=0; i<array_size_u; ++i)
++    {
++      index_rhs.index()=from_integer(i, index_type());
++      exprt index_lhs=lhs_fs.operands()[i];
++
++      field_assignments_rec(ns, state, target, index_lhs, index_rhs);
++    }
++  }
+   else if(lhs_fs.has_operands())
+   {
+     assert(lhs.has_operands() &&
+diff --git a/src/goto-symex/symex_assign.cpp b/src/goto-symex/symex_assign.cpp
+index 8b0e5e7..72d7312 100644
+--- a/src/goto-symex/symex_assign.cpp
++++ b/src/goto-symex/symex_assign.cpp
+@@ -238,10 +238,66 @@ void goto_symext::symex_assign_symbol(
+     tmp_ssa_rhs.swap(ssa_rhs);
+   }
+   
++  state.field_sensitivity(ns, ssa_rhs, false);
+   state.rename(ssa_rhs, ns);
++
++  ssa_exprt lhs_mod=lhs;
++
++  #ifdef USE_UPDATE
++  while(ssa_rhs.id()==ID_update &&
++        (lhs_mod.type().id()==ID_array ||
++         lhs_mod.type().id()==ID_struct))
++  {
++    exprt fs_lhs;
++    const update_exprt &u=to_update_expr(ssa_rhs);
++    assert(u.designator().size()==1);
++    const exprt &d=u.designator().front();
++
++    if(lhs_mod.type().id()==ID_array)
++      fs_lhs=index_exprt(lhs_mod, to_index_designator(d).index());
++    else
++      fs_lhs=
++        member_exprt(
++          lhs_mod,
++          to_member_designator(d).get_component_name(),
++          u.new_value().type());
++
++    state.field_sensitivity(ns, fs_lhs, true);
++
++    if(fs_lhs.id()!=ID_symbol) break;
++
++    ssa_rhs=u.new_value();
++    lhs_mod=to_ssa_expr(fs_lhs);
++  }
++  #else
++  while(ssa_rhs.id()==ID_with &&
++        (lhs_mod.type().id()==ID_array ||
++         lhs_mod.type().id()==ID_struct))
++  {
++    exprt fs_lhs;
++    const with_exprt &w=to_with_expr(ssa_rhs);
++
++    if(lhs_mod.type().id()==ID_array)
++      fs_lhs=index_exprt(lhs_mod, w.where());
++    else
++      fs_lhs=
++        member_exprt(
++          lhs_mod,
++          w.where().get(ID_component_name),
++          w.new_value().type());
++
++    state.field_sensitivity(ns, fs_lhs, true);
++
++    if(fs_lhs.id()!=ID_symbol) break;
++
++    ssa_rhs=w.new_value();
++    lhs_mod=to_ssa_expr(fs_lhs);
++  }
++  #endif
++
+   do_simplify(ssa_rhs);
+   
+-  ssa_exprt ssa_lhs=lhs;
++  ssa_exprt ssa_lhs=lhs_mod;
+   state.assignment(ssa_lhs, ssa_rhs, ns, constant_propagation);
+   
+   exprt ssa_full_lhs=full_lhs;
+@@ -264,7 +320,7 @@ void goto_symext::symex_assign_symbol(
+     symex_targett::STATE);
+ 
+   state.field_sensitivity.field_assignments(
+-    ns, state, target, lhs);
++    ns, state, target, lhs_mod);
+ }
+ 
+ /*******************************************************************\
+diff --git a/src/goto-symex/symex_clean_expr.cpp b/src/goto-symex/symex_clean_expr.cpp
+index ba5b777..228fca1 100644
+--- a/src/goto-symex/symex_clean_expr.cpp
++++ b/src/goto-symex/symex_clean_expr.cpp
+@@ -55,6 +55,15 @@ void goto_symext::process_array_expr(exprt &expr)
+     expr.swap(tmp);
+     process_array_expr(expr);
+   }
++  else if(expr.id()==ID_symbol &&
++          expr.get_bool(ID_C_SSA_symbol) &&
++          to_ssa_expr(expr).get_original_expr().id()==ID_index)
++  {
++    const ssa_exprt &ssa=to_ssa_expr(expr);
++    const index_exprt &index_expr=to_index_expr(ssa.get_original_expr());
++    exprt tmp=index_expr.array();
++    expr.swap(tmp);
++  }
+   else
+     Forall_operands(it, expr)
+       process_array_expr(*it);
+diff --git a/src/goto-symex/symex_other.cpp b/src/goto-symex/symex_other.cpp
+index 3cdd05b..4610d35 100644
+--- a/src/goto-symex/symex_other.cpp
++++ b/src/goto-symex/symex_other.cpp
+@@ -101,10 +101,13 @@ void goto_symext::symex_other(
+     clean_code.op0()=d0;
+     clean_code.op1()=d1;
+     
+-    clean_expr(clean_code, state, false);
++    clean_expr(clean_code.op0(), state, true);
++    clean_expr(clean_code.op1(), state, false);
+     
+     process_array_expr(clean_code.op0());
++    clean_expr(clean_code.op0(), state, true);
+     process_array_expr(clean_code.op1());
++    clean_expr(clean_code.op1(), state, false);
+     
+ 
+     if(!base_type_eq(clean_code.op0().type(),
+@@ -136,9 +139,11 @@ void goto_symext::symex_other(
+     
+     clean_code.op0()=d0;
+ 
+-    clean_expr(clean_code, state, false);
++    clean_expr(clean_code.op0(), state, true);
++    clean_expr(clean_code.op1(), state, false);
+     
+     process_array_expr(clean_code.op0());
++    clean_expr(clean_code.op0(), state, true);
+     
+     const typet &op0_type=ns.follow(clean_code.op0().type());
+     
+-- 
+2.0.1
+

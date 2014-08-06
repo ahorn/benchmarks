@@ -1,0 +1,2490 @@
+From dfa31f31ba8fe17994cf42a61681983b55fc6894 Mon Sep 17 00:00:00 2001
+From: Michael Tautschnig <mt@debian.org>
+Date: Wed, 4 Dec 2013 08:19:12 +0000
+Subject: [PATCH 01/12] Use ssa_exprt to implement SSA renaming
+
+---
+ src/analyses/dirty.h                           |   6 +
+ src/cbmc/counterexample_beautification.cpp     |   2 +-
+ src/goto-programs/goto_trace.cpp               |  14 +-
+ src/goto-programs/goto_trace.h                 |   4 +-
+ src/goto-symex/auto_objects.cpp                |  13 +-
+ src/goto-symex/build_goto_trace.cpp            |   5 +-
+ src/goto-symex/goto_symex.h                    |   3 +-
+ src/goto-symex/goto_symex_state.cpp            | 381 ++++++++++---------------
+ src/goto-symex/goto_symex_state.h              | 156 +++-------
+ src/goto-symex/partial_order_concurrency.cpp   |  20 +-
+ src/goto-symex/partial_order_concurrency.h     |   4 +-
+ src/goto-symex/postcondition.cpp               |  13 +-
+ src/goto-symex/precondition.cpp                |  17 +-
+ src/goto-symex/renaming_ns.h                   |  39 ---
+ src/goto-symex/slice.cpp                       |   2 -
+ src/goto-symex/slice_by_trace.cpp              |  10 +-
+ src/goto-symex/symex_assign.cpp                |  41 ++-
+ src/goto-symex/symex_atomic_section.cpp        |  15 +-
+ src/goto-symex/symex_builtin_functions.cpp     |  26 +-
+ src/goto-symex/symex_dead.cpp                  |  30 +-
+ src/goto-symex/symex_decl.cpp                  |  40 ++-
+ src/goto-symex/symex_dereference.cpp           |  31 +-
+ src/goto-symex/symex_dereference_state.cpp     |  43 ++-
+ src/goto-symex/symex_function_call.cpp         |  60 ++--
+ src/goto-symex/symex_goto.cpp                  |  35 +--
+ src/goto-symex/symex_main.cpp                  |  14 +-
+ src/goto-symex/symex_start_thread.cpp          |  48 ++--
+ src/goto-symex/symex_target.h                  |  16 +-
+ src/goto-symex/symex_target_equation.cpp       |  22 +-
+ src/goto-symex/symex_target_equation.h         |  20 +-
+ src/path-symex/build_goto_trace.cpp            |   2 +-
+ src/pointer-analysis/value_set_dereference.cpp |   2 +
+ src/util/array_name.cpp                        |   8 +
+ src/util/pointer_offset_size.cpp               |   8 +-
+ src/util/std_expr.h                            |   9 +-
+ 35 files changed, 516 insertions(+), 643 deletions(-)
+ delete mode 100644 src/goto-symex/renaming_ns.h
+
+diff --git a/src/analyses/dirty.h b/src/analyses/dirty.h
+index 4b936b7..8be3f37 100644
+--- a/src/analyses/dirty.h
++++ b/src/analyses/dirty.h
+@@ -24,6 +24,12 @@ public:
+     build(goto_function);
+   }
+ 
++  explicit dirtyt(const goto_functionst &goto_functions)
++  {
++    forall_goto_functions(it, goto_functions)
++      build(it->second);
++  }
++
+   void output(std::ostream &out) const;
+ 
+   // will go away, use below  
+diff --git a/src/cbmc/counterexample_beautification.cpp b/src/cbmc/counterexample_beautification.cpp
+index 3f2ea29..2d867a5 100644
+--- a/src/cbmc/counterexample_beautification.cpp
++++ b/src/cbmc/counterexample_beautification.cpp
+@@ -46,7 +46,7 @@ void counterexample_beautificationt::get_minimization_list(
+     {
+       if(!bv_cbmc.l_get(it->guard_literal).is_false())
+       {
+-        const typet &type=it->original_lhs_object.type();
++        const typet &type=it->ssa_lhs.type();
+       
+         if(type!=bool_typet())
+         {
+diff --git a/src/goto-programs/goto_trace.cpp b/src/goto-programs/goto_trace.cpp
+index 7a3729c..14f38de 100644
+--- a/src/goto-programs/goto_trace.cpp
++++ b/src/goto-programs/goto_trace.cpp
+@@ -107,9 +107,9 @@ void goto_trace_stept::output(
+ 
+   if(pc->is_other() || pc->is_assign())
+   {
+-    irep_idt identifier=lhs_object.get_identifier();
+-    out << "  " << identifier
+-        << " = " << from_expr(ns, identifier, lhs_object_value)
++    irep_idt obj_identifier=lhs_object.get_object_name();
++    out << "  " << from_expr(ns, obj_identifier, lhs_object.get_original_expr())
++        << " = " << from_expr(ns, obj_identifier, lhs_object_value)
+         << "\n";
+   }
+   else if(pc->is_assert())
+@@ -213,25 +213,25 @@ Function: counterexample_value
+ void counterexample_value(
+   std::ostream &out,
+   const namespacet &ns,
+-  const symbol_exprt &lhs_object,
++  const ssa_exprt &lhs_object,
+   const exprt &full_lhs,
+   const exprt &value)
+ {
+-  const irep_idt &identifier=lhs_object.get_identifier();
++  const irep_idt &obj_identifier=lhs_object.get_object_name();
+   std::string value_string;
+   
+   if(value.is_nil())
+     value_string="(assignment removed)";
+   else
+   {
+-    value_string=from_expr(ns, identifier, value);
++    value_string=from_expr(ns, obj_identifier, value);
+ 
+     // the binary representation
+     value_string+=" ("+counterexample_value_binary(value, ns)+")";
+   }
+ 
+   out << "  "
+-      << from_expr(ns, identifier, full_lhs)
++      << from_expr(ns, obj_identifier, full_lhs)
+       << "=" << value_string
+       << "\n";
+ }
+diff --git a/src/goto-programs/goto_trace.h b/src/goto-programs/goto_trace.h
+index d571aeb..47199ae 100644
+--- a/src/goto-programs/goto_trace.h
++++ b/src/goto-programs/goto_trace.h
+@@ -75,7 +75,7 @@ public:
+   std::string comment;
+ 
+   // the object being assigned
+-  symbol_exprt lhs_object;
++  ssa_exprt lhs_object;
+   
+   // the full, original lhs expression
+   exprt full_lhs;
+@@ -156,7 +156,7 @@ void show_goto_trace(
+ void counterexample_value(
+   std::ostream &out,
+   const namespacet &ns,
+-  const symbol_exprt &lhs_object,
++  const ssa_exprt &lhs_object,
+   const exprt &full_lhs,
+   const exprt &value);
+ 
+diff --git a/src/goto-symex/auto_objects.cpp b/src/goto-symex/auto_objects.cpp
+index caae483..7700cdc 100644
+--- a/src/goto-symex/auto_objects.cpp
++++ b/src/goto-symex/auto_objects.cpp
+@@ -101,7 +101,7 @@ void goto_symext::initialize_auto_object(
+         address_of_expr);
+       
+       code_assignt assignment(expr, rhs);
+-      symex_assign(state, assignment); /* TODO: needs clean */
++      symex_assign_rec(state, assignment);
+     }
+   }
+ }
+@@ -122,18 +122,19 @@ void goto_symext::trigger_auto_object(
+   const exprt &expr,
+   statet &state)
+ {
+-  if(expr.id()==ID_symbol)
++  if(expr.id()==ID_symbol &&
++     expr.get_bool(ID_C_SSA_symbol))
+   {
+-    const symbol_exprt &symbol_expr=to_symbol_expr(expr);
+-    const irep_idt &identifier=symbol_expr.get_identifier();
++    const ssa_exprt &ssa_expr=to_ssa_expr(expr);
++    const irep_idt &obj_identifier=ssa_expr.get_object_name();
+     
+     const symbolt &symbol=
+-      ns.lookup(state.get_original_name(identifier));
++      ns.lookup(obj_identifier);
+       
+     if(has_prefix(id2string(symbol.base_name), "auto_object"))
+     {
+       // done already?
+-      if(state.level2.current_names.find(identifier)==
++      if(state.level2.current_names.find(ssa_expr.get_identifier())==
+          state.level2.current_names.end())
+       {
+         initialize_auto_object(expr, state);
+diff --git a/src/goto-symex/build_goto_trace.cpp b/src/goto-symex/build_goto_trace.cpp
+index 26448c3..445d021 100644
+--- a/src/goto-symex/build_goto_trace.cpp
++++ b/src/goto-symex/build_goto_trace.cpp
+@@ -224,7 +224,10 @@ void build_goto_trace(
+     goto_trace_step.thread_nr=SSA_step.source.thread_nr;
+     goto_trace_step.pc=SSA_step.source.pc;
+     goto_trace_step.comment=SSA_step.comment;
+-    goto_trace_step.lhs_object=SSA_step.original_lhs_object;
++    if(SSA_step.ssa_lhs.is_not_nil())
++      goto_trace_step.lhs_object=ssa_exprt(SSA_step.ssa_lhs.get_original_expr());
++    else
++      goto_trace_step.lhs_object.make_nil();
+     goto_trace_step.type=SSA_step.type;
+     goto_trace_step.format_string=SSA_step.format_string;
+     goto_trace_step.io_id=SSA_step.io_id;
+diff --git a/src/goto-symex/goto_symex.h b/src/goto-symex/goto_symex.h
+index b8cba28..5fe744b 100644
+--- a/src/goto-symex/goto_symex.h
++++ b/src/goto-symex/goto_symex.h
+@@ -238,12 +238,13 @@ protected:
+   virtual void do_simplify(exprt &expr);
+   
+   //virtual void symex_block(statet &state, const codet &code);
++  void symex_assign_rec(statet &state, const code_assignt &code);
+   virtual void symex_assign(statet &state, const code_assignt &code);
+   
+   typedef enum { VISIBLE, HIDDEN } visibilityt;
+   
+   void symex_assign_rec(statet &state, const exprt &lhs, const exprt &full_lhs, const exprt &rhs, guardt &guard, visibilityt visibility);
+-  void symex_assign_symbol(statet &state, const symbol_exprt &lhs, const exprt &full_lhs, const exprt &rhs, guardt &guard, visibilityt visibility);
++  void symex_assign_symbol(statet &state, const ssa_exprt &lhs, const exprt &full_lhs, const exprt &rhs, guardt &guard, visibilityt visibility);
+   void symex_assign_typecast(statet &state, const typecast_exprt &lhs, const exprt &full_lhs, const exprt &rhs, guardt &guard, visibilityt visibility);
+   void symex_assign_array(statet &state, const index_exprt &lhs, const exprt &full_lhs, const exprt &rhs, guardt &guard, visibilityt visibility);
+   void symex_assign_member(statet &state, const member_exprt &lhs, const exprt &full_lhs, const exprt &rhs, guardt &guard, visibilityt visibility);
+diff --git a/src/goto-symex/goto_symex_state.cpp b/src/goto-symex/goto_symex_state.cpp
+index 0939b2e..2a1f463 100644
+--- a/src/goto-symex/goto_symex_state.cpp
++++ b/src/goto-symex/goto_symex_state.cpp
+@@ -76,44 +76,63 @@ Function: goto_symex_statet::level0t::operator()
+ 
+ \*******************************************************************/
+ 
+-irep_idt goto_symex_statet::level0t::operator()(
+-  const irep_idt &identifier,
++void goto_symex_statet::level0t::operator()(
++  ssa_exprt &ssa_expr,
+   const namespacet &ns,
+   unsigned thread_nr)
+ {
+   // already renamed?
+-  if(original_identifiers.find(identifier)!=original_identifiers.end())
+-    return identifier;
++  if(!ssa_expr.get_level_0().empty())
++    return;
++
++  const irep_idt &obj_identifier=ssa_expr.get_object_name();
+ 
+   // guards are not L0-renamed
+-  if(identifier=="goto_symex::\\guard")
+-  {
+-    original_identifiers[identifier]=identifier;
+-    return identifier;
+-  }
++  if(obj_identifier=="goto_symex::\\guard")
++    return;
+ 
+   const symbolt *s;
+-  if(ns.lookup(identifier, s))
++
++  if(ns.lookup(obj_identifier, s))
+   {
+-    std::cerr << "level0: failed to find " << identifier << std::endl;
++    std::cerr << "level0: failed to find " << obj_identifier << std::endl;
+     abort();
+   }
+   
+   // don't rename shared variables or functions
+   if(s->type.id()==ID_code ||
+      s->is_shared())
+-  {
+-    original_identifiers[identifier]=identifier;
+-    return identifier;
+-  }
++    return;
+ 
+   // rename!    
+-  irep_idt new_identifier=name(identifier, thread_nr);
+-  
+-  // remember that
+-  original_identifiers[new_identifier]=identifier;
++  ssa_expr.set_level_0(thread_nr);
++}
++
++/*******************************************************************\
++
++Function: goto_symex_statet::level1t::operator()
++
++  Inputs:
++
++ Outputs:
++
++ Purpose:
++
++\*******************************************************************/
++
++void goto_symex_statet::level1t::operator()(ssa_exprt &ssa_expr)
++{
++  // already renamed?
++  if(!ssa_expr.get_level_1().empty())
++    return;
++
++  const irep_idt l0_name=ssa_expr.get_l1_object_identifier();
+ 
+-  return new_identifier;
++  current_namest::const_iterator it=current_names.find(l0_name);
++  if(it==current_names.end()) return;
++
++  // rename!
++  ssa_expr.set_level_1(it->second.second);
+ }
+ 
+ /*******************************************************************\
+@@ -132,7 +151,7 @@ unsigned goto_symex_statet::renaming_levelt::current_count(
+   const irep_idt &identifier) const
+ {
+   current_namest::const_iterator it=current_names.find(identifier);
+-  return it==current_names.end()?0:it->second;
++  return it==current_names.end()?0:it->second.second;
+ }
+ 
+ /*******************************************************************\
+@@ -268,20 +287,17 @@ Function: goto_symex_statet::assignment
+ \*******************************************************************/
+ 
+ void goto_symex_statet::assignment(
+-  symbol_exprt &lhs, // L0/L1
++  ssa_exprt &lhs, // L0/L1
+   const exprt &rhs,  // L2
+   const namespacet &ns,
+   bool record_value)
+ {
+-  assert(lhs.id()==ID_symbol);
+-
+   // the type might need renaming
+   rename(lhs.type(), ns);
+ 
+-  irep_idt identifier=lhs.get_identifier();
+-    
+   // identifier should be l0 or l1, make sure it's l1
+-  irep_idt l1_identifier=level1(identifier);
++  rename(lhs, ns, L1);
++  irep_idt l1_identifier=lhs.get_identifier();
+ 
+   #if 0  
+   assert(l1_identifier != get_original_name(l1_identifier)
+@@ -291,9 +307,11 @@ void goto_symex_statet::assignment(
+       || has_prefix(id2string(l1_identifier), "symex_dynamic::dynamic_object"));
+   #endif
+ 
+-  // do the l2 renaming 
+-  irep_idt new_l2_name=level2.increase_counter(l1_identifier);
+-  lhs.set_identifier(new_l2_name);
++  // do the l2 renaming
++  if(level2.current_names.find(l1_identifier)==level2.current_names.end())
++    level2.current_names[l1_identifier]=std::make_pair(lhs, 0);
++  level2.increase_counter(l1_identifier);
++  set_ssa_indices(lhs, ns, L2);
+ 
+   // in case we happen to be multi-threaded, record the memory access
+   bool is_shared=l2_thread_write_encoding(lhs, ns);
+@@ -309,10 +327,10 @@ void goto_symex_statet::assignment(
+     // update value sets
+     value_sett::expr_sett rhs_value_set;
+     exprt l1_rhs(rhs);
+-    level2.get_original_name(l1_rhs);
++    get_l1_name(l1_rhs);
+ 
+-    symbol_exprt l1_lhs(l1_identifier, lhs.type());
+-    level2.get_original_name(l1_lhs.type());
++    ssa_exprt l1_lhs(lhs);
++    get_l1_name(l1_lhs);
+ 
+     value_set.assign(l1_lhs, l1_rhs, ns, is_shared);  
+   }
+@@ -341,7 +359,7 @@ void goto_symex_statet::propagationt::operator()(exprt &expr)
+   if(expr.id()==ID_symbol)
+   {
+     valuest::const_iterator it=
+-      values.find(to_symbol_expr(expr).get_identifier());
++      values.find(expr.get(ID_identifier));
+     if(it!=values.end())
+       expr=it->second;
+   }
+@@ -359,7 +377,7 @@ void goto_symex_statet::propagationt::operator()(exprt &expr)
+ 
+ /*******************************************************************\
+ 
+-Function: goto_symex_statet::rename
++Function: goto_symex_statet::set_ssa_indices
+ 
+   Inputs:
+ 
+@@ -369,31 +387,30 @@ Function: goto_symex_statet::rename
+ 
+ \*******************************************************************/
+ 
+-irep_idt goto_symex_statet::rename(
+-  const irep_idt &identifier,
++void goto_symex_statet::set_ssa_indices(
++  ssa_exprt &ssa_expr,
+   const namespacet &ns,
+   levelt level)
+ {
+   switch(level)
+   {
+   case L0:
+-    return level0(identifier, ns, source.thread_nr);
++    level0(ssa_expr, ns, source.thread_nr);
++    break;
+     
+   case L1:
+-    {
+-      if(level2.is_renamed(identifier)) return identifier;
+-      if(level1.is_renamed(identifier)) return identifier;
+-      irep_idt l0_identifier=level0(identifier, ns, source.thread_nr);
+-      return level1(l0_identifier);
+-    }
++    if(!ssa_expr.get_level_2().empty()) return;
++    if(!ssa_expr.get_level_1().empty()) return;
++    level0(ssa_expr, ns, source.thread_nr);
++    level1(ssa_expr);
++    break;
+   
+   case L2:
+-    {
+-      if(level2.is_renamed(identifier)) return identifier;
+-      irep_idt l0_identifier=level0(identifier, ns, source.thread_nr);
+-      irep_idt l1_identifier=level1(l0_identifier);
+-      return level2(l1_identifier); // L2
+-    }
++    if(!ssa_expr.get_level_2().empty()) return;
++    level0(ssa_expr, ns, source.thread_nr);
++    level1(ssa_expr);
++    ssa_expr.set_level_2(level2.current_count(ssa_expr.get_identifier()));
++    break;
+     
+   default:
+     assert(false);
+@@ -421,49 +438,49 @@ void goto_symex_statet::rename(
+   
+   rename(expr.type(), ns, level);
+ 
+-  if(expr.id()==ID_symbol)
++  if(expr.id()==ID_symbol &&
++     expr.get_bool(ID_C_SSA_symbol))
+   {
+-    // we never rename function symbols
+-    if(ns.follow(expr.type()).id()==ID_code)
+-      return;
+-  
+-    const irep_idt identifier=to_symbol_expr(expr).get_identifier();
++    ssa_exprt &ssa=to_ssa_expr(expr);
+ 
+     if(level==L0 || level==L1)
+-    {
+-      const irep_idt new_name=rename(identifier, ns, level);
+-      to_symbol_expr(expr).set_identifier(new_name);
+-    }  
++      set_ssa_indices(ssa, ns, level);
+     else if(level==L2)
+     {
+-      if(l2_thread_read_encoding(to_symbol_expr(expr), ns))
++      set_ssa_indices(ssa, ns, L1);
++
++      if(l2_thread_read_encoding(ssa, ns))
+       {
+         // renaming taken care of by l2_thread_encoding
+       }
+-      else if(level2.is_renamed(identifier))
++      else if(!ssa.get_level_2().empty())
+       {
+         // already at L2
+       }
+       else
+       {
+-        irep_idt l1_identifier=rename(identifier, ns, L1);
+-
+         // We also consider propagation if we go up to L2.
+         // L1 identifiers are used for propagation!
+         propagationt::valuest::const_iterator p_it=
+-          propagation.values.find(l1_identifier);
++          propagation.values.find(ssa.get_identifier());
+ 
+         if(p_it!=propagation.values.end())
+           expr=p_it->second; // already L2
+         else
+-        {
+-          irep_idt new_name=level2(l1_identifier); // L2
+-          to_symbol_expr(expr).set_identifier(new_name);
+-        }
++          set_ssa_indices(ssa, ns, L2);
+       }
+     }
+     
+   }
++  else if(expr.id()==ID_symbol)
++  {
++    // we never rename function symbols
++    if(ns.follow(expr.type()).id()==ID_code)
++      return;
++
++    expr=ssa_exprt(expr);
++    rename(expr, ns, level);
++  }
+   else if(expr.id()==ID_address_of)
+   {
+     assert(expr.operands().size()==1);
+@@ -490,7 +507,7 @@ Function: goto_symex_statet::l2_thread_read_encoding
+ \*******************************************************************/
+ 
+ bool goto_symex_statet::l2_thread_read_encoding(
+-  symbol_exprt &expr,
++  ssa_exprt &expr,
+   const namespacet &ns)
+ {
+   if(!record_events)
+@@ -500,17 +517,15 @@ bool goto_symex_statet::l2_thread_read_encoding(
+   if(threads.size()<=1)
+     return false;
+ 
+-  const irep_idt &identifier=expr.get_identifier();
+-  const irep_idt &orig_identifier=get_original_name(identifier);
+-
+   // is it a shared object?
+-  if(orig_identifier=="goto_symex::\\guard" ||
+-     !ns.lookup(orig_identifier).is_shared())
++  const irep_idt &obj_identifier=expr.get_object_name();
++  if(obj_identifier=="goto_symex::\\guard" ||
++     !ns.lookup(obj_identifier).is_shared())
+     return false;
+ 
+-  const irep_idt l1_identifier=rename(orig_identifier, ns, L1);
+-  symbol_exprt ssa_l1=expr;
+-  ssa_l1.set_identifier(l1_identifier);
++  ssa_exprt ssa_l1=expr;
++  ssa_l1.remove_level_2();
++  const irep_idt &l1_identifier=ssa_l1.get_identifier();
+ 
+   // see whether we are within an atomic section
+   if(atomic_section_id!=0)
+@@ -563,30 +578,35 @@ bool goto_symex_statet::l2_thread_read_encoding(
+     }
+ 
+     if_exprt tmp(or_exprt(no_write.op(), read_guard.as_expr()), ssa_l1, ssa_l1);
+-    level2(to_symbol_expr(tmp.true_case()));
++    set_ssa_indices(to_ssa_expr(tmp.true_case()), ns, L2);
+ 
+     if(a_s_read.second.empty())
+     {
++      if(level2.current_names.find(l1_identifier)==level2.current_names.end())
++        level2.current_names[l1_identifier]=std::make_pair(ssa_l1, 0);
+       level2.increase_counter(l1_identifier);
+       a_s_read.first=level2.current_count(l1_identifier);
+     }
+ 
+-    to_symbol_expr(tmp.false_case()).set_identifier(
+-      level2.name(l1_identifier, a_s_read.first));
++    to_ssa_expr(tmp.false_case()).set_level_2(a_s_read.first);
+ 
+     const bool record_events_bak=record_events;
+     record_events=false;
+-    assignment(expr, tmp, ns, true);
++    assignment(ssa_l1, tmp, ns, true);
+     record_events=record_events_bak;
+ 
+-    symbol_exprt lhs=ns.lookup(orig_identifier).symbol_expr();
+     symex_target->assignment(
+       guard.as_expr(),
+-      expr, lhs, expr, lhs,
++      ssa_l1,
++      ssa_l1,
++      ssa_l1.get_original_expr(),
+       tmp,
+       source,
+       symex_targett::PHI);
+ 
++    set_ssa_indices(ssa_l1, ns, L2);
++    expr=ssa_l1;
++
+     a_s_read.second.push_back(guard);
+     if(!no_write.op().is_false())
+       a_s_read.second.back().add(no_write);
+@@ -595,16 +615,17 @@ bool goto_symex_statet::l2_thread_read_encoding(
+   }
+ 
+   // produce a fresh L2 name
+-  irep_idt new_l2_name=level2.increase_counter(l1_identifier);
+-  expr.set_identifier(new_l2_name);
++  if(level2.current_names.find(l1_identifier)==level2.current_names.end())
++    level2.current_names[l1_identifier]=std::make_pair(ssa_l1, 0);
++  level2.increase_counter(l1_identifier);
++  set_ssa_indices(ssa_l1, ns, L2);
++  expr=ssa_l1;
+ 
+   // and record that
+   assert(symex_target!=NULL);
+-  symbol_exprt original_symbol(orig_identifier, expr.type());
+   symex_target->shared_read(
+     guard.as_expr(),
+     expr,
+-    original_symbol,
+     atomic_section_id,
+     source);
+ 
+@@ -624,38 +645,32 @@ Function: goto_symex_statet::l2_thread_write_encoding
+ \*******************************************************************/
+ 
+ bool goto_symex_statet::l2_thread_write_encoding(
+-  const symbol_exprt &expr,
++  const ssa_exprt &expr,
+   const namespacet &ns)
+ {
+   if(!record_events)
+     return false;
+ 
+-  const irep_idt &identifier=expr.get_identifier();
+-  const irep_idt &orig_identifier=get_original_name(identifier);
+-
+   // is it a shared object?
+-  if(orig_identifier=="goto_symex::\\guard" ||
+-     !ns.lookup(orig_identifier).is_shared())
++  const irep_idt &obj_identifier=expr.get_object_name();
++  if(obj_identifier=="goto_symex::\\guard" ||
++     !ns.lookup(obj_identifier).is_shared())
+     return false; // not shared
+     
+   // see whether we are within an atomic section
+   if(atomic_section_id!=0)
+   {
+-    const irep_idt l1_identifier=rename(orig_identifier, ns, L1);
+-    symbol_exprt ssa_l1=expr;
+-    ssa_l1.set_identifier(l1_identifier);
++    ssa_exprt ssa_l1=expr;
++    ssa_l1.remove_level_2();
+ 
+     written_in_atomic_section[ssa_l1].push_back(guard);
+     return false;
+   }
+ 
+   // record a shared write
+-  symbol_exprt original_symbol(orig_identifier, expr.type());
+-
+   symex_target->shared_write(
+     guard.as_expr(),
+     expr,
+-    original_symbol,
+     atomic_section_id,
+     source);
+ 
+@@ -682,12 +697,18 @@ void goto_symex_statet::rename_address(
+ {
+   rename(expr.type(), ns, level);
+ 
+-  if(expr.id()==ID_symbol)
++  if(expr.id()==ID_symbol &&
++     expr.get_bool(ID_C_SSA_symbol))
+   {
++    ssa_exprt &ssa=to_ssa_expr(expr);
++
+     // only do L1!
+-    irep_idt identifier=to_symbol_expr(expr).get_identifier();
+-    identifier=rename(identifier, ns, L1);
+-    to_symbol_expr(expr).set_identifier(identifier);
++    set_ssa_indices(ssa, ns, L1);
++  }
++  else if(expr.id()==ID_symbol)
++  {
++    expr=ssa_exprt(expr);
++    rename_address(expr, ns, level);
+   }
+   else
+   {
+@@ -750,7 +771,14 @@ void goto_symex_statet::rename(
+           type.id()==ID_union ||
+           type.id()==ID_class)
+   {
+-    // TODO
++    struct_union_typet &s_u_type=to_struct_union_type(type);
++    struct_union_typet::componentst &components=s_u_type.components();
++
++    for(struct_union_typet::componentst::iterator
++        it=components.begin();
++        it!=components.end();
++        ++it)
++      rename(it->type(), ns, level);
+   }
+   else if(type.id()==ID_pointer)
+   {
+@@ -768,28 +796,6 @@ void goto_symex_statet::rename(
+ 
+ /*******************************************************************\
+ 
+-Function: goto_symex_statet::renaming_levelt::print
+-
+-  Inputs:
+-
+- Outputs:
+-
+- Purpose:
+-
+-\*******************************************************************/
+-
+-void goto_symex_statet::renaming_levelt::print(std::ostream &out) const
+-{
+-  for(current_namest::const_iterator
+-      it=current_names.begin();
+-      it!=current_names.end();
+-      it++)
+-    out << it->first << " --> "
+-        << name(it->first, it->second) << std::endl;
+-}
+-
+-/*******************************************************************\
+-
+ Function: goto_symex_statet::get_original_name
+ 
+   Inputs:
+@@ -804,68 +810,15 @@ void goto_symex_statet::get_original_name(exprt &expr) const
+ {
+   get_original_name(expr.type());
+ 
+-  Forall_operands(it, expr)
+-    get_original_name(*it);
+-
+-  if(expr.id()==ID_symbol)
+-  {
+-    level2.get_original_name(expr);
+-    level1.get_original_name(expr);
+-    level0.get_original_name(expr);
+-  }
+-}
+-
+-/*******************************************************************\
+-
+-Function: goto_symex_statet::renaming_levelt::get_original_name
+-
+-  Inputs:
+-
+- Outputs:
+-
+- Purpose:
+-
+-\*******************************************************************/
+-
+-void goto_symex_statet::renaming_levelt::get_original_name(exprt &expr) const
+-{
+-  get_original_name(expr.type());
+-
+-  Forall_operands(it, expr)
+-    get_original_name(*it);
+-
+-  if(expr.id()==ID_symbol)
+-  {
+-    original_identifierst::const_iterator it=
+-      original_identifiers.find(expr.get(ID_identifier));
+-    if(it==original_identifiers.end()) return;
+-    assert(it->second!="");
+-    expr.set(ID_identifier, it->second);
+-  }
++  if(expr.id()==ID_symbol &&
++     expr.get_bool(ID_C_SSA_symbol))
++    expr=to_ssa_expr(expr).get_original_expr();
++  else
++    Forall_operands(it, expr)
++      get_original_name(*it);
+ }
+ 
+ /*******************************************************************\
+-
+-Function: goto_symex_statet::renaming_levelt::get_original_name
+-
+-  Inputs:
+-
+- Outputs:
+-
+- Purpose:
+-
+-\*******************************************************************/
+-
+-const irep_idt &goto_symex_statet::renaming_levelt::get_original_name(
+-  const irep_idt &identifier) const
+-{
+-  original_identifierst::const_iterator it=
+-    original_identifiers.find(identifier);
+-  if(it==original_identifiers.end()) return identifier;
+-  return it->second;
+-}
+-
+- /*******************************************************************\
+  
+ Function: goto_symex_statet::get_original_name
+ 
+@@ -890,40 +843,14 @@ void goto_symex_statet::get_original_name(typet &type) const
+           type.id()==ID_union ||
+           type.id()==ID_class)
+   {
+-    // TODO
+-  }
+-  else if(type.id()==ID_pointer)
+-  {
+-    get_original_name(type.subtype());
+-  }
+-}
+-
+-/*******************************************************************\
+-
+-Function: goto_symex_statet::renaming_levelt::get_original_name
+-
+-  Inputs:
+-
+- Outputs:
+-
+- Purpose:
+-
+-\*******************************************************************/
++    struct_union_typet &s_u_type=to_struct_union_type(type);
++    struct_union_typet::componentst &components=s_u_type.components();
+ 
+-void goto_symex_statet::renaming_levelt::get_original_name(typet &type) const
+-{
+-  // rename all the symbols back to their original name
+-
+-  if(type.id()==ID_array)
+-  {
+-    get_original_name(type.subtype());
+-    get_original_name(to_array_type(type).size());
+-  }
+-  else if(type.id()==ID_struct ||
+-          type.id()==ID_union ||
+-          type.id()==ID_class)
+-  {
+-    // TODO
++    for(struct_union_typet::componentst::iterator
++        it=components.begin();
++        it!=components.end();
++        ++it)
++      get_original_name(it->type());
+   }
+   else if(type.id()==ID_pointer)
+   {
+@@ -933,7 +860,7 @@ void goto_symex_statet::renaming_levelt::get_original_name(typet &type) const
+ 
+ /*******************************************************************\
+ 
+-Function: goto_symex_statet::get_original_name
++Function: goto_symex_statet::get_l1_name
+ 
+   Inputs:
+ 
+@@ -943,12 +870,16 @@ Function: goto_symex_statet::get_original_name
+ 
+ \*******************************************************************/
+ 
+-const irep_idt &goto_symex_statet::get_original_name(
+-  const irep_idt &identifier) const
++void goto_symex_statet::get_l1_name(exprt &expr) const
+ {
+-  return level0.get_original_name(
+-         level1.get_original_name(
+-         level2.get_original_name(identifier)));
++  // do not reset the type !
++
++  if(expr.id()==ID_symbol &&
++     expr.get_bool(ID_C_SSA_symbol))
++    to_ssa_expr(expr).remove_level_2();
++  else
++    Forall_operands(it, expr)
++      get_l1_name(*it);
+ }
+ 
+ /*******************************************************************\
+diff --git a/src/goto-symex/goto_symex_state.h b/src/goto-symex/goto_symex_state.h
+index e03daea..25d6106 100644
+--- a/src/goto-symex/goto_symex_state.h
++++ b/src/goto-symex/goto_symex_state.h
+@@ -45,97 +45,34 @@ public:
+   
+   struct renaming_levelt
+   {
+-  public:
+-    virtual irep_idt current_name(const irep_idt &identifier) const=0;
+-    virtual irep_idt name(const irep_idt &identifier, unsigned count) const=0;
+     virtual ~renaming_levelt() { }
+ 
+-    typedef std::map<irep_idt, unsigned> current_namest;
++    typedef std::map<irep_idt, std::pair<ssa_exprt, unsigned> > current_namest;
+     current_namest current_names;
+     
+-    void remove(const irep_idt &identifier) { current_names.erase(identifier); }
+-    const irep_idt &get_original_name(const irep_idt &identifier) const;
+-    void get_original_name(exprt &expr) const;
+-    void get_original_name(typet &type) const;
+-    void print(std::ostream &out) const;
+     unsigned current_count(const irep_idt &identifier) const;
+-    
+-    irep_idt operator()(const irep_idt &identifier)
+-    {
+-      // see if it's already renamed
+-      if(is_renamed(identifier)) return identifier;
+-
+-      // record
+-      irep_idt i=current_name(identifier);
+-      original_identifiers[i]=identifier;
+-      return i;
+-    }
+ 
+-    inline void operator()(symbol_exprt &expr)
++    void increase_counter(const irep_idt &identifier)
+     {
+-      expr.set_identifier(operator()(expr.get_identifier()));
+-    }
+-    
+-    irep_idt rename(const irep_idt &identifier, unsigned count)
+-    {
+-      current_names[identifier]=count;
+-      irep_idt new_name=name(identifier, count);
+-      original_identifiers[new_name]=identifier;
+-      return new_name;
+-    }
+-    
+-    irep_idt increase_counter(const irep_idt &identifier)
+-    {
+-      return rename(identifier, current_names[identifier]+1);
+-    }
+-    
+-    inline bool is_renamed(const irep_idt &identifier) const
+-    {
+-      return original_identifiers.find(identifier)!=original_identifiers.end();
+-    }
+-    
+-    void restore_from(const current_namest &other)
+-    {
+-      for(current_namest::const_iterator
+-          it=other.begin();
+-          it!=other.end();
+-          it++)
+-      {
+-        // could be done faster exploing ordering
+-        current_names[it->first]=it->second;
+-      }
++      assert(current_names.find(identifier)!=current_names.end());
++      ++current_names[identifier].second;
+     }
+ 
+-    void get_variables(std::set<irep_idt> &vars) const
++    void get_variables(std::set<ssa_exprt> &vars) const
+     {
+       for(current_namest::const_iterator it=current_names.begin();
+           it!=current_names.end();
+           it++)
+-        vars.insert(it->first);
++        vars.insert(it->second.first);
+     }
+-
+-  protected:
+-    original_identifierst original_identifiers;
+   };
+   
+   // level 0 -- threads!
+   // renaming built for one particular interleaving
+   struct level0t:public renaming_levelt
+   {
+-  public:
+-    virtual irep_idt name(const irep_idt &identifier, unsigned thread_nr) const
+-    {
+-      return id2string(identifier)+"!"+i2string(thread_nr);
+-    }
+-
+-    virtual irep_idt current_name(const irep_idt &identifier) const
+-    { // never called
+-      assert(false);
+-      return irep_idt();
+-    }
+-
+-    irep_idt operator()(
+-      const irep_idt &identifier,
++    void operator()(
++      ssa_exprt &ssa_expr,
+       const namespacet &ns,
+       unsigned thread_nr);
+ 
+@@ -148,26 +85,18 @@ public:
+   
+   struct level1t:public renaming_levelt
+   {
+-  public:
+-    virtual irep_idt name(const irep_idt &identifier, unsigned frame) const
+-    {
+-      return id2string(identifier)+"@"+i2string(frame);
+-    }
+-    
+-    virtual irep_idt current_name(const irep_idt &identifier) const
+-    {
+-      // see if it's already renamed
+-      if(is_renamed(identifier))
+-        return identifier;
++    void operator()(ssa_exprt &ssa_expr);
+ 
+-      // rename only if needed
+-      const current_namest::const_iterator it=
+-        current_names.find(identifier);
+-    
+-      if(it==current_names.end())
+-        return identifier;
+-      else
+-        return name(identifier, it->second);
++    void restore_from(const current_namest &other)
++    {
++      for(current_namest::const_iterator
++          it=other.begin();
++          it!=other.end();
++          it++)
++      {
++        // could be done faster exploing ordering
++        current_names[it->first]=it->second;
++      }
+     }
+ 
+     level1t() { }
+@@ -178,22 +107,6 @@ public:
+ 
+   struct level2t:public renaming_levelt
+   {
+-  public:
+-    virtual irep_idt name(const irep_idt &identifier, unsigned count) const
+-    {
+-      return id2string(identifier)+"#"+i2string(count);
+-    }
+-
+-    virtual irep_idt current_name(const irep_idt &identifier) const
+-    {
+-      // see if it's already renamed
+-      if(is_renamed(identifier))
+-        return identifier;
+-
+-      // _always_ rename
+-      return name(identifier, current_count(identifier));
+-    }
+-    
+     level2t() { }
+     virtual ~level2t() { }
+   } level2;
+@@ -216,14 +129,10 @@ public:
+   typedef enum { L0=0, L1=1, L2=2 } levelt;
+ 
+   // performs renaming _up to_ the given level
+-  irep_idt rename(const irep_idt &identifier, const namespacet &ns, levelt level=L2);
+   void rename(exprt &expr, const namespacet &ns, levelt level=L2);
+-  void rename(typet &type, const namespacet &ns, levelt level=L2);
+-  
+-  void rename_address(exprt &expr, const namespacet &ns, levelt level);
+   
+   void assignment(
+-    symbol_exprt &lhs, // L0/L1
++    ssa_exprt &lhs, // L0/L1
+     const exprt &rhs,  // L2
+     const namespacet &ns,
+     bool record_value);
+@@ -233,10 +142,21 @@ public:
+   bool constant_propagation_reference(const exprt &expr) const;
+ 
+   // undoes all levels of renaming
+-  const irep_idt &get_original_name(const irep_idt &identifier) const;
+   void get_original_name(exprt &expr) const;
+   void get_original_name(typet &type) const;
++protected:
++  void rename(typet &type, const namespacet &ns, levelt level=L2);
++  void rename_address(exprt &expr, const namespacet &ns, levelt level);
++
++  void set_ssa_indices(ssa_exprt &expr, const namespacet &ns, levelt level=L2);
++  // only required for value_set.assign
++  void get_l1_name(exprt &expr) const;
++
++  // this maps L1 names to (L2) types
++  typedef hash_map_cont<irep_idt, typet, irep_id_hash> l1_typest;
++  l1_typest l1_types;
+   
++public:
+   // uses level 1 names, and is used to
+   // do dereferencing
+   value_sett value_set;
+@@ -281,8 +201,8 @@ public:
+ 
+     renaming_levelt::current_namest old_level1;
+     
+-    typedef std::set<irep_idt> local_variablest;
+-    local_variablest local_variables;
++    typedef std::set<irep_idt> local_objectst;
++    local_objectst local_objects;
+     
+     framet():return_value(nil_exprt())
+     {
+@@ -342,9 +262,9 @@ public:
+   // threads
+   unsigned atomic_section_id;
+   typedef std::pair<unsigned, std::list<guardt> > a_s_r_entryt;
+-  typedef hash_map_cont<symbol_exprt, a_s_r_entryt, irep_hash> read_in_atomic_sectiont;
++  typedef hash_map_cont<ssa_exprt, a_s_r_entryt, irep_hash> read_in_atomic_sectiont;
+   typedef std::list<guardt> a_s_w_entryt;
+-  typedef hash_map_cont<symbol_exprt, a_s_w_entryt, irep_hash> written_in_atomic_sectiont;
++  typedef hash_map_cont<ssa_exprt, a_s_w_entryt, irep_hash> written_in_atomic_sectiont;
+   read_in_atomic_sectiont read_in_atomic_section;
+   written_in_atomic_sectiont written_in_atomic_section;
+   
+@@ -366,8 +286,8 @@ public:
+   typedef std::vector<threadt> threadst;
+   threadst threads;
+   
+-  bool l2_thread_read_encoding(symbol_exprt &expr, const namespacet &ns);
+-  bool l2_thread_write_encoding(const symbol_exprt &expr, const namespacet &ns);
++  bool l2_thread_read_encoding(ssa_exprt &expr, const namespacet &ns);
++  bool l2_thread_write_encoding(const ssa_exprt &expr, const namespacet &ns);
+ 
+   void switch_to_thread(unsigned t);
+   bool record_events;
+diff --git a/src/goto-symex/partial_order_concurrency.cpp b/src/goto-symex/partial_order_concurrency.cpp
+index 2b3cb97..e04805e 100644
+--- a/src/goto-symex/partial_order_concurrency.cpp
++++ b/src/goto-symex/partial_order_concurrency.cpp
+@@ -93,9 +93,9 @@ void partial_order_concurrencyt::add_init_writes(
+       symex_target_equationt::SSA_stept &SSA_step=init_steps.back();
+ 
+       SSA_step.guard=true_exprt();
+-      // no SSA index, thus nondet value
+-      SSA_step.ssa_lhs=e_it->original_lhs_object;
+-      SSA_step.original_lhs_object=e_it->original_lhs_object;
++      // no SSA L2 index, thus nondet value
++      SSA_step.ssa_lhs=e_it->ssa_lhs;
++      SSA_step.ssa_lhs.remove_level_2();
+       SSA_step.type=goto_trace_stept::SHARED_WRITE;
+       SSA_step.atomic_section_id=0;
+       SSA_step.source=e_it->source;
+@@ -238,9 +238,10 @@ Function: partial_order_concurrencyt::is_shared_write
+ bool partial_order_concurrencyt::is_shared_write(event_it event) const
+ {
+   if(!event->is_shared_write()) return false;
+-  const irep_idt identifier=event->original_lhs_object.get_identifier();
+-  if(identifier=="goto_symex::\\guard") return false;
+-  const symbolt &symbol=ns.lookup(identifier);
++  const irep_idt obj_identifier=event->ssa_lhs.get_object_name();
++  if(obj_identifier=="goto_symex::\\guard") return false;
++
++  const symbolt &symbol=ns.lookup(obj_identifier);
+   return !symbol.is_thread_local;
+ }
+ 
+@@ -259,9 +260,10 @@ Function: partial_order_concurrencyt::is_shared_read
+ bool partial_order_concurrencyt::is_shared_read(event_it event) const
+ {
+   if(!event->is_shared_read()) return false;
+-  const irep_idt identifier=event->original_lhs_object.get_identifier();
+-  if(identifier=="goto_symex::\\guard") return false;
+-  const symbolt &symbol=ns.lookup(identifier);
++  const irep_idt obj_identifier=event->ssa_lhs.get_object_name();
++  if(obj_identifier=="goto_symex::\\guard") return false;
++
++  const symbolt &symbol=ns.lookup(obj_identifier);
+   return !symbol.is_thread_local;
+ }
+ 
+diff --git a/src/goto-symex/partial_order_concurrency.h b/src/goto-symex/partial_order_concurrency.h
+index 174a0ae..1348664 100644
+--- a/src/goto-symex/partial_order_concurrency.h
++++ b/src/goto-symex/partial_order_concurrency.h
+@@ -65,7 +65,9 @@ protected:
+   // produces an address ID for an event
+   inline irep_idt address(event_it event) const
+   {
+-    return event->original_lhs_object.get_identifier();
++    ssa_exprt tmp=event->ssa_lhs;
++    tmp.remove_level_2();
++    return tmp.get_identifier();
+   }
+ 
+   // produce a clock symbol for some event
+diff --git a/src/goto-symex/postcondition.cpp b/src/goto-symex/postcondition.cpp
+index 815e19a..cd007a7 100644
+--- a/src/goto-symex/postcondition.cpp
++++ b/src/goto-symex/postcondition.cpp
+@@ -175,8 +175,7 @@ void postconditiont::weaken(exprt &dest)
+   // we are lazy:
+   // if lhs is mentioned in dest, we use "true".
+   
+-  const irep_idt &lhs_identifier=
+-    s.get_original_name(SSA_step.ssa_lhs.get_identifier());
++  const irep_idt &lhs_identifier=SSA_step.ssa_lhs.get_object_name();
+ 
+   if(is_used(dest, lhs_identifier))
+     dest=true_exprt();
+@@ -198,8 +197,7 @@ Function: postconditiont::strengthen
+ 
+ void postconditiont::strengthen(exprt &dest)
+ {
+-  const irep_idt &lhs_identifier=
+-    s.get_original_name(SSA_step.ssa_lhs.get_identifier());
++  const irep_idt &lhs_identifier=SSA_step.ssa_lhs.get_object_name();
+ 
+   if(!is_used(SSA_step.ssa_rhs, lhs_identifier))
+   {
+@@ -240,9 +238,14 @@ bool postconditiont::is_used(
+     assert(expr.operands().size()==1);
+     return is_used_address_of(expr.op0(), identifier);
+   }
++  else if(expr.id()==ID_symbol &&
++          expr.get_bool(ID_C_SSA_symbol))
++  {
++    return to_ssa_expr(expr).get_object_name()==identifier;
++  }
+   else if(expr.id()==ID_symbol)
+   {
+-    return s.get_original_name(expr.get(ID_identifier))==identifier;
++    return expr.get(ID_identifier)==identifier;
+   }
+   else if(expr.id()==ID_dereference)
+   {
+diff --git a/src/goto-symex/precondition.cpp b/src/goto-symex/precondition.cpp
+index 5130d47..c90a2d7 100644
+--- a/src/goto-symex/precondition.cpp
++++ b/src/goto-symex/precondition.cpp
+@@ -161,21 +161,11 @@ void preconditiont::compute_rec(exprt &dest)
+     assert(dest.operands().size()==1);
+     compute_address_of(dest.op0());
+   }
+-  else if(dest.id()==ID_symbol)
+-  {
+-    if(dest.get(ID_identifier)==
+-       s.get_original_name(SSA_step.ssa_lhs.get_identifier()))
+-    {
+-      dest=SSA_step.ssa_rhs;
+-      s.get_original_name(dest);
+-    }
+-  }
+   else if(dest.id()==ID_dereference)
+   {
+     assert(dest.operands().size()==1);
+ 
+-    const irep_idt &lhs_identifier=
+-      s.get_original_name(SSA_step.ssa_lhs.get_identifier());
++    const irep_idt &lhs_identifier=SSA_step.ssa_lhs.get_object_name();
+   
+     // aliasing may happen here
+ 
+@@ -204,6 +194,11 @@ void preconditiont::compute_rec(exprt &dest)
+       compute_rec(dest.op0());
+     }
+   }
++  else if(dest==SSA_step.ssa_lhs.get_original_expr())
++  {
++    dest=SSA_step.ssa_rhs;
++    s.get_original_name(dest);
++  }
+   else
+     Forall_operands(it, dest)
+       compute_rec(*it);
+diff --git a/src/goto-symex/renaming_ns.h b/src/goto-symex/renaming_ns.h
+deleted file mode 100644
+index 2c4ef53..0000000
+--- a/src/goto-symex/renaming_ns.h
++++ /dev/null
+@@ -1,39 +0,0 @@
+-/*******************************************************************\
+-
+-Module:
+-
+-Author: Daniel Kroening, kroening@kroening.com
+-
+-\*******************************************************************/
+-
+-#ifndef CPROVER_GOTO_SYMEX_RENAMING_NS_H
+-#define CPROVER_GOTO_SYMEX_RENAMING_NS_H
+-
+-#include <util/namespace.h>
+-
+-class renaming_nst:public namespacet
+-{
+-public:
+-  renaming_nst(
+-    const namespacet &_ns,
+-    class goto_symex_statet &_state):
+-    namespacet(_ns),
+-    state(_state)
+-  {
+-  }
+-   
+-  virtual bool lookup(const irep_idt &name, const symbolt *&symbol) const
+-  {
+-    return namespacet::lookup(state.get_original_name(name), symbol);
+-  }
+-  
+-  const symbolt &lookup(const irep_idt &name) const
+-  {
+-    return namespacet::lookup(state.get_original_name(name));
+-  }
+-  
+-protected:
+-  class goto_symex_statet &state;
+-};
+- 
+-#endif
+diff --git a/src/goto-symex/slice.cpp b/src/goto-symex/slice.cpp
+index 6686276..aea0f16 100644
+--- a/src/goto-symex/slice.cpp
++++ b/src/goto-symex/slice.cpp
+@@ -177,7 +177,6 @@ Function: symex_slicet::slice_assignment
+ void symex_slicet::slice_assignment(
+   symex_target_equationt::SSA_stept &SSA_step)
+ {
+-  assert(SSA_step.ssa_lhs.id()==ID_symbol);
+   const irep_idt &id=SSA_step.ssa_lhs.get_identifier();
+ 
+   if(depends.find(id)==depends.end())
+@@ -204,7 +203,6 @@ Function: symex_slicet::slice_decl
+ void symex_slicet::slice_decl(
+   symex_target_equationt::SSA_stept &SSA_step)
+ {
+-  assert(SSA_step.ssa_lhs.id()==ID_symbol);
+   const irep_idt &id=SSA_step.ssa_lhs.get_identifier();
+ 
+   if(depends.find(id)==depends.end())
+diff --git a/src/goto-symex/slice_by_trace.cpp b/src/goto-symex/slice_by_trace.cpp
+index 8ee7b2d..57a9f3f 100644
+--- a/src/goto-symex/slice_by_trace.cpp
++++ b/src/goto-symex/slice_by_trace.cpp
+@@ -309,9 +309,8 @@ void symex_slice_by_tracet::compute_ts_back(
+ 	if ((t[j].is_true()) || (t[j].is_false())) {
+ 	  merge.push_back(t[j]);
+ 	} else {
+-	  exprt merge_sym =exprt(ID_symbol, typet(ID_bool));
+-	  merge_sym.set(ID_identifier, id2string(merge_identifier)+"#"+
+-			i2string(merge_count++));
++	  ssa_exprt merge_sym(merge_symbol);
++    merge_sym.set_level_2(merge_count++);
+ 	  exprt t_copy (t[j]);
+ 	  merge_map_back.push_back(t_copy);
+ 	  std::set<exprt> empty_impls;
+@@ -571,8 +570,8 @@ void symex_slice_by_tracet::assign_merges(
+   size_t merge_count = (merge_map_back.size()) - 1;
+   for (std::vector<exprt>::reverse_iterator i = merge_map_back.rbegin();
+        i != merge_map_back.rend(); i++) {
+-    symbol_exprt merge_sym(typet(ID_bool));
+-    merge_sym.set_identifier(id2string(merge_identifier)+"#"+i2string(merge_count));
++    ssa_exprt merge_sym(merge_symbol);
++    merge_sym.set_level_2(merge_count);
+     merge_count--;
+     guardt t_guard;
+     t_guard.make_true();
+@@ -585,7 +584,6 @@ void symex_slice_by_tracet::assign_merges(
+     
+     SSA_step.guard=t_guard.as_expr();
+     SSA_step.ssa_lhs=merge_sym;
+-    SSA_step.original_lhs_object=merge_symbol;
+     SSA_step.ssa_rhs.swap(merge_copy);
+     SSA_step.assignment_type=symex_targett::HIDDEN;
+     
+diff --git a/src/goto-symex/symex_assign.cpp b/src/goto-symex/symex_assign.cpp
+index fe5d268..e69d550 100644
+--- a/src/goto-symex/symex_assign.cpp
++++ b/src/goto-symex/symex_assign.cpp
+@@ -15,6 +15,30 @@ Author: Daniel Kroening, kroening@kroening.com
+ 
+ /*******************************************************************\
+ 
++Function: goto_symext::symex_assign_rec
++
++  Inputs:
++
++ Outputs:
++
++ Purpose:
++
++\*******************************************************************/
++
++void goto_symext::symex_assign_rec(
++  statet &state,
++  const code_assignt &code)
++{
++  code_assignt deref_code=code;
++
++  clean_expr(deref_code.lhs(), state, true);
++  clean_expr(deref_code.rhs(), state, false);
++
++  symex_assign(state, deref_code);
++}
++
++/*******************************************************************\
++
+ Function: goto_symext::symex_assign
+ 
+   Inputs:
+@@ -133,8 +157,9 @@ void goto_symext::symex_assign_rec(
+   guardt &guard,
+   visibilityt visibility)
+ {
+-  if(lhs.id()==ID_symbol)
+-    symex_assign_symbol(state, to_symbol_expr(lhs), full_lhs, rhs, guard, visibility);
++  if(lhs.id()==ID_symbol &&
++     lhs.get_bool(ID_C_SSA_symbol))
++    symex_assign_symbol(state, to_ssa_expr(lhs), full_lhs, rhs, guard, visibility);
+   else if(lhs.id()==ID_index)
+     symex_assign_array(state, to_index_expr(lhs), full_lhs, rhs, guard, visibility);
+   else if(lhs.id()==ID_member)
+@@ -194,7 +219,7 @@ Function: goto_symext::symex_assign_symbol
+ 
+ void goto_symext::symex_assign_symbol(
+   statet &state,
+-  const symbol_exprt &lhs,
++  const ssa_exprt &lhs, // L1
+   const exprt &full_lhs,
+   const exprt &rhs,
+   guardt &guard,
+@@ -213,14 +238,10 @@ void goto_symext::symex_assign_symbol(
+     tmp_ssa_rhs.swap(ssa_rhs);
+   }
+   
+-  symbol_exprt original_lhs=lhs;
+-  state.get_original_name(original_lhs);
+-  
+   state.rename(ssa_rhs, ns);
+   do_simplify(ssa_rhs);
+   
+-  symbol_exprt ssa_lhs=lhs;
+-  state.rename(ssa_lhs, ns, goto_symex_statet::L1);
++  ssa_exprt ssa_lhs=lhs;
+   state.assignment(ssa_lhs, ssa_rhs, ns, constant_propagation);
+   
+   exprt ssa_full_lhs=full_lhs;
+@@ -236,8 +257,8 @@ void goto_symext::symex_assign_symbol(
+   // do the assignment
+   target.assignment(
+     tmp_guard.as_expr(),
+-    ssa_lhs, original_lhs,
+-    ssa_full_lhs, add_to_lhs(full_lhs, original_lhs),
++    ssa_lhs,
++    ssa_full_lhs, add_to_lhs(full_lhs, ssa_lhs.get_original_expr()),
+     ssa_rhs, 
+     state.source,
+     symex_targett::STATE);
+diff --git a/src/goto-symex/symex_atomic_section.cpp b/src/goto-symex/symex_atomic_section.cpp
+index f1e2752..2cc46e4 100644
+--- a/src/goto-symex/symex_atomic_section.cpp
++++ b/src/goto-symex/symex_atomic_section.cpp
+@@ -64,9 +64,8 @@ void goto_symext::symex_atomic_end(statet &state)
+       r_it!=state.read_in_atomic_section.end();
+       ++r_it)
+   {
+-    symbol_exprt r=r_it->first;
+-    r.set_identifier(
+-      state.level2.name(r.get_identifier(), r_it->second.first));
++    ssa_exprt r=r_it->first;
++    r.set_level_2(r_it->second.first);
+ 
+     // guard is the disjunction over reads
+     assert(!r_it->second.second.empty());
+@@ -79,12 +78,9 @@ void goto_symext::symex_atomic_end(statet &state)
+     exprt read_guard_expr=read_guard.as_expr();
+     do_simplify(read_guard_expr);
+ 
+-    symbol_exprt original_symbol=r_it->first;
+-    state.get_original_name(original_symbol);
+     target.shared_read(
+       read_guard_expr,
+       r,
+-      original_symbol,
+       atomic_section_id,
+       state.source);
+   }
+@@ -94,8 +90,8 @@ void goto_symext::symex_atomic_end(statet &state)
+       w_it!=state.written_in_atomic_section.end();
+       ++w_it)
+   {
+-    symbol_exprt w=w_it->first;
+-    state.level2(w);
++    ssa_exprt w=w_it->first;
++    w.set_level_2(state.level2.current_count(w.get_identifier()));
+ 
+     // guard is the disjunction over writes
+     assert(!w_it->second.empty());
+@@ -108,12 +104,9 @@ void goto_symext::symex_atomic_end(statet &state)
+     exprt write_guard_expr=write_guard.as_expr();
+     do_simplify(write_guard_expr);
+ 
+-    symbol_exprt original_symbol=w_it->first;
+-    state.get_original_name(original_symbol);
+     target.shared_write(
+       write_guard_expr,
+       w,
+-      original_symbol,
+       atomic_section_id,
+       state.source);
+   }
+diff --git a/src/goto-symex/symex_builtin_functions.cpp b/src/goto-symex/symex_builtin_functions.cpp
+index d420438..dcdaee2 100644
+--- a/src/goto-symex/symex_builtin_functions.cpp
++++ b/src/goto-symex/symex_builtin_functions.cpp
+@@ -135,10 +135,10 @@ void goto_symext::symex_malloc(
+ 
+       new_symbol_table.add(size_symbol);
+ 
+-      guardt guard;
+-      symex_assign_rec(state, size_symbol.symbol_expr(), nil_exprt(), size, guard, VISIBLE);
++      code_assignt assignment(size_symbol.symbol_expr(), size);
++      size=assignment.lhs();
+ 
+-      size=size_symbol.symbol_expr();
++      symex_assign_rec(state, assignment);
+     }
+   }
+   
+@@ -173,10 +173,7 @@ void goto_symext::symex_malloc(
+   if(rhs.type()!=lhs.type())
+     rhs.make_typecast(lhs.type());
+ 
+-  state.rename(rhs, ns);
+-  
+-  guardt guard;
+-  symex_assign_rec(state, lhs, nil_exprt(), rhs, guard, VISIBLE);
++  symex_assign_rec(state, code_assignt(lhs, rhs));
+ }
+ 
+ /*******************************************************************\
+@@ -198,8 +195,9 @@ irep_idt get_symbol(const exprt &src)
+   else if(src.id()==ID_address_of)
+   {
+     exprt op=to_address_of_expr(src).object();
+-    if(op.id()==ID_symbol)
+-      return to_symbol_expr(op).get_identifier();
++    if(op.id()==ID_symbol &&
++       op.get_bool(ID_C_SSA_symbol))
++      return to_ssa_expr(op).get_object_name();
+     else
+       return irep_idt();
+   }
+@@ -226,8 +224,6 @@ void goto_symext::symex_gcc_builtin_va_arg_next(
+   
+   if(id!=irep_idt())
+   {
+-    id=state.get_original_name(id);
+-
+     // strip last name off id to get function name
+     std::size_t pos=id2string(id).rfind("::");
+     if(pos!=std::string::npos)
+@@ -252,8 +248,7 @@ void goto_symext::symex_gcc_builtin_va_arg_next(
+     }
+   }
+ 
+-  guardt guard;
+-  symex_assign_rec(state, lhs, nil_exprt(), rhs, guard, VISIBLE);
++  symex_assign_rec(state, code_assignt(lhs, rhs));
+ }
+ 
+ /*******************************************************************\
+@@ -488,10 +483,7 @@ void goto_symext::symex_cpp_new(
+   else
+     rhs.copy_to_operands(symbol.symbol_expr());
+   
+-  state.rename(rhs, ns);
+-
+-  guardt guard;
+-  symex_assign_rec(state, lhs, nil_exprt(), rhs, guard, VISIBLE);
++  symex_assign_rec(state, code_assignt(lhs, rhs));
+ }
+ 
+ /*******************************************************************\
+diff --git a/src/goto-symex/symex_dead.cpp b/src/goto-symex/symex_dead.cpp
+index 247d91e..6e5ca9c 100644
+--- a/src/goto-symex/symex_dead.cpp
++++ b/src/goto-symex/symex_dead.cpp
+@@ -43,19 +43,9 @@ void goto_symext::symex_dead(statet &state)
+   // We increase the L2 renaming to make these non-deterministic.
+   // We also prevent propagation of old values.
+   
+-  const irep_idt &identifier=
+-    to_symbol_expr(code.op0()).get_identifier();
+-    
+-  const irep_idt l1_identifier=
+-    state.rename(identifier, ns, goto_symex_statet::L1);
+-    
+-  // prevent propagation
+-  state.propagation.remove(l1_identifier);
++  ssa_exprt ssa(to_symbol_expr(code.op0()));
++  state.rename(ssa, ns, goto_symex_statet::L1);
+ 
+-  // L2 renaming
+-  unsigned new_count=state.level2.current_count(l1_identifier)+1;
+-  state.level2.rename(l1_identifier, new_count);
+-    
+   // in case of pointers, put something into the value set
+   if(ns.follow(code.op0().type()).id()==ID_pointer)
+   {
+@@ -74,10 +64,18 @@ void goto_symext::symex_dead(statet &state)
+     else
+       rhs=exprt(ID_invalid);
+     
+-    symbol_exprt l1_lhs;
+-    l1_lhs.type()=code.op0().type();
+-    l1_lhs.set_identifier(l1_identifier);
+     state.rename(rhs, ns, goto_symex_statet::L1);
+-    state.value_set.assign(l1_lhs, rhs, ns);
++    state.value_set.assign(ssa, rhs, ns);
+   }
++
++  ssa_exprt ssa_lhs=to_ssa_expr(ssa);
++  const irep_idt &l1_identifier=ssa_lhs.get_identifier();
++
++  // prevent propagation
++  state.propagation.remove(l1_identifier);
++
++  // L2 renaming
++  if(state.level2.current_names.find(l1_identifier)!=
++     state.level2.current_names.end())
++    state.level2.increase_counter(l1_identifier);
+ }
+diff --git a/src/goto-symex/symex_decl.cpp b/src/goto-symex/symex_decl.cpp
+index 33ac89c..110761a 100644
+--- a/src/goto-symex/symex_decl.cpp
++++ b/src/goto-symex/symex_decl.cpp
+@@ -46,19 +46,9 @@ void goto_symext::symex_decl(statet &state)
+   // We increase the L2 renaming to make these non-deterministic.
+   // We also prevent propagation of old values.
+   
+-  const irep_idt &identifier=
+-    to_symbol_expr(code.op0()).get_identifier();
+-    
+-  const irep_idt l1_identifier=
+-    state.rename(identifier, ns, goto_symex_statet::L1);
+-    
+-  // prevent propagation
+-  state.propagation.remove(l1_identifier);
++  ssa_exprt ssa(to_symbol_expr(code.op0()));
++  state.rename(ssa, ns, goto_symex_statet::L1);
+ 
+-  // L2 renaming
+-  unsigned new_count=state.level2.current_count(l1_identifier)+1;
+-  state.level2.rename(l1_identifier, new_count);
+-    
+   // in case of pointers, put something into the value set
+   if(ns.follow(code.op0().type()).id()==ID_pointer)
+   {
+@@ -77,20 +67,28 @@ void goto_symext::symex_decl(statet &state)
+     else
+       rhs=exprt(ID_invalid);
+     
+-    symbol_exprt l1_lhs;
+-    l1_lhs.type()=code.op0().type();
+-    l1_lhs.set_identifier(l1_identifier);
+     state.rename(rhs, ns, goto_symex_statet::L1);
+-    state.value_set.assign(l1_lhs, rhs, ns);
++    state.value_set.assign(ssa, rhs, ns);
+   }
+   
+-  // record the declaration
+-  symbol_exprt original_lhs=to_symbol_expr(code.op0());
+-  symbol_exprt ssa_lhs=original_lhs;
++  ssa_exprt ssa_lhs=to_ssa_expr(ssa);
++  const irep_idt &l1_identifier=ssa_lhs.get_identifier();
++
++  // prevent propagation
++  state.propagation.remove(l1_identifier);
++
++  // L2 renaming
++  // inlining may yield multiple declarations of the same identifier
++  // within the same L1 context
++  if(state.level2.current_names.find(l1_identifier)==
++     state.level2.current_names.end())
++    state.level2.current_names[l1_identifier]=std::make_pair(ssa_lhs, 0);
++  state.level2.increase_counter(l1_identifier);
+   state.rename(ssa_lhs, ns);
+-  
++
++  // record the declaration
+   target.decl(
+     state.guard.as_expr(),
+-    ssa_lhs, original_lhs,
++    ssa_lhs,
+     state.source);
+ }
+diff --git a/src/goto-symex/symex_dereference.cpp b/src/goto-symex/symex_dereference.cpp
+index 098e1c7..0fccc23 100644
+--- a/src/goto-symex/symex_dereference.cpp
++++ b/src/goto-symex/symex_dereference.cpp
+@@ -19,7 +19,6 @@ Author: Daniel Kroening, kroening@kroening.com
+ #include <ansi-c/c_types.h>
+ 
+ #include "goto_symex.h"
+-#include "renaming_ns.h"
+ #include "symex_dereference_state.h"
+ 
+ /*******************************************************************\
+@@ -224,8 +223,28 @@ exprt goto_symext::address_arithmetic(
+     if(ns.follow(result.type()).id()==ID_array && !keep_array)
+       result=index_exprt(result, gen_zero(index_type()));
+ 
+-    // TODO: consider pointer offset for ID_SSA_symbol
+-    result=address_of_exprt(result);
++    // handle field-sensitive SSA symbol
++    mp_integer offset=0;
++    if(expr.id()==ID_symbol &&
++       expr.get_bool(ID_C_SSA_symbol))
++    {
++      offset=compute_pointer_offset(ns, expr);
++      assert(offset>=0);
++    }
++
++    if(offset>0)
++    {
++      byte_extract_exprt be(byte_extract_id());
++      be.type()=expr.type();
++      be.op()=to_ssa_expr(expr).get_l1_object();
++      be.offset()=from_integer(offset, index_type());
++
++      result=address_arithmetic(be, state, guard, keep_array);
++
++      do_simplify(result);
++    }
++    else
++      result=address_of_exprt(result);
+   }
+   else
+   {
+@@ -270,10 +289,9 @@ void goto_symext::dereference_rec(
+ 
+     // we need to set up some elaborate call-backs
+     symex_dereference_statet symex_dereference_state(*this, state);
+-    renaming_nst renaming_ns(ns, state);
+ 
+     value_set_dereferencet dereference(
+-      renaming_ns,
++      ns,
+       new_symbol_table,
+       options,
+       symex_dereference_state);      
+@@ -390,4 +408,7 @@ void goto_symext::dereference(
+   // start the recursion!
+   guardt guard;  
+   dereference_rec(expr, state, guard, write);
++  // dereferencing may introduce new symbol_exprt
++  // (like __CPROVER_memory)
++  state.rename(expr, ns, goto_symex_statet::L1);
+ }
+diff --git a/src/goto-symex/symex_dereference_state.cpp b/src/goto-symex/symex_dereference_state.cpp
+index 58d95a7..7f998e9 100644
+--- a/src/goto-symex/symex_dereference_state.cpp
++++ b/src/goto-symex/symex_dereference_state.cpp
+@@ -9,7 +9,6 @@ Author: Daniel Kroening, kroening@kroening.com
+ #include <util/symbol_table.h>
+ 
+ #include "symex_dereference_state.h"
+-#include "renaming_ns.h"
+ 
+ /*******************************************************************\
+ 
+@@ -46,22 +45,50 @@ bool symex_dereference_statet::has_failed_symbol(
+   const exprt &expr,
+   const symbolt *&symbol)
+ {
+-  renaming_nst renaming_ns(goto_symex.ns, state);
++  const namespacet &ns=goto_symex.ns;
+ 
+-  if(expr.id()==ID_symbol)
++  if(expr.id()==ID_symbol &&
++     expr.get_bool(ID_C_SSA_symbol))
++  {
++    const ssa_exprt &ssa_expr=to_ssa_expr(expr);
++    if(ssa_expr.get_original_expr().id()!=ID_symbol)
++      return false;
++
++    const symbolt &ptr_symbol=
++      ns.lookup(to_ssa_expr(expr).get_object_name());
++
++    const irep_idt &failed_symbol=
++      ptr_symbol.type.get("#failed_symbol");
++
++    if(failed_symbol!="" &&
++        !ns.lookup(failed_symbol, symbol))
++    {
++      symbolt sym=*symbol;
++      symbolt *sym_ptr=0;
++      symbol_exprt sym_expr=sym.symbol_expr();
++      state.rename(sym_expr, ns, goto_symex_statet::L1);
++      sym.name=to_ssa_expr(sym_expr).get_identifier();
++      goto_symex.new_symbol_table.move(sym, sym_ptr);
++      symbol=sym_ptr;
++      return true;
++    }
++  }
++  else if(expr.id()==ID_symbol)
+   {
+     const symbolt &ptr_symbol=
+-      renaming_ns.lookup(to_symbol_expr(expr).get_identifier());
++      ns.lookup(to_symbol_expr(expr).get_identifier());
+ 
+     const irep_idt &failed_symbol=
+       ptr_symbol.type.get("#failed_symbol");    
+       
+     if(failed_symbol!="" &&
+-        !renaming_ns.lookup(failed_symbol, symbol))
++        !ns.lookup(failed_symbol, symbol))
+     {
+       symbolt sym=*symbol;
+       symbolt *sym_ptr=0;
+-      sym.name=state.rename(sym.name, renaming_ns, goto_symex_statet::L1);
++      symbol_exprt sym_expr=sym.symbol_expr();
++      state.rename(sym_expr, ns, goto_symex_statet::L1);
++      sym.name=to_ssa_expr(sym_expr).get_identifier();
+       goto_symex.new_symbol_table.move(sym, sym_ptr);
+       symbol=sym_ptr;
+       return true;
+@@ -87,9 +114,7 @@ void symex_dereference_statet::get_value_set(
+   const exprt &expr,
+   value_setst::valuest &value_set)
+ {
+-  renaming_nst renaming_ns(goto_symex.ns, state);
+-
+-  state.value_set.get_value_set(expr, value_set, renaming_ns);
++  state.value_set.get_value_set(expr, value_set, goto_symex.ns);
+   
+   #if 0
+   std::cout << "**************************\n";
+diff --git a/src/goto-symex/symex_function_call.cpp b/src/goto-symex/symex_function_call.cpp
+index f318a4f..331969d 100644
+--- a/src/goto-symex/symex_function_call.cpp
++++ b/src/goto-symex/symex_function_call.cpp
+@@ -129,9 +129,7 @@ void goto_symext::argument_assignments(
+         }
+       }
+       
+-      guardt guard;
+-      state.rename(lhs, ns, goto_symex_statet::L1);
+-      symex_assign_symbol(state, lhs, nil_exprt(), rhs, guard, VISIBLE);
++      symex_assign_rec(state, code_assignt(lhs, rhs));
+     }
+ 
+     it1++;
+@@ -160,9 +158,7 @@ void goto_symext::argument_assignments(
+       
+       symbol_exprt lhs=symbol_exprt(id, it1->type());
+ 
+-      guardt guard;
+-      state.rename(lhs, ns, goto_symex_statet::L1);
+-      symex_assign_symbol(state, lhs, nil_exprt(), *it1, guard, VISIBLE);
++      symex_assign_rec(state, code_assignt(lhs, *it1));
+     }
+   }
+   else if(it1!=arguments.end())
+@@ -309,9 +305,8 @@ void goto_symext::symex_function_call_code(
+     {
+       side_effect_expr_nondett rhs(call.lhs().type());
+       rhs.location()=call.location();
+-      state.rename(rhs, ns, goto_symex_statet::L1);
+       code_assignt code(call.lhs(), rhs);
+-      symex_assign(state, to_code_assign(code)); /* TODO: clean_expr? */
++      symex_assign_rec(state, code);
+     }
+ 
+     state.source.pc++;
+@@ -379,11 +374,23 @@ void goto_symext::pop_frame(statet &state)
+     state.level1.restore_from(frame.old_level1);
+   
+     // clear function-locals from L2 renaming
+-    for(statet::framet::local_variablest::const_iterator
+-        it=frame.local_variables.begin();
+-        it!=frame.local_variables.end();
+-        it++)
+-      state.level2.remove(*it);
++    for(goto_symex_statet::renaming_levelt::current_namest::iterator
++        c_it=state.level2.current_names.begin();
++        c_it!=state.level2.current_names.end();
++       ) // no ++c_it
++    {
++      const irep_idt l1_o_id=c_it->second.first.get_l1_object_identifier();
++      // could use iteration over local_objects as l1_o_id is prefix
++      if(frame.local_objects.find(l1_o_id)==frame.local_objects.end())
++      {
++        ++c_it;
++        continue;
++      }
++      goto_symex_statet::renaming_levelt::current_namest::iterator
++        cur=c_it;
++      ++c_it;
++      state.level2.current_names.erase(cur);
++    }
+   }
+   
+   state.pop_frame();
+@@ -446,7 +453,9 @@ void goto_symext::locality(
+       it++)
+   {
+     // get L0 name
+-    irep_idt l0_name=state.rename(*it, ns, goto_symex_statet::L0);
++    ssa_exprt ssa(ns.lookup(*it).symbol_expr());
++    state.rename(ssa, ns, goto_symex_statet::L0);
++    const irep_idt l0_name=ssa.get_identifier();
+ 
+     // save old L1 name for popping the frame
+     statet::level1t::current_namest::const_iterator c_it=
+@@ -459,19 +468,23 @@ void goto_symext::locality(
+     // identifiers may be shared among functions
+     // (e.g., due to inlining or other code restructuring)
+     
+-    irep_idt l1_name;
++    state.level1.current_names[l0_name]=
++      std::make_pair(ssa, frame_nr);
++    state.rename(ssa, ns, goto_symex_statet::L1);
++
++    irep_idt l1_name=ssa.get_identifier();
+     unsigned offset=0;
+     
+-    do
++    while(state.l1_history.find(l1_name)!=state.l1_history.end())
+     {
+-      state.level1.rename(l0_name, frame_nr+offset);
+-      l1_name=state.level1(l0_name);
+-      offset++;
++      state.level1.increase_counter(l0_name);
++      ssa.set_level_1(frame_nr+offset);
++      l1_name=ssa.get_identifier();
++      ++offset;
+     }
+-    while(state.l1_history.find(l1_name)!=state.l1_history.end());
+     
+     // now unique -- store
+-    frame.local_variables.insert(l1_name);
++    frame.local_objects.insert(l1_name);
+     state.l1_history.insert(l1_name);
+   }
+ }
+@@ -501,8 +514,6 @@ void goto_symext::return_assignment(statet &state)
+   if(code.operands().size()==1)
+   {
+     exprt value=code.op0();
+-
+-    clean_expr(value, state, false);
+   
+     if(frame.return_value.is_not_nil())
+     {
+@@ -510,7 +521,8 @@ void goto_symext::return_assignment(statet &state)
+ 
+       assert(base_type_eq(assignment.lhs().type(),
+             assignment.rhs().type(), ns));
+-      symex_assign(state, assignment);
++
++      symex_assign_rec(state, assignment);
+     }
+   }
+   else
+diff --git a/src/goto-symex/symex_goto.cpp b/src/goto-symex/symex_goto.cpp
+index 5006b0a..0d84b2c 100644
+--- a/src/goto-symex/symex_goto.cpp
++++ b/src/goto-symex/symex_goto.cpp
+@@ -136,7 +136,7 @@ void goto_symext::symex_goto(statet &state)
+       exprt new_rhs=new_guard;
+       new_rhs.make_not();
+       
+-      symbol_exprt new_lhs=guard_symbol_expr;
++      ssa_exprt new_lhs(guard_symbol_expr);
+       state.rename(new_lhs, ns, goto_symex_statet::L1);
+       state.assignment(new_lhs, new_rhs, ns, false);
+       
+@@ -144,7 +144,7 @@ void goto_symext::symex_goto(statet &state)
+ 
+       target.assignment(
+         guard.as_expr(),
+-        new_lhs, guard_symbol_expr, new_lhs, guard_symbol_expr,
++        new_lhs, new_lhs, guard_symbol_expr,
+         new_rhs,
+         state.source,
+         symex_targett::GUARD);
+@@ -298,19 +298,20 @@ void goto_symext::phi_function(
+   statet &dest_state)
+ {
+   // go over all variables to see what changed
+-  std::set<irep_idt> variables;
++  std::set<ssa_exprt> variables;
+ 
+   goto_state.level2.get_variables(variables);
+   dest_state.level2.get_variables(variables);
+   
+-  for(std::set<irep_idt>::const_iterator
++  for(std::set<ssa_exprt>::const_iterator
+       it=variables.begin();
+       it!=variables.end();
+       it++)
+   {
+-    const irep_idt l1_identifier=*it;
++    const irep_idt l1_identifier=it->get_identifier();
++    const irep_idt &obj_identifier=it->get_object_name();
+   
+-    if(l1_identifier==guard_identifier)
++    if(obj_identifier==guard_identifier)
+       continue; // just a guard, don't bother
+       
+     if(goto_state.level2.current_count(l1_identifier)==
+@@ -319,23 +320,16 @@ void goto_symext::phi_function(
+ 
+     // changed!
+ 
+-    irep_idt original_identifier=
+-      dest_state.get_original_name(l1_identifier);
+-
+     // shared variables are renamed on every access anyway, we don't need to
+     // merge anything
+-    const symbolt &symbol=ns.lookup(original_identifier);
++    const symbolt &symbol=ns.lookup(obj_identifier);
+     
+     // shared?
+     if(dest_state.atomic_section_id==0 &&
+        dest_state.threads.size()>=2 && symbol.is_shared())
+       continue; // no phi nodes for shared stuff
+     
+-    // get type (may need renaming)      
+-    typet type=symbol.type;
+-    dest_state.rename(type, ns);
+-    
+-    exprt goto_state_rhs, dest_state_rhs;
++    exprt goto_state_rhs=*it, dest_state_rhs=*it;
+ 
+     {
+       goto_symex_statet::propagationt::valuest::const_iterator p_it=
+@@ -344,7 +338,7 @@ void goto_symext::phi_function(
+       if(p_it!=goto_state.propagation.values.end())
+         goto_state_rhs=p_it->second;
+       else
+-        goto_state_rhs=symbol_exprt(goto_state.level2.current_name(l1_identifier), type);
++        to_ssa_expr(goto_state_rhs).set_level_2(goto_state.level2.current_count(l1_identifier));
+     }
+     
+     {
+@@ -354,7 +348,7 @@ void goto_symext::phi_function(
+       if(p_it!=dest_state.propagation.values.end())
+         dest_state_rhs=p_it->second;
+       else
+-        dest_state_rhs=symbol_exprt(dest_state.level2.current_name(l1_identifier), type);
++        to_ssa_expr(dest_state_rhs).set_level_2(dest_state.level2.current_count(l1_identifier));
+     }
+     
+     exprt rhs;
+@@ -370,12 +364,11 @@ void goto_symext::phi_function(
+       // this gets the diff between the guards
+       tmp_guard-=dest_state.guard;
+       
+-      rhs=if_exprt(tmp_guard.as_expr(), goto_state_rhs, dest_state_rhs, type);
++      rhs=if_exprt(tmp_guard.as_expr(), goto_state_rhs, dest_state_rhs);
+       do_simplify(rhs);
+     }
+ 
+-    symbol_exprt lhs=symbol.symbol_expr();
+-    symbol_exprt new_lhs=symbol_exprt(l1_identifier, type);
++    ssa_exprt new_lhs=*it;
+     const bool record_events=dest_state.record_events;
+     dest_state.record_events=false;
+     dest_state.assignment(new_lhs, rhs, ns, true);
+@@ -383,7 +376,7 @@ void goto_symext::phi_function(
+     
+     target.assignment(
+       true_exprt(),
+-      new_lhs, lhs, new_lhs, lhs,
++      new_lhs, new_lhs, new_lhs.get_original_expr(),
+       rhs,
+       dest_state.source,
+       symex_targett::PHI);
+diff --git a/src/goto-symex/symex_main.cpp b/src/goto-symex/symex_main.cpp
+index 56f121f..0127d21 100644
+--- a/src/goto-symex/symex_main.cpp
++++ b/src/goto-symex/symex_main.cpp
+@@ -127,8 +127,9 @@ void goto_symext::rewrite_quantifiers(exprt &expr, statet &state)
+     // we keep the quantified variable unique by means of L2 renaming
+     assert(expr.operands().size()==2);
+     assert(expr.op0().id()==ID_symbol);
+-    irep_idt identifier=to_symbol_expr(expr.op0()).get_identifier();
+-    state.level2.increase_counter(state.level1(identifier));
++    symbol_exprt tmp0=to_symbol_expr(expr.op0());
++    state.rename(tmp0, ns, goto_symex_statet::L1);
++    state.level2.increase_counter(tmp0.get_identifier());
+     exprt tmp=expr.op1();
+     expr.swap(tmp);
+   }
+@@ -319,14 +320,7 @@ void goto_symext::symex_step(
+ 
+   case ASSIGN:
+     if(!state.guard.is_false())
+-    {
+-      code_assignt deref_code=to_code_assign(instruction.code);
+-
+-      clean_expr(deref_code.lhs(), state, true);
+-      clean_expr(deref_code.rhs(), state, false);
+-
+-      symex_assign(state, deref_code);
+-    }
++      symex_assign_rec(state, to_code_assign(instruction.code));
+ 
+     state.source.pc++;
+     break;
+diff --git a/src/goto-symex/symex_start_thread.cpp b/src/goto-symex/symex_start_thread.cpp
+index b3898f2..422bcc3 100644
+--- a/src/goto-symex/symex_start_thread.cpp
++++ b/src/goto-symex/symex_start_thread.cpp
+@@ -47,7 +47,7 @@ void goto_symext::symex_start_thread(statet &state)
+   new_thread.pc=thread_target;
+   new_thread.guard=state.guard;
+   new_thread.call_stack.push_back(state.top());
+-  new_thread.call_stack.back().local_variables.clear();
++  new_thread.call_stack.back().local_objects.clear();
+   new_thread.call_stack.back().goto_state_map.clear();
+   #if 0
+   new_thread.abstract_events=&(target.new_thread(cur_thread.abstract_events));
+@@ -56,29 +56,36 @@ void goto_symext::symex_start_thread(statet &state)
+   // create a copy of the local variables for the new thread
+   statet::framet &frame=state.top();
+ 
+-  for(std::set<irep_idt>::const_iterator
+-      it=frame.local_variables.begin();
+-      it!=frame.local_variables.end();
+-      it++)
++  for(goto_symex_statet::renaming_levelt::current_namest::const_iterator
++      c_it=state.level2.current_names.begin();
++      c_it!=state.level2.current_names.end();
++      ++c_it)
+   {
++    const irep_idt l1_o_id=c_it->second.first.get_l1_object_identifier();
++    // could use iteration over local_objects as l1_o_id is prefix
++    if(frame.local_objects.find(l1_o_id)==frame.local_objects.end())
++      continue;
++
+     // get original name
+-    irep_idt original_name=state.get_original_name(*it);
+-  
++    ssa_exprt lhs(c_it->second.first.get_original_expr());
++
+     // get L0 name for current thread
+-    irep_idt l0_name=state.level0.rename(original_name, t);
+-    
++    lhs.set_level_0(t);
++
+     // setup L1 name
+-    state.level1.rename(l0_name, 0);
+-    irep_idt l1_name=state.level1.current_name(l0_name);
++    if(!state.level1.current_names.insert(
++        std::make_pair(lhs.get_l1_object_identifier(),
++                       std::make_pair(lhs, 0))).second)
++      assert(false);
++    state.rename(lhs, ns, goto_symex_statet::L1);
++    const irep_idt l1_name=lhs.get_l1_object_identifier();
++    // store it
+     state.l1_history.insert(l1_name);
++    new_thread.call_stack.back().local_objects.insert(l1_name);
+ 
+-    // make sure the L2 name with current index exists for future renaming
+-    state.level2(l1_name);
+-    
+     // make copy
+-    typet type=ns.lookup(original_name).type;
+-    symbol_exprt lhs(l1_name, type);
+-    symbol_exprt rhs(*it, type);
++    ssa_exprt rhs=c_it->second.first;
++    state.rename(rhs, ns);
+ 
+     guardt guard;
+     symex_assign_symbol(state, lhs, nil_exprt(), rhs, guard, HIDDEN);
+@@ -97,13 +104,10 @@ void goto_symext::symex_start_thread(statet &state)
+       continue;
+ 
+     // get original name
+-    irep_idt original_name=symbol.name;
++    ssa_exprt lhs(symbol.symbol_expr());
+ 
+     // get L0 name for current thread
+-    irep_idt l0_name=state.level0.rename(original_name, t);
+-
+-    symbol_exprt lhs=symbol.symbol_expr();
+-    lhs.set_identifier(l0_name);
++    lhs.set_level_0(t);
+ 
+     exprt rhs=symbol.value;
+     if(rhs.is_nil())
+diff --git a/src/goto-symex/symex_target.h b/src/goto-symex/symex_target.h
+index 044243f..469a87a 100644
+--- a/src/goto-symex/symex_target.h
++++ b/src/goto-symex/symex_target.h
+@@ -11,6 +11,7 @@ Author: Daniel Kroening, kroening@kroening.com
+ 
+ #include <goto-programs/goto_program.h>
+ 
++class ssa_exprt;
+ class symbol_exprt;
+ 
+ class symex_targett
+@@ -55,24 +56,21 @@ public:
+   // read event
+   virtual void shared_read(
+     const exprt &guard,
+-    const symbol_exprt &ssa_rhs,
+-    const symbol_exprt &original_rhs,
++    const ssa_exprt &ssa_rhs,
+     unsigned atomic_section_id,
+     const sourcet &source)=0;
+ 
+   // write event
+   virtual void shared_write(
+     const exprt &guard,
+-    const symbol_exprt &ssa_rhs,
+-    const symbol_exprt &original_rhs,
++    const ssa_exprt &ssa_rhs,
+     unsigned atomic_section_id,
+     const sourcet &source)=0;
+ 
+   // write event - lhs must be symbol
+   virtual void assignment(
+     const exprt &guard,
+-    const symbol_exprt &ssa_lhs,
+-    const symbol_exprt &original_lhs_object,
++    const ssa_exprt &ssa_lhs,
+     const exprt &ssa_full_lhs,
+     const exprt &original_full_lhs,
+     const exprt &ssa_rhs,
+@@ -82,15 +80,13 @@ public:
+   // declare fresh variable - lhs must be symbol
+   virtual void decl(
+     const exprt &guard,
+-    const symbol_exprt &ssa_lhs,
+-    const symbol_exprt &original_lhs_object,
++    const ssa_exprt &ssa_lhs,
+     const sourcet &source)=0;
+ 
+   // note the death of a variable - lhs must be symbol
+   virtual void dead(
+     const exprt &guard,
+-    const symbol_exprt &ssa_lhs,
+-    const symbol_exprt &original_lhs_object,
++    const ssa_exprt &ssa_lhs,
+     const sourcet &source)=0;
+ 
+   // record a function call
+diff --git a/src/goto-symex/symex_target_equation.cpp b/src/goto-symex/symex_target_equation.cpp
+index 8601d7f..613e816 100644
+--- a/src/goto-symex/symex_target_equation.cpp
++++ b/src/goto-symex/symex_target_equation.cpp
+@@ -67,8 +67,7 @@ Function: symex_target_equationt::shared_read
+ 
+ void symex_target_equationt::shared_read(
+   const exprt &guard,
+-  const symbol_exprt &ssa_object,
+-  const symbol_exprt &original_object,
++  const ssa_exprt &ssa_object,
+   unsigned atomic_section_id,
+   const sourcet &source)
+ {
+@@ -77,7 +76,6 @@ void symex_target_equationt::shared_read(
+   
+   SSA_step.guard=guard;
+   SSA_step.ssa_lhs=ssa_object;
+-  SSA_step.original_lhs_object=original_object;
+   SSA_step.type=goto_trace_stept::SHARED_READ;
+   SSA_step.atomic_section_id=atomic_section_id;
+   SSA_step.source=source;
+@@ -99,8 +97,7 @@ Function: symex_target_equationt::shared_write
+ 
+ void symex_target_equationt::shared_write(
+   const exprt &guard,
+-  const symbol_exprt &ssa_object,
+-  const symbol_exprt &original_object,
++  const ssa_exprt &ssa_object,
+   unsigned atomic_section_id,
+   const sourcet &source)
+ {
+@@ -109,7 +106,6 @@ void symex_target_equationt::shared_write(
+   
+   SSA_step.guard=guard;
+   SSA_step.ssa_lhs=ssa_object;
+-  SSA_step.original_lhs_object=original_object;
+   SSA_step.type=goto_trace_stept::SHARED_WRITE;
+   SSA_step.atomic_section_id=atomic_section_id;
+   SSA_step.source=source;
+@@ -235,8 +231,7 @@ Function: symex_target_equationt::assignment
+ 
+ void symex_target_equationt::assignment(
+   const exprt &guard,
+-  const symbol_exprt &ssa_lhs,
+-  const symbol_exprt &original_lhs_object,
++  const ssa_exprt &ssa_lhs,
+   const exprt &ssa_full_lhs,
+   const exprt &original_full_lhs,
+   const exprt &ssa_rhs,
+@@ -250,7 +245,6 @@ void symex_target_equationt::assignment(
+   
+   SSA_step.guard=guard;
+   SSA_step.ssa_lhs=ssa_lhs;
+-  SSA_step.original_lhs_object=original_lhs_object;
+   SSA_step.ssa_full_lhs=ssa_full_lhs;
+   SSA_step.original_full_lhs=original_full_lhs;
+   SSA_step.ssa_rhs=ssa_rhs;
+@@ -277,8 +271,7 @@ Function: symex_target_equationt::decl
+ 
+ void symex_target_equationt::decl(
+   const exprt &guard,
+-  const symbol_exprt &ssa_lhs,
+-  const symbol_exprt &original_lhs_object,
++  const ssa_exprt &ssa_lhs,
+   const sourcet &source)
+ {
+   assert(ssa_lhs.is_not_nil());
+@@ -289,8 +282,7 @@ void symex_target_equationt::decl(
+   SSA_step.guard=guard;
+   SSA_step.ssa_lhs=ssa_lhs;
+   SSA_step.ssa_full_lhs=ssa_lhs;
+-  SSA_step.original_lhs_object=original_lhs_object;
+-  SSA_step.original_full_lhs=original_lhs_object;
++  SSA_step.original_full_lhs=ssa_lhs.get_original_expr();
+   SSA_step.type=goto_trace_stept::DECL;
+   SSA_step.source=source;
+ 
+@@ -315,8 +307,7 @@ Function: symex_target_equationt::dead
+ 
+ void symex_target_equationt::dead(
+   const exprt &guard,
+-  const symbol_exprt &ssa_lhs,
+-  const symbol_exprt &original_lhs_object,
++  const ssa_exprt &ssa_lhs,
+   const sourcet &source)
+ {
+   // we currently don't record these
+@@ -881,7 +872,6 @@ void symex_target_equationt::merge_ireps(SSA_stept &SSA_step)
+   merge_irep(SSA_step.guard);
+ 
+   merge_irep(SSA_step.ssa_lhs);
+-  merge_irep(SSA_step.original_lhs_object);
+   merge_irep(SSA_step.ssa_full_lhs);
+   merge_irep(SSA_step.original_full_lhs);
+   merge_irep(SSA_step.ssa_rhs);
+diff --git a/src/goto-symex/symex_target_equation.h b/src/goto-symex/symex_target_equation.h
+index 9dbee2b..026b3bc 100644
+--- a/src/goto-symex/symex_target_equation.h
++++ b/src/goto-symex/symex_target_equation.h
+@@ -34,24 +34,21 @@ public:
+   // read event
+   virtual void shared_read(
+     const exprt &guard,
+-    const symbol_exprt &ssa_object,
+-    const symbol_exprt &original_object,
++    const ssa_exprt &ssa_object,
+     unsigned atomic_section_id,
+     const sourcet &source);
+ 
+   // write event
+   virtual void shared_write(
+     const exprt &guard,
+-    const symbol_exprt &ssa_object,
+-    const symbol_exprt &original_object,
++    const ssa_exprt &ssa_object,
+     unsigned atomic_section_id,
+     const sourcet &source);
+ 
+   // assignment to a variable - lhs must be symbol
+   virtual void assignment(
+     const exprt &guard,
+-    const symbol_exprt &ssa_lhs,
+-    const symbol_exprt &original_lhs,
++    const ssa_exprt &ssa_lhs,
+     const exprt &ssa_full_lhs,
+     const exprt &original_full_lhs,
+     const exprt &ssa_rhs,
+@@ -61,15 +58,13 @@ public:
+   // declare fresh variable - lhs must be symbol
+   virtual void decl(
+     const exprt &guard,
+-    const symbol_exprt &ssa_lhs,
+-    const symbol_exprt &original_lhs_object,
++    const ssa_exprt &ssa_lhs,
+     const sourcet &source);
+ 
+   // note the death of a variable - lhs must be symbol
+   virtual void dead(
+     const exprt &guard,
+-    const symbol_exprt &ssa_lhs,
+-    const symbol_exprt &original_lhs_object,
++    const ssa_exprt &ssa_lhs,
+     const sourcet &source);
+ 
+   // record a function call
+@@ -187,7 +182,7 @@ public:
+     literalt guard_literal;
+ 
+     // for ASSIGNMENT and DECL
+-    symbol_exprt ssa_lhs, original_lhs_object;
++    ssa_exprt ssa_lhs;
+     exprt ssa_full_lhs, original_full_lhs;
+     exprt ssa_rhs;
+     assignment_typet assignment_type;
+@@ -214,8 +209,7 @@ public:
+     
+     SSA_stept():
+       guard(static_cast<const exprt &>(get_nil_irep())),
+-      ssa_lhs(static_cast<const symbol_exprt &>(get_nil_irep())),
+-      original_lhs_object(static_cast<const symbol_exprt &>(get_nil_irep())),
++      ssa_lhs(static_cast<const ssa_exprt &>(get_nil_irep())),
+       ssa_full_lhs(static_cast<const exprt &>(get_nil_irep())),
+       original_full_lhs(static_cast<const exprt &>(get_nil_irep())),
+       ssa_rhs(static_cast<const exprt &>(get_nil_irep())),
+diff --git a/src/path-symex/build_goto_trace.cpp b/src/path-symex/build_goto_trace.cpp
+index dd7fedf..2354e6e 100644
+--- a/src/path-symex/build_goto_trace.cpp
++++ b/src/path-symex/build_goto_trace.cpp
+@@ -57,7 +57,7 @@ void build_goto_trace(
+     case DECL:
+       trace_step.type=goto_trace_stept::DECL;
+       trace_step.full_lhs=step.full_lhs;
+-      trace_step.lhs_object=to_symbol_expr(step.full_lhs);
++      trace_step.lhs_object=ssa_exprt(step.full_lhs);
+       trace_step.full_lhs_value=decision_procedure.get(step.ssa_lhs);
+       break;
+       
+diff --git a/src/pointer-analysis/value_set_dereference.cpp b/src/pointer-analysis/value_set_dereference.cpp
+index f35750f..79f5dd7 100644
+--- a/src/pointer-analysis/value_set_dereference.cpp
++++ b/src/pointer-analysis/value_set_dereference.cpp
+@@ -664,6 +664,8 @@ void value_set_dereferencet::valid_check(
+   else if(symbol_expr.id()==ID_symbol)
+   {
+     const irep_idt identifier=
++      symbol_expr.get_bool(ID_C_SSA_symbol)?
++      to_ssa_expr(symbol_expr).get_object_name():
+       to_symbol_expr(symbol_expr).get_identifier();
+     
+     const symbolt &symbol=ns.lookup(identifier);
+diff --git a/src/util/array_name.cpp b/src/util/array_name.cpp
+index f7d8d47..ebfd57b 100644
+--- a/src/util/array_name.cpp
++++ b/src/util/array_name.cpp
+@@ -10,6 +10,7 @@ Author: Daniel Kroening, kroening@kroening.com
+ #include "expr.h"
+ #include "namespace.h"
+ #include "symbol.h"
++#include "std_expr.h"
+ 
+ /*******************************************************************\
+ 
+@@ -34,6 +35,13 @@ std::string array_name(
+ 
+     return array_name(ns, expr.op0())+"[]";
+   }
++  else if(expr.id()==ID_symbol &&
++          expr.get_bool(ID_C_SSA_symbol))
++  {
++    const symbolt &symbol=
++      ns.lookup(to_ssa_expr(expr).get_object_name());
++    return "array `"+id2string(symbol.base_name)+"'";
++  }
+   else if(expr.id()==ID_symbol)
+   {
+     const symbolt &symbol=ns.lookup(expr);
+diff --git a/src/util/pointer_offset_size.cpp b/src/util/pointer_offset_size.cpp
+index 6975b8f..26b635f 100644
+--- a/src/util/pointer_offset_size.cpp
++++ b/src/util/pointer_offset_size.cpp
+@@ -455,7 +455,13 @@ mp_integer compute_pointer_offset(
+   const exprt &expr)
+ {
+   if(expr.id()==ID_symbol)
+-    return 0;
++  {
++    if(expr.get_bool(ID_C_SSA_symbol))
++      return compute_pointer_offset(
++        ns, to_ssa_expr(expr).get_original_expr());
++    else
++      return 0;
++  }
+   else if(expr.id()==ID_index)
+   {
+     assert(expr.operands().size()==2);
+diff --git a/src/util/std_expr.h b/src/util/std_expr.h
+index 108bb27..45a73ef 100644
+--- a/src/util/std_expr.h
++++ b/src/util/std_expr.h
+@@ -3154,7 +3154,7 @@ public:
+     return to_symbol_expr(ode.root_object()).get_identifier();
+   }
+ 
+-  inline const irep_idt get_l1_object_identifier() const
++  inline const ssa_exprt get_l1_object() const
+   {
+     object_descriptor_exprt ode;
+     ode.object()=get_original_expr();
+@@ -3164,7 +3164,12 @@ public:
+     root.set(ID_L1, get(ID_L1));
+     root.update_identifier();
+ 
+-    return root.get_identifier();
++    return root;
++  }
++
++  inline const irep_idt get_l1_object_identifier() const
++  {
++    return get_l1_object().get_identifier();
+   }
+ 
+   inline const irep_idt get_original_name() const
+-- 
+2.0.1
+
