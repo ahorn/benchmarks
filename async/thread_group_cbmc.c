@@ -9,23 +9,28 @@
 unsigned thread_counter;
 
 // Public function pointer to an thread handler routine
-typedef void (*thread_handler_t)();
+typedef void (*thread_routine_t)();
+
+// \pre: `thread_counter` is positive
+void start_thread_routine(thread_routine_t thread_routine)
+{
+  assert(0 < thread_counter);
+  thread_routine();
+
+  __CPROVER_atomic_begin();
+  --thread_counter;
+  __CPROVER_atomic_end();
+}
 
 // `start_thread` and `join_all_threads`
 // must be only executed from the same thread
-void start_thread(thread_handler_t thread_handler)
+void start_thread(thread_routine_t thread_routine)
 {
   __CPROVER_atomic_begin();
   ++thread_counter;
   __CPROVER_atomic_end();
 
-  __CPROVER_fence("WWfence", "RRfence", "RWfence", "WRfence",
-                  "WWcumul", "RRcumul", "RWcumul", "WRcumul");
-
-  __CPROVER_ASYNC_1: thread_handler(),
-                     __CPROVER_fence("WWfence", "RRfence", "RWfence", "WRfence",
-                                     "WWcumul", "RRcumul", "RWcumul", "WRcumul"),
-                     --thread_counter;
+  __CPROVER_ASYNC_1: start_thread_routine(thread_routine);
 }
 
 void join_all_threads()
