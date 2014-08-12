@@ -8,10 +8,10 @@ SRC = \
 	$(ETHOC_HW_SRC)/ethoc-hw.c
 
 ethoc-fw-concrete:
-	gcc -I $(ETHOC_HW_SRC) -g $(SRC)
+	gcc -I $(ETHOC_HW_SRC) -lpthread -g $(SRC)
 
 ethoc-fw-concrete-bug:
-	gcc -I $(ETHOC_HW_SRC) -D_EXPOSE_BUG_ -D_BUG_ -g $(SRC)
+	gcc -I $(ETHOC_HW_SRC) -lpthread -D_EXPOSE_BUG_ -D_BUG_ -g $(SRC)
 
 ethoc-fw-cbmc:
 	@${CBMC} -I $(ETHOC_HW_SRC) -D_SYMBOLIC_EXECUTION_ -D_CBMC_ $(SRC)
