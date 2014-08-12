@@ -99,7 +99,7 @@ static void test_rx(void)
     assert(sizeof(tx_packet) == sizeof(rx_packet));
     assert((open_eth_reg_read(s, open_eth_reg(INT_SOURCE)) & INT_SOURCE_BUSY) == 0);
 
-#ifdef _ETHOC_TEST_4_
+#ifdef _ETHOC_TEST_3_
     /*
      * Expected to fail when interrupts are asynchronously fired
      */
@@ -346,10 +346,10 @@ int main(void)
 #endif
 #ifdef _ETHOC_TEST_3_
     test_rx();
+#elif _ETHOC_TEST_5_
+    test_rx();
 #endif
 #ifdef _ETHOC_TEST_4_
-    test_rx_busy();
-#elif _ETHOC_TEST_5_
     test_rx_busy();
 #endif
 }
