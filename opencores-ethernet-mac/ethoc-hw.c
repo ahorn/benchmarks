@@ -32,15 +32,64 @@
 #endif
 
 #ifdef _CBMC_
-void do_handler(hw_irq irq, int level)
+void run_interrupt_routine(hw_irq irq, int level)
 {
-  int n = irq->n;
-__CPROVER_ASYNC_1: irq->handler(irq->opaque, n, level);
+  assert(0 < irq->threads_counter);
+  irq->handler(irq->opaque, irq->n, level);
+  assert(0 < irq->threads_counter);
+
+  __CPROVER_atomic_begin();
+  --irq->threads_counter;
+  __CPROVER_atomic_end();
+}
+
+/* \pre: call only from within an atomic section */
+void async_cbmc_handler(hw_irq irq, int level)
+{
+  ++irq->threads_counter;
+
+__CPROVER_ASYNC_1: run_interrupt_routine(irq, level);
+}
+#else
+struct handler_args_t
+{
+  hw_irq irq;
+  int level;
+};
+
+void* async_pthread_handler(void *ptr)
+{
+  struct handler_args_t *args = (struct handler_args_t *) ptr;
+  hw_irq irq = args->irq;
+  irq->handler(irq->opaque, irq->n, args->level);
+
+  free(args);
+  pthread_exit(NULL);
+  return NULL;
+}
+
+void pthread_handler(hw_irq irq, int level)
+{
+  struct handler_args_t *args = malloc(sizeof(struct handler_args_t));
+  if (!args)
+    return;
+
+  args->irq = irq;
+  args->level = level;
+
+  pthread_mutex_lock(&irq->threads_counter_lock);
+  unsigned t_c = irq->threads_counter++;
+  pthread_mutex_unlock(&irq->threads_counter_lock);
+
+  assert(t_c < _ETHOC_DESC_SIZE_);
+  pthread_create(irq->threads + t_c, NULL, async_pthread_handler, (void *) args);
 }
 #endif
 
 /*
  * Fire interrupt if applicable
+ *
+ * \pre: if _CBMC_ is defined, call only from within an atomic section
  */
 void hw_set_irq(hw_irq irq, int level)
 {
@@ -48,9 +97,9 @@ void hw_set_irq(hw_irq irq, int level)
         return;
 
 #ifdef _CBMC_
-    do_handler(irq, level);
+    async_cbmc_handler(irq, level);
 #else
-    irq->handler(irq->opaque, irq->n, level);
+    pthread_handler(irq, level);
 #endif
 }
 

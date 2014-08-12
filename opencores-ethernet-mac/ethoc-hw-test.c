@@ -99,11 +99,27 @@ static void test_rx(void)
     assert(sizeof(tx_packet) == sizeof(rx_packet));
     assert((open_eth_reg_read(s, open_eth_reg(INT_SOURCE)) & INT_SOURCE_BUSY) == 0);
 
+#ifdef _ETHOC_TEST_4_
     /*
-     * Expected to fail when _CBMC_ is enabled because
-     * the interrupt will be fired asynchronously
+     * Expected to fail when interrupts are asynchronously fired
      */
     assert(raised_irq);
+#endif
+
+#ifdef _ETHOC_TEST_5_
+    /* wait for all pending interrupts to complete */
+#ifdef _CBMC_
+    __CPROVER_assume(s->irq->threads_counter == 0);
+#else
+    for (unsigned i = 0; i < _ETHOC_DESC_SIZE_; ++i)
+      pthread_join(s->irq->threads[i], NULL);
+#endif
+
+    /*
+     * assertion always holds because we let all interrupts run to completion
+     */
+    assert(raised_irq);
+#endif
 }
 
 static void test_rx_busy(void)
@@ -252,6 +268,11 @@ int main(void)
     IRQState irq;
     irq.n = 3;
     irq.handler = rx_handler;
+    irq.threads_counter = 0;
+
+#ifndef _CBMC_
+    pthread_mutex_init(&irq.threads_counter_lock, NULL);
+#endif
 
     /* Ethernet MAC hardware model */
     OpenEthState eth;
@@ -327,6 +348,8 @@ int main(void)
     test_rx();
 #endif
 #ifdef _ETHOC_TEST_4_
+    test_rx_busy();
+#elif _ETHOC_TEST_5_
     test_rx_busy();
 #endif
 }

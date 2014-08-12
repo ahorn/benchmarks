@@ -11,11 +11,13 @@ INCLUDE = -I ./
 
 VERDEF = -D_KLEE_ $(PROP)
 
+# Only test 4 is allowed to fail
 ALL_PROP = -D_ETHOC_PROP_1_ \
            -D_ETHOC_TEST_1_ \
            -D_ETHOC_TEST_2_ \
            -D_ETHOC_TEST_3_ \
-           -D_ETHOC_TEST_4_
+           -D_ETHOC_TEST_4_ \
+           -D_ETHOC_TEST_5_
 
 ethoc-hw-concrete:
 	@${CC} -g $(SRC) $(ALL_PROP)
@@ -34,6 +36,9 @@ ethoc-hw-cbmc-test-3:
 
 ethoc-hw-cbmc-test-4:
 	@${CBMC} $(SRC) -D_ETHOC_PROP_1_ -D_ETHOC_TEST_4_ -D_SYMBOLIC_EXECUTION_ -D_CBMC_
+
+ethoc-hw-cbmc-test-5:
+	@${CBMC} $(SRC) -D_ETHOC_PROP_1_ -D_ETHOC_TEST_5_ -D_SYMBOLIC_EXECUTION_ -D_CBMC_
 
 ethoc-hw-llvm-gcc:
 	@echo ------------- Compiling with llvm_gcc:

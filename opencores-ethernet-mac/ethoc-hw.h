@@ -23,10 +23,28 @@
 #include "hwaddr.h"
 
 /*
+ * The size of the buffer descriptors was decreased from 128 to eight
+ * to make the formal analysis with tools more feasible that do not
+ * support array logic.
+ *
+ * Originally, the maximum number of available buffer descriptors
+ * was hardwired into the model of the Ethernet MAC. Two conditional
+ * checks had to be rewritten to make sure that the _ETHOC_DESC_SIZE_
+ * constant is checked instead.
+ *
+ * \pre: size must be a power of two, greater than or equal to 4
+ */
+#define _ETHOC_DESC_SIZE_ 8
+
+/*
  * Fall back to POSIX threads
  */
 #ifndef _CBMC_
 #include <pthread.h>
+#include <stdlib.h>
+
+void *malloc(size_t size);
+void free(void* ptr);
 #endif
 
 /**
@@ -54,6 +72,21 @@ typedef struct IRQState {
     irq_handler handler;
     void *opaque;
     int n;
+    unsigned threads_counter;
+
+#ifndef _CBMC_
+    /*
+     * Determines the maximum number of interrupts we can fire
+     * Note that threads_counter is index into threads array
+     */
+    pthread_t threads[_ETHOC_DESC_SIZE_];
+
+    /*
+     * non-reentrant lock to increment threads_counter
+     */
+    pthread_mutex_t threads_counter_lock;
+#endif
+
 } IRQState;
 
 void hw_set_irq(hw_irq irq, int level);
@@ -350,20 +383,6 @@ typedef struct open_eth_desc {
     uint32_t len_flags;
     uint32_t buf_ptr;
 } open_eth_desc;
-
-/*
- * The size of the buffer descriptors was decreased from 128 to eight
- * to make the formal analysis with tools more feasible that do not
- * support array logic.
- *
- * Originally, the maximum number of available buffer descriptors
- * was hardwired into the model of the Ethernet MAC. Two conditional
- * checks had to be rewritten to make sure that the _ETHOC_DESC_SIZE_
- * constant is checked instead.
- *
- * \pre: size must be a power of two, greater than or equal to 4
- */
-#define _ETHOC_DESC_SIZE_ 8
 
 /**
  * Hardware model of OpenCores Ethernet MAC with MII to PHY
