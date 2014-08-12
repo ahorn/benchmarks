@@ -818,6 +818,11 @@ int main(void)
 	IRQState irq;
 	irq.n = irq_n;
 	irq.handler = ethoc_interrupt;
+	irq.threads_counter = 0;
+
+#ifndef _CBMC_
+	pthread_mutex_init(&irq.threads_counter_lock, NULL);
+#endif
 
 	/* Ethernet MAC hardware model */
 	OpenEthState open_eth;
