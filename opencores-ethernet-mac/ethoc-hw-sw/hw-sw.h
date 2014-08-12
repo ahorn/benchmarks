@@ -12,7 +12,7 @@
  *
  * The original definition can be found in the file 'include/linux/types.h'.
  */
-typedef hwaddr loff_t;
+typedef hwaddr hw_sw_loff_t;
 
 /**
  * Originally this is a macro to force function inlining

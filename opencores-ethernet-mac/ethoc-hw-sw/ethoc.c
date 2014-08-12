@@ -253,13 +253,13 @@ struct ethoc_bd {
 };
 
 /* Calls OpenCores Ethernet MAC hardware model */
-static inline u32 ethoc_read(struct ethoc *dev, loff_t offset)
+static inline u32 ethoc_read(struct ethoc *dev, hw_sw_loff_t offset)
 {
         return open_eth_reg_read(dev->open_eth, offset);
 }
 
 /* Calls OpenCores Ethernet MAC hardware model */
-static inline void ethoc_write(struct ethoc *dev, loff_t offset, u32 data)
+static inline void ethoc_write(struct ethoc *dev, hw_sw_loff_t offset, u32 data)
 {
         open_eth_reg_write(dev->open_eth, offset, data);
 }
