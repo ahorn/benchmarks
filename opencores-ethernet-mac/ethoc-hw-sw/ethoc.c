@@ -939,7 +939,8 @@ int main(void)
 #ifdef _CBMC_
 	__CPROVER_assume(open_eth.irq->threads_counter == 0);
 #else
-	for (unsigned i = 0; i < _ETHOC_DESC_SIZE_; ++i)
+	unsigned i;
+	for (i = 0; i < _ETHOC_DESC_SIZE_; ++i)
 		pthread_join(open_eth.irq->threads[i], NULL);
 #endif
 
