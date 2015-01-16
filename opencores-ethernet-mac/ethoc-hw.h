@@ -74,7 +74,12 @@ typedef struct IRQState {
     int n;
     unsigned threads_counter;
 
-#ifndef _CBMC_
+    /* How many IRQ requests since the last ones have been fired? */
+    unsigned number_of_handler_calls;
+
+#ifdef _CBMC_
+    int level;
+#else
     /*
      * Determines the maximum number of interrupts we can fire
      * Note that threads_counter is index into threads array
@@ -88,8 +93,6 @@ typedef struct IRQState {
 #endif
 
 } IRQState;
-
-void hw_set_irq(hw_irq irq, int level);
 
 /*
  * Forward declaration

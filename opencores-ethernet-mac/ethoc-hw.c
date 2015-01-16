@@ -43,10 +43,12 @@ void run_interrupt_routine(hw_irq irq, int level)
   __CPROVER_atomic_end();
 }
 
-/* \pre: call only from within an atomic section */
+/* \pre: call never from within an atomic section */
 void async_cbmc_handler(hw_irq irq, int level)
 {
+  __CPROVER_atomic_begin();
   ++irq->threads_counter;
+  __CPROVER_atomic_end();
 
 __CPROVER_ASYNC_1: run_interrupt_routine(irq, level);
 }
@@ -91,15 +93,39 @@ void pthread_handler(hw_irq irq, int level)
  *
  * \pre: if _CBMC_ is defined, call only from within an atomic section
  */
-void hw_set_irq(hw_irq irq, int level)
+static void hw_set_irq_prepare(hw_irq irq, int level)
 {
     if (!irq)
         return;
 
+    ++irq->number_of_handler_calls;
+
 #ifdef _CBMC_
-    async_cbmc_handler(irq, level);
+    irq->level = level;
 #else
     pthread_handler(irq, level);
+#endif
+}
+
+/*
+ * Must be called by at the end of a function that may have called hw_set_irq_prepare
+ */
+static void hw_set_irq_do(OpenEthState *s)
+{
+    unsigned number_of_handler_calls;
+
+    ATOMIC_BEGIN;
+
+    number_of_handler_calls = s->irq->number_of_handler_calls;
+    s->irq->number_of_handler_calls = 0U;
+
+    ATOMIC_END;
+
+    assert(number_of_handler_calls <= 1U);
+
+#ifdef _CBMC_
+    if (number_of_handler_calls)
+      async_cbmc_handler(s->irq, s->irq->level);
 #endif
 }
 
@@ -212,7 +238,7 @@ static void open_eth_update_irq(OpenEthState *s,
 #ifndef _SYMBOLIC_EXECUTION_
         trace_open_eth_update_irq(new);
 #endif
-        hw_set_irq(s->irq, new);
+        hw_set_irq_prepare(s->irq, new);
     }
 }
 
@@ -241,6 +267,8 @@ void open_eth_set_link_status(OpenEthState *s, bool link_down)
     internal_open_eth_set_link_status(s, link_down);
 
     ATOMIC_END;
+
+    hw_set_irq_do(s);
 }
 
 static void open_eth_reset(OpenEthState *s)
@@ -279,6 +307,8 @@ int open_eth_can_receive(OpenEthState *s)
     int bit = internal_open_eth_can_receive(s);
 
     ATOMIC_END;
+
+    hw_set_irq_do(s);
 
     return bit;
 }
@@ -407,6 +437,9 @@ size_t open_eth_receive(OpenEthState *s, const uint8_t *buf, size_t size)
 
 out:
     ATOMIC_END;
+
+    hw_set_irq_do(s);
+
     return size;
 }
 
@@ -490,6 +523,9 @@ uint32_t open_eth_reg_read(OpenEthState *s, hwaddr addr)
 #endif
 
     ATOMIC_END;
+
+    hw_set_irq_do(s);
+
     return val;
 }
 
@@ -614,6 +650,8 @@ void open_eth_reg_write(OpenEthState *s, hwaddr addr, uint32_t val)
     }
 
     ATOMIC_END;
+
+    hw_set_irq_do(s);
 }
 
 uint64_t open_eth_desc_read(OpenEthState *s, hwaddr addr)
@@ -628,6 +666,8 @@ uint64_t open_eth_desc_read(OpenEthState *s, hwaddr addr)
 #endif
 
     ATOMIC_END;
+
+    hw_set_irq_do(s);
 
     return v;
 }
@@ -644,5 +684,7 @@ void open_eth_desc_write(OpenEthState *s, hwaddr addr, uint64_t val)
     open_eth_check_start_xmit(s);
 
     ATOMIC_END;
+
+    hw_set_irq_do(s);
 }
 

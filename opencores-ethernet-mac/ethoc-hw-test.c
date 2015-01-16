@@ -269,6 +269,7 @@ int main(void)
     irq.n = 3;
     irq.handler = rx_handler;
     irq.threads_counter = 0;
+    irq.number_of_handler_calls = 0;
 
 #ifndef _CBMC_
     pthread_mutex_init(&irq.threads_counter_lock, NULL);
