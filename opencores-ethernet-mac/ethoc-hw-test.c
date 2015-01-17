@@ -248,6 +248,13 @@ static void nc_open_eth_set_link_status(NetClientState *nc)
     internal_open_eth_set_link_status(s, s->nic->nc.link_down);
 }
 
+#ifdef _ETHOC_GLOBAL_SETUP_
+NetClientInfo nc_info;
+NICState nic;
+IRQState irq;
+OpenEthState eth;
+#endif
+
 /*
  * All tests are expected to pass except the last assertion
  * about `raised_irq` in `test_rx` when _CBMC_ is enabled.
@@ -255,17 +262,23 @@ static void nc_open_eth_set_link_status(NetClientState *nc)
 int main(void)
 {
     /* Implementation of basic Net API */
+#ifndef _ETHOC_GLOBAL_SETUP_
     NetClientInfo nc_info;
+#endif
     nc_info.link_status_changed = nc_open_eth_set_link_status;
 
     /* NIC which can receive but not transmit packets */
+#ifndef _ETHOC_GLOBAL_SETUP_
     NICState nic;
+#endif
     nic.nc.info = &nc_info;
     nic.nc.link_down = 0;
     nic.nc.receive_disabled = 0;
 
     /* Interrupt handler for incoming packets */
+#ifndef _ETHOC_GLOBAL_SETUP_
     IRQState irq;
+#endif
     irq.n = 3;
     irq.handler = rx_handler;
     irq.threads_counter = 0;
@@ -276,7 +289,9 @@ int main(void)
 #endif
 
     /* Ethernet MAC hardware model */
+#ifndef _ETHOC_GLOBAL_SETUP_
     OpenEthState eth;
+#endif
     eth.nic = &nic;
     eth.irq = &irq;
     eth.mii.link_ok = true;

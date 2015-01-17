@@ -797,6 +797,15 @@ static void test_rx(const u8* mac_addr, int packet_id, unsigned int packet_size)
 	open_eth_receive(OPEN_ETH_STATE(nc), packet, packet_size);
 }
 
+#ifdef _ETHOC_GLOBAL_SETUP_
+NetClientInfo nc_info;
+NICState nic;
+IRQState irq;
+OpenEthState open_eth;
+struct net_device netdev;
+struct ethoc ethoc;
+#endif
+
 int main(void)
 {
         /* In our analysis, we assign these variables non-deterministic values. */
@@ -804,28 +813,37 @@ int main(void)
 	const unsigned int flags = nondet_uint(0);
 
 	/* Empty implementation of virtual machine Net API */
+#ifndef _ETHOC_GLOBAL_SETUP_
 	NetClientInfo nc_info;
+#endif
 	nc_info.link_status_changed = NULL;
 
 	/* Virtual machine NIC which is setup to receive
  	 * (but not transmit) packets. */
+#ifndef _ETHOC_GLOBAL_SETUP_
 	NICState nic;
+#endif
 	nic.nc.info = &nc_info;
 	nic.nc.link_down = 0;
 	nic.nc.receive_disabled = 0;
 
 	/* Virtual hardware interrupt for incoming packets */
+#ifndef _ETHOC_GLOBAL_SETUP_
 	IRQState irq;
+#endif
 	irq.n = irq_n;
 	irq.handler = ethoc_interrupt;
 	irq.threads_counter = 0;
+	irq.number_of_handler_calls = 0;
 
 #ifndef _CBMC_
 	pthread_mutex_init(&irq.threads_counter_lock, NULL);
 #endif
 
 	/* Ethernet MAC hardware model */
+#ifndef _ETHOC_GLOBAL_SETUP_
 	OpenEthState open_eth;
+#endif
 	open_eth.nic = &nic;
 	open_eth.irq = &irq;
 	open_eth.mii.link_ok = true;
@@ -842,8 +860,10 @@ int main(void)
 	/* reset MAC and MII */
 	open_eth_reg_write(&open_eth, open_eth_reg(MODER), MODER_RST);
 
+#ifndef _ETHOC_GLOBAL_SETUP_
 	struct net_device netdev;
 	struct ethoc ethoc;
+#endif
 
 	netdev.priv = &ethoc;
 	netdev.flags = flags;

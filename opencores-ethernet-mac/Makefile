@@ -40,6 +40,27 @@ ethoc-hw-cbmc-test-4:
 ethoc-hw-cbmc-test-5:
 	@${CBMC} $(SRC) -D_ETHOC_PROP_1_ -D_ETHOC_TEST_5_ -D_SYMBOLIC_EXECUTION_ -D_CBMC_
 
+ethoc-hw-concrete-global-setup:
+	@${CC} -g $(SRC) $(ALL_PROP) -D_ETHOC_GLOBAL_SETUP_
+
+ethoc-hw-cbmc-global-setup:
+	@${CBMC} $(SRC) $(ALL_PROP) -D_SYMBOLIC_EXECUTION_ -D_CBMC_ -D_ETHOC_GLOBAL_SETUP_
+
+ethoc-hw-cbmc-test-1-global-setup:
+	@${CBMC} $(SRC) -D_ETHOC_PROP_1_ -D_ETHOC_TEST_1_ -D_SYMBOLIC_EXECUTION_ -D_CBMC_ -D_ETHOC_GLOBAL_SETUP_
+
+ethoc-hw-cbmc-test-2-global-setup:
+	@${CBMC} $(SRC) -D_ETHOC_PROP_1_ -D_ETHOC_TEST_2_ -D_SYMBOLIC_EXECUTION_ -D_CBMC_ -D_ETHOC_GLOBAL_SETUP_
+
+ethoc-hw-cbmc-test-3-global-setup:
+	@${CBMC} $(SRC) -D_ETHOC_PROP_1_ -D_ETHOC_TEST_3_ -D_SYMBOLIC_EXECUTION_ -D_CBMC_ -D_ETHOC_GLOBAL_SETUP_
+
+ethoc-hw-cbmc-test-4-global-setup:
+	@${CBMC} $(SRC) -D_ETHOC_PROP_1_ -D_ETHOC_TEST_4_ -D_SYMBOLIC_EXECUTION_ -D_CBMC_ -D_ETHOC_GLOBAL_SETUP_
+
+ethoc-hw-cbmc-test-5-global-setup:
+	@${CBMC} $(SRC) -D_ETHOC_PROP_1_ -D_ETHOC_TEST_5_ -D_SYMBOLIC_EXECUTION_ -D_CBMC_ -D_ETHOC_GLOBAL_SETUP_
+
 ethoc-hw-llvm-gcc:
 	@echo ------------- Compiling with llvm_gcc:
 	@$(LLVM_GCC) $(INCLUDE) --emit-llvm -g -c sys.c -o sys.bc.o $(VERDEF)

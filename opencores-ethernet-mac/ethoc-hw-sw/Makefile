@@ -18,3 +18,15 @@ ethoc-fw-cbmc:
 
 ethoc-fw-cbmc-bug:
 	@${CBMC} -I $(ETHOC_HW_SRC) -D_SYMBOLIC_EXECUTION_ -D_BUG_ -D_CBMC_ $(SRC)
+
+ethoc-fw-concrete-global-setup:
+	gcc -I $(ETHOC_HW_SRC) -lpthread -g $(SRC) -D_ETHOC_GLOBAL_SETUP_
+
+ethoc-fw-concrete-bug-global-setup:
+	gcc -I $(ETHOC_HW_SRC) -lpthread -D_EXPOSE_BUG_ -D_BUG_ -g $(SRC) -D_ETHOC_GLOBAL_SETUP_
+
+ethoc-fw-cbmc-global-setup:
+	@${CBMC} -I $(ETHOC_HW_SRC) -D_SYMBOLIC_EXECUTION_ -D_CBMC_ $(SRC) -D_ETHOC_GLOBAL_SETUP_
+
+ethoc-fw-cbmc-bug-global-setup:
+	@${CBMC} -I $(ETHOC_HW_SRC) -D_SYMBOLIC_EXECUTION_ -D_BUG_ -D_CBMC_ $(SRC) -D_ETHOC_GLOBAL_SETUP_
