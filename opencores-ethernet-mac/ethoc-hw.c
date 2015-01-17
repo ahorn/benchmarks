@@ -524,8 +524,6 @@ uint32_t open_eth_reg_read(OpenEthState *s, hwaddr addr)
 
     ATOMIC_END;
 
-    hw_set_irq_do(s);
-
     return val;
 }
 
