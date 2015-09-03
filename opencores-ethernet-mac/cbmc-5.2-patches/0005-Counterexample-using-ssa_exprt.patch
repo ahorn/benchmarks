@@ -1,0 +1,118 @@
+From a24426713a86c376b3e6b5186cf80aec4205dfa3 Mon Sep 17 00:00:00 2001
+From: Michael Tautschnig <mt@debian.org>
+Date: Thu, 28 Aug 2014 11:08:17 +0200
+Subject: [PATCH 05/18] Counterexample using ssa_exprt
+
+---
+ src/cbmc/counterexample_beautification.cpp | 2 +-
+ src/goto-programs/goto_trace.cpp           | 8 ++++----
+ src/goto-programs/goto_trace.h             | 6 +++---
+ src/goto-symex/build_goto_trace.cpp        | 5 ++++-
+ src/path-symex/build_goto_trace.cpp        | 2 +-
+ 5 files changed, 13 insertions(+), 10 deletions(-)
+
+diff --git a/src/cbmc/counterexample_beautification.cpp b/src/cbmc/counterexample_beautification.cpp
+index 0c42256..00363d9 100644
+--- a/src/cbmc/counterexample_beautification.cpp
++++ b/src/cbmc/counterexample_beautification.cpp
+@@ -46,7 +46,7 @@ void counterexample_beautificationt::get_minimization_list(
+     {
+       if(!prop_conv.l_get(it->guard_literal).is_false())
+       {
+-        const typet &type=it->original_lhs_object.type();
++        const typet &type=it->ssa_lhs.type();
+       
+         if(type!=bool_typet())
+         {
+diff --git a/src/goto-programs/goto_trace.cpp b/src/goto-programs/goto_trace.cpp
+index 5a63e16..9dceab1 100644
+--- a/src/goto-programs/goto_trace.cpp
++++ b/src/goto-programs/goto_trace.cpp
+@@ -109,8 +109,8 @@ void goto_trace_stept::output(
+ 
+   if(pc->is_other() || pc->is_assign())
+   {
+-    irep_idt identifier=lhs_object.get_identifier();
+-    out << "  " << identifier
++    irep_idt identifier=lhs_object.get_object_name();
++    out << "  " << from_expr(ns, identifier, lhs_object.get_original_expr())
+         << " = " << from_expr(ns, identifier, lhs_object_value)
+         << "\n";
+   }
+@@ -218,11 +218,11 @@ Function: trace_value
+ void trace_value(
+   std::ostream &out,
+   const namespacet &ns,
+-  const symbol_exprt &lhs_object,
++  const ssa_exprt &lhs_object,
+   const exprt &full_lhs,
+   const exprt &value)
+ {
+-  const irep_idt &identifier=lhs_object.get_identifier();
++  const irep_idt &identifier=lhs_object.get_object_name();
+   std::string value_string;
+   
+   if(value.is_nil())
+diff --git a/src/goto-programs/goto_trace.h b/src/goto-programs/goto_trace.h
+index 3a990db..c6544f0 100644
+--- a/src/goto-programs/goto_trace.h
++++ b/src/goto-programs/goto_trace.h
+@@ -21,7 +21,7 @@ Date: July 2005
+ #include <iosfwd>
+ #include <vector>
+ 
+-#include <util/std_expr.h>
++#include <util/ssa_expr.h>
+ 
+ #include <goto-programs/goto_program.h>
+ 
+@@ -80,7 +80,7 @@ public:
+   std::string comment;
+ 
+   // the object being assigned
+-  symbol_exprt lhs_object;
++  ssa_exprt lhs_object;
+   
+   // the full, original lhs expression
+   exprt full_lhs;
+@@ -173,7 +173,7 @@ void show_goto_trace(
+ void trace_value(
+   std::ostream &out,
+   const namespacet &ns,
+-  const symbol_exprt &lhs_object,
++  const ssa_exprt &lhs_object,
+   const exprt &full_lhs,
+   const exprt &value);
+ 
+diff --git a/src/goto-symex/build_goto_trace.cpp b/src/goto-symex/build_goto_trace.cpp
+index 82b750c..da77bf7 100644
+--- a/src/goto-symex/build_goto_trace.cpp
++++ b/src/goto-symex/build_goto_trace.cpp
+@@ -226,7 +226,10 @@ void build_goto_trace(
+     goto_trace_step.thread_nr=SSA_step.source.thread_nr;
+     goto_trace_step.pc=SSA_step.source.pc;
+     goto_trace_step.comment=SSA_step.comment;
+-    goto_trace_step.lhs_object=SSA_step.original_lhs_object;
++    if(SSA_step.ssa_lhs.is_not_nil())
++      goto_trace_step.lhs_object=ssa_exprt(SSA_step.ssa_lhs.get_original_expr());
++    else
++      goto_trace_step.lhs_object.make_nil();
+     goto_trace_step.type=SSA_step.type;
+     goto_trace_step.hidden=SSA_step.hidden;
+     goto_trace_step.format_string=SSA_step.format_string;
+diff --git a/src/path-symex/build_goto_trace.cpp b/src/path-symex/build_goto_trace.cpp
+index 57e4642..1a2a59f 100644
+--- a/src/path-symex/build_goto_trace.cpp
++++ b/src/path-symex/build_goto_trace.cpp
+@@ -57,7 +57,7 @@ void build_goto_trace(
+     case DECL:
+       trace_step.type=goto_trace_stept::DECL;
+       trace_step.full_lhs=step.full_lhs;
+-      trace_step.lhs_object=to_symbol_expr(step.full_lhs);
++      trace_step.lhs_object=ssa_exprt(step.full_lhs);
+       trace_step.full_lhs_value=decision_procedure.get(step.ssa_lhs);
+       break;
+       
+-- 
+2.5.0
+

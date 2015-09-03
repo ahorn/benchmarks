@@ -1,0 +1,496 @@
+From 0d867567152d44376e6cfbfb2a5f20809bd7fbcd Mon Sep 17 00:00:00 2001
+From: Michael Tautschnig <mt@debian.org>
+Date: Thu, 28 Aug 2014 11:21:52 +0200
+Subject: [PATCH 03/18] Use of ssa_exprt in SSA steps (symex_targett)
+
+---
+ src/goto-symex/partial_order_concurrency.cpp | 20 +++++++++++---------
+ src/goto-symex/partial_order_concurrency.h   |  4 +++-
+ src/goto-symex/postcondition.cpp             | 13 ++++++++-----
+ src/goto-symex/precondition.cpp              | 17 ++++++-----------
+ src/goto-symex/slice_by_trace.cpp            | 10 ++++------
+ src/goto-symex/symex_atomic_section.cpp      |  6 ------
+ src/goto-symex/symex_decl.cpp                |  2 +-
+ src/goto-symex/symex_goto.cpp                |  7 +++----
+ src/goto-symex/symex_target.h                | 16 ++++++----------
+ src/goto-symex/symex_target_equation.cpp     | 22 ++++++----------------
+ src/goto-symex/symex_target_equation.h       | 20 +++++++-------------
+ 11 files changed, 55 insertions(+), 82 deletions(-)
+
+diff --git a/src/goto-symex/partial_order_concurrency.cpp b/src/goto-symex/partial_order_concurrency.cpp
+index 2b3cb97..e04805e 100644
+--- a/src/goto-symex/partial_order_concurrency.cpp
++++ b/src/goto-symex/partial_order_concurrency.cpp
+@@ -93,9 +93,9 @@ void partial_order_concurrencyt::add_init_writes(
+       symex_target_equationt::SSA_stept &SSA_step=init_steps.back();
+ 
+       SSA_step.guard=true_exprt();
+-      // no SSA index, thus nondet value
+-      SSA_step.ssa_lhs=e_it->original_lhs_object;
+-      SSA_step.original_lhs_object=e_it->original_lhs_object;
++      // no SSA L2 index, thus nondet value
++      SSA_step.ssa_lhs=e_it->ssa_lhs;
++      SSA_step.ssa_lhs.remove_level_2();
+       SSA_step.type=goto_trace_stept::SHARED_WRITE;
+       SSA_step.atomic_section_id=0;
+       SSA_step.source=e_it->source;
+@@ -238,9 +238,10 @@ Function: partial_order_concurrencyt::is_shared_write
+ bool partial_order_concurrencyt::is_shared_write(event_it event) const
+ {
+   if(!event->is_shared_write()) return false;
+-  const irep_idt identifier=event->original_lhs_object.get_identifier();
+-  if(identifier=="goto_symex::\\guard") return false;
+-  const symbolt &symbol=ns.lookup(identifier);
++  const irep_idt obj_identifier=event->ssa_lhs.get_object_name();
++  if(obj_identifier=="goto_symex::\\guard") return false;
++
++  const symbolt &symbol=ns.lookup(obj_identifier);
+   return !symbol.is_thread_local;
+ }
+ 
+@@ -259,9 +260,10 @@ Function: partial_order_concurrencyt::is_shared_read
+ bool partial_order_concurrencyt::is_shared_read(event_it event) const
+ {
+   if(!event->is_shared_read()) return false;
+-  const irep_idt identifier=event->original_lhs_object.get_identifier();
+-  if(identifier=="goto_symex::\\guard") return false;
+-  const symbolt &symbol=ns.lookup(identifier);
++  const irep_idt obj_identifier=event->ssa_lhs.get_object_name();
++  if(obj_identifier=="goto_symex::\\guard") return false;
++
++  const symbolt &symbol=ns.lookup(obj_identifier);
+   return !symbol.is_thread_local;
+ }
+ 
+diff --git a/src/goto-symex/partial_order_concurrency.h b/src/goto-symex/partial_order_concurrency.h
+index 174a0ae..1348664 100644
+--- a/src/goto-symex/partial_order_concurrency.h
++++ b/src/goto-symex/partial_order_concurrency.h
+@@ -65,7 +65,9 @@ protected:
+   // produces an address ID for an event
+   inline irep_idt address(event_it event) const
+   {
+-    return event->original_lhs_object.get_identifier();
++    ssa_exprt tmp=event->ssa_lhs;
++    tmp.remove_level_2();
++    return tmp.get_identifier();
+   }
+ 
+   // produce a clock symbol for some event
+diff --git a/src/goto-symex/postcondition.cpp b/src/goto-symex/postcondition.cpp
+index 815e19a..cd007a7 100644
+--- a/src/goto-symex/postcondition.cpp
++++ b/src/goto-symex/postcondition.cpp
+@@ -175,8 +175,7 @@ void postconditiont::weaken(exprt &dest)
+   // we are lazy:
+   // if lhs is mentioned in dest, we use "true".
+   
+-  const irep_idt &lhs_identifier=
+-    s.get_original_name(SSA_step.ssa_lhs.get_identifier());
++  const irep_idt &lhs_identifier=SSA_step.ssa_lhs.get_object_name();
+ 
+   if(is_used(dest, lhs_identifier))
+     dest=true_exprt();
+@@ -198,8 +197,7 @@ Function: postconditiont::strengthen
+ 
+ void postconditiont::strengthen(exprt &dest)
+ {
+-  const irep_idt &lhs_identifier=
+-    s.get_original_name(SSA_step.ssa_lhs.get_identifier());
++  const irep_idt &lhs_identifier=SSA_step.ssa_lhs.get_object_name();
+ 
+   if(!is_used(SSA_step.ssa_rhs, lhs_identifier))
+   {
+@@ -240,9 +238,14 @@ bool postconditiont::is_used(
+     assert(expr.operands().size()==1);
+     return is_used_address_of(expr.op0(), identifier);
+   }
++  else if(expr.id()==ID_symbol &&
++          expr.get_bool(ID_C_SSA_symbol))
++  {
++    return to_ssa_expr(expr).get_object_name()==identifier;
++  }
+   else if(expr.id()==ID_symbol)
+   {
+-    return s.get_original_name(expr.get(ID_identifier))==identifier;
++    return expr.get(ID_identifier)==identifier;
+   }
+   else if(expr.id()==ID_dereference)
+   {
+diff --git a/src/goto-symex/precondition.cpp b/src/goto-symex/precondition.cpp
+index 5130d47..c90a2d7 100644
+--- a/src/goto-symex/precondition.cpp
++++ b/src/goto-symex/precondition.cpp
+@@ -161,21 +161,11 @@ void preconditiont::compute_rec(exprt &dest)
+     assert(dest.operands().size()==1);
+     compute_address_of(dest.op0());
+   }
+-  else if(dest.id()==ID_symbol)
+-  {
+-    if(dest.get(ID_identifier)==
+-       s.get_original_name(SSA_step.ssa_lhs.get_identifier()))
+-    {
+-      dest=SSA_step.ssa_rhs;
+-      s.get_original_name(dest);
+-    }
+-  }
+   else if(dest.id()==ID_dereference)
+   {
+     assert(dest.operands().size()==1);
+ 
+-    const irep_idt &lhs_identifier=
+-      s.get_original_name(SSA_step.ssa_lhs.get_identifier());
++    const irep_idt &lhs_identifier=SSA_step.ssa_lhs.get_object_name();
+   
+     // aliasing may happen here
+ 
+@@ -204,6 +194,11 @@ void preconditiont::compute_rec(exprt &dest)
+       compute_rec(dest.op0());
+     }
+   }
++  else if(dest==SSA_step.ssa_lhs.get_original_expr())
++  {
++    dest=SSA_step.ssa_rhs;
++    s.get_original_name(dest);
++  }
+   else
+     Forall_operands(it, dest)
+       compute_rec(*it);
+diff --git a/src/goto-symex/slice_by_trace.cpp b/src/goto-symex/slice_by_trace.cpp
+index 42a4fb6..14b7fd8 100644
+--- a/src/goto-symex/slice_by_trace.cpp
++++ b/src/goto-symex/slice_by_trace.cpp
+@@ -309,9 +309,8 @@ void symex_slice_by_tracet::compute_ts_back(
+ 	if ((t[j].is_true()) || (t[j].is_false())) {
+ 	  merge.push_back(t[j]);
+ 	} else {
+-	  exprt merge_sym =exprt(ID_symbol, typet(ID_bool));
+-	  merge_sym.set(ID_identifier, id2string(merge_identifier)+"#"+
+-			i2string(merge_count++));
++	  ssa_exprt merge_sym(merge_symbol);
++    merge_sym.set_level_2(merge_count++);
+ 	  exprt t_copy (t[j]);
+ 	  merge_map_back.push_back(t_copy);
+ 	  std::set<exprt> empty_impls;
+@@ -571,8 +570,8 @@ void symex_slice_by_tracet::assign_merges(
+   size_t merge_count = (merge_map_back.size()) - 1;
+   for (std::vector<exprt>::reverse_iterator i = merge_map_back.rbegin();
+        i != merge_map_back.rend(); i++) {
+-    symbol_exprt merge_sym(typet(ID_bool));
+-    merge_sym.set_identifier(id2string(merge_identifier)+"#"+i2string(merge_count));
++    ssa_exprt merge_sym(merge_symbol);
++    merge_sym.set_level_2(merge_count);
+     merge_count--;
+     guardt t_guard;
+     t_guard.make_true();
+@@ -585,7 +584,6 @@ void symex_slice_by_tracet::assign_merges(
+     
+     SSA_step.guard=t_guard.as_expr();
+     SSA_step.ssa_lhs=merge_sym;
+-    SSA_step.original_lhs_object=merge_symbol;
+     SSA_step.ssa_rhs.swap(merge_copy);
+     SSA_step.assignment_type=symex_targett::HIDDEN;
+     
+diff --git a/src/goto-symex/symex_atomic_section.cpp b/src/goto-symex/symex_atomic_section.cpp
+index f1e2752..afdcccc 100644
+--- a/src/goto-symex/symex_atomic_section.cpp
++++ b/src/goto-symex/symex_atomic_section.cpp
+@@ -79,12 +79,9 @@ void goto_symext::symex_atomic_end(statet &state)
+     exprt read_guard_expr=read_guard.as_expr();
+     do_simplify(read_guard_expr);
+ 
+-    symbol_exprt original_symbol=r_it->first;
+-    state.get_original_name(original_symbol);
+     target.shared_read(
+       read_guard_expr,
+       r,
+-      original_symbol,
+       atomic_section_id,
+       state.source);
+   }
+@@ -108,12 +105,9 @@ void goto_symext::symex_atomic_end(statet &state)
+     exprt write_guard_expr=write_guard.as_expr();
+     do_simplify(write_guard_expr);
+ 
+-    symbol_exprt original_symbol=w_it->first;
+-    state.get_original_name(original_symbol);
+     target.shared_write(
+       write_guard_expr,
+       w,
+-      original_symbol,
+       atomic_section_id,
+       state.source);
+   }
+diff --git a/src/goto-symex/symex_decl.cpp b/src/goto-symex/symex_decl.cpp
+index 896d1bf..9e94146 100644
+--- a/src/goto-symex/symex_decl.cpp
++++ b/src/goto-symex/symex_decl.cpp
+@@ -98,7 +98,7 @@ void goto_symext::symex_decl(statet &state)
+   
+   target.decl(
+     state.guard.as_expr(),
+-    ssa_lhs, original_lhs,
++    ssa_lhs,
+     state.source,
+     hidden?symex_targett::HIDDEN:symex_targett::STATE);
+ }
+diff --git a/src/goto-symex/symex_goto.cpp b/src/goto-symex/symex_goto.cpp
+index ec82009..fa8baa3 100644
+--- a/src/goto-symex/symex_goto.cpp
++++ b/src/goto-symex/symex_goto.cpp
+@@ -145,7 +145,7 @@ void goto_symext::symex_goto(statet &state)
+ 
+       target.assignment(
+         guard.as_expr(),
+-        new_lhs, guard_symbol_expr, new_lhs, guard_symbol_expr,
++        new_lhs, new_lhs, guard_symbol_expr,
+         new_rhs,
+         state.source,
+         symex_targett::GUARD);
+@@ -369,8 +369,7 @@ void goto_symext::phi_function(
+       do_simplify(rhs);
+     }
+ 
+-    symbol_exprt lhs=symbol.symbol_expr();
+-    symbol_exprt new_lhs=symbol_exprt(l1_identifier, type);
++    ssa_exprt new_lhs=*it;
+     const bool record_events=dest_state.record_events;
+     dest_state.record_events=false;
+     dest_state.assignment(new_lhs, rhs, ns, true, true);
+@@ -378,7 +377,7 @@ void goto_symext::phi_function(
+     
+     target.assignment(
+       true_exprt(),
+-      new_lhs, lhs, new_lhs, lhs,
++      new_lhs, new_lhs, new_lhs.get_original_expr(),
+       rhs,
+       dest_state.source,
+       symex_targett::PHI);
+diff --git a/src/goto-symex/symex_target.h b/src/goto-symex/symex_target.h
+index 56699f3..a9c4d71 100644
+--- a/src/goto-symex/symex_target.h
++++ b/src/goto-symex/symex_target.h
+@@ -11,6 +11,7 @@ Author: Daniel Kroening, kroening@kroening.com
+ 
+ #include <goto-programs/goto_program.h>
+ 
++class ssa_exprt;
+ class symbol_exprt;
+ 
+ class symex_targett
+@@ -57,24 +58,21 @@ public:
+   // read event
+   virtual void shared_read(
+     const exprt &guard,
+-    const symbol_exprt &ssa_rhs,
+-    const symbol_exprt &original_rhs,
++    const ssa_exprt &ssa_rhs,
+     unsigned atomic_section_id,
+     const sourcet &source)=0;
+ 
+   // write event
+   virtual void shared_write(
+     const exprt &guard,
+-    const symbol_exprt &ssa_rhs,
+-    const symbol_exprt &original_rhs,
++    const ssa_exprt &ssa_rhs,
+     unsigned atomic_section_id,
+     const sourcet &source)=0;
+ 
+   // write event - lhs must be symbol
+   virtual void assignment(
+     const exprt &guard,
+-    const symbol_exprt &ssa_lhs,
+-    const symbol_exprt &original_lhs_object,
++    const ssa_exprt &ssa_lhs,
+     const exprt &ssa_full_lhs,
+     const exprt &original_full_lhs,
+     const exprt &ssa_rhs,
+@@ -84,16 +82,14 @@ public:
+   // declare fresh variable - lhs must be symbol
+   virtual void decl(
+     const exprt &guard,
+-    const symbol_exprt &ssa_lhs,
+-    const symbol_exprt &original_lhs_object,
++    const ssa_exprt &ssa_lhs,
+     const sourcet &source,
+     assignment_typet assignment_type)=0;
+ 
+   // note the death of a variable - lhs must be symbol
+   virtual void dead(
+     const exprt &guard,
+-    const symbol_exprt &ssa_lhs,
+-    const symbol_exprt &original_lhs_object,
++    const ssa_exprt &ssa_lhs,
+     const sourcet &source)=0;
+ 
+   // record a function call
+diff --git a/src/goto-symex/symex_target_equation.cpp b/src/goto-symex/symex_target_equation.cpp
+index 4b62bf4..816179b 100644
+--- a/src/goto-symex/symex_target_equation.cpp
++++ b/src/goto-symex/symex_target_equation.cpp
+@@ -67,8 +67,7 @@ Function: symex_target_equationt::shared_read
+ 
+ void symex_target_equationt::shared_read(
+   const exprt &guard,
+-  const symbol_exprt &ssa_object,
+-  const symbol_exprt &original_object,
++  const ssa_exprt &ssa_object,
+   unsigned atomic_section_id,
+   const sourcet &source)
+ {
+@@ -77,7 +76,6 @@ void symex_target_equationt::shared_read(
+   
+   SSA_step.guard=guard;
+   SSA_step.ssa_lhs=ssa_object;
+-  SSA_step.original_lhs_object=original_object;
+   SSA_step.type=goto_trace_stept::SHARED_READ;
+   SSA_step.atomic_section_id=atomic_section_id;
+   SSA_step.source=source;
+@@ -99,8 +97,7 @@ Function: symex_target_equationt::shared_write
+ 
+ void symex_target_equationt::shared_write(
+   const exprt &guard,
+-  const symbol_exprt &ssa_object,
+-  const symbol_exprt &original_object,
++  const ssa_exprt &ssa_object,
+   unsigned atomic_section_id,
+   const sourcet &source)
+ {
+@@ -109,7 +106,6 @@ void symex_target_equationt::shared_write(
+   
+   SSA_step.guard=guard;
+   SSA_step.ssa_lhs=ssa_object;
+-  SSA_step.original_lhs_object=original_object;
+   SSA_step.type=goto_trace_stept::SHARED_WRITE;
+   SSA_step.atomic_section_id=atomic_section_id;
+   SSA_step.source=source;
+@@ -235,8 +231,7 @@ Function: symex_target_equationt::assignment
+ 
+ void symex_target_equationt::assignment(
+   const exprt &guard,
+-  const symbol_exprt &ssa_lhs,
+-  const symbol_exprt &original_lhs_object,
++  const ssa_exprt &ssa_lhs,
+   const exprt &ssa_full_lhs,
+   const exprt &original_full_lhs,
+   const exprt &ssa_rhs,
+@@ -250,7 +245,6 @@ void symex_target_equationt::assignment(
+   
+   SSA_step.guard=guard;
+   SSA_step.ssa_lhs=ssa_lhs;
+-  SSA_step.original_lhs_object=original_lhs_object;
+   SSA_step.ssa_full_lhs=ssa_full_lhs;
+   SSA_step.original_full_lhs=original_full_lhs;
+   SSA_step.ssa_rhs=ssa_rhs;
+@@ -279,8 +273,7 @@ Function: symex_target_equationt::decl
+ 
+ void symex_target_equationt::decl(
+   const exprt &guard,
+-  const symbol_exprt &ssa_lhs,
+-  const symbol_exprt &original_lhs_object,
++  const ssa_exprt &ssa_lhs,
+   const sourcet &source,
+   assignment_typet assignment_type)
+ {
+@@ -292,8 +285,7 @@ void symex_target_equationt::decl(
+   SSA_step.guard=guard;
+   SSA_step.ssa_lhs=ssa_lhs;
+   SSA_step.ssa_full_lhs=ssa_lhs;
+-  SSA_step.original_lhs_object=original_lhs_object;
+-  SSA_step.original_full_lhs=original_lhs_object;
++  SSA_step.original_full_lhs=ssa_lhs.get_original_expr();
+   SSA_step.type=goto_trace_stept::DECL;
+   SSA_step.source=source;
+   SSA_step.hidden=(assignment_type!=STATE);
+@@ -319,8 +311,7 @@ Function: symex_target_equationt::dead
+ 
+ void symex_target_equationt::dead(
+   const exprt &guard,
+-  const symbol_exprt &ssa_lhs,
+-  const symbol_exprt &original_lhs_object,
++  const ssa_exprt &ssa_lhs,
+   const sourcet &source)
+ {
+   // we currently don't record these
+@@ -946,7 +937,6 @@ void symex_target_equationt::merge_ireps(SSA_stept &SSA_step)
+   merge_irep(SSA_step.guard);
+ 
+   merge_irep(SSA_step.ssa_lhs);
+-  merge_irep(SSA_step.original_lhs_object);
+   merge_irep(SSA_step.ssa_full_lhs);
+   merge_irep(SSA_step.original_full_lhs);
+   merge_irep(SSA_step.ssa_rhs);
+diff --git a/src/goto-symex/symex_target_equation.h b/src/goto-symex/symex_target_equation.h
+index 771e820..13499e8 100644
+--- a/src/goto-symex/symex_target_equation.h
++++ b/src/goto-symex/symex_target_equation.h
+@@ -34,24 +34,21 @@ public:
+   // read event
+   virtual void shared_read(
+     const exprt &guard,
+-    const symbol_exprt &ssa_object,
+-    const symbol_exprt &original_object,
++    const ssa_exprt &ssa_object,
+     unsigned atomic_section_id,
+     const sourcet &source);
+ 
+   // write event
+   virtual void shared_write(
+     const exprt &guard,
+-    const symbol_exprt &ssa_object,
+-    const symbol_exprt &original_object,
++    const ssa_exprt &ssa_object,
+     unsigned atomic_section_id,
+     const sourcet &source);
+ 
+   // assignment to a variable - lhs must be symbol
+   virtual void assignment(
+     const exprt &guard,
+-    const symbol_exprt &ssa_lhs,
+-    const symbol_exprt &original_lhs,
++    const ssa_exprt &ssa_lhs,
+     const exprt &ssa_full_lhs,
+     const exprt &original_full_lhs,
+     const exprt &ssa_rhs,
+@@ -61,16 +58,14 @@ public:
+   // declare fresh variable - lhs must be symbol
+   virtual void decl(
+     const exprt &guard,
+-    const symbol_exprt &ssa_lhs,
+-    const symbol_exprt &original_lhs_object,
++    const ssa_exprt &ssa_lhs,
+     const sourcet &source,
+     assignment_typet assignment_type);
+ 
+   // note the death of a variable - lhs must be symbol
+   virtual void dead(
+     const exprt &guard,
+-    const symbol_exprt &ssa_lhs,
+-    const symbol_exprt &original_lhs_object,
++    const ssa_exprt &ssa_lhs,
+     const sourcet &source);
+ 
+   // record a function call
+@@ -199,7 +194,7 @@ public:
+     literalt guard_literal;
+ 
+     // for ASSIGNMENT and DECL
+-    symbol_exprt ssa_lhs, original_lhs_object;
++    ssa_exprt ssa_lhs;
+     exprt ssa_full_lhs, original_full_lhs;
+     exprt ssa_rhs;
+     assignment_typet assignment_type;
+@@ -228,8 +223,7 @@ public:
+       type(goto_trace_stept::NONE),
+       hidden(false),
+       guard(static_cast<const exprt &>(get_nil_irep())),
+-      ssa_lhs(static_cast<const symbol_exprt &>(get_nil_irep())),
+-      original_lhs_object(static_cast<const symbol_exprt &>(get_nil_irep())),
++      ssa_lhs(static_cast<const ssa_exprt &>(get_nil_irep())),
+       ssa_full_lhs(static_cast<const exprt &>(get_nil_irep())),
+       original_full_lhs(static_cast<const exprt &>(get_nil_irep())),
+       ssa_rhs(static_cast<const exprt &>(get_nil_irep())),
+-- 
+2.5.0
+

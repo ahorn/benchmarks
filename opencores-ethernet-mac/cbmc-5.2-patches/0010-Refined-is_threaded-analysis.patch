@@ -1,0 +1,93 @@
+From 90eb6c870f1eb5882cabbcb3e20c6c132beb225a Mon Sep 17 00:00:00 2001
+From: Michael Tautschnig <mt@debian.org>
+Date: Mon, 18 Aug 2014 20:28:06 +0100
+Subject: [PATCH 10/18] Refined is_threaded analysis
+
+Don't mark as threaded all code following calls to functions that may
+be called in a multi-threaded context (but itself does not add
+threads).
+---
+ src/analyses/is_threaded.cpp | 43 +++++++++++++++++++++++++++++++------------
+ 1 file changed, 31 insertions(+), 12 deletions(-)
+
+diff --git a/src/analyses/is_threaded.cpp b/src/analyses/is_threaded.cpp
+index 99e7d8d..310b3e4 100644
+--- a/src/analyses/is_threaded.cpp
++++ b/src/analyses/is_threaded.cpp
+@@ -8,32 +8,51 @@ Date: October 2012
+ 
+ \*******************************************************************/
+ 
+-#include "static_analysis.h"
++#include "ai.h"
+ #include "is_threaded.h"
+ 
+-class is_threaded_domaint:public domain_baset
++class is_threaded_domaint:public ai_domain_baset
+ {
++  bool has_spawn;
+ public:
+   bool is_threaded;
+   
+-  inline is_threaded_domaint():is_threaded(false)
++  inline is_threaded_domaint():has_spawn(false), is_threaded(false)
+   {
+   }
+ 
+-  inline bool merge(const is_threaded_domaint &other, locationt to)
++  inline bool merge(
++    const is_threaded_domaint &src,
++    locationt from,
++    locationt to)
+   {
+-    bool old=is_threaded;
+-    is_threaded=is_threaded || other.is_threaded;
+-    return old!=is_threaded;
++    bool old_h_s=has_spawn;
++    if(src.has_spawn &&
++       (from->is_end_function() ||
++        from->function==to->function))
++      has_spawn=true;
++
++    bool old_i_t=is_threaded;
++    if(has_spawn ||
++       (src.is_threaded &&
++       !from->is_end_function()))
++      is_threaded=true;
++
++    return old_i_t!=is_threaded || old_h_s!=has_spawn;
+   }
+   
+   void transform(
+-    const namespacet &ns,
+     locationt from,
+-    locationt to)
++    locationt to,
++    ai_baset &ai,
++    const namespacet &ns)
+   {
+-    if(from->is_start_thread())
++    if(from->is_start_thread() ||
++       to->is_end_thread())
++    {
++      has_spawn=true;
+       is_threaded=true;
++    }
+   }
+ };
+ 
+@@ -55,9 +74,9 @@ void is_threadedt::compute(const goto_functionst &goto_functions)
+   symbol_tablet symbol_table;
+   const namespacet ns(symbol_table);
+ 
+-  static_analysist<is_threaded_domaint> is_threaded_analysis(ns);
++  ait<is_threaded_domaint> is_threaded_analysis;
+   
+-  is_threaded_analysis(goto_functions);
++  is_threaded_analysis(goto_functions, ns);
+   
+   for(goto_functionst::function_mapt::const_iterator
+       f_it=goto_functions.function_map.begin();
+-- 
+2.5.0
+

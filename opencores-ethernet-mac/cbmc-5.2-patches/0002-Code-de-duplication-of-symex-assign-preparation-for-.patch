@@ -1,0 +1,282 @@
+From 45db52b243d687f11b988b376b7b1c3033236268 Mon Sep 17 00:00:00 2001
+From: Michael Tautschnig <mt@debian.org>
+Date: Thu, 28 Aug 2014 11:40:55 +0200
+Subject: [PATCH 02/18] Code de-duplication of symex assign, preparation for
+ ssa_exprt
+
+---
+ src/goto-symex/auto_objects.cpp            |  2 +-
+ src/goto-symex/goto_symex.h                |  3 +-
+ src/goto-symex/symex_assign.cpp            | 47 +++++++++++++++++++++---------
+ src/goto-symex/symex_builtin_functions.cpp | 21 ++++---------
+ src/goto-symex/symex_function_call.cpp     | 27 +++--------------
+ src/goto-symex/symex_main.cpp              |  9 +-----
+ 6 files changed, 48 insertions(+), 61 deletions(-)
+
+diff --git a/src/goto-symex/auto_objects.cpp b/src/goto-symex/auto_objects.cpp
+index caae483..95e5e8c 100644
+--- a/src/goto-symex/auto_objects.cpp
++++ b/src/goto-symex/auto_objects.cpp
+@@ -101,7 +101,7 @@ void goto_symext::initialize_auto_object(
+         address_of_expr);
+       
+       code_assignt assignment(expr, rhs);
+-      symex_assign(state, assignment); /* TODO: needs clean */
++      symex_assign_rec(state, assignment);
+     }
+   }
+ }
+diff --git a/src/goto-symex/goto_symex.h b/src/goto-symex/goto_symex.h
+index fe7e220..66b43e3 100644
+--- a/src/goto-symex/goto_symex.h
++++ b/src/goto-symex/goto_symex.h
+@@ -241,12 +241,13 @@ protected:
+   virtual void do_simplify(exprt &expr);
+   
+   //virtual void symex_block(statet &state, const codet &code);
++  void symex_assign_rec(statet &state, const code_assignt &code);
+   virtual void symex_assign(statet &state, const code_assignt &code);
+ 
+   typedef symex_targett::assignment_typet assignment_typet;
+   
+   void symex_assign_rec(statet &state, const exprt &lhs, const exprt &full_lhs, const exprt &rhs, guardt &guard, assignment_typet assignment_type);
+-  void symex_assign_symbol(statet &state, const symbol_exprt &lhs, const exprt &full_lhs, const exprt &rhs, guardt &guard, assignment_typet assignment_type);
++  void symex_assign_symbol(statet &state, const ssa_exprt &lhs, const exprt &full_lhs, const exprt &rhs, guardt &guard, assignment_typet assignment_type);
+   void symex_assign_typecast(statet &state, const typecast_exprt &lhs, const exprt &full_lhs, const exprt &rhs, guardt &guard, assignment_typet assignment_type);
+   void symex_assign_array(statet &state, const index_exprt &lhs, const exprt &full_lhs, const exprt &rhs, guardt &guard, assignment_typet assignment_type);
+   void symex_assign_struct_member(statet &state, const member_exprt &lhs, const exprt &full_lhs, const exprt &rhs, guardt &guard, assignment_typet assignment_type);
+diff --git a/src/goto-symex/symex_assign.cpp b/src/goto-symex/symex_assign.cpp
+index 08fbc6d..81b4638 100644
+--- a/src/goto-symex/symex_assign.cpp
++++ b/src/goto-symex/symex_assign.cpp
+@@ -19,6 +19,30 @@ Author: Daniel Kroening, kroening@kroening.com
+ 
+ /*******************************************************************\
+ 
++Function: goto_symext::symex_assign_rec
++
++  Inputs:
++
++ Outputs:
++
++ Purpose:
++
++\*******************************************************************/
++
++void goto_symext::symex_assign_rec(
++  statet &state,
++  const code_assignt &code)
++{
++  code_assignt deref_code=code;
++
++  clean_expr(deref_code.lhs(), state, true);
++  clean_expr(deref_code.rhs(), state, false);
++
++  symex_assign(state, deref_code);
++}
++
++/*******************************************************************\
++
+ Function: goto_symext::symex_assign
+ 
+   Inputs:
+@@ -153,8 +177,9 @@ void goto_symext::symex_assign_rec(
+   guardt &guard,
+   assignment_typet assignment_type)
+ {
+-  if(lhs.id()==ID_symbol)
+-    symex_assign_symbol(state, to_symbol_expr(lhs), full_lhs, rhs, guard, assignment_type);
++  if(lhs.id()==ID_symbol &&
++     lhs.get_bool(ID_C_SSA_symbol))
++    symex_assign_symbol(state, to_ssa_expr(lhs), full_lhs, rhs, guard, assignment_type);
+   else if(lhs.id()==ID_index)
+     symex_assign_array(state, to_index_expr(lhs), full_lhs, rhs, guard, assignment_type);
+   else if(lhs.id()==ID_member)
+@@ -228,7 +253,7 @@ Function: goto_symext::symex_assign_symbol
+ 
+ void goto_symext::symex_assign_symbol(
+   statet &state,
+-  const symbol_exprt &lhs,
++  const ssa_exprt &lhs, // L1
+   const exprt &full_lhs,
+   const exprt &rhs,
+   guardt &guard,
+@@ -247,17 +272,10 @@ void goto_symext::symex_assign_symbol(
+     tmp_ssa_rhs.swap(ssa_rhs);
+   }
+   
+-  symbol_exprt original_lhs=lhs;
+-  state.get_original_name(original_lhs);
+-
+-  const symbolt &symbol=ns.lookup(original_lhs);
+-  if(symbol.is_auxiliary) assignment_type=symex_targett::HIDDEN;
+-  
+   state.rename(ssa_rhs, ns);
+   do_simplify(ssa_rhs);
+   
+-  symbol_exprt ssa_lhs=lhs;
+-  state.rename(ssa_lhs, ns, goto_symex_statet::L1);
++  ssa_exprt ssa_lhs=lhs;
+   state.assignment(ssa_lhs, ssa_rhs, ns, options.get_bool_option("simplify"), constant_propagation);
+   
+   exprt ssa_full_lhs=full_lhs;
+@@ -271,10 +289,13 @@ void goto_symext::symex_assign_symbol(
+   tmp_guard.append(guard);
+   
+   // do the assignment
++  const symbolt &symbol=ns.lookup(ssa_lhs.get_original_expr());
++  if(symbol.is_auxiliary) assignment_type=symex_targett::HIDDEN;
++  
+   target.assignment(
+     tmp_guard.as_expr(),
+-    ssa_lhs, original_lhs,
+-    ssa_full_lhs, add_to_lhs(full_lhs, original_lhs),
++    ssa_lhs,
++    ssa_full_lhs, add_to_lhs(full_lhs, ssa_lhs.get_original_expr()),
+     ssa_rhs, 
+     state.source,
+     assignment_type);
+diff --git a/src/goto-symex/symex_builtin_functions.cpp b/src/goto-symex/symex_builtin_functions.cpp
+index a9c57d9..eaf6344 100644
+--- a/src/goto-symex/symex_builtin_functions.cpp
++++ b/src/goto-symex/symex_builtin_functions.cpp
+@@ -133,12 +133,10 @@ void goto_symext::symex_malloc(
+ 
+       new_symbol_table.add(size_symbol);
+ 
+-      guardt guard;
+-      symex_assign_rec(
+-        state, size_symbol.symbol_expr(), nil_exprt(), size, guard,
+-        symex_targett::HIDDEN);
++      code_assignt assignment(size_symbol.symbol_expr(), size);
++      size=assignment.lhs();
+ 
+-      size=size_symbol.symbol_expr();
++      symex_assign_rec(state, assignment);
+     }
+   }
+   
+@@ -173,10 +171,7 @@ void goto_symext::symex_malloc(
+   if(rhs.type()!=lhs.type())
+     rhs.make_typecast(lhs.type());
+ 
+-  state.rename(rhs, ns);
+-  
+-  guardt guard;
+-  symex_assign_rec(state, lhs, nil_exprt(), rhs, guard, symex_targett::HIDDEN);
++  symex_assign_rec(state, code_assignt(lhs, rhs));
+ }
+ 
+ /*******************************************************************\
+@@ -252,8 +247,7 @@ void goto_symext::symex_gcc_builtin_va_arg_next(
+     }
+   }
+ 
+-  guardt guard;
+-  symex_assign_rec(state, lhs, nil_exprt(), rhs, guard, symex_targett::STATE);
++  symex_assign_rec(state, code_assignt(lhs, rhs));
+ }
+ 
+ /*******************************************************************\
+@@ -488,10 +482,7 @@ void goto_symext::symex_cpp_new(
+   else
+     rhs.copy_to_operands(symbol.symbol_expr());
+   
+-  state.rename(rhs, ns);
+-
+-  guardt guard;
+-  symex_assign_rec(state, lhs, nil_exprt(), rhs, guard, symex_targett::STATE);
++  symex_assign_rec(state, code_assignt(lhs, rhs));
+ }
+ 
+ /*******************************************************************\
+diff --git a/src/goto-symex/symex_function_call.cpp b/src/goto-symex/symex_function_call.cpp
+index 7d5a7a1..1e65769 100644
+--- a/src/goto-symex/symex_function_call.cpp
++++ b/src/goto-symex/symex_function_call.cpp
+@@ -136,15 +136,7 @@ void goto_symext::parameter_assignments(
+         }
+       }
+       
+-      guardt guard;
+-      state.rename(lhs, ns, goto_symex_statet::L1);
+-      
+-      symex_targett::assignment_typet assignment_type=
+-        goto_function.is_hidden()?
+-        symex_targett::HIDDEN_ACTUAL_PARAMETER:
+-        symex_targett::VISIBLE_ACTUAL_PARAMETER;
+-        
+-      symex_assign_symbol(state, lhs, nil_exprt(), rhs, guard, assignment_type);
++      symex_assign_rec(state, code_assignt(lhs, rhs));
+     }
+ 
+     it1++;
+@@ -173,15 +165,7 @@ void goto_symext::parameter_assignments(
+       
+       symbol_exprt lhs=symbol_exprt(id, it1->type());
+ 
+-      guardt guard;
+-      state.rename(lhs, ns, goto_symex_statet::L1);
+-
+-      symex_targett::assignment_typet assignment_type=
+-        goto_function.is_hidden()?
+-        symex_targett::HIDDEN_ACTUAL_PARAMETER:
+-        symex_targett::VISIBLE_ACTUAL_PARAMETER;
+-        
+-      symex_assign_symbol(state, lhs, nil_exprt(), *it1, guard, assignment_type);
++      symex_assign_rec(state, code_assignt(lhs, *it1));
+     }
+   }
+   else if(it1!=arguments.end())
+@@ -328,9 +312,8 @@ void goto_symext::symex_function_call_code(
+     {
+       side_effect_expr_nondett rhs(call.lhs().type());
+       rhs.add_source_location()=call.source_location();
+-      state.rename(rhs, ns, goto_symex_statet::L1);
+       code_assignt code(call.lhs(), rhs);
+-      symex_assign(state, to_code_assign(code)); /* TODO: clean_expr? */
++      symex_assign_rec(state, code);
+     }
+ 
+     state.source.pc++;
+@@ -522,8 +505,6 @@ void goto_symext::return_assignment(statet &state)
+   if(code.operands().size()==1)
+   {
+     exprt value=code.op0();
+-
+-    clean_expr(value, state, false);
+   
+     if(frame.return_value.is_not_nil())
+     {
+@@ -536,7 +517,7 @@ void goto_symext::return_assignment(statet &state)
+               "assignment.lhs().type():\n"+assignment.lhs().type().pretty()+"\n"+
+               "assignment.rhs().type():\n"+assignment.rhs().type().pretty();
+ 
+-      symex_assign(state, assignment);
++      symex_assign_rec(state, assignment);
+     }
+   }
+   else
+diff --git a/src/goto-symex/symex_main.cpp b/src/goto-symex/symex_main.cpp
+index 3e2e1a7..7638eb4 100644
+--- a/src/goto-symex/symex_main.cpp
++++ b/src/goto-symex/symex_main.cpp
+@@ -323,14 +323,7 @@ void goto_symext::symex_step(
+ 
+   case ASSIGN:
+     if(!state.guard.is_false())
+-    {
+-      code_assignt deref_code=to_code_assign(instruction.code);
+-
+-      clean_expr(deref_code.lhs(), state, true);
+-      clean_expr(deref_code.rhs(), state, false);
+-
+-      symex_assign(state, deref_code);
+-    }
++      symex_assign_rec(state, to_code_assign(instruction.code));
+ 
+     state.source.pc++;
+     break;
+-- 
+2.5.0
+

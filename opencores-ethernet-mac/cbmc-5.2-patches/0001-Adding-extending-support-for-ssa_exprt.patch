@@ -1,0 +1,679 @@
+From fe32531746feb6acfcaf69c136a7fe4efcf88ae8 Mon Sep 17 00:00:00 2001
+From: Michael Tautschnig <mt@debian.org>
+Date: Thu, 28 Aug 2014 11:11:45 +0200
+Subject: [PATCH 01/18] Adding/extending support for ssa_exprt
+
+---
+ src/goto-programs/graphml_goto_trace.cpp       |   3 +-
+ src/goto-symex/Makefile                        |   2 +-
+ src/goto-symex/ssa_expr.cpp                    |  96 --------------
+ src/goto-symex/ssa_expr.h                      | 152 ----------------------
+ src/pointer-analysis/value_set_dereference.cpp |   3 +
+ src/util/Makefile                              |   2 +-
+ src/util/array_name.cpp                        |   7 +
+ src/util/pointer_offset_size.cpp               |   9 +-
+ src/util/ssa_expr.cpp                          |  96 ++++++++++++++
+ src/util/ssa_expr.h                            | 173 +++++++++++++++++++++++++
+ 10 files changed, 290 insertions(+), 253 deletions(-)
+ delete mode 100644 src/goto-symex/ssa_expr.cpp
+ delete mode 100644 src/goto-symex/ssa_expr.h
+ create mode 100644 src/util/ssa_expr.cpp
+ create mode 100644 src/util/ssa_expr.h
+
+diff --git a/src/goto-programs/graphml_goto_trace.cpp b/src/goto-programs/graphml_goto_trace.cpp
+index e9dcb72..25f79bb 100644
+--- a/src/goto-programs/graphml_goto_trace.cpp
++++ b/src/goto-programs/graphml_goto_trace.cpp
+@@ -12,8 +12,7 @@ Author: Daniel Kroening
+ #include <util/i2string.h>
+ #include <util/arith_tools.h>
+ #include <util/prefix.h>
+-
+-#include <goto-symex/ssa_expr.h>
++#include <util/ssa_expr.h>
+ 
+ #include "graphml_goto_trace.h"
+ 
+diff --git a/src/goto-symex/Makefile b/src/goto-symex/Makefile
+index bff9265..81b59c7 100644
+--- a/src/goto-symex/Makefile
++++ b/src/goto-symex/Makefile
+@@ -4,7 +4,7 @@ SRC = symex_target.cpp symex_target_equation.cpp goto_symex.cpp \
+       symex_goto.cpp symex_builtin_functions.cpp slice.cpp symex_other.cpp \
+       slice_by_trace.cpp symex_decl.cpp symex_dead.cpp rewrite_union.cpp \
+       precondition.cpp postcondition.cpp symex_clean_expr.cpp \
+-      symex_dereference_state.cpp auto_objects.cpp ssa_expr.cpp \
++      symex_dereference_state.cpp auto_objects.cpp \
+       symex_catch.cpp symex_start_thread.cpp symex_assign.cpp \
+       symex_throw.cpp symex_atomic_section.cpp memory_model.cpp \
+       memory_model_sc.cpp partial_order_concurrency.cpp \
+diff --git a/src/goto-symex/ssa_expr.cpp b/src/goto-symex/ssa_expr.cpp
+deleted file mode 100644
+index 06a92e6..0000000
+--- a/src/goto-symex/ssa_expr.cpp
++++ /dev/null
+@@ -1,96 +0,0 @@
+-/*******************************************************************\
+-
+-Module:
+-
+-Author: Daniel Kroening, kroening@kroening.com
+-
+-\*******************************************************************/
+-
+-#include <sstream>
+-#include <cassert>
+-
+-#include <util/arith_tools.h>
+-
+-#include "ssa_expr.h"
+-
+-/*******************************************************************\
+-
+-Function: build_identifier_rec
+-
+-  Inputs:
+-
+- Outputs:
+-
+- Purpose:
+-
+-\*******************************************************************/
+-
+-static void build_ssa_identifier_rec(
+-  const exprt &expr,
+-  const irep_idt &l0,
+-  const irep_idt &l1,
+-  const irep_idt &l2,
+-  std::ostream &os)
+-{
+-  if(expr.id()==ID_member)
+-  {
+-    const member_exprt &member=to_member_expr(expr);
+-
+-    build_ssa_identifier_rec(member.struct_op(), l0, l1, l2, os);
+-
+-    os << '.' << member.get_component_name();
+-  }
+-  else if(expr.id()==ID_index)
+-  {
+-    const index_exprt &index=to_index_expr(expr);
+-
+-    build_ssa_identifier_rec(index.array(), l0, l1, l2, os);
+-
+-    mp_integer idx;
+-    if(to_integer(to_constant_expr(index.index()), idx))
+-      assert(false);
+-
+-    os << '[' << idx << ']';
+-  }
+-  else if(expr.id()==ID_symbol)
+-  {
+-    os << to_symbol_expr(expr).get_identifier();
+-
+-    if(!l0.empty())
+-      os << '!' << l0;
+-
+-    if(!l1.empty())
+-      os << '@' << l1;
+-
+-    if(!l2.empty())
+-      os << '#' << l2;
+-  }
+-  else
+-    assert(false);
+-}
+-
+-/*******************************************************************\
+-
+-Function: ssa_exprt::build_identifier
+-
+-  Inputs:
+-
+- Outputs:
+-
+- Purpose:
+-
+-\*******************************************************************/
+-
+-irep_idt ssa_exprt::build_identifier(
+-  const exprt &expr,
+-  const irep_idt &l0,
+-  const irep_idt &l1,
+-  const irep_idt &l2)
+-{
+-  std::ostringstream oss;
+-
+-  build_ssa_identifier_rec(expr, l0, l1, l2, oss);
+-
+-  return oss.str();
+-}
+-
+diff --git a/src/goto-symex/ssa_expr.h b/src/goto-symex/ssa_expr.h
+deleted file mode 100644
+index f8f7b85..0000000
+--- a/src/goto-symex/ssa_expr.h
++++ /dev/null
+@@ -1,152 +0,0 @@
+-/*******************************************************************\
+-
+-Module:
+-
+-Author: Daniel Kroening, kroening@kroening.com
+-
+-\*******************************************************************/
+-
+-#ifndef CPROVER_GOTO_SYMEX_SSA_EXPR_H
+-#define CPROVER_GOTO_SYMEX_SSA_EXPR_H
+-
+-#include <util/std_expr.h>
+-
+-/*! \brief Expression providing an SSA-renamed symbol of expressions
+-*/
+-class ssa_exprt:public symbol_exprt
+-{
+-public:
+-  inline ssa_exprt()
+-  {
+-    set(ID_C_SSA_symbol, true);
+-  }
+-
+-  /*! \brief Constructor
+-   * \param expr Expression to be converted to SSA symbol
+-  */
+-  inline explicit ssa_exprt(const exprt &expr):
+-    symbol_exprt(expr.type())
+-  {
+-    set(ID_C_SSA_symbol, true);
+-    add(ID_expression, expr);
+-    update_identifier();
+-  }
+-
+-  inline const exprt &get_original_expr() const
+-  {
+-    return static_cast<const exprt &>(find(ID_expression));
+-  }
+-
+-  inline const irep_idt &get_object_name() const
+-  {
+-    object_descriptor_exprt ode;
+-    ode.object()=get_original_expr();
+-    return to_symbol_expr(ode.root_object()).get_identifier();
+-  }
+-
+-  inline const irep_idt get_l1_object_identifier() const
+-  {
+-    return build_identifier(
+-             get_original_expr(),
+-             get_level_0(),
+-             get_level_1(),
+-             irep_idt()); // intentionally blank
+-  }
+-
+-  inline const irep_idt get_original_name() const
+-  {
+-    ssa_exprt o(get_original_expr());
+-    return o.get_identifier();
+-  }
+-
+-  inline void set_level_0(unsigned i)
+-  {
+-    set(ID_L0, i);
+-    update_identifier();
+-  }
+-
+-  inline void set_level_1(unsigned i)
+-  {
+-    set(ID_L1, i);
+-    update_identifier();
+-  }
+-
+-  inline void set_level_2(unsigned i)
+-  {
+-    set(ID_L2, i);
+-    update_identifier();
+-  }
+-
+-  inline void remove_level_2()
+-  {
+-    remove(ID_L2);
+-    update_identifier();
+-  }
+-
+-  inline const irep_idt get_level_0() const
+-  {
+-    return get(ID_L0);
+-  }
+-
+-  inline const irep_idt get_level_1() const
+-  {
+-    return get(ID_L1);
+-  }
+-
+-  inline const irep_idt get_level_2() const
+-  {
+-    return get(ID_L2);
+-  }
+-
+-  void update_identifier()
+-  {
+-    const irep_idt &l0=get_level_0();
+-    const irep_idt &l1=get_level_1();
+-    const irep_idt &l2=get_level_2();
+-
+-    set_identifier(build_identifier(get_original_expr(), l0, l1, l2));
+-  }
+-  
+-  static irep_idt build_identifier(
+-    const exprt &src,
+-    const irep_idt &l0,
+-    const irep_idt &l1,
+-    const irep_idt &l2);
+-};
+-
+-/*! \brief Cast a generic exprt to an \ref ssa_exprt
+- *
+- * This is an unchecked conversion. \a expr must be known to be \ref
+- * ssa_exprt.
+- *
+- * \param expr Source expression
+- * \return Object of type \ref ssa_exprt
+- *
+- * \ingroup gr_std_expr
+-*/
+-extern inline const ssa_exprt &to_ssa_expr(const exprt &expr)
+-{
+-  assert(expr.id()==ID_symbol &&
+-         expr.get_bool(ID_C_SSA_symbol) &&
+-         !expr.has_operands());
+-  return static_cast<const ssa_exprt &>(expr);
+-}
+-
+-/*! \copydoc to_ssa_expr(const exprt &)
+- * \ingroup gr_std_expr
+-*/
+-extern inline ssa_exprt &to_ssa_expr(exprt &expr)
+-{
+-  assert(expr.id()==ID_symbol &&
+-         expr.get_bool(ID_C_SSA_symbol) &&
+-         !expr.has_operands());
+-  return static_cast<ssa_exprt &>(expr);
+-}
+-
+-extern inline bool is_ssa_expr(const exprt &expr)
+-{
+-  return expr.id()==ID_symbol &&
+-         expr.get_bool(ID_C_SSA_symbol);
+-}
+-
+-#endif
+diff --git a/src/pointer-analysis/value_set_dereference.cpp b/src/pointer-analysis/value_set_dereference.cpp
+index d212715..c2aa883 100644
+--- a/src/pointer-analysis/value_set_dereference.cpp
++++ b/src/pointer-analysis/value_set_dereference.cpp
+@@ -32,6 +32,7 @@ Author: Daniel Kroening, kroening@kroening.com
+ #include <util/options.h>
+ #include <util/pointer_predicates.h>
+ #include <util/byte_operators.h>
++#include <util/ssa_expr.h>
+ 
+ #include <ansi-c/c_types.h>
+ #include <ansi-c/c_typecast.h>
+@@ -664,6 +665,8 @@ void value_set_dereferencet::valid_check(
+   else if(symbol_expr.id()==ID_symbol)
+   {
+     const irep_idt identifier=
++      is_ssa_expr(symbol_expr)?
++      to_ssa_expr(symbol_expr).get_object_name():
+       to_symbol_expr(symbol_expr).get_identifier();
+     
+     const symbolt &symbol=ns.lookup(identifier);
+diff --git a/src/util/Makefile b/src/util/Makefile
+index 0e086ab..65b2701 100644
+--- a/src/util/Makefile
++++ b/src/util/Makefile
+@@ -18,7 +18,7 @@ SRC = arith_tools.cpp base_type.cpp cmdline.cpp config.cpp symbol_table.cpp \
+       bv_arithmetic.cpp tempdir.cpp tempfile.cpp timer.cpp unicode.cpp \
+       irep_ids.cpp byte_operators.cpp string2int.cpp file_util.cpp \
+       memory_info.cpp pipe_stream.cpp irep_hash.cpp endianness_map.cpp \
+-      vtable.cpp 
++      vtable.cpp ssa_expr.cpp
+ 
+ INCLUDES= -I ..
+ 
+diff --git a/src/util/array_name.cpp b/src/util/array_name.cpp
+index f7d8d47..f0cbeb2 100644
+--- a/src/util/array_name.cpp
++++ b/src/util/array_name.cpp
+@@ -10,6 +10,7 @@ Author: Daniel Kroening, kroening@kroening.com
+ #include "expr.h"
+ #include "namespace.h"
+ #include "symbol.h"
++#include "ssa_expr.h"
+ 
+ /*******************************************************************\
+ 
+@@ -34,6 +35,12 @@ std::string array_name(
+ 
+     return array_name(ns, expr.op0())+"[]";
+   }
++  else if(is_ssa_expr(expr))
++  {
++    const symbolt &symbol=
++      ns.lookup(to_ssa_expr(expr).get_object_name());
++    return "array `"+id2string(symbol.base_name)+"'";
++  }
+   else if(expr.id()==ID_symbol)
+   {
+     const symbolt &symbol=ns.lookup(expr);
+diff --git a/src/util/pointer_offset_size.cpp b/src/util/pointer_offset_size.cpp
+index 19ea3ba..9923988 100644
+--- a/src/util/pointer_offset_size.cpp
++++ b/src/util/pointer_offset_size.cpp
+@@ -17,6 +17,7 @@ Author: Daniel Kroening, kroening@kroening.com
+ #include "simplify_expr.h"
+ #include "namespace.h"
+ #include "symbol.h"
++#include "ssa_expr.h"
+ 
+ #include "pointer_offset_size.h"
+ 
+@@ -499,7 +500,13 @@ mp_integer compute_pointer_offset(
+   const namespacet &ns)
+ {
+   if(expr.id()==ID_symbol)
+-    return 0;
++  {
++    if(is_ssa_expr(expr))
++      return compute_pointer_offset(
++        to_ssa_expr(expr).get_original_expr(), ns);
++    else
++      return 0;
++  }
+   else if(expr.id()==ID_index)
+   {
+     assert(expr.operands().size()==2);
+diff --git a/src/util/ssa_expr.cpp b/src/util/ssa_expr.cpp
+new file mode 100644
+index 0000000..06a92e6
+--- /dev/null
++++ b/src/util/ssa_expr.cpp
+@@ -0,0 +1,96 @@
++/*******************************************************************\
++
++Module:
++
++Author: Daniel Kroening, kroening@kroening.com
++
++\*******************************************************************/
++
++#include <sstream>
++#include <cassert>
++
++#include <util/arith_tools.h>
++
++#include "ssa_expr.h"
++
++/*******************************************************************\
++
++Function: build_identifier_rec
++
++  Inputs:
++
++ Outputs:
++
++ Purpose:
++
++\*******************************************************************/
++
++static void build_ssa_identifier_rec(
++  const exprt &expr,
++  const irep_idt &l0,
++  const irep_idt &l1,
++  const irep_idt &l2,
++  std::ostream &os)
++{
++  if(expr.id()==ID_member)
++  {
++    const member_exprt &member=to_member_expr(expr);
++
++    build_ssa_identifier_rec(member.struct_op(), l0, l1, l2, os);
++
++    os << '.' << member.get_component_name();
++  }
++  else if(expr.id()==ID_index)
++  {
++    const index_exprt &index=to_index_expr(expr);
++
++    build_ssa_identifier_rec(index.array(), l0, l1, l2, os);
++
++    mp_integer idx;
++    if(to_integer(to_constant_expr(index.index()), idx))
++      assert(false);
++
++    os << '[' << idx << ']';
++  }
++  else if(expr.id()==ID_symbol)
++  {
++    os << to_symbol_expr(expr).get_identifier();
++
++    if(!l0.empty())
++      os << '!' << l0;
++
++    if(!l1.empty())
++      os << '@' << l1;
++
++    if(!l2.empty())
++      os << '#' << l2;
++  }
++  else
++    assert(false);
++}
++
++/*******************************************************************\
++
++Function: ssa_exprt::build_identifier
++
++  Inputs:
++
++ Outputs:
++
++ Purpose:
++
++\*******************************************************************/
++
++irep_idt ssa_exprt::build_identifier(
++  const exprt &expr,
++  const irep_idt &l0,
++  const irep_idt &l1,
++  const irep_idt &l2)
++{
++  std::ostringstream oss;
++
++  build_ssa_identifier_rec(expr, l0, l1, l2, oss);
++
++  return oss.str();
++}
++
+diff --git a/src/util/ssa_expr.h b/src/util/ssa_expr.h
+new file mode 100644
+index 0000000..777790a
+--- /dev/null
++++ b/src/util/ssa_expr.h
+@@ -0,0 +1,173 @@
++/*******************************************************************\
++
++Module:
++
++Author: Daniel Kroening, kroening@kroening.com
++
++\*******************************************************************/
++
++#ifndef CPROVER_GOTO_SYMEX_SSA_EXPR_H
++#define CPROVER_GOTO_SYMEX_SSA_EXPR_H
++
++#include <util/std_expr.h>
++
++/*! \brief Expression providing an SSA-renamed symbol of expressions
++*/
++class ssa_exprt:public symbol_exprt
++{
++public:
++  inline ssa_exprt()
++  {
++    set(ID_C_SSA_symbol, true);
++  }
++
++  /*! \brief Constructor
++   * \param expr Expression to be converted to SSA symbol
++  */
++  inline explicit ssa_exprt(const exprt &expr):
++    symbol_exprt(expr.type())
++  {
++    set(ID_C_SSA_symbol, true);
++    add(ID_expression, expr);
++    update_identifier();
++  }
++
++  inline const exprt &get_original_expr() const
++  {
++    return static_cast<const exprt &>(find(ID_expression));
++  }
++
++  inline const irep_idt &get_object_name() const
++  {
++    object_descriptor_exprt ode;
++    ode.object()=get_original_expr();
++    return to_symbol_expr(ode.root_object()).get_identifier();
++  }
++
++  inline const ssa_exprt get_l1_object() const
++  {
++    object_descriptor_exprt ode;
++    ode.object()=get_original_expr();
++
++    ssa_exprt root(ode.root_object());
++    root.set(ID_L0, get(ID_L0));
++    root.set(ID_L1, get(ID_L1));
++    root.update_identifier();
++
++    return root;
++  }
++
++  inline const irep_idt get_l1_object_identifier() const
++  {
++    #if 0
++    return get_l1_object().get_identifier();
++    #else
++    // the above is the clean version, this is the fast one, making
++    // use of internal knowledge about identifier names
++    std::string l1_o_id=id2string(get_identifier());
++    std::string::size_type fs_suffix=l1_o_id.find_first_of(".[#");
++
++    if(fs_suffix!=std::string::npos)
++      l1_o_id.resize(fs_suffix);
++
++    return l1_o_id;
++    #endif
++  }
++
++  inline const irep_idt get_original_name() const
++  {
++    ssa_exprt o(get_original_expr());
++    return o.get_identifier();
++  }
++
++  inline void set_level_0(unsigned i)
++  {
++    set(ID_L0, i);
++    update_identifier();
++  }
++
++  inline void set_level_1(unsigned i)
++  {
++    set(ID_L1, i);
++    update_identifier();
++  }
++
++  inline void set_level_2(unsigned i)
++  {
++    set(ID_L2, i);
++    update_identifier();
++  }
++
++  inline void remove_level_2()
++  {
++    remove(ID_L2);
++    update_identifier();
++  }
++
++  inline const irep_idt get_level_0() const
++  {
++    return get(ID_L0);
++  }
++
++  inline const irep_idt get_level_1() const
++  {
++    return get(ID_L1);
++  }
++
++  inline const irep_idt get_level_2() const
++  {
++    return get(ID_L2);
++  }
++
++  void update_identifier()
++  {
++    const irep_idt &l0=get_level_0();
++    const irep_idt &l1=get_level_1();
++    const irep_idt &l2=get_level_2();
++
++    set_identifier(build_identifier(get_original_expr(), l0, l1, l2));
++  }
++  
++  static irep_idt build_identifier(
++    const exprt &src,
++    const irep_idt &l0,
++    const irep_idt &l1,
++    const irep_idt &l2);
++};
++
++/*! \brief Cast a generic exprt to an \ref ssa_exprt
++ *
++ * This is an unchecked conversion. \a expr must be known to be \ref
++ * ssa_exprt.
++ *
++ * \param expr Source expression
++ * \return Object of type \ref ssa_exprt
++ *
++ * \ingroup gr_std_expr
++*/
++extern inline const ssa_exprt &to_ssa_expr(const exprt &expr)
++{
++  assert(expr.id()==ID_symbol &&
++         expr.get_bool(ID_C_SSA_symbol) &&
++         !expr.has_operands());
++  return static_cast<const ssa_exprt &>(expr);
++}
++
++/*! \copydoc to_ssa_expr(const exprt &)
++ * \ingroup gr_std_expr
++*/
++extern inline ssa_exprt &to_ssa_expr(exprt &expr)
++{
++  assert(expr.id()==ID_symbol &&
++         expr.get_bool(ID_C_SSA_symbol) &&
++         !expr.has_operands());
++  return static_cast<ssa_exprt &>(expr);
++}
++
++extern inline bool is_ssa_expr(const exprt &expr)
++{
++  return expr.id()==ID_symbol &&
++         expr.get_bool(ID_C_SSA_symbol);
++}
++
++#endif
+-- 
+2.5.0
+

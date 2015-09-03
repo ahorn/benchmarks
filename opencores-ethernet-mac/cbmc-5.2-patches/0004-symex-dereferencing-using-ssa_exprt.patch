@@ -1,0 +1,244 @@
+From 3552b91aec3ac33256483056e2200c9b93f3a437 Mon Sep 17 00:00:00 2001
+From: Michael Tautschnig <mt@debian.org>
+Date: Thu, 28 Aug 2014 11:32:30 +0200
+Subject: [PATCH 04/18] symex dereferencing using ssa_exprt
+
+---
+ src/goto-symex/auto_objects.cpp            | 26 ++++++++++--------
+ src/goto-symex/renaming_ns.h               | 39 ---------------------------
+ src/goto-symex/symex_dereference.cpp       | 31 +++++++++++++++++----
+ src/goto-symex/symex_dereference_state.cpp | 43 +++++++++++++++++++++++-------
+ 4 files changed, 75 insertions(+), 64 deletions(-)
+ delete mode 100644 src/goto-symex/renaming_ns.h
+
+diff --git a/src/goto-symex/auto_objects.cpp b/src/goto-symex/auto_objects.cpp
+index 95e5e8c..ebb8899 100644
+--- a/src/goto-symex/auto_objects.cpp
++++ b/src/goto-symex/auto_objects.cpp
+@@ -122,21 +122,25 @@ void goto_symext::trigger_auto_object(
+   const exprt &expr,
+   statet &state)
+ {
+-  if(expr.id()==ID_symbol)
++  if(expr.id()==ID_symbol &&
++     expr.get_bool(ID_C_SSA_symbol))
+   {
+-    const symbol_exprt &symbol_expr=to_symbol_expr(expr);
+-    const irep_idt &identifier=symbol_expr.get_identifier();
++    const ssa_exprt &ssa_expr=to_ssa_expr(expr);
++    const irep_idt &obj_identifier=ssa_expr.get_object_name();
+     
+-    const symbolt &symbol=
+-      ns.lookup(state.get_original_name(identifier));
+-      
+-    if(has_prefix(id2string(symbol.base_name), "auto_object"))
++    if(obj_identifier!="goto_symex::\\guard")
+     {
+-      // done already?
+-      if(state.level2.current_names.find(identifier)==
+-         state.level2.current_names.end())
++      const symbolt &symbol=
++        ns.lookup(obj_identifier);
++        
++      if(has_prefix(id2string(symbol.base_name), "auto_object"))
+       {
+-        initialize_auto_object(expr, state);
++        // done already?
++        if(state.level2.current_names.find(ssa_expr.get_identifier())==
++           state.level2.current_names.end())
++        {
++          initialize_auto_object(expr, state);
++        }
+       }
+     }
+   }
+diff --git a/src/goto-symex/renaming_ns.h b/src/goto-symex/renaming_ns.h
+deleted file mode 100644
+index 2c4ef53..0000000
+--- a/src/goto-symex/renaming_ns.h
++++ /dev/null
+@@ -1,39 +0,0 @@
+-/*******************************************************************\
+-
+-Module:
+-
+-Author: Daniel Kroening, kroening@kroening.com
+-
+-\*******************************************************************/
+-
+-#ifndef CPROVER_GOTO_SYMEX_RENAMING_NS_H
+-#define CPROVER_GOTO_SYMEX_RENAMING_NS_H
+-
+-#include <util/namespace.h>
+-
+-class renaming_nst:public namespacet
+-{
+-public:
+-  renaming_nst(
+-    const namespacet &_ns,
+-    class goto_symex_statet &_state):
+-    namespacet(_ns),
+-    state(_state)
+-  {
+-  }
+-   
+-  virtual bool lookup(const irep_idt &name, const symbolt *&symbol) const
+-  {
+-    return namespacet::lookup(state.get_original_name(name), symbol);
+-  }
+-  
+-  const symbolt &lookup(const irep_idt &name) const
+-  {
+-    return namespacet::lookup(state.get_original_name(name));
+-  }
+-  
+-protected:
+-  class goto_symex_statet &state;
+-};
+- 
+-#endif
+diff --git a/src/goto-symex/symex_dereference.cpp b/src/goto-symex/symex_dereference.cpp
+index bc4d1ae..007c745 100644
+--- a/src/goto-symex/symex_dereference.cpp
++++ b/src/goto-symex/symex_dereference.cpp
+@@ -19,7 +19,6 @@ Author: Daniel Kroening, kroening@kroening.com
+ #include <ansi-c/c_types.h>
+ 
+ #include "goto_symex.h"
+-#include "renaming_ns.h"
+ #include "symex_dereference_state.h"
+ 
+ /*******************************************************************\
+@@ -227,8 +226,28 @@ exprt goto_symext::address_arithmetic(
+     if(ns.follow(result.type()).id()==ID_array && !keep_array)
+       result=index_exprt(result, gen_zero(index_type()));
+ 
+-    // TODO: consider pointer offset for ID_SSA_symbol
+-    result=address_of_exprt(result);
++    // handle field-sensitive SSA symbol
++    mp_integer offset=0;
++    if(expr.id()==ID_symbol &&
++       expr.get_bool(ID_C_SSA_symbol))
++    {
++      offset=compute_pointer_offset(expr, ns);
++      assert(offset>=0);
++    }
++
++    if(offset>0)
++    {
++      byte_extract_exprt be(byte_extract_id());
++      be.type()=expr.type();
++      be.op()=to_ssa_expr(expr).get_l1_object();
++      be.offset()=from_integer(offset, index_type());
++
++      result=address_arithmetic(be, state, guard, keep_array);
++
++      do_simplify(result);
++    }
++    else
++      result=address_of_exprt(result);
+   }
+   else
+     throw "goto_symext::address_arithmetic does not handle "+expr.id_string();
+@@ -271,10 +290,9 @@ void goto_symext::dereference_rec(
+ 
+     // we need to set up some elaborate call-backs
+     symex_dereference_statet symex_dereference_state(*this, state);
+-    renaming_nst renaming_ns(ns, state);
+ 
+     value_set_dereferencet dereference(
+-      renaming_ns,
++      ns,
+       new_symbol_table,
+       options,
+       symex_dereference_state);      
+@@ -386,4 +404,7 @@ void goto_symext::dereference(
+   // start the recursion!
+   guardt guard;  
+   dereference_rec(expr, state, guard, write);
++  // dereferencing may introduce new symbol_exprt
++  // (like __CPROVER_memory)
++  state.rename(expr, ns, goto_symex_statet::L1);
+ }
+diff --git a/src/goto-symex/symex_dereference_state.cpp b/src/goto-symex/symex_dereference_state.cpp
+index eb2c114..7f998e9 100644
+--- a/src/goto-symex/symex_dereference_state.cpp
++++ b/src/goto-symex/symex_dereference_state.cpp
+@@ -9,7 +9,6 @@ Author: Daniel Kroening, kroening@kroening.com
+ #include <util/symbol_table.h>
+ 
+ #include "symex_dereference_state.h"
+-#include "renaming_ns.h"
+ 
+ /*******************************************************************\
+ 
+@@ -46,22 +45,50 @@ bool symex_dereference_statet::has_failed_symbol(
+   const exprt &expr,
+   const symbolt *&symbol)
+ {
+-  renaming_nst renaming_ns(goto_symex.ns, state);
++  const namespacet &ns=goto_symex.ns;
+ 
+-  if(expr.id()==ID_symbol)
++  if(expr.id()==ID_symbol &&
++     expr.get_bool(ID_C_SSA_symbol))
++  {
++    const ssa_exprt &ssa_expr=to_ssa_expr(expr);
++    if(ssa_expr.get_original_expr().id()!=ID_symbol)
++      return false;
++
++    const symbolt &ptr_symbol=
++      ns.lookup(to_ssa_expr(expr).get_object_name());
++
++    const irep_idt &failed_symbol=
++      ptr_symbol.type.get("#failed_symbol");
++
++    if(failed_symbol!="" &&
++        !ns.lookup(failed_symbol, symbol))
++    {
++      symbolt sym=*symbol;
++      symbolt *sym_ptr=0;
++      symbol_exprt sym_expr=sym.symbol_expr();
++      state.rename(sym_expr, ns, goto_symex_statet::L1);
++      sym.name=to_ssa_expr(sym_expr).get_identifier();
++      goto_symex.new_symbol_table.move(sym, sym_ptr);
++      symbol=sym_ptr;
++      return true;
++    }
++  }
++  else if(expr.id()==ID_symbol)
+   {
+     const symbolt &ptr_symbol=
+-      renaming_ns.lookup(to_symbol_expr(expr).get_identifier());
++      ns.lookup(to_symbol_expr(expr).get_identifier());
+ 
+     const irep_idt &failed_symbol=
+       ptr_symbol.type.get("#failed_symbol");    
+       
+     if(failed_symbol!="" &&
+-        !renaming_ns.lookup(failed_symbol, symbol))
++        !ns.lookup(failed_symbol, symbol))
+     {
+       symbolt sym=*symbol;
+       symbolt *sym_ptr=0;
+-      sym.name=state.rename_identifier(sym.name, renaming_ns, goto_symex_statet::L1);
++      symbol_exprt sym_expr=sym.symbol_expr();
++      state.rename(sym_expr, ns, goto_symex_statet::L1);
++      sym.name=to_ssa_expr(sym_expr).get_identifier();
+       goto_symex.new_symbol_table.move(sym, sym_ptr);
+       symbol=sym_ptr;
+       return true;
+@@ -87,9 +114,7 @@ void symex_dereference_statet::get_value_set(
+   const exprt &expr,
+   value_setst::valuest &value_set)
+ {
+-  renaming_nst renaming_ns(goto_symex.ns, state);
+-
+-  state.value_set.get_value_set(expr, value_set, renaming_ns);
++  state.value_set.get_value_set(expr, value_set, goto_symex.ns);
+   
+   #if 0
+   std::cout << "**************************\n";
+-- 
+2.5.0
+
