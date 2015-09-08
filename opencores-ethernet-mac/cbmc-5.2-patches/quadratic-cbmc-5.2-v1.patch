@@ -1,7 +1,7 @@
-Index: goto-symex/memory_model.cpp
+Index: src/goto-symex/memory_model.cpp
 ===================================================================
---- goto-symex/memory_model.cpp	(revision 5834)
-+++ goto-symex/memory_model.cpp	(working copy)
+--- src/goto-symex/memory_model.cpp	(revision 5834)
++++ src/goto-symex/memory_model.cpp	(working copy)
 @@ -120,10 +120,19 @@
          r_it++)
      {
@@ -49,10 +49,10 @@ Index: goto-symex/memory_model.cpp
                equal_exprt(r->ssa_lhs, w->ssa_lhs)));
  
          // Uses only the write's guard as precondition, read's guard
-Index: goto-symex/memory_model_pso.cpp
+Index: src/goto-symex/memory_model_pso.cpp
 ===================================================================
---- goto-symex/memory_model_pso.cpp	(revision 5834)
-+++ goto-symex/memory_model_pso.cpp	(working copy)
+--- src/goto-symex/memory_model_pso.cpp	(revision 5834)
++++ src/goto-symex/memory_model_pso.cpp	(working copy)
 @@ -30,7 +30,7 @@
    read_from(equation);
    write_serialization_external(equation);
@@ -62,10 +62,10 @@ Index: goto-symex/memory_model_pso.cpp
    from_read(equation);
  #endif
  }
-Index: goto-symex/memory_model_sc.cpp
+Index: src/goto-symex/memory_model_sc.cpp
 ===================================================================
---- goto-symex/memory_model_sc.cpp	(revision 5834)
-+++ goto-symex/memory_model_sc.cpp	(working copy)
+--- src/goto-symex/memory_model_sc.cpp	(revision 5834)
++++ src/goto-symex/memory_model_sc.cpp	(working copy)
 @@ -33,7 +33,9 @@
    read_from(equation);
    write_serialization_external(equation);
@@ -76,10 +76,10 @@ Index: goto-symex/memory_model_sc.cpp
  }
  
  /*******************************************************************\
-Index: goto-symex/memory_model_tso.cpp
+Index: src/goto-symex/memory_model_tso.cpp
 ===================================================================
---- goto-symex/memory_model_tso.cpp	(revision 5834)
-+++ goto-symex/memory_model_tso.cpp	(working copy)
+--- src/goto-symex/memory_model_tso.cpp	(revision 5834)
++++ src/goto-symex/memory_model_tso.cpp	(working copy)
 @@ -33,7 +33,7 @@
    read_from(equation);
    write_serialization_external(equation);
@@ -89,10 +89,10 @@ Index: goto-symex/memory_model_tso.cpp
    from_read(equation);
  #endif
  }
-Index: goto-symex/partial_order_concurrency.cpp
+Index: src/goto-symex/partial_order_concurrency.cpp
 ===================================================================
---- goto-symex/partial_order_concurrency.cpp	(revision 5834)
-+++ goto-symex/partial_order_concurrency.cpp	(working copy)
+--- src/goto-symex/partial_order_concurrency.cpp	(revision 5834)
++++ src/goto-symex/partial_order_concurrency.cpp	(working copy)
 @@ -27,7 +27,10 @@
  \*******************************************************************/
  
@@ -165,10 +165,10 @@ Index: goto-symex/partial_order_concurrency.cpp
    for(eventst::const_iterator
        e_it=equation.SSA_steps.begin();
        e_it!=equation.SSA_steps.end();
-Index: goto-symex/partial_order_concurrency.h
+Index: src/goto-symex/partial_order_concurrency.h
 ===================================================================
---- goto-symex/partial_order_concurrency.h	(revision 5834)
-+++ goto-symex/partial_order_concurrency.h	(working copy)
+--- src/goto-symex/partial_order_concurrency.h	(revision 5834)
++++ src/goto-symex/partial_order_concurrency.h	(working copy)
 @@ -13,6 +13,8 @@
  
  #include "symex_target_equation.h"
