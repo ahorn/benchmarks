@@ -1,0 +1,177 @@
+diff --git a/opencores-ethernet-mac/ethoc-hw-sw/ethoc.c b/opencores-ethernet-mac/ethoc-hw-sw/ethoc.c
+index a832683..dff5824 100644
+--- a/opencores-ethernet-mac/ethoc-hw-sw/ethoc.c
++++ b/opencores-ethernet-mac/ethoc-hw-sw/ethoc.c
+@@ -456,7 +456,7 @@ static int ethoc_rx(struct net_device *dev, int limit)
+ 	mask = ethoc_read(priv, INT_MASK);
+ 	assert((mask & INT_MASK_RX) == 0);
+ 
+-	for (count = 0; count < limit; ++count) {
++	//for (count = 0; count < limit; ++count) {
+ 		unsigned int entry;
+ 		struct ethoc_bd bd;
+ 
+@@ -469,12 +469,12 @@ static int ethoc_rx(struct net_device *dev, int limit)
+ 			if (0 < count)
+ 				sleep(LONG_DELAY);
+ #endif
+-			ethoc_ack_irq(priv, INT_MASK_RX);
+-			break;
++			//ethoc_ack_irq(priv, INT_MASK_RX);
++			//break;
+                 }
+ #else
+ 		if (bd.stat & RX_BD_EMPTY) {
+-			ethoc_ack_irq(priv, INT_MASK_RX);
++			//ethoc_ack_irq(priv, INT_MASK_RX);
+ 			/* If packet (interrupt) came in between checking
+ 			 * BD_EMTPY and clearing the interrupt source, then we
+ 			 * risk missing the packet as the RX interrupt won't
+@@ -483,8 +483,8 @@ static int ethoc_rx(struct net_device *dev, int limit)
+ 			 * packet waiting for us...
+ 			 */
+ 			ethoc_read_bd(priv, entry, &bd);
+-			if (bd.stat & RX_BD_EMPTY)
+-				break;
++			//if (bd.stat & RX_BD_EMPTY)
++			//	break;
+ 		}
+ #endif
+ 
+@@ -505,7 +505,7 @@ static int ethoc_rx(struct net_device *dev, int limit)
+ 		ethoc_write_bd(priv, entry, &bd);
+ 		if (++priv->cur_rx == GET_NUM_RX(priv))
+ 			priv->cur_rx = 0;
+-	}
++	//}
+ 
+ 	return count;
+ }
+@@ -548,7 +548,7 @@ static int ethoc_tx(struct net_device *dev, int limit)
+ 	int count;
+ 	struct ethoc_bd bd;
+ 
+-	for (count = 0; count < limit; ++count) {
++	//for (count = 0; count < limit; ++count) {
+ 		unsigned int entry;
+ 
+ 		entry = priv->dty_tx & (GET_NUM_TX(priv)-1);
+@@ -556,7 +556,7 @@ static int ethoc_tx(struct net_device *dev, int limit)
+ 		ethoc_read_bd(priv, entry, &bd);
+ 
+ 		if (bd.stat & TX_BD_READY || (priv->dty_tx == priv->cur_tx)) {
+-			ethoc_ack_irq(priv, INT_MASK_TX);
++			//ethoc_ack_irq(priv, INT_MASK_TX);
+ 			/* If interrupt came in between reading in the BD
+ 			 * and clearing the interrupt source, then we risk
+ 			 * missing the event as the TX interrupt won't trigger
+@@ -567,12 +567,13 @@ static int ethoc_tx(struct net_device *dev, int limit)
+ 			ethoc_read_bd(priv, entry, &bd);
+ 			if (bd.stat & TX_BD_READY ||
+ 			    (priv->dty_tx == priv->cur_tx))
+-				break;
++				//break;
++				;
+ 		}
+ 
+ 		ethoc_update_tx_stats(priv, &bd);
+ 		priv->dty_tx++;
+-	}
++	//}
+ 
+ 	if ((priv->cur_tx - priv->dty_tx) <= (GET_NUM_TX(priv) / 2))
+ 		netif_wake_queue(dev);
+@@ -605,7 +606,7 @@ static irqreturn_t ethoc_interrupt(void *opaque, int n, int level)
+ 		return IRQ_NONE;
+ 	}
+ 
+-	ethoc_ack_irq(priv, pending);
++	//ethoc_ack_irq(priv, pending);
+ 
+ 	/* We always handle the dropped packet interrupt */
+ 	if (pending & INT_MASK_BUSY) {
+@@ -615,8 +616,8 @@ static irqreturn_t ethoc_interrupt(void *opaque, int n, int level)
+ 
+ 	/* Handle receive/transmit event by switching to polling */
+ 	if (pending & (INT_MASK_TX | INT_MASK_RX)) {
+-		ethoc_disable_irq(priv, INT_MASK_TX | INT_MASK_RX);
+-		napi_schedule(&priv->napi);
++		//ethoc_disable_irq(priv, INT_MASK_TX | INT_MASK_RX);
++		//napi_schedule(&priv->napi);
+ 	}
+ 
+ 	return IRQ_HANDLED;
+@@ -944,10 +945,10 @@ int main(void)
+ 
+ 	int packet_id;
+         unsigned int packet_size;
+-	for (packet_id = 0; packet_id < rx_packet_num; packet_id++) {
++	//for (packet_id = 0; packet_id < rx_packet_num; packet_id++) {
+ 		packet_size = nondet_uint(64 + packet_id);
+-		if (packet_size >= ETHOC_BUFSIZ || packet_size < 64)
+-			continue;
++		//if (packet_size >= ETHOC_BUFSIZ || packet_size < 64)
++		//	continue;
+ 
+ #ifdef _EXPOSE_BUG_
+ 		if (0 < packet_id)
+@@ -958,7 +959,7 @@ int main(void)
+  		 * Each packet is associated with a unique positive identifier.
+  		 */
+ 		test_rx(mac_addr, packet_id + 1, packet_size);
+-	}
++	//}
+ 
+ 	/* wait for all pending interrupts to complete */
+ #ifdef _CBMC_
+@@ -993,8 +994,8 @@ int main(void)
+  	 */
+ 	int k;
+ 	struct ethoc_bd bd;
+-	for (k = 0; k < ethoc.num_rx; k++) {
++	//for (k = 0; k < ethoc.num_rx; k++) {
+ 		ethoc_read_bd(&ethoc, ethoc.num_tx + k, &bd);
+ 		assert((bd.stat & RX_BD_EMPTY) == RX_BD_EMPTY);
+-	}
++	//}
+ }
+diff --git a/opencores-ethernet-mac/ethoc-hw.c b/opencores-ethernet-mac/ethoc-hw.c
+index 083cf15..82e7b53 100644
+--- a/opencores-ethernet-mac/ethoc-hw.c
++++ b/opencores-ethernet-mac/ethoc-hw.c
+@@ -174,7 +174,7 @@ static void mii_ro(Mii *s, uint16_t v)
+ static void mii_write_bmcr(Mii *s, uint16_t v)
+ {
+     if (v & 0x8000) {
+-        mii_reset(s);
++        //mii_reset(s);
+     } else {
+         s->regs[MII_BMCR] = v;
+     }
+@@ -536,7 +536,7 @@ static void open_eth_moder_host_write(OpenEthState *s, uint32_t val)
+     uint32_t set = val & ~s->regs[MODER];
+ 
+     if (set & MODER_RST) {
+-        open_eth_reset(s);
++       // open_eth_reset(s);
+     }
+ 
+     s->regs[MODER] = val;
+@@ -553,7 +553,7 @@ static void open_eth_moder_host_write(OpenEthState *s, uint32_t val)
+     }
+     if (set & MODER_TXEN) {
+         s->tx_desc = 0;
+-        open_eth_check_start_xmit(s);
++        //open_eth_check_start_xmit(s);
+     }
+ }
+ 
+@@ -679,7 +679,7 @@ void open_eth_desc_write(OpenEthState *s, hwaddr addr, uint64_t val)
+ #endif
+     set_desc_at(s, addr, val);
+ 
+-    open_eth_check_start_xmit(s);
++    //open_eth_check_start_xmit(s);
+ 
+     ATOMIC_END;
+ 
