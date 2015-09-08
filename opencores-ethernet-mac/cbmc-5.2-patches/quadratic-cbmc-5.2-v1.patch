@@ -1,0 +1,203 @@
+Index: goto-symex/memory_model.cpp
+===================================================================
+--- goto-symex/memory_model.cpp	(revision 5834)
++++ goto-symex/memory_model.cpp	(working copy)
+@@ -120,10 +120,19 @@
+         r_it++)
+     {
+       const event_it r=*r_it;
+-      
++
+       exprt::operandst rf_some_operands;
+       rf_some_operands.reserve(a_rec.writes.size());
+ 
++#ifdef CPROVER_MEMORY_MODEL_SUP
++       // To implement the quadratic-size partial order encoding, we
++       // create a formula that finds the least upper bound (supremum)
++       // of all writes that do not happen after a read on the same
++       // memory location. Since there are different memory axioms,
++       // we create a new event rather than a new clock variable.
++       const event_it sup=create_sup_event(r);
++#endif
++
+       // this is quadratic in #events per address
+       for(event_listt::const_iterator
+           w_it=a_rec.writes.begin();
+@@ -140,6 +149,15 @@
+           w->source.thread_nr==r->source.thread_nr;
+ 
+         symbol_exprt s=nondet_bool_symbol("rf");
++
++#ifdef CPROVER_MEMORY_MODEL_SUP
++        implies_exprt ensure_supremum(
++          and_exprt(w->guard, not_exprt(before(r, w))),
++          not_exprt(before(sup, w)));
++
++        add_constraint(equation,
++          ensure_supremum, "sup-clock", r->source);
++#endif
+         
+         // record the symbol
+         choice_symbols[
+@@ -149,6 +167,9 @@
+         // one write event that has guard 'true'.
+         implies_exprt read_from(s,
+             and_exprt(w->guard,
++#ifdef CPROVER_MEMORY_MODEL_SUP
++                      not_exprt(before(w, sup)),
++#endif
+               equal_exprt(r->ssa_lhs, w->ssa_lhs)));
+ 
+         // Uses only the write's guard as precondition, read's guard
+Index: goto-symex/memory_model_pso.cpp
+===================================================================
+--- goto-symex/memory_model_pso.cpp	(revision 5834)
++++ goto-symex/memory_model_pso.cpp	(working copy)
+@@ -30,7 +30,7 @@
+   read_from(equation);
+   write_serialization_external(equation);
+   program_order(equation);
+-#ifndef CPROVER_MEMORY_MODEL_SUP_CLOCK
++#ifndef CPROVER_MEMORY_MODEL_SUP
+   from_read(equation);
+ #endif
+ }
+Index: goto-symex/memory_model_sc.cpp
+===================================================================
+--- goto-symex/memory_model_sc.cpp	(revision 5834)
++++ goto-symex/memory_model_sc.cpp	(working copy)
+@@ -33,7 +33,9 @@
+   read_from(equation);
+   write_serialization_external(equation);
+   program_order(equation);
++#ifndef CPROVER_MEMORY_MODEL_SUP
+   from_read(equation);
++#endif
+ }
+ 
+ /*******************************************************************\
+Index: goto-symex/memory_model_tso.cpp
+===================================================================
+--- goto-symex/memory_model_tso.cpp	(revision 5834)
++++ goto-symex/memory_model_tso.cpp	(working copy)
+@@ -33,7 +33,7 @@
+   read_from(equation);
+   write_serialization_external(equation);
+   program_order(equation);
+-#ifndef CPROVER_MEMORY_MODEL_SUP_CLOCK
++#ifndef CPROVER_MEMORY_MODEL_SUP
+   from_read(equation);
+ #endif
+ }
+Index: goto-symex/partial_order_concurrency.cpp
+===================================================================
+--- goto-symex/partial_order_concurrency.cpp	(revision 5834)
++++ goto-symex/partial_order_concurrency.cpp	(working copy)
+@@ -27,7 +27,10 @@
+ \*******************************************************************/
+ 
+ partial_order_concurrencyt::partial_order_concurrencyt(
+-  const namespacet &_ns):ns(_ns)
++  const namespacet &_ns):ns(_ns),
++  counter(),
++  sup_events(),
++  sup_event_it(sup_events.end())
+ {
+ }
+ 
+@@ -47,8 +50,49 @@
+ {
+ }
+ 
++#ifdef CPROVER_MEMORY_MODEL_SUP
+ /*******************************************************************\
+ 
++Function: partial_order_concurrencyt::create_sup_event
++
++  Inputs: Read event, denoted by r
++
++ Outputs: A hidden write event on the same memory location as r
++
++ Purpose: Find the supremum of writes that do not happen after r
++
++\*******************************************************************/
++
++partial_order_concurrencyt::event_it
++  partial_order_concurrencyt::create_sup_event(event_it r)
++{
++  assert(is_shared_read(r));
++
++  sup_events.push_back(eventt());
++  eventt &sup_event=sup_events.back();
++
++  if(sup_event_it==sup_events.end())
++    sup_event_it=sup_events.begin();
++  else
++    ++sup_event_it;
++
++  sup_event.guard=false_exprt();
++  sup_event.ssa_lhs=r->ssa_lhs;
++  sup_event.original_lhs_object=r->original_lhs_object;
++  sup_event.type=goto_trace_stept::SPAWN;
++  sup_event.atomic_section_id=r->atomic_section_id;
++  sup_event.source=r->source;
++
++  unsigned thread_nr=r->source.thread_nr;
++  unsigned cnt=counter[thread_nr]++;
++  numbering[sup_event_it]=cnt;
++
++  return sup_event_it;
++}
++#endif
++
++/*******************************************************************\
++
+ Function: partial_order_concurrencyt::add_init_writes
+ 
+   Inputs: 
+@@ -124,9 +168,6 @@
+ {
+   add_init_writes(equation);
+ 
+-  // a per-thread counter
+-  std::map<unsigned, unsigned> counter;
+-
+   for(eventst::const_iterator
+       e_it=equation.SSA_steps.begin();
+       e_it!=equation.SSA_steps.end();
+Index: goto-symex/partial_order_concurrency.h
+===================================================================
+--- goto-symex/partial_order_concurrency.h	(revision 5834)
++++ goto-symex/partial_order_concurrency.h	(working copy)
+@@ -13,6 +13,8 @@
+ 
+ #include "symex_target_equation.h"
+ 
++#define CPROVER_MEMORY_MODEL_SUP
++
+ class partial_order_concurrencyt:public messaget
+ {
+ public:
+@@ -38,6 +40,12 @@
+ protected:
+   const namespacet &ns;
+ 
++  // a per-thread counter
++  std::map<unsigned, unsigned> counter;
++
++  eventst sup_events;
++  event_it sup_event_it;
++
+   typedef std::vector<event_it> event_listt;
+   
+   // lists of reads and writes per address
+@@ -73,6 +81,9 @@
+   symbol_exprt clock(event_it e, axiomt axiom);
+   void build_clock_type(const symex_target_equationt &);
+ 
++  // returns a new supremum event for a read event r
++  event_it create_sup_event(event_it r);
++
+   // preprocess and add a constraint to equation
+   void add_constraint(
+     symex_target_equationt &equation,
