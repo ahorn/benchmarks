@@ -93,19 +93,18 @@ Index: src/goto-symex/partial_order_concurrency.cpp
 ===================================================================
 --- src/goto-symex/partial_order_concurrency.cpp	(revision 5834)
 +++ src/goto-symex/partial_order_concurrency.cpp	(working copy)
-@@ -27,7 +27,10 @@
+@@ -27,7 +27,9 @@
  \*******************************************************************/
  
  partial_order_concurrencyt::partial_order_concurrencyt(
 -  const namespacet &_ns):ns(_ns)
 +  const namespacet &_ns):ns(_ns),
-+  counter(),
 +  sup_events(),
 +  sup_event_it(sup_events.end())
  {
  }
  
-@@ -47,8 +50,49 @@
+@@ -47,8 +49,45 @@
  {
  }
  
@@ -138,13 +137,9 @@ Index: src/goto-symex/partial_order_concurrency.cpp
 +  sup_event.guard=false_exprt();
 +  sup_event.ssa_lhs=r->ssa_lhs;
 +  sup_event.original_lhs_object=r->original_lhs_object;
-+  sup_event.type=goto_trace_stept::SPAWN;
++  sup_event.type=goto_trace_stept::SHARED_WRITE;
 +  sup_event.atomic_section_id=r->atomic_section_id;
 +  sup_event.source=r->source;
-+
-+  unsigned thread_nr=r->source.thread_nr;
-+  unsigned cnt=counter[thread_nr]++;
-+  numbering[sup_event_it]=cnt;
 +
 +  return sup_event_it;
 +}
@@ -155,16 +150,6 @@ Index: src/goto-symex/partial_order_concurrency.cpp
  Function: partial_order_concurrencyt::add_init_writes
  
    Inputs: 
-@@ -124,9 +168,6 @@
- {
-   add_init_writes(equation);
- 
--  // a per-thread counter
--  std::map<unsigned, unsigned> counter;
--
-   for(eventst::const_iterator
-       e_it=equation.SSA_steps.begin();
-       e_it!=equation.SSA_steps.end();
 Index: src/goto-symex/partial_order_concurrency.h
 ===================================================================
 --- src/goto-symex/partial_order_concurrency.h	(revision 5834)
@@ -178,20 +163,17 @@ Index: src/goto-symex/partial_order_concurrency.h
  class partial_order_concurrencyt:public messaget
  {
  public:
-@@ -38,6 +40,12 @@
+@@ -38,6 +40,9 @@
  protected:
    const namespacet &ns;
  
-+  // a per-thread counter
-+  std::map<unsigned, unsigned> counter;
-+
 +  eventst sup_events;
 +  event_it sup_event_it;
 +
    typedef std::vector<event_it> event_listt;
    
    // lists of reads and writes per address
-@@ -73,6 +81,9 @@
+@@ -73,6 +78,9 @@
    symbol_exprt clock(event_it e, axiomt axiom);
    void build_clock_type(const symex_target_equationt &);
  
