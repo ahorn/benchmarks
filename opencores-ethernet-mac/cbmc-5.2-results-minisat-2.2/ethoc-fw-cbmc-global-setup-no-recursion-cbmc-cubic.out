@@ -1,0 +1,405 @@
+CBMC version 5.2 64-bit x86_64 linux
+Parsing bitrev.c
+Parsing cbmc.c
+Parsing ethoc.c
+Parsing timer.c
+Parsing ../sys.c
+Parsing ../net.c
+Parsing ../ethoc-hw.c
+Converting
+Type-checking bitrev
+Type-checking cbmc
+Type-checking ethoc
+Type-checking ethoc-hw
+Type-checking net
+Type-checking sys
+Type-checking timer
+Generating GOTO Program
+Adding CPROVER library
+Function Pointer Removal
+Partial Inlining
+Generic Property Instrumentation
+Starting Bounded Model Checking
+Unwinding loop memset.0 iteration 1 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 2 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 3 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 4 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 5 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 6 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 7 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 8 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 9 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 10 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 11 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 12 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 13 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 14 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 15 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 16 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 17 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 18 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 19 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 20 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 21 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 22 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 23 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 24 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 25 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 26 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 27 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 28 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 29 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 30 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 31 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 32 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 1 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 2 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 3 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 4 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 5 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 6 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 7 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 8 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 9 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 10 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 11 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 12 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 13 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 14 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 15 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 16 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 17 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 18 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 19 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 20 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 21 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 22 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 23 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 24 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 25 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 26 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 27 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 28 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 29 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 30 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 31 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 32 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 33 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 34 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 35 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 36 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 37 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 38 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 39 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 40 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 41 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 42 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 43 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 44 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 45 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 46 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 47 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 48 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 49 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 50 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 51 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 52 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 53 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 54 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 55 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 56 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 57 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 58 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 59 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 60 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 61 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 62 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 63 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 64 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 65 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 66 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 67 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 68 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 69 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 70 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 71 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 72 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 73 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 74 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 75 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 76 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 77 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 78 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 79 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 80 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 81 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 82 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 83 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 84 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 1 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 2 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 3 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 4 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 5 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 6 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 7 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 8 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 9 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 10 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 11 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 12 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 13 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 14 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 15 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 16 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 17 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 18 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 19 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 20 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 21 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 22 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 23 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 24 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 25 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 26 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 27 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 28 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 29 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 30 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 31 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 32 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 33 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 34 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 35 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 36 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 37 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 38 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 39 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 40 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 41 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 42 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 43 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 44 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 45 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 46 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 47 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 48 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 49 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 50 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 51 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 52 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 53 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 54 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 55 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 56 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 57 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 58 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 59 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 60 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 61 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 62 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 63 file ../sys.c line 8 function memset thread 0
+Unwinding loop memset.0 iteration 64 file ../sys.c line 8 function memset thread 0
+Unwinding loop ethoc_init_ring.0 iteration 1 file ethoc.c line 340 function ethoc_init_ring thread 0
+Unwinding loop ethoc_init_ring.0 iteration 2 file ethoc.c line 340 function ethoc_init_ring thread 0
+Unwinding loop ethoc_init_ring.0 iteration 3 file ethoc.c line 340 function ethoc_init_ring thread 0
+Unwinding loop ethoc_init_ring.0 iteration 4 file ethoc.c line 340 function ethoc_init_ring thread 0
+Unwinding loop ethoc_init_ring.1 iteration 1 file ethoc.c line 351 function ethoc_init_ring thread 0
+Unwinding loop ethoc_init_ring.1 iteration 2 file ethoc.c line 351 function ethoc_init_ring thread 0
+Unwinding loop ethoc_init_ring.1 iteration 3 file ethoc.c line 351 function ethoc_init_ring thread 0
+Unwinding loop ethoc_init_ring.1 iteration 4 file ethoc.c line 351 function ethoc_init_ring thread 0
+Unwinding loop test_rx.0 iteration 1 file ethoc.c line 788 function test_rx thread 0
+Unwinding loop test_rx.0 iteration 2 file ethoc.c line 788 function test_rx thread 0
+Unwinding loop test_rx.0 iteration 3 file ethoc.c line 788 function test_rx thread 0
+Unwinding loop test_rx.0 iteration 4 file ethoc.c line 788 function test_rx thread 0
+Unwinding loop test_rx.0 iteration 5 file ethoc.c line 788 function test_rx thread 0
+Unwinding loop test_rx.0 iteration 6 file ethoc.c line 788 function test_rx thread 0
+Unwinding loop memcmp_unint8.0 iteration 1 file ../sys.c line 30 function memcmp_unint8 thread 0
+Unwinding loop memcmp_unint8.0 iteration 2 file ../sys.c line 30 function memcmp_unint8 thread 0
+Unwinding loop memcmp_unint8.0 iteration 3 file ../sys.c line 30 function memcmp_unint8 thread 0
+Unwinding loop memcmp_unint8.0 iteration 4 file ../sys.c line 30 function memcmp_unint8 thread 0
+Unwinding loop memcmp_unint8.0 iteration 5 file ../sys.c line 30 function memcmp_unint8 thread 0
+Unwinding loop memcmp_unint8.0 iteration 6 file ../sys.c line 30 function memcmp_unint8 thread 0
+Unwinding loop compute_mcast_idx.0 iteration 1 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 2 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 3 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 4 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 5 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 6 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 7 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 8 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.1 iteration 1 file ../net.c line 12 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 1 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 2 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 3 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 4 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 5 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 6 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 7 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 8 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.1 iteration 2 file ../net.c line 12 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 1 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 2 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 3 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 4 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 5 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 6 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 7 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 8 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.1 iteration 3 file ../net.c line 12 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 1 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 2 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 3 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 4 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 5 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 6 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 7 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 8 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.1 iteration 4 file ../net.c line 12 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 1 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 2 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 3 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 4 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 5 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 6 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 7 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 8 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.1 iteration 5 file ../net.c line 12 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 1 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 2 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 3 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 4 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 5 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 6 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 7 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.0 iteration 8 file ../net.c line 14 function compute_mcast_idx thread 0
+Unwinding loop compute_mcast_idx.1 iteration 6 file ../net.c line 12 function compute_mcast_idx thread 0
+Adding SC constraints
+Shared __CPROVER_memory: 890R/1W
+Shared nic: 583R/105W
+Shared irq: 581R/106W
+Shared nc: 1R/2W
+Shared ethoc: 175R/17W
+Shared netdev: 359R/48W
+Shared open_eth: 336R/206W
+Shared nc_info: 36R/3W
+Shared mii_write_host::1::reg_write: 11R/1W
+Shared open_eth_receive::1::2::bcast_addr: 1R/1W
+Shared open_eth_reg_read::1::reg_read: 50R/1W
+Shared open_eth_reg_write::1::reg_write: 11R/1W
+Shared run_interrupt_routine::irq$object: 154R/23W
+Shared async_cbmc_handler::irq$object: 21R/23W
+Shared hw_set_irq_prepare::irq$object: 12R/13W
+Shared hw_set_irq_do::s$object: 237R/1W
+Shared mii_write_bmcr::s$object: 11R/12W
+Shared mii_write_host::s$object: 11R/12W
+Shared mii_read_host::s$object: 9R/1W
+Shared rx_desc::s$object: 1R/1W
+Shared open_eth_update_irq::s$object: 12R/1W
+Shared open_eth_int_source_write::s$object: 1R/2W
+Shared open_eth_receive::1::4::desc$object: 1R/2W
+Shared open_eth_moder_host_write::s$object: 11R/12W
+Shared open_eth_int_source_host_write::s$object: 11R/12W
+Shared open_eth_int_mask_host_write::s$object: 11R/12W
+Shared open_eth_mii_command_host_write::s$object: 11R/10W
+Shared open_eth_mii_tx_host_write::s$object: 11R/12W
+Shared test_and_set::flag$object: 1R/2W
+Shared test_and_clear::flag$object: 1R/2W
+Shared napi_disable::n$object: 6R/3W
+Shared netdev_priv::dev$object: 22R/1W
+Shared open_eth_reg_read::s$object: 50R/1W
+Shared open_eth_reg_write::s$object: 11R/12W
+Shared open_eth_receive::s$object: 1R/2W
+Shared ethoc_read::dev$object: 100R/1W
+Shared ethoc_write::dev$object: 22R/1W
+Shared ethoc_write_bd::dev$object: 16R/1W
+Shared ethoc_init_ring::dev$object: 9R/4W
+Shared ethoc_interrupt::1::open_eth$object: 22R/1W
+Shared ethoc_interrupt::1::dev$object: 286R/23W
+Shared symex::invalid_object3: 1R/1W
+Shared symex::invalid_object4: 1R/1W
+Shared symex::invalid_object5: 1R/2W
+Shared symex::invalid_object6: 2R/1W
+Shared symex::invalid_object7: 1R/1W
+Shared symex::invalid_object8: 1R/1W
+Shared symex::invalid_object9: 1R/2W
+Shared symex::invalid_object10: 2R/1W
+Shared symex::invalid_object11: 1R/1W
+Shared symex::invalid_object12: 1R/2W
+Shared symex::invalid_object13: 2R/1W
+Shared symex::invalid_object14: 1R/2W
+Shared symex::invalid_object15: 1R/1W
+Shared symex::invalid_object16: 1R/2W
+Shared symex::invalid_object17: 2R/1W
+Shared symex::invalid_object18: 1R/2W
+Shared symex::invalid_object19: 1R/1W
+Shared symex::invalid_object20: 1R/2W
+Shared symex::invalid_object21: 2R/1W
+Shared symex::invalid_object22: 1R/2W
+Shared symex::invalid_object23: 1R/1W
+Shared symex::invalid_object24: 1R/2W
+Shared symex::invalid_object25: 2R/1W
+Shared symex::invalid_object26: 1R/2W
+Shared symex::invalid_object27: 1R/1W
+Shared symex::invalid_object28: 1R/2W
+Shared symex::invalid_object29: 2R/1W
+Shared symex::invalid_object30: 1R/2W
+Shared symex::invalid_object31: 1R/1W
+Shared symex::invalid_object32: 1R/2W
+Shared symex::invalid_object33: 2R/1W
+Shared symex::invalid_object34: 1R/2W
+Shared symex::invalid_object35: 1R/1W
+Shared symex::invalid_object36: 1R/2W
+Shared symex::invalid_object37: 2R/1W
+Shared symex::invalid_object38: 1R/2W
+Shared symex::invalid_object39: 1R/1W
+Shared symex::invalid_object40: 1R/2W
+Shared symex::invalid_object41: 2R/1W
+Shared symex::invalid_object42: 1R/2W
+Shared symex::invalid_object43: 1R/1W
+Shared symex::invalid_object44: 1R/2W
+Shared symex::invalid_object45: 2R/1W
+Shared symex::invalid_object46: 1R/1W
+Shared symex::invalid_object47: 1R/1W
+Shared symex::invalid_object48: 1R/2W
+Shared symex::invalid_object49: 2R/1W
+Shared symex::invalid_object50: 1R/1W
+Shared symex::invalid_object51: 1R/1W
+Shared symex::invalid_object52: 1R/2W
+Shared symex::invalid_object53: 2R/1W
+Shared symex::invalid_object54: 1R/1W
+Shared symex::invalid_object55: 1R/1W
+Shared symex::invalid_object56: 1R/2W
+Shared symex::invalid_object57: 2R/1W
+Shared symex::invalid_object58: 1R/1W
+Shared symex::invalid_object59: 1R/2W
+Shared symex::invalid_object60: 2R/1W
+Shared symex::invalid_object61: 1R/1W
+Shared symex::invalid_object62: 1R/1W
+Shared symex::invalid_object63: 1R/2W
+Shared symex::invalid_object64: 2R/1W
+Shared symex::invalid_object65: 1R/1W
+Shared symex::invalid_object66: 1R/1W
+Shared symex::invalid_object67: 1R/2W
+Shared symex::invalid_object68: 2R/1W
+Shared symex::invalid_object69: 1R/1W
+Shared symex::invalid_object70: 1R/1W
+Shared symex::invalid_object71: 1R/2W
+Shared symex::invalid_object72: 2R/1W
+Shared symex::invalid_object73: 1R/1W
+Shared symex::invalid_object74: 1R/2W
+Shared symex::invalid_object75: 2R/1W
+Shared symex::invalid_object76: 1R/1W
+Shared symex::invalid_object77: 1R/1W
+Shared symex::invalid_object78: 1R/1W
+Shared symex::invalid_object79: 1R/2W
+Shared symex::invalid_object80: 2R/1W
+Shared symex::invalid_object81: 1R/1W
+Shared symex::invalid_object82: 1R/1W
+Shared symex::invalid_object83: 1R/2W
+Shared symex::invalid_object84: 2R/1W
+size of program expression: 18546208 steps
+no slicing due to threads
+Generated 69 VCC(s), 69 remaining after simplification
+Passing problem to propositional reduction
+converting SSA

@@ -1,0 +1,95 @@
+[runlim] version:		1.7
+[runlim] time limit:		54000 seconds
+[runlim] real time limit:	311040000 seconds
+[runlim] space limit:		48289 MB
+[runlim] argv[0]:		/nas/ahorn/fmcad-experiments/cbmc-5.2-quadratic/src/cbmc/cbmc
+[runlim] argv[1]:		ethoc-hw.c
+[runlim] argv[2]:		ethoc-hw-test.c
+[runlim] argv[3]:		net.c
+[runlim] argv[4]:		sys.c
+[runlim] argv[5]:		-D_ETHOC_PROP_1_
+[runlim] argv[6]:		-D_ETHOC_TEST_3_
+[runlim] argv[7]:		-D_SYMBOLIC_EXECUTION_
+[runlim] argv[8]:		-D_CBMC_
+[runlim] argv[9]:		-D_ETHOC_GLOBAL_SETUP_
+[runlim] start:			Wed Sep  9 10:26:57 2015
+[runlim] main pid:		31852
+[runlim] sample:		10.0 seconds, 479.8 MB
+[runlim] sample:		20.0 seconds, 2812.1 MB
+[runlim] sample:		30.0 seconds, 4214.1 MB
+[runlim] sample:		40.0 seconds, 4214.1 MB
+[runlim] sample:		50.0 seconds, 4214.1 MB
+[runlim] sample:		60.0 seconds, 4214.1 MB
+[runlim] sample:		70.0 seconds, 4214.1 MB
+[runlim] sample:		80.0 seconds, 4214.1 MB
+[runlim] sample:		90.0 seconds, 4214.6 MB
+[runlim] sample:		100.0 seconds, 4217.7 MB
+[runlim] sample:		110.0 seconds, 4220.8 MB
+[runlim] sample:		120.0 seconds, 4223.6 MB
+[runlim] sample:		130.1 seconds, 4230.0 MB
+[runlim] sample:		140.1 seconds, 4386.1 MB
+[runlim] sample:		150.1 seconds, 4670.5 MB
+[runlim] sample:		160.1 seconds, 4741.9 MB
+[runlim] sample:		170.1 seconds, 4800.6 MB
+[runlim] sample:		180.1 seconds, 4881.9 MB
+[runlim] sample:		190.1 seconds, 5000.9 MB
+[runlim] sample:		200.1 seconds, 5107.9 MB
+[runlim] sample:		210.1 seconds, 5174.8 MB
+[runlim] sample:		220.1 seconds, 5241.4 MB
+[runlim] sample:		230.1 seconds, 5303.1 MB
+[runlim] sample:		240.1 seconds, 5369.0 MB
+[runlim] sample:		250.1 seconds, 5432.7 MB
+[runlim] sample:		260.1 seconds, 5509.9 MB
+[runlim] sample:		270.1 seconds, 5596.4 MB
+[runlim] sample:		280.1 seconds, 6225.3 MB
+[runlim] sample:		290.2 seconds, 4995.6 MB
+[runlim] sample:		300.2 seconds, 5056.1 MB
+[runlim] sample:		310.2 seconds, 5110.8 MB
+[runlim] sample:		320.2 seconds, 5152.2 MB
+[runlim] sample:		330.2 seconds, 5200.7 MB
+[runlim] sample:		340.2 seconds, 5259.1 MB
+[runlim] sample:		350.2 seconds, 5326.2 MB
+[runlim] sample:		360.2 seconds, 5342.3 MB
+[runlim] sample:		370.2 seconds, 5354.4 MB
+[runlim] sample:		380.2 seconds, 5391.4 MB
+[runlim] sample:		390.2 seconds, 5407.6 MB
+[runlim] sample:		400.2 seconds, 5426.5 MB
+[runlim] sample:		410.2 seconds, 5435.0 MB
+[runlim] sample:		420.3 seconds, 5435.0 MB
+[runlim] sample:		430.3 seconds, 5435.0 MB
+[runlim] sample:		440.3 seconds, 5435.0 MB
+[runlim] sample:		450.3 seconds, 5435.0 MB
+[runlim] sample:		460.3 seconds, 5435.0 MB
+[runlim] sample:		470.3 seconds, 5435.0 MB
+[runlim] sample:		480.3 seconds, 5435.0 MB
+[runlim] sample:		490.3 seconds, 5435.0 MB
+[runlim] sample:		500.3 seconds, 5435.0 MB
+[runlim] sample:		510.3 seconds, 5435.0 MB
+[runlim] sample:		520.3 seconds, 5435.0 MB
+[runlim] sample:		530.3 seconds, 5435.0 MB
+[runlim] sample:		540.3 seconds, 6019.8 MB
+[runlim] sample:		550.4 seconds, 5093.5 MB
+[runlim] sample:		560.4 seconds, 5095.2 MB
+[runlim] sample:		570.4 seconds, 5097.7 MB
+[runlim] sample:		580.4 seconds, 5098.8 MB
+[runlim] sample:		590.4 seconds, 5104.7 MB
+[runlim] sample:		600.4 seconds, 5105.4 MB
+[runlim] sample:		610.4 seconds, 5107.5 MB
+[runlim] sample:		620.4 seconds, 5109.5 MB
+[runlim] sample:		630.4 seconds, 5111.8 MB
+[runlim] sample:		640.4 seconds, 5112.5 MB
+[runlim] sample:		650.4 seconds, 5117.6 MB
+[runlim] sample:		660.4 seconds, 5119.9 MB
+[runlim] sample:		670.4 seconds, 5120.9 MB
+[runlim] sample:		680.5 seconds, 5123.5 MB
+[runlim] sample:		690.5 seconds, 5124.5 MB
+[runlim] sample:		700.5 seconds, 5125.8 MB
+[runlim] sample:		710.5 seconds, 5126.3 MB
+[runlim] end:			Wed Sep  9 10:38:49 2015
+[runlim] status:		ok
+[runlim] result:		10
+[runlim] children:		0
+[runlim] real:			712.43 seconds
+[runlim] time:			712.36 seconds
+[runlim] space:			6372.2 MB
+[runlim] samples:		7119

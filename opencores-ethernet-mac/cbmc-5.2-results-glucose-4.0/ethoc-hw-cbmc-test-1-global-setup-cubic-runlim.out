@@ -1,0 +1,28 @@
+[runlim] version:		1.7
+[runlim] time limit:		54000 seconds
+[runlim] real time limit:	311040000 seconds
+[runlim] space limit:		48289 MB
+[runlim] argv[0]:		/nas/ahorn/fmcad-experiments/cbmc-5.2/src/cbmc/cbmc
+[runlim] argv[1]:		ethoc-hw.c
+[runlim] argv[2]:		ethoc-hw-test.c
+[runlim] argv[3]:		net.c
+[runlim] argv[4]:		sys.c
+[runlim] argv[5]:		-D_ETHOC_PROP_1_
+[runlim] argv[6]:		-D_ETHOC_TEST_1_
+[runlim] argv[7]:		-D_SYMBOLIC_EXECUTION_
+[runlim] argv[8]:		-D_CBMC_
+[runlim] argv[9]:		-D_ETHOC_GLOBAL_SETUP_
+[runlim] start:			Thu Sep  3 21:20:43 2015
+[runlim] main pid:		18387
+[runlim] sample:		10.0 seconds, 277.4 MB
+[runlim] sample:		20.0 seconds, 547.9 MB
+[runlim] sample:		30.0 seconds, 623.6 MB
+[runlim] sample:		40.0 seconds, 712.7 MB
+[runlim] end:			Thu Sep  3 21:21:30 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			47.44 seconds
+[runlim] time:			46.69 seconds
+[runlim] space:			804.5 MB
+[runlim] samples:		467
