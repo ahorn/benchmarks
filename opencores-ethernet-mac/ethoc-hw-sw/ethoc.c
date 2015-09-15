@@ -837,6 +837,10 @@ int main(void)
 	irq.number_of_handler_calls = 0;
 
 #ifndef _CBMC_
+	unsigned thread_counter;
+	for (thread_counter = 0; thread_counter < _ETHOC_DESC_SIZE_; ++thread_counter)
+		irq.threads[thread_counter] = 0;
+
 	pthread_mutex_init(&irq.threads_counter_lock, NULL);
 #endif
 
@@ -964,9 +968,9 @@ int main(void)
 #ifdef _CBMC_
 	__CPROVER_assume(open_eth.irq->threads_counter == 0);
 #else
-	unsigned i;
-	for (i = 0; i < _ETHOC_DESC_SIZE_; ++i)
-		pthread_join(open_eth.irq->threads[i], NULL);
+	for (thread_counter = 0; thread_counter < _ETHOC_DESC_SIZE_; ++thread_counter)
+		if (open_eth.irq->threads[thread_counter])
+			pthread_join(open_eth.irq->threads[thread_counter], NULL);
 #endif
 
 	/* Waits until the currently incoming packets are processed.
