@@ -1,0 +1,67 @@
+From e27cd24496a106bae14e4a9371b92c5c6d2e8da7 Mon Sep 17 00:00:00 2001
+From: Michael Tautschnig <mt@debian.org>
+Date: Fri, 22 Aug 2014 23:22:37 +0200
+Subject: [PATCH 17/18] Field sensitivity for arrays and byte_update
+
+---
+ src/goto-symex/symex_assign.cpp | 44 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
+
+diff --git a/src/goto-symex/symex_assign.cpp b/src/goto-symex/symex_assign.cpp
+index 73ef6a2..b40e134 100644
+--- a/src/goto-symex/symex_assign.cpp
++++ b/src/goto-symex/symex_assign.cpp
+@@ -279,6 +279,50 @@ void goto_symext::symex_assign_symbol(
+ 
+   ssa_exprt lhs_mod=lhs;
+ 
++  if(ssa_rhs.id()==ID_byte_update_little_endian ||
++     ssa_rhs.id()==ID_byte_update_big_endian)
++  {
++    byte_update_exprt &bu=
++      to_byte_update_expr(ssa_rhs);
++    exprt be=byte_extract_exprt(bu.id()==ID_byte_update_big_endian?
++                                ID_byte_extract_big_endian :
++                                ID_byte_extract_little_endian,
++                                lhs_mod,
++                                bu.offset(),
++                                bu.value().type());
++    do_simplify(be);
++
++    if(be.id()==ID_symbol)
++    {
++      ssa_rhs=bu.value();
++      lhs_mod=to_ssa_expr(be);
++    }
++    else if(be.id()==ID_index)
++    {
++      ssa_rhs=bu.value();
++
++      while(be.id()==ID_index)
++      {
++        index_exprt &idx=to_index_expr(be);
++
++        #ifdef USE_UPDATE
++        update_exprt new_rhs(idx.array().type());
++        new_rhs.old()=idx.array();
++        new_rhs.designator().push_back(index_designatort(idx.index()));
++        new_rhs.new_value()=ssa_rhs;
++        #else
++        exprt new_rhs(ID_with, idx.array().type());
++        new_rhs.copy_to_operands(idx.array(), idx.index(), ssa_rhs);
++        #endif
++
++        ssa_rhs=new_rhs;
++        be=idx.array();
++      }
++
++      lhs_mod=to_ssa_expr(be);
++    }
++  }
++
+   #ifdef USE_UPDATE
+   while(ssa_rhs.id()==ID_update &&
+         (lhs_mod.type().id()==ID_array ||
+-- 
+2.5.0
+

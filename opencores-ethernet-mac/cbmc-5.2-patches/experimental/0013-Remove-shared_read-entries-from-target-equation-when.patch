@@ -1,0 +1,210 @@
+From bdf28b0c8f091af10055db9cfdc1ab9fbd1d4515 Mon Sep 17 00:00:00 2001
+From: Michael Tautschnig <mt@debian.org>
+Date: Sat, 19 Oct 2013 22:30:07 +0100
+Subject: [PATCH 13/18] Remove shared_read entries from target equation when
+ simplify removes them from an expression
+
+---
+ src/goto-symex/symex_assign.cpp          |  4 ++++
+ src/goto-symex/symex_goto.cpp            |  4 ++++
+ src/goto-symex/symex_main.cpp            |  4 ++++
+ src/goto-symex/symex_target.h            |  4 ++++
+ src/goto-symex/symex_target_equation.cpp | 39 +++++++++++++++++++++++++++++++-
+ src/goto-symex/symex_target_equation.h   |  9 ++++++++
+ 6 files changed, 63 insertions(+), 1 deletion(-)
+
+diff --git a/src/goto-symex/symex_assign.cpp b/src/goto-symex/symex_assign.cpp
+index 81b4638..c37a73d 100644
+--- a/src/goto-symex/symex_assign.cpp
++++ b/src/goto-symex/symex_assign.cpp
+@@ -272,8 +272,10 @@ void goto_symext::symex_assign_symbol(
+     tmp_ssa_rhs.swap(ssa_rhs);
+   }
+   
++  target.set_mark();
+   state.rename(ssa_rhs, ns);
+   do_simplify(ssa_rhs);
++  target.remove_unused_reads(ssa_rhs);
+   
+   ssa_exprt ssa_lhs=lhs;
+   state.assignment(ssa_lhs, ssa_rhs, ns, options.get_bool_option("simplify"), constant_propagation);
+@@ -512,9 +514,11 @@ void goto_symext::symex_assign_if(
+ 
+   unsigned old_guard_size=guard.size();
+   
++  target.set_mark();
+   exprt renamed_guard=lhs.cond();
+   state.rename(renamed_guard, ns);
+   do_simplify(renamed_guard);
++  target.remove_unused_reads(renamed_guard);
+ 
+   if(!renamed_guard.is_false())  
+   {
+diff --git a/src/goto-symex/symex_goto.cpp b/src/goto-symex/symex_goto.cpp
+index d4c07b7..2d995af 100644
+--- a/src/goto-symex/symex_goto.cpp
++++ b/src/goto-symex/symex_goto.cpp
+@@ -37,9 +37,11 @@ void goto_symext::symex_goto(statet &state)
+   exprt old_guard=instruction.guard;
+   clean_expr(old_guard, state, false);
+ 
++  target.set_mark();
+   exprt new_guard=old_guard;
+   state.rename(new_guard, ns);
+   do_simplify(new_guard);
++  target.remove_unused_reads(new_guard);
+   
+   if(new_guard.is_false() ||
+      state.guard.is_false())
+@@ -190,12 +192,14 @@ void goto_symext::symex_step_goto(statet &state, bool taken)
+   
+   exprt guard(instruction.guard);
+   dereference(guard, state, false);
++  target.set_mark();
+   state.rename(guard, ns);
+   
+   if(!taken) guard.make_not();
+   
+   state.guard.guard_expr(guard);
+   do_simplify(guard);
++  target.remove_unused_reads(guard);
+ 
+   target.assumption(state.guard.as_expr(), guard, state.source);  
+ }
+diff --git a/src/goto-symex/symex_main.cpp b/src/goto-symex/symex_main.cpp
+index d0ff92c..d15b547 100644
+--- a/src/goto-symex/symex_main.cpp
++++ b/src/goto-symex/symex_main.cpp
+@@ -60,10 +60,12 @@ void goto_symext::vcc(
+   rewrite_quantifiers(expr, state);
+ 
+   // now rename, enables propagation    
++  target.set_mark();
+   state.rename(expr, ns);
+   
+   // now try simplifier on it
+   do_simplify(expr);
++  target.remove_unused_reads(expr);
+ 
+   if(expr.is_true()) return;
+   
+@@ -302,8 +304,10 @@ void goto_symext::symex_step(
+     {
+       exprt tmp=instruction.guard;
+       clean_expr(tmp, state, false);
++      target.set_mark();
+       state.rename(tmp, ns);
+       symex_assume(state, tmp);
++      target.remove_unused_reads(tmp);
+     }
+ 
+     state.source.pc++;
+diff --git a/src/goto-symex/symex_target.h b/src/goto-symex/symex_target.h
+index a9c4d71..5d061a6 100644
+--- a/src/goto-symex/symex_target.h
++++ b/src/goto-symex/symex_target.h
+@@ -175,6 +175,10 @@ public:
+     const exprt &guard,
+     unsigned atomic_section_id,
+     const sourcet &source)=0;
++
++  // cleanup unused shared memory reads
++  virtual void set_mark() {}
++  virtual void remove_unused_reads(const exprt &expr) {}
+ };
+ 
+ bool operator < (
+diff --git a/src/goto-symex/symex_target_equation.cpp b/src/goto-symex/symex_target_equation.cpp
+index 816179b..bd9796e 100644
+--- a/src/goto-symex/symex_target_equation.cpp
++++ b/src/goto-symex/symex_target_equation.cpp
+@@ -11,6 +11,7 @@ Author: Daniel Kroening, kroening@kroening.com
+ #include <util/i2string.h>
+ #include <util/std_expr.h>
+ #include <util/expr_util.h>
++#include <util/find_symbols.h>
+ 
+ #include <langapi/language_util.h>
+ #include <solvers/prop/prop_conv.h>
+@@ -33,7 +34,7 @@ Function: symex_target_equationt::symex_target_equationt
+ \*******************************************************************/
+ 
+ symex_target_equationt::symex_target_equationt(
+-  const namespacet &_ns):ns(_ns)
++  const namespacet &_ns):ns(_ns), mark(SSA_steps.end())
+ {
+ }
+ 
+@@ -85,6 +86,42 @@ void symex_target_equationt::shared_read(
+ 
+ /*******************************************************************\
+ 
++Function: symex_target_equationt::remove_unused_reads
++
++  Inputs:
++
++ Outputs:
++
++ Purpose:
++
++\*******************************************************************/
++
++void symex_target_equationt::remove_unused_reads(const exprt &expr)
++{
++  find_symbols_sett symbols;
++  find_symbols(expr, symbols);
++
++  for(SSA_stepst::iterator it=mark;
++      it!=SSA_steps.end();
++      ) // no ++it
++  {
++    if(it==mark ||
++       !it->is_shared_read() ||
++       symbols.find(it->ssa_lhs.get_identifier())!=symbols.end())
++    {
++      ++it;
++      continue;
++    }
++
++    SSA_stepst::iterator next=it;
++    ++next;
++    SSA_steps.erase(it);
++    it=next;
++  }
++}
++
++/*******************************************************************\
++
+ Function: symex_target_equationt::shared_write
+ 
+   Inputs:
+diff --git a/src/goto-symex/symex_target_equation.h b/src/goto-symex/symex_target_equation.h
+index 13499e8..6d17b8f 100644
+--- a/src/goto-symex/symex_target_equation.h
++++ b/src/goto-symex/symex_target_equation.h
+@@ -152,6 +152,14 @@ public:
+     unsigned atomic_section_id,
+     const sourcet &source);
+ 
++  // cleanup unused shared memory reads
++  virtual void set_mark()
++  {
++    mark=SSA_steps.end();
++    if(!SSA_steps.empty()) --mark;
++  }
++  virtual void remove_unused_reads(const exprt &expr);
++
+   void convert(prop_convt &prop_conv);
+   void convert_assignments(decision_proceduret &decision_procedure) const;
+   void convert_decls(prop_convt &prop_conv) const;
+@@ -293,6 +301,7 @@ public:
+   
+ protected:
+   const namespacet &ns;
++  SSA_stepst::iterator mark;
+ 
+   // for enforcing sharing in the expressions stored
+   merge_irept merge_irep;
+-- 
+2.5.0
+

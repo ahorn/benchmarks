@@ -3,3 +3,5 @@ To run these benchmarks with CBMC, you need to download version 5.2:
        $ svn co http://www.cprover.org/svn/cbmc/releases/cbmc-5.2/
 
 Then apply the patches in this directory using `patch -p1 < PATCH`.
+
+Beware: the patches in "experimental" are not stable.

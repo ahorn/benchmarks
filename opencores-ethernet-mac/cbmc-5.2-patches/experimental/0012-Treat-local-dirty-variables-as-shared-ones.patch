@@ -1,0 +1,736 @@
+From a805e377404f781ff390f1deb831dd58d2ea03cc Mon Sep 17 00:00:00 2001
+From: Michael Tautschnig <mt@debian.org>
+Date: Sun, 21 Jul 2013 01:10:34 +0100
+Subject: [PATCH 12/18] Treat local dirty variables as shared ones
+
+- Also make goto_symex_statet decide what is shared, no needless (and now
+  broken) wrapper functions
+---
+ regression/cbmc-concurrency/dirty_local1/main.c    | 15 ++++
+ regression/cbmc-concurrency/dirty_local1/test.desc |  8 ++
+ regression/cbmc-concurrency/dirty_local2/main.c    | 98 ++++++++++++++++++++++
+ regression/cbmc-concurrency/dirty_local2/test.desc |  8 ++
+ src/goto-symex/goto_symex_state.cpp                | 27 ++++--
+ src/goto-symex/goto_symex_state.h                  |  3 +
+ src/goto-symex/memory_model_pso.cpp                |  8 +-
+ src/goto-symex/memory_model_sc.cpp                 | 16 ++--
+ src/goto-symex/memory_model_tso.cpp                | 22 ++---
+ src/goto-symex/partial_order_concurrency.cpp       | 69 ++-------------
+ src/goto-symex/partial_order_concurrency.h         | 17 ----
+ src/goto-symex/symex_decl.cpp                      | 19 +++++
+ src/goto-symex/symex_function_call.cpp             |  7 +-
+ src/goto-symex/symex_goto.cpp                      |  5 +-
+ src/goto-symex/symex_main.cpp                      |  7 ++
+ src/goto-symex/symex_start_thread.cpp              |  4 +-
+ 16 files changed, 223 insertions(+), 110 deletions(-)
+ create mode 100644 regression/cbmc-concurrency/dirty_local1/main.c
+ create mode 100644 regression/cbmc-concurrency/dirty_local1/test.desc
+ create mode 100644 regression/cbmc-concurrency/dirty_local2/main.c
+ create mode 100644 regression/cbmc-concurrency/dirty_local2/test.desc
+
+diff --git a/regression/cbmc-concurrency/dirty_local1/main.c b/regression/cbmc-concurrency/dirty_local1/main.c
+new file mode 100644
+index 0000000..303322b
+--- /dev/null
++++ b/regression/cbmc-concurrency/dirty_local1/main.c
+@@ -0,0 +1,15 @@
++int * global_ptr;
++
++void f()
++{
++  *global_ptr=42;
++}
++
++int main()
++{
++  int a=0;
++  global_ptr=&a;
++  __CPROVER_ASYNC_1: f();
++  assert(a==0);
++}
++
+diff --git a/regression/cbmc-concurrency/dirty_local1/test.desc b/regression/cbmc-concurrency/dirty_local1/test.desc
+new file mode 100644
+index 0000000..6de7955
+--- /dev/null
++++ b/regression/cbmc-concurrency/dirty_local1/test.desc
+@@ -0,0 +1,8 @@
++CORE
++main.c
++
++^EXIT=10$
++^SIGNAL=0$
++^VERIFICATION FAILED$
++--
++^warning: ignoring
+diff --git a/regression/cbmc-concurrency/dirty_local2/main.c b/regression/cbmc-concurrency/dirty_local2/main.c
+new file mode 100644
+index 0000000..e5093a5
+--- /dev/null
++++ b/regression/cbmc-concurrency/dirty_local2/main.c
+@@ -0,0 +1,98 @@
++typedef unsigned bool;
++
++#define true 1
++#define false 0
++
++typedef char Register;
++
++enum RegisterId
++{
++  SIGNAL_REG_ID = 0,
++  DATA_A_REG_ID = 1,
++
++  REG_NR = 2
++};
++
++typedef enum RegisterId RegisterId;
++
++struct Firmware;
++typedef void (*InterruptHandler)(struct Firmware *fw, RegisterId reg_id);
++
++struct Hardware
++{
++  struct Firmware* fw;
++
++  Register regs[REG_NR];
++  bool is_on;
++
++  InterruptHandler interrupt_handler;
++};
++
++Register read_data_register(struct Hardware *hw, RegisterId reg_id)
++{
++  if (!hw->is_on)
++    return '\0';
++
++  Register reg = hw->regs[reg_id];
++  hw->regs[SIGNAL_REG_ID] &= ~reg_id;
++
++  return reg;
++}
++
++void write_data_register(struct Hardware *hw, RegisterId reg_id, Register data)
++{
++  check_data_register(reg_id);
++
++  if (!hw->is_on)
++    return;
++
++  hw->regs[reg_id] = data;
++  hw->regs[SIGNAL_REG_ID] |= reg_id;
++
++  __CPROVER_ASYNC_1: hw->interrupt_handler(hw->fw, reg_id);
++}
++
++struct Firmware
++{
++  struct Hardware* hw;
++};
++
++void handle_interrupt(struct Firmware *fw, RegisterId reg_id)
++{
++  assert(reg_id == DATA_A_REG_ID);
++  read_data_register(fw->hw, DATA_A_REG_ID);
++}
++
++void poll(struct Firmware *fw)
++{
++  char byte;
++  if (byte == '\0')
++  {
++    enable_interrupts(fw->hw, handle_interrupt);
++    return;
++  }
++}
++
++void write_reg_a(struct Hardware *hw)
++{
++  write_data_register(hw, DATA_A_REG_ID, nondet_char());
++}
++
++int main(void)
++{
++  // trivial bug
++  assert(false);
++
++  struct Hardware hardware;
++  struct Hardware* hw = &hardware;
++
++  struct Firmware firmware;
++  struct Firmware* fw = &firmware;
++
++  firmware.hw = hw;
++  hardware.fw = fw;
++
++  __CPROVER_ASYNC_1: write_reg_a(hw);
++
++  return 0;
++}
+diff --git a/regression/cbmc-concurrency/dirty_local2/test.desc b/regression/cbmc-concurrency/dirty_local2/test.desc
+new file mode 100644
+index 0000000..6de7955
+--- /dev/null
++++ b/regression/cbmc-concurrency/dirty_local2/test.desc
+@@ -0,0 +1,8 @@
++CORE
++main.c
++
++^EXIT=10$
++^SIGNAL=0$
++^VERIFICATION FAILED$
++--
++^warning: ignoring
+diff --git a/src/goto-symex/goto_symex_state.cpp b/src/goto-symex/goto_symex_state.cpp
+index 27a79ba..3a4e6e8 100644
+--- a/src/goto-symex/goto_symex_state.cpp
++++ b/src/goto-symex/goto_symex_state.cpp
+@@ -13,6 +13,8 @@ Author: Daniel Kroening, kroening@kroening.com
+ #include <util/std_expr.h>
+ #include <util/prefix.h>
+ 
++#include <analyses/dirty.h>
++
+ #include "goto_symex_state.h"
+ 
+ /*******************************************************************\
+@@ -31,7 +33,8 @@ goto_symex_statet::goto_symex_statet():
+   depth(0),
+   symex_target(NULL),
+   atomic_section_id(0),
+-  record_events(true)
++  record_events(true),
++  dirty(0)
+ {
+   threads.resize(1);
+   new_frame();
+@@ -640,17 +643,16 @@ bool goto_symex_statet::l2_thread_read_encoding(
+   ssa_exprt &expr,
+   const namespacet &ns)
+ {
+-  if(!record_events)
+-    return false;
+-
+   // do we have threads?
+   if(threads.size()<=1)
+     return false;
+ 
+   // is it a shared object?
++  assert(dirty!=0);
+   const irep_idt &obj_identifier=expr.get_object_name();
+   if(obj_identifier=="goto_symex::\\guard" ||
+-     !ns.lookup(obj_identifier).is_shared())
++     (!ns.lookup(obj_identifier).is_shared() &&
++      !(*dirty)(obj_identifier)))
+     return false;
+ 
+   ssa_exprt ssa_l1=expr;
+@@ -754,9 +756,18 @@ bool goto_symex_statet::l2_thread_read_encoding(
+     return true;
+   }
+ 
+-  // produce a fresh L2 name
+   if(level2.current_names.find(l1_identifier)==level2.current_names.end())
+     level2.current_names[l1_identifier]=std::make_pair(ssa_l1, 0);
++
++  // No event and no fresh index, but avoid constant propagation
++  if(!record_events)
++  {
++    set_ssa_indices(ssa_l1, ns, L2);
++    expr=ssa_l1;
++    return true;
++  }
++
++  // produce a fresh L2 name
+   level2.increase_counter(l1_identifier);
+   set_ssa_indices(ssa_l1, ns, L2);
+   expr=ssa_l1;
+@@ -792,9 +803,11 @@ bool goto_symex_statet::l2_thread_write_encoding(
+     return false;
+ 
+   // is it a shared object?
++  assert(dirty!=0);
+   const irep_idt &obj_identifier=expr.get_object_name();
+   if(obj_identifier=="goto_symex::\\guard" ||
+-     !ns.lookup(obj_identifier).is_shared())
++     (!ns.lookup(obj_identifier).is_shared() &&
++      !(*dirty)(obj_identifier)))
+     return false; // not shared
+     
+   // see whether we are within an atomic section
+diff --git a/src/goto-symex/goto_symex_state.h b/src/goto-symex/goto_symex_state.h
+index 9ed7379..ac25ea1 100644
+--- a/src/goto-symex/goto_symex_state.h
++++ b/src/goto-symex/goto_symex_state.h
+@@ -21,6 +21,8 @@ Author: Daniel Kroening, kroening@kroening.com
+ 
+ #include "symex_target.h"
+ 
++class dirtyt;
++
+ // central data structure: state
+ class goto_symex_statet
+ {
+@@ -331,6 +333,7 @@ public:
+ 
+   void switch_to_thread(unsigned t);
+   bool record_events;
++  const dirtyt * dirty;
+ };
+ 
+ #endif
+diff --git a/src/goto-symex/memory_model_pso.cpp b/src/goto-symex/memory_model_pso.cpp
+index 61e0068..ebbc870 100644
+--- a/src/goto-symex/memory_model_pso.cpp
++++ b/src/goto-symex/memory_model_pso.cpp
+@@ -51,8 +51,8 @@ bool memory_model_psot::program_order_is_relaxed(
+   partial_order_concurrencyt::event_it e1,
+   partial_order_concurrencyt::event_it e2) const
+ {
+-  assert(is_shared_read(e1) || is_shared_write(e1));
+-  assert(is_shared_read(e2) || is_shared_write(e2));
++  assert(e1->is_shared_read() || e1->is_shared_write());
++  assert(e2->is_shared_read() || e2->is_shared_write());
+ 
+   // no po relaxation within atomic sections
+   if(e1->atomic_section_id!=0 &&
+@@ -60,11 +60,11 @@ bool memory_model_psot::program_order_is_relaxed(
+     return false;
+ 
+   // no relaxation if induced wsi
+-  if(is_shared_write(e1) && is_shared_write(e2) &&
++  if(e1->is_shared_write() && e2->is_shared_write() &&
+      address(e1)==address(e2))
+     return false;
+ 
+   // only read/read and read/write are maintained
+-  return is_shared_write(e1);
++  return e1->is_shared_write();
+ }
+ 
+diff --git a/src/goto-symex/memory_model_sc.cpp b/src/goto-symex/memory_model_sc.cpp
+index 6c826e2..7f279e0 100644
+--- a/src/goto-symex/memory_model_sc.cpp
++++ b/src/goto-symex/memory_model_sc.cpp
+@@ -70,8 +70,8 @@ bool memory_model_sct::program_order_is_relaxed(
+   partial_order_concurrencyt::event_it e1,
+   partial_order_concurrencyt::event_it e2) const
+ {
+-  assert(is_shared_read(e1) || is_shared_write(e1));
+-  assert(is_shared_read(e2) || is_shared_write(e2));
++  assert(e1->is_shared_read() || e1->is_shared_write());
++  assert(e2->is_shared_read() || e2->is_shared_write());
+ 
+   return false;
+ }
+@@ -100,10 +100,10 @@ void memory_model_sct::build_per_thread_map(
+       e_it++)
+   {
+     // concurreny-related?
+-    if(!is_shared_read(e_it) &&
+-       !is_shared_write(e_it) &&
+-       !is_spawn(e_it) &&
+-       !is_memory_barrier(e_it)) continue;
++    if(!e_it->is_shared_read() &&
++       !e_it->is_shared_write() &&
++       !e_it->is_spawn() &&
++       !e_it->is_memory_barrier()) continue;
+ 
+     dest[e_it->source.thread_nr].push_back(e_it);
+   }
+@@ -134,7 +134,7 @@ void memory_model_sct::thread_spawn(
+       e_it!=equation.SSA_steps.end();
+       e_it++)
+   {
+-    if(is_spawn(e_it))
++    if(e_it->is_spawn())
+     {
+       per_thread_mapt::const_iterator next_thread=
+         per_thread_map.find(++next_thread_id);
+@@ -200,7 +200,7 @@ void memory_model_sct::program_order(
+         e_it!=events.end();
+         e_it++)
+     {
+-      if(is_memory_barrier(*e_it))
++      if((*e_it)->is_memory_barrier())
+          continue;
+ 
+       if(previous==equation.SSA_steps.end())
+diff --git a/src/goto-symex/memory_model_tso.cpp b/src/goto-symex/memory_model_tso.cpp
+index e4c4b6a..812174d 100644
+--- a/src/goto-symex/memory_model_tso.cpp
++++ b/src/goto-symex/memory_model_tso.cpp
+@@ -72,8 +72,8 @@ bool memory_model_tsot::program_order_is_relaxed(
+   partial_order_concurrencyt::event_it e1,
+   partial_order_concurrencyt::event_it e2) const
+ {
+-  assert(is_shared_read(e1) || is_shared_write(e1));
+-  assert(is_shared_read(e2) || is_shared_write(e2));
++  assert(e1->is_shared_read() || e1->is_shared_write());
++  assert(e2->is_shared_read() || e2->is_shared_write());
+ 
+   // no po relaxation within atomic sections
+   if(e1->atomic_section_id!=0 &&
+@@ -81,7 +81,7 @@ bool memory_model_tsot::program_order_is_relaxed(
+     return false;
+ 
+   // write to read program order is relaxed
+-  return is_shared_write(e1) && is_shared_read(e2);
++  return e1->is_shared_write() && e2->is_shared_read();
+ }
+ 
+ /*******************************************************************\
+@@ -120,7 +120,7 @@ void memory_model_tsot::program_order(
+         e_it!=events.end();
+         e_it++)
+     {
+-      if(is_memory_barrier(*e_it))
++      if((*e_it)->is_memory_barrier())
+         continue;
+ 
+       event_listt::const_iterator next=e_it;
+@@ -135,8 +135,8 @@ void memory_model_tsot::program_order(
+           e_it2!=events.end();
+           e_it2++)
+       {
+-        if((is_spawn(*e_it) && !is_memory_barrier(*e_it2)) ||
+-           is_spawn(*e_it2))
++        if(((*e_it)->is_spawn() && !(*e_it2)->is_memory_barrier()) ||
++           (*e_it2)->is_spawn())
+         {
+           add_constraint(
+             equation,
+@@ -144,21 +144,21 @@ void memory_model_tsot::program_order(
+             "po",
+             (*e_it)->source);
+ 
+-          if(is_spawn(*e_it2))
++          if((*e_it2)->is_spawn())
+             break;
+           else
+             continue;
+         }
+ 
+-        if(is_memory_barrier(*e_it2))
++        if((*e_it2)->is_memory_barrier())
+         {
+           const codet &code=to_code((*e_it2)->source.pc->code);
+ 
+-          if(is_shared_read(*e_it) &&
++          if((*e_it)->is_shared_read() &&
+              !code.get_bool(ID_RRfence) &&
+              !code.get_bool(ID_RWfence))
+             continue;
+-          else if(is_shared_write(*e_it) &&
++          else if((*e_it)->is_shared_write() &&
+              !code.get_bool(ID_WRfence) &&
+              !code.get_bool(ID_WWfence))
+             continue;
+@@ -184,7 +184,7 @@ void memory_model_tsot::program_order(
+         }
+         else if(program_order_is_relaxed(*e_it, *e_it2))
+         {
+-          if(is_shared_read(*e_it2))
++          if((*e_it2)->is_shared_read())
+             cond=mb_guard_r;
+           else
+             cond=mb_guard_w;
+diff --git a/src/goto-symex/partial_order_concurrency.cpp b/src/goto-symex/partial_order_concurrency.cpp
+index bc1daa2..657f109 100644
+--- a/src/goto-symex/partial_order_concurrency.cpp
++++ b/src/goto-symex/partial_order_concurrency.cpp
+@@ -72,13 +72,13 @@ void partial_order_concurrencyt::add_init_writes(
+       e_it!=equation.SSA_steps.end();
+       e_it++)
+   {
+-    if(is_spawn(e_it))
++    if(e_it->is_spawn())
+     {
+       spawn_seen=true;
+       continue;
+     }
+-    else if(!is_shared_read(e_it) &&
+-            !is_shared_write(e_it))
++    else if(!e_it->is_shared_read() &&
++            !e_it->is_shared_write())
+       continue;
+ 
+     const irep_idt &a=address(e_it);
+@@ -86,7 +86,7 @@ void partial_order_concurrencyt::add_init_writes(
+     if(init_done.find(a)!=init_done.end()) continue;
+ 
+     if(spawn_seen ||
+-       is_shared_read(e_it) ||
++       e_it->is_shared_read() ||
+        !e_it->guard.is_true())
+     {
+       init_steps.push_back(symex_target_equationt::SSA_stept());
+@@ -132,17 +132,17 @@ void partial_order_concurrencyt::build_event_lists(
+       e_it!=equation.SSA_steps.end();
+       e_it++)
+   {
+-    if(is_shared_read(e_it) ||
+-       is_shared_write(e_it) ||
+-       is_spawn(e_it))
++    if(e_it->is_shared_read() ||
++       e_it->is_shared_write() ||
++       e_it->is_spawn())
+     {
+       unsigned thread_nr=e_it->source.thread_nr;
+ 
+-      if(!is_spawn(e_it))
++      if(!e_it->is_spawn())
+       {
+         a_rect &a_rec=address_map[address(e_it)];
+ 
+-        if(is_shared_read(e_it))
++        if(e_it->is_shared_read())
+           a_rec.reads.push_back(e_it);
+         else // must be write
+           a_rec.writes.push_back(e_it);
+@@ -214,18 +214,11 @@ symbol_exprt partial_order_concurrencyt::clock(
+   assert(!numbering.empty());
+ 
+   if(event->is_shared_write())
+-  {
+-    assert(is_shared_write(event));
+     identifier=rw_clock_id(event, axiom);
+-  }
+   else if(event->is_shared_read())
+-  {
+-    assert(is_shared_read(event));
+     identifier=rw_clock_id(event, axiom);
+-  }
+   else if(event->is_spawn())
+   {
+-    assert(is_spawn(event));
+     identifier=
+       "t"+i2string(event->source.thread_nr+1)+"$"+
+       i2string(numbering[event])+"$spwnclk$"+i2string(axiom);
+@@ -238,50 +231,6 @@ symbol_exprt partial_order_concurrencyt::clock(
+ 
+ /*******************************************************************\
+ 
+-Function: partial_order_concurrencyt::is_shared_write
+-
+-  Inputs: 
+-
+- Outputs:
+-
+- Purpose:
+-
+-\*******************************************************************/
+-
+-bool partial_order_concurrencyt::is_shared_write(event_it event) const
+-{
+-  if(!event->is_shared_write()) return false;
+-  const irep_idt obj_identifier=event->ssa_lhs.get_object_name();
+-  if(obj_identifier=="goto_symex::\\guard") return false;
+-
+-  const symbolt &symbol=ns.lookup(obj_identifier);
+-  return !symbol.is_thread_local;
+-}
+-
+-/*******************************************************************\
+-
+-Function: partial_order_concurrencyt::is_shared_read
+-
+-  Inputs: 
+-
+- Outputs:
+-
+- Purpose:
+-
+-\*******************************************************************/
+-
+-bool partial_order_concurrencyt::is_shared_read(event_it event) const
+-{
+-  if(!event->is_shared_read()) return false;
+-  const irep_idt obj_identifier=event->ssa_lhs.get_object_name();
+-  if(obj_identifier=="goto_symex::\\guard") return false;
+-
+-  const symbolt &symbol=ns.lookup(obj_identifier);
+-  return !symbol.is_thread_local;
+-}
+-
+-/*******************************************************************\
+-
+ Function: partial_order_concurrencyt::build_clock_type
+ 
+   Inputs: 
+diff --git a/src/goto-symex/partial_order_concurrency.h b/src/goto-symex/partial_order_concurrency.h
+index 1348664..3de68b0 100644
+--- a/src/goto-symex/partial_order_concurrency.h
++++ b/src/goto-symex/partial_order_concurrency.h
+@@ -86,23 +86,6 @@ protected:
+   exprt before(event_it e1, event_it e2, unsigned axioms);
+   virtual exprt before(event_it e1, event_it e2)=0;
+ 
+-  // is it an assignment for a shared variable?
+-  bool is_shared_write(event_it e) const;
+-
+-  // is it a read from a shared variable?
+-  bool is_shared_read(event_it e) const;
+-  
+-  // is this a spawn?
+-  static inline bool is_spawn(event_it e)
+-  {
+-    return e->is_spawn();
+-  }
+-
+-  // is this a fence?
+-  static inline bool is_memory_barrier(event_it e)
+-  {
+-    return e->is_memory_barrier();
+-  }
+ };
+ 
+ #if 0
+diff --git a/src/goto-symex/symex_decl.cpp b/src/goto-symex/symex_decl.cpp
+index 1e2cafa..8cac315 100644
+--- a/src/goto-symex/symex_decl.cpp
++++ b/src/goto-symex/symex_decl.cpp
+@@ -13,6 +13,7 @@ Author: Daniel Kroening, kroening@kroening.com
+ #include <util/std_expr.h>
+ 
+ #include <pointer-analysis/add_failed_symbols.h>
++#include <analyses/dirty.h>
+ 
+ #include "goto_symex.h"
+ 
+@@ -112,9 +113,27 @@ void goto_symext::symex_decl(statet &state, const symbol_exprt &expr)
+     state.top().hidden_function ||
+     state.source.pc->source_location.get_hide();
+   
++  // prevent propagation
++  state.propagation.remove(l1_identifier);
++
++  state.level2.increase_counter(l1_identifier);
++  const bool record_events=state.record_events;
++  state.record_events=false;
++  state.rename(ssa, ns);
++  state.record_events=record_events;
++
+   target.decl(
+     state.guard.as_expr(),
+     ssa,
+     state.source,
+     hidden?symex_targett::HIDDEN:symex_targett::STATE);
++
++  assert(state.dirty);
++  if((*state.dirty)(ssa.get_object_name()) &&
++     state.atomic_section_id==0)
++    target.shared_write(
++      state.guard.as_expr(),
++      ssa,
++      state.atomic_section_id,
++      state.source);
+ }
+diff --git a/src/goto-symex/symex_function_call.cpp b/src/goto-symex/symex_function_call.cpp
+index 9d498a5..56f1b01 100644
+--- a/src/goto-symex/symex_function_call.cpp
++++ b/src/goto-symex/symex_function_call.cpp
+@@ -19,6 +19,8 @@ Author: Daniel Kroening, kroening@kroening.com
+ 
+ #include <ansi-c/c_types.h>
+ 
++#include <analyses/dirty.h>
++
+ #include "goto_symex.h"
+ 
+ /*******************************************************************\
+@@ -383,6 +385,7 @@ void goto_symext::pop_frame(statet &state)
+     state.level1.restore_from(frame.old_level1);
+   
+     // clear function-locals from L2 renaming
++    assert(state.dirty);
+     for(goto_symex_statet::renaming_levelt::current_namest::iterator
+         c_it=state.level2.current_names.begin();
+         c_it!=state.level2.current_names.end();
+@@ -390,7 +393,9 @@ void goto_symext::pop_frame(statet &state)
+     {
+       const irep_idt l1_o_id=c_it->second.first.get_l1_object_identifier();
+       // could use iteration over local_objects as l1_o_id is prefix
+-      if(frame.local_objects.find(l1_o_id)==frame.local_objects.end())
++      if(frame.local_objects.find(l1_o_id)==frame.local_objects.end() ||
++         (state.threads.size()>1 &&
++          (*state.dirty)(c_it->second.first.get_object_name())))
+       {
+         ++c_it;
+         continue;
+diff --git a/src/goto-symex/symex_goto.cpp b/src/goto-symex/symex_goto.cpp
+index 316970c..d4c07b7 100644
+--- a/src/goto-symex/symex_goto.cpp
++++ b/src/goto-symex/symex_goto.cpp
+@@ -13,6 +13,8 @@ Author: Daniel Kroening, kroening@kroening.com
+ #include <util/std_expr.h>
+ #include <util/i2string.h>
+ 
++#include <analyses/dirty.h>
++
+ #include "goto_symex.h"
+ 
+ /*******************************************************************\
+@@ -321,7 +323,8 @@ void goto_symext::phi_function(
+     
+     // shared?
+     if(dest_state.atomic_section_id==0 &&
+-       dest_state.threads.size()>=2 && symbol.is_shared())
++       dest_state.threads.size()>=2 &&
++       (symbol.is_shared() || (*dest_state.dirty)(symbol.name)))
+       continue; // no phi nodes for shared stuff
+ 
+     // don't merge (thread-)locals across different threads, which
+diff --git a/src/goto-symex/symex_main.cpp b/src/goto-symex/symex_main.cpp
+index e915c54..d0ff92c 100644
+--- a/src/goto-symex/symex_main.cpp
++++ b/src/goto-symex/symex_main.cpp
+@@ -13,6 +13,8 @@ Author: Daniel Kroening, kroening@kroening.com
+ #include <util/symbol_table.h>
+ #include <util/replace_symbol.h>
+ 
++#include <analyses/dirty.h>
++
+ #include "goto_symex.h"
+ 
+ /*******************************************************************\
+@@ -167,6 +169,8 @@ void goto_symext::operator()(
+   
+   assert(state.top().end_of_function->is_end_function());
+ 
++  state.dirty=new dirtyt(goto_functions);
++
+   while(!state.call_stack().empty())
+   {
+     symex_step(goto_functions, state);
+@@ -180,6 +184,9 @@ void goto_symext::operator()(
+       state.switch_to_thread(t);
+     }
+   }
++
++  delete state.dirty;
++  state.dirty=0;
+ }
+ 
+ /*******************************************************************\
+diff --git a/src/goto-symex/symex_start_thread.cpp b/src/goto-symex/symex_start_thread.cpp
+index 5ed474f..8fd6428 100644
+--- a/src/goto-symex/symex_start_thread.cpp
++++ b/src/goto-symex/symex_start_thread.cpp
+@@ -90,10 +90,12 @@ void goto_symext::symex_start_thread(statet &state)
+ 
+     // make copy
+     ssa_exprt rhs=c_it->second.first;
+-    state.rename(rhs, ns);
+ 
+     guardt guard;
++    const bool record_events=state.record_events;
++    state.record_events=false;
+     symex_assign_symbol(state, lhs, nil_exprt(), rhs, guard, symex_targett::HIDDEN);
++    state.record_events=record_events;
+   }
+ 
+   // initialize all variables marked thread-local
+-- 
+2.5.0
+

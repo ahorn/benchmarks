@@ -1,0 +1,104 @@
+From 7e1282732f90fd931d7e1e5e0daa572d21774a61 Mon Sep 17 00:00:00 2001
+From: Michael Tautschnig <mt@debian.org>
+Date: Fri, 22 Aug 2014 11:44:33 +0200
+Subject: [PATCH 15/18] Fix field sensitivity for function calls
+
+---
+ src/goto-symex/field_sensitivity.cpp |  2 +-
+ src/goto-symex/symex_dead.cpp        |  2 +-
+ src/goto-symex/symex_decl.cpp        | 10 ++--------
+ src/goto-symex/symex_dereference.cpp |  1 -
+ src/goto-symex/symex_main.cpp        |  4 ----
+ 5 files changed, 4 insertions(+), 15 deletions(-)
+
+diff --git a/src/goto-symex/field_sensitivity.cpp b/src/goto-symex/field_sensitivity.cpp
+index def8b0b..40702b9 100644
+--- a/src/goto-symex/field_sensitivity.cpp
++++ b/src/goto-symex/field_sensitivity.cpp
+@@ -179,7 +179,7 @@ void field_sensitivityt::field_assignments_rec(
+     simplify(ssa_rhs, ns);
+ 
+     ssa_exprt ssa_lhs=to_ssa_expr(lhs_fs);
+-    state.assignment(ssa_lhs, ssa_rhs, ns, true);
++    state.assignment(ssa_lhs, ssa_rhs, ns, true, true);
+ 
+     // do the assignment
+     target.assignment(
+diff --git a/src/goto-symex/symex_dead.cpp b/src/goto-symex/symex_dead.cpp
+index d1fed35..9696a31 100644
+--- a/src/goto-symex/symex_dead.cpp
++++ b/src/goto-symex/symex_dead.cpp
+@@ -95,7 +95,7 @@ void goto_symext::symex_dead(statet &state)
+     state.record_events=record_events;
+ 
+     assert(state.dirty);
+-    if(state.dirty->is_dirty(ssa_lhs.get_object_name()) &&
++    if((*state.dirty)(ssa_lhs.get_object_name()) &&
+        state.atomic_section_id==0)
+       target.shared_write(
+         state.guard.as_expr(),
+diff --git a/src/goto-symex/symex_decl.cpp b/src/goto-symex/symex_decl.cpp
+index 381fa6e..04bc019 100644
+--- a/src/goto-symex/symex_decl.cpp
++++ b/src/goto-symex/symex_decl.cpp
+@@ -68,6 +68,7 @@ void goto_symext::symex_decl(statet &state, const symbol_exprt &expr)
+   
+   ssa_exprt ssa(expr);
+   state.rename(ssa, ns, goto_symex_statet::L1);
++  irep_idt l1_identifier=ssa.get_identifier();
+ 
+   // rename type to L2
+   state.rename(ssa.type(), ssa.get_identifier(), ns);
+@@ -107,13 +108,6 @@ void goto_symext::symex_decl(statet &state, const symbol_exprt &expr)
+   state.level2.increase_counter(l1_identifier);
+   state.rename(ssa, ns);
+   
+-  // we hide the declaration of auxiliary variables
+-  // and if the statement itself is hidden
+-  bool hidden=
+-    ns.lookup(expr.get_identifier()).is_auxiliary ||
+-    state.top().hidden_function ||
+-    state.source.pc->source_location.get_hide();
+-  
+   exprt l2_fields;
+   state.field_sensitivity.get_fields(ns, ssa, l2_fields);
+   std::set<exprt> l2_fields_set;
+@@ -154,7 +148,7 @@ void goto_symext::symex_decl(statet &state, const symbol_exprt &expr)
+       hidden?symex_targett::HIDDEN:symex_targett::STATE);
+ 
+     assert(state.dirty);
+-    if(state.dirty->is_dirty(ssa_lhs.get_object_name()) &&
++    if((*state.dirty)(ssa_lhs.get_object_name()) &&
+        state.atomic_section_id==0)
+       target.shared_write(
+         state.guard.as_expr(),
+diff --git a/src/goto-symex/symex_dereference.cpp b/src/goto-symex/symex_dereference.cpp
+index a6fcb3f..43d77d4 100644
+--- a/src/goto-symex/symex_dereference.cpp
++++ b/src/goto-symex/symex_dereference.cpp
+@@ -401,7 +401,6 @@ void goto_symext::dereference(
+   assert(!state.call_stack().empty());
+   state.rename(expr, ns, goto_symex_statet::L1);
+   state.field_sensitivity(ns, expr, write);
+-  rename_l1_reads_l2(expr, state, ns, write);
+ 
+   // start the recursion!
+   guardt guard;  
+diff --git a/src/goto-symex/symex_main.cpp b/src/goto-symex/symex_main.cpp
+index 66957f7..d15b547 100644
+--- a/src/goto-symex/symex_main.cpp
++++ b/src/goto-symex/symex_main.cpp
+@@ -355,10 +355,6 @@ void goto_symext::symex_step(
+         clean_expr(*it, state, false);
+     
+       symex_function_call(goto_functions, state, deref_code);
+-
+-      if(deref_code.lhs().is_not_nil())
+-        state.field_sensitivity.field_assignments(
+-          ns, state, target, deref_code.lhs());
+     }
+     else
+       state.source.pc++;
+-- 
+2.5.0
+
