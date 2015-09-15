@@ -1,0 +1,55 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		yices-smt2
+[runlim] argv[1]:		--stats
+[runlim] argv[2]:		smt2-benchmarks/fib-int-values/fib8_sup_on_unsat.smt2
+[runlim] start:			Fri Apr  3 13:21:23 2015
+[runlim] main pid:		30115
+[runlim] sample:		10.0 seconds, 5.9 MB
+[runlim] sample:		20.0 seconds, 6.2 MB
+[runlim] sample:		30.0 seconds, 6.2 MB
+[runlim] sample:		40.0 seconds, 6.5 MB
+[runlim] sample:		50.0 seconds, 6.6 MB
+[runlim] sample:		60.0 seconds, 6.8 MB
+[runlim] sample:		70.0 seconds, 6.8 MB
+[runlim] sample:		80.0 seconds, 6.8 MB
+[runlim] sample:		90.0 seconds, 6.8 MB
+[runlim] sample:		100.0 seconds, 6.8 MB
+[runlim] sample:		110.0 seconds, 6.8 MB
+[runlim] sample:		120.0 seconds, 6.8 MB
+[runlim] sample:		130.0 seconds, 7.0 MB
+[runlim] sample:		140.0 seconds, 7.0 MB
+[runlim] sample:		150.0 seconds, 7.0 MB
+unsat
+(:num-terms 6615
+ :num-types 3
+ :total-run-time 157.892
+ :mem-usage 12.523
+ :boolean-variables 2945
+ :atoms 2258
+ :clauses 6270
+ :restarts 15
+ :clause-db-reduce 48
+ :clause-db-simplify 19
+ :decisions 159989
+ :conflicts 99458
+ :theory-conflicts 73003
+ :boolean-propagations 16182902
+ :theory-propagations 2362517
+ :simplex-vars 1157
+ :simplex-rows 981
+ :simplex-atoms 2258
+ :simplex-pivots 1025820
+ :simplex-conflicts 73003
+ :simplex-interface-lemmas 0
+)
+[runlim] end:			Fri Apr  3 13:24:01 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			158.26 seconds
+[runlim] time:			157.88 seconds
+[runlim] space:			7.0 MB
+[runlim] samples:		1579

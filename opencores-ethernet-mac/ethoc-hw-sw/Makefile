@@ -1,5 +1,5 @@
 ETHOC_HW_SRC = ..
-CBMC = cbmc
+CBMC = /Users/ahorn/Github/cbmc-trunk/src/cbmc/cbmc
 
 SRC = \
 	*.c \

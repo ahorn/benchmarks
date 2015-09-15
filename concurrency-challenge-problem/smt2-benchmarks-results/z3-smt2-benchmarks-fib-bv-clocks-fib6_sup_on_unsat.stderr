@@ -1,0 +1,55 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		z3
+[runlim] argv[1]:		--st
+[runlim] argv[2]:		smt2-benchmarks/fib-bv-clocks/fib6_sup_on_unsat.smt2
+[runlim] start:			Sun Apr  5 10:43:26 2015
+[runlim] main pid:		2131
+[runlim] sample:		10.0 seconds, 32.0 MB
+[runlim] sample:		20.0 seconds, 37.1 MB
+[runlim] sample:		30.0 seconds, 32.7 MB
+[runlim] sample:		40.0 seconds, 35.7 MB
+[runlim] sample:		50.0 seconds, 38.2 MB
+[runlim] sample:		60.0 seconds, 38.2 MB
+[runlim] sample:		70.0 seconds, 38.2 MB
+[runlim] sample:		80.0 seconds, 40.0 MB
+[runlim] sample:		90.0 seconds, 40.0 MB
+[runlim] sample:		100.0 seconds, 40.0 MB
+[runlim] sample:		110.0 seconds, 40.0 MB
+[runlim] sample:		120.0 seconds, 40.0 MB
+[runlim] sample:		129.9 seconds, 40.0 MB
+unsat
+(:binary-propagations        23672096
+ :conflicts                  429937
+ :decisions                  1060053
+ :del-clause                 480482
+ :dyn-subsumption-resolution 1021949
+ :elim-blocked-clauses       11046
+ :elim-bool-vars             16869
+ :elim-clauses               25689
+ :elim-literals              85841
+ :gc-clause                  351183
+ :memory                     37.45
+ :minimized-lits             15037652
+ :mk-binary-clause           47706
+ :mk-bool-var                22113
+ :mk-clause                  453717
+ :mk-ternary-clause          83138
+ :probing-assigned           104
+ :propagations               38923725
+ :restarts                   1020
+ :subsumed                   19945
+ :subsumption-resolution     17761
+ :ternary-propagations       81019010
+ :time                       137.95
+ :total-time                 137.95)
+[runlim] end:			Sun Apr  5 10:45:44 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			138.20 seconds
+[runlim] time:			137.95 seconds
+[runlim] space:			46.9 MB
+[runlim] samples:		1380

@@ -1,0 +1,45 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		z3
+[runlim] argv[1]:		--st
+[runlim] argv[2]:		smt2-benchmarks/fkp2013-bv-clocks-int-values/fkp2013_sup_on_sat_04.smt2
+[runlim] start:			Sun Apr  5 07:33:35 2015
+[runlim] main pid:		1536
+WARNING: unknown logic, ignoring set-logic command
+sat
+(:add-rows            107
+ :added-eqs           1067
+ :arith-conflicts     6
+ :assert-diseq        120
+ :assert-lower        232
+ :assert-upper        144
+ :binary-propagations 29456
+ :bound-prop          64
+ :bv-bit2core         937
+ :bv-dynamic-diseqs   658
+ :bv->core-eq         19
+ :conflicts           148
+ :decisions           860
+ :del-clause          8762
+ :eq-adapter          23
+ :final-checks        1
+ :fixed-eqs           11
+ :memory              4.91
+ :minimized-lits      184
+ :mk-clause           12548
+ :offset-eqs          21
+ :pivots              24
+ :propagations        44177
+ :restarts            1
+ :time                0.08
+ :total-time          0.08)
+[runlim] end:			Sun Apr  5 07:33:35 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			0.17 seconds
+[runlim] time:			0.00 seconds
+[runlim] space:			0.0 MB
+[runlim] samples:		0

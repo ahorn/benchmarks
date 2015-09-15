@@ -1,0 +1,63 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		yices-smt2
+[runlim] argv[1]:		--stats
+[runlim] argv[2]:		smt2-benchmarks/fib-bv-clocks/fib7_sup_off_unsat.smt2
+[runlim] start:			Fri Apr  3 13:48:55 2015
+[runlim] main pid:		30231
+[runlim] sample:		10.0 seconds, 12.7 MB
+[runlim] sample:		20.0 seconds, 15.4 MB
+[runlim] sample:		30.0 seconds, 17.4 MB
+[runlim] sample:		40.0 seconds, 19.7 MB
+[runlim] sample:		50.0 seconds, 23.9 MB
+[runlim] sample:		60.0 seconds, 24.1 MB
+[runlim] sample:		70.0 seconds, 28.3 MB
+[runlim] sample:		80.0 seconds, 30.1 MB
+[runlim] sample:		90.0 seconds, 30.8 MB
+[runlim] sample:		100.0 seconds, 30.9 MB
+[runlim] sample:		110.0 seconds, 31.5 MB
+[runlim] sample:		120.0 seconds, 32.2 MB
+[runlim] sample:		130.0 seconds, 33.0 MB
+[runlim] sample:		140.0 seconds, 33.0 MB
+[runlim] sample:		150.0 seconds, 33.0 MB
+[runlim] sample:		160.0 seconds, 35.3 MB
+[runlim] sample:		170.0 seconds, 36.6 MB
+[runlim] sample:		180.0 seconds, 36.6 MB
+[runlim] sample:		190.0 seconds, 36.9 MB
+[runlim] sample:		200.0 seconds, 36.9 MB
+[runlim] sample:		210.0 seconds, 39.7 MB
+[runlim] sample:		220.0 seconds, 39.7 MB
+[runlim] sample:		230.0 seconds, 39.7 MB
+[runlim] sample:		240.0 seconds, 39.7 MB
+[runlim] sample:		250.0 seconds, 39.7 MB
+unsat
+(:num-terms 5183
+ :num-types 5
+ :total-run-time 256.712
+ :mem-usage 45.957
+ :boolean-variables 17383
+ :atoms 1217
+ :clauses 134507
+ :restarts 2959
+ :clause-db-reduce 98
+ :clause-db-simplify 62
+ :decisions 4521935
+ :conflicts 1423049
+ :theory-conflicts 0
+ :boolean-propagations 1137976159
+ :theory-propagations 0
+ :bvsolver-vars 158
+ :bvsolver-atoms 1217
+ :bvsolver-equiv-lemmas 0
+ :bvsolver-interface-lemmas 0
+)
+[runlim] end:			Fri Apr  3 13:53:12 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			257.24 seconds
+[runlim] time:			256.68 seconds
+[runlim] space:			39.7 MB
+[runlim] samples:		2567

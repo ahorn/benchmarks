@@ -1,0 +1,72 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		z3
+[runlim] argv[1]:		--st
+[runlim] argv[2]:		smt2-benchmarks/fkp2013-bv-clocks-int-values/fkp2013_sup_off_unsat_08.smt2
+[runlim] start:			Sun Apr  5 06:29:03 2015
+[runlim] main pid:		1502
+WARNING: unknown logic, ignoring set-logic command
+[runlim] sample:		10.0 seconds, 23.6 MB
+[runlim] sample:		20.0 seconds, 24.6 MB
+[runlim] sample:		30.0 seconds, 25.7 MB
+[runlim] sample:		40.0 seconds, 26.2 MB
+[runlim] sample:		50.0 seconds, 26.9 MB
+[runlim] sample:		59.9 seconds, 27.4 MB
+[runlim] sample:		69.9 seconds, 28.3 MB
+[runlim] sample:		79.9 seconds, 28.3 MB
+[runlim] sample:		89.9 seconds, 28.5 MB
+[runlim] sample:		99.9 seconds, 28.5 MB
+[runlim] sample:		109.9 seconds, 28.5 MB
+[runlim] sample:		119.9 seconds, 29.1 MB
+[runlim] sample:		129.9 seconds, 29.1 MB
+[runlim] sample:		139.9 seconds, 29.6 MB
+[runlim] sample:		149.9 seconds, 29.8 MB
+[runlim] sample:		159.9 seconds, 29.8 MB
+[runlim] sample:		169.9 seconds, 29.8 MB
+[runlim] sample:		179.9 seconds, 29.8 MB
+[runlim] sample:		189.9 seconds, 30.1 MB
+[runlim] sample:		199.9 seconds, 30.1 MB
+[runlim] sample:		209.8 seconds, 30.1 MB
+[runlim] sample:		219.8 seconds, 30.1 MB
+[runlim] sample:		229.8 seconds, 30.3 MB
+[runlim] sample:		239.8 seconds, 30.9 MB
+[runlim] sample:		249.8 seconds, 31.4 MB
+[runlim] sample:		259.8 seconds, 31.4 MB
+[runlim] sample:		269.8 seconds, 31.6 MB
+unsat
+(:add-rows            6887086
+ :added-eqs           10924859
+ :arith-conflicts     149677
+ :assert-diseq        2507859
+ :assert-lower        5103661
+ :assert-upper        2081143
+ :binary-propagations 36806986
+ :bound-prop          160739
+ :bv-bit2core         8508793
+ :bv-conflicts        6
+ :bv-dynamic-diseqs   4169619
+ :bv->core-eq         27
+ :conflicts           546303
+ :decisions           766606
+ :del-clause          2775854
+ :eq-adapter          75
+ :fixed-eqs           133959
+ :memory              20.54
+ :minimized-lits      4789853
+ :mk-clause           2830769
+ :offset-eqs          1142937
+ :pivots              511170
+ :propagations        54348028
+ :restarts            825
+ :time                270.88
+ :total-time          270.89)
+[runlim] end:			Sun Apr  5 06:33:35 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			272.10 seconds
+[runlim] time:			270.86 seconds
+[runlim] space:			31.7 MB
+[runlim] samples:		2711

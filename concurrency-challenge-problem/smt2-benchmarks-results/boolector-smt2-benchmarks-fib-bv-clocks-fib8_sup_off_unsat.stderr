@@ -1,0 +1,150 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		boolector
+[runlim] argv[1]:		-v
+[runlim] argv[2]:		smt2-benchmarks/fib-bv-clocks/fib8_sup_off_unsat.smt2
+[runlim] start:			Fri Mar 20 01:53:26 2015
+[runlim] main pid:		11960
+[btormain] Boolector Version 2.0.6 1dd339d27a93ba49b69aa0808f127005dee6c8fd
+[btormain] -W -Wall -Wextra -O3 -DNDEBUG -DNBTORLOG -DBTOR_USE_LINGELING -DBTOR_ENABLE_BETA_REDUCTION_PROBING
+[btormain] released Fri Mar  6 13:49:55 CET 2015
+[btormain] compiled Thu Mar 19 21:39:02 UTC 2015
+[btormain] gcc (Debian 4.9.1-19) 4.9.1
+[btormain] setting signal handlers
+[btormain] no time limit given
+[btorparse] 
+[btorcore] calling SAT
+[btorcore] replaced 2915 embedded constraints in 0 seconds
+[btorcore] sliced 2 variables in 0 seconds
+[btorcore] 2 variables substituted in 0.0 seconds
+[btorcore] sliced 0 variables in 0 seconds
+[btorcore] found 7360 skeleton literals in 2972 constraints
+[btorcore] skeleton preprocessing result 0
+[btorcore] skeleton preprocessing produced 2917 new constraints in 0.0 seconds
+[btorcore] merged 0 lambdas in 0.00 seconds
+[btorcore] 2 rewriting rounds in 0.0 seconds
+[lingeling] Lingeling
+[lingeling] 
+[lingeling] Version azd 0d997521ad2e7d4e94f5d74a4665455b91309b62
+[lingeling] 
+[lingeling] Copyright (C) 2010-2014 Armin Biere JKU Linz Austria.
+[lingeling] All rights reserved.
+[lingeling] 
+[lingeling] released Fri Mar  6 13:49:55 CET 2015
+[lingeling] compiled Thu Mar 19 21:38:58 UTC 2015
+[lingeling] 
+[lingeling] gcc (Debian 4.9.1-19) 4.9.1
+[lingeling] -Wall -O3 -DNDBLSCR -DNLGLOG -DNDEBUG -DNCHKSOL -DNLGLPICOSAT
+[lingeling] -DNLGLDRUPLIG -DNLGLYALSAT
+[lingeling] Linux ip-172-31-40-20 3.16.0-4-amd64 x86_64
+[lingeling] 
+[btorcore] no functions found, resetting SAT solver to non-incremental
+[runlim] sample:		10.0 seconds, 25.1 MB
+[runlim] sample:		20.0 seconds, 26.5 MB
+[runlim] sample:		30.0 seconds, 29.1 MB
+[runlim] sample:		40.0 seconds, 31.6 MB
+[runlim] sample:		50.0 seconds, 37.4 MB
+[runlim] sample:		60.0 seconds, 38.8 MB
+[runlim] sample:		70.0 seconds, 45.8 MB
+[runlim] sample:		80.0 seconds, 46.7 MB
+[runlim] sample:		90.0 seconds, 47.8 MB
+[runlim] sample:		100.0 seconds, 42.5 MB
+[runlim] sample:		110.0 seconds, 48.2 MB
+[runlim] sample:		120.0 seconds, 53.3 MB
+[runlim] sample:		130.0 seconds, 53.7 MB
+[runlim] sample:		140.0 seconds, 54.4 MB
+[runlim] sample:		150.0 seconds, 52.2 MB
+[runlim] sample:		160.0 seconds, 52.2 MB
+[runlim] sample:		170.0 seconds, 58.3 MB
+[runlim] sample:		180.0 seconds, 51.8 MB
+[runlim] sample:		190.0 seconds, 52.6 MB
+[runlim] sample:		200.0 seconds, 59.3 MB
+[runlim] sample:		210.0 seconds, 58.2 MB
+[runlim] sample:		220.0 seconds, 63.6 MB
+[runlim] sample:		230.0 seconds, 66.4 MB
+[runlim] sample:		240.0 seconds, 66.4 MB
+[runlim] sample:		250.0 seconds, 58.3 MB
+unsat
+[parser:btorsmt2] WARNING no 'exit' command at end of 'smt2-benchmarks/fib-bv-clocks/fib8_sup_off_unsat.smt2'
+[parser:btorsmt2] parsed 187 commands in 256.28 seconds
+[btorparse] parsed 124 inputs and 0 outputs
+[btorparse] logic QF_BV
+[btorparse] status unknown
+[lingeling]   23.396   9% simplifying
+[lingeling]  232.772  91% search
+[lingeling] ==================================
+[lingeling]  256.168 100% all
+[lingeling] 
+[lingeling] 9061791 decisions, 35374.4 decisions/sec
+[lingeling] 1854817 conflicts, 7240.6 conflicts/sec
+[lingeling] 581152831 propagations, 2.3 megaprops/sec
+[lingeling] 256.2 seconds, 50.3 MB
+[btorsat] 0 forked
+[btorsat] 1 SAT calls in 256.2 seconds
+[btorcore] 2/2915/2991/2972 constraints 0/0/0/2972 6.0 MB
+[btorcore] variable substitutions: 2
+[btorcore] uninterpreted function substitutions: 0
+[btorcore] embedded constraint substitutions: 0
+[btorcore] assumptions: 0
+[btorcore] memory allocated for nodes: 1.91 MB
+[btorcore] 
+[btorcore] lemmas on demand statistics:
+[btorcore]  LOD refinements: 0
+[btorcore] 
+[btorcore] linear constraint equations: 0
+[btorcore] gaussian elimination in linear equations: 0
+[btorcore] eliminated sliced variables: 2
+[btorcore] extracted skeleton constraints: 2917
+[btorcore] and normalizations: 0
+[btorcore] add normalizations: 0
+[btorcore] mul normalizations: 0
+[btorcore] synthesis assignment inconsistencies: 0
+[btorcore]   apply nodes: 0
+[btorcore]   lambda nodes: 0
+[btorcore]   var nodes: 0
+[btorcore] apply propagation during construction: 0
+[btorcore] beta reductions: 0
+[btorcore] expression evaluations: 0
+[btorcore] synthesized lambda applies: 0
+[btorcore] lambdas merged: 0
+[btorcore] propagations: 0
+[btorcore] propagations down: 0
+[btorcore] partial beta reduction restarts: 0
+[btorcore] 
+[btorcore] 0.00 seconds beta-reduction
+[btorcore] 0.00 seconds expression evaluation
+[btorcore] 0.01 seconds synthesize expressions
+[btorcore] 0.00 seconds lazy apply encoding
+[btorcore] 0.00 seconds lazy lambda encoding
+[btorcore] 0.00 seconds lazy var encoding
+[btorcore] 0.00 seconds node search
+[btorcore] 0.00 seconds reachable search
+[btorcore] 0.00 seconds initial applies search
+[btorcore] 0.00 seconds determinig failed assumptions
+[btorcore] 0.00 seconds lemma generation
+[btorcore] 0.00 seconds not encoded apply search
+[btorcore] 0.00 seconds propagation apply search
+[btorcore] 0.00 seconds for cloning
+[btorcore] 0.00 seconds beta reduction probing
+[btorcore] 
+[btorcore] 0.03 seconds in rewriting engine
+[btorcore] 256.17 seconds in pure SAT solving
+[btorcore] 
+[btorcore] 0.00 seconds in variable substitution during rewriting (0%)
+[btorcore] 0.00 seconds in embedded constraint replacing during rewriting (0%)
+[btorcore] 0.00 seconds in beta reduction during rewriting (0%)
+[btorcore] 0.00 seconds in slicing during rewriting (0%)
+[btorcore] 0.03 seconds skeleton preprocessing during rewriting (100%)
+[btorcore] 6.0 MB
+[btormain] 256.3 seconds
+[btormain] unsat
+[runlim] end:			Fri Mar 20 01:57:43 2015
+[runlim] status:		ok
+[runlim] result:		20
+[runlim] children:		0
+[runlim] real:			257.28 seconds
+[runlim] time:			256.29 seconds
+[runlim] space:			66.4 MB
+[runlim] samples:		2563

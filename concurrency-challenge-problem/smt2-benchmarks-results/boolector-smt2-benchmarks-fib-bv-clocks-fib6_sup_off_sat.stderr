@@ -1,0 +1,127 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		boolector
+[runlim] argv[1]:		-v
+[runlim] argv[2]:		smt2-benchmarks/fib-bv-clocks/fib6_sup_off_sat.smt2
+[runlim] start:			Fri Mar 20 01:43:31 2015
+[runlim] main pid:		11888
+[btormain] Boolector Version 2.0.6 1dd339d27a93ba49b69aa0808f127005dee6c8fd
+[btormain] -W -Wall -Wextra -O3 -DNDEBUG -DNBTORLOG -DBTOR_USE_LINGELING -DBTOR_ENABLE_BETA_REDUCTION_PROBING
+[btormain] released Fri Mar  6 13:49:55 CET 2015
+[btormain] compiled Thu Mar 19 21:39:02 UTC 2015
+[btormain] gcc (Debian 4.9.1-19) 4.9.1
+[btormain] setting signal handlers
+[btormain] no time limit given
+[btorparse] 
+[btorcore] calling SAT
+[btorcore] replaced 1487 embedded constraints in 0 seconds
+[btorcore] sliced 2 variables in 0 seconds
+[btorcore] 2 variables substituted in 0.0 seconds
+[btorcore] sliced 0 variables in 0 seconds
+[btorcore] found 3942 skeleton literals in 1534 constraints
+[btorcore] skeleton preprocessing result 0
+[btorcore] skeleton preprocessing produced 1489 new constraints in 0.0 seconds
+[btorcore] merged 0 lambdas in 0.00 seconds
+[btorcore] 2 rewriting rounds in 0.0 seconds
+[lingeling] Lingeling
+[lingeling] 
+[lingeling] Version azd 0d997521ad2e7d4e94f5d74a4665455b91309b62
+[lingeling] 
+[lingeling] Copyright (C) 2010-2014 Armin Biere JKU Linz Austria.
+[lingeling] All rights reserved.
+[lingeling] 
+[lingeling] released Fri Mar  6 13:49:55 CET 2015
+[lingeling] compiled Thu Mar 19 21:38:58 UTC 2015
+[lingeling] 
+[lingeling] gcc (Debian 4.9.1-19) 4.9.1
+[lingeling] -Wall -O3 -DNDBLSCR -DNLGLOG -DNDEBUG -DNCHKSOL -DNLGLPICOSAT
+[lingeling] -DNLGLDRUPLIG -DNLGLYALSAT
+[lingeling] Linux ip-172-31-40-20 3.16.0-4-amd64 x86_64
+[lingeling] 
+[btorcore] no functions found, resetting SAT solver to non-incremental
+[runlim] sample:		10.0 seconds, 18.2 MB
+[runlim] sample:		20.0 seconds, 22.1 MB
+sat
+[parser:btorsmt2] WARNING no 'exit' command at end of 'smt2-benchmarks/fib-bv-clocks/fib6_sup_off_sat.smt2'
+[parser:btorsmt2] parsed 155 commands in 23.35 seconds
+[btorparse] parsed 102 inputs and 0 outputs
+[btorparse] logic QF_BV
+[btorparse] status unknown
+[lingeling]    6.712  29% simplifying
+[lingeling]   16.564  71% search
+[lingeling] ==================================
+[lingeling]   23.284 100% all
+[lingeling] 
+[lingeling] 1152515 decisions, 49498.2 decisions/sec
+[lingeling] 235516 conflicts, 10114.9 conflicts/sec
+[lingeling] 53829721 propagations, 2.3 megaprops/sec
+[lingeling] 23.3 seconds, 13.5 MB
+[btorsat] 0 forked
+[btorsat] 1 SAT calls in 23.3 seconds
+[btorcore] 2/1487/1549/1534 constraints 0/0/0/1534 3.7 MB
+[btorcore] variable substitutions: 2
+[btorcore] uninterpreted function substitutions: 0
+[btorcore] embedded constraint substitutions: 0
+[btorcore] assumptions: 0
+[btorcore] memory allocated for nodes: 1.02 MB
+[btorcore] 
+[btorcore] lemmas on demand statistics:
+[btorcore]  LOD refinements: 0
+[btorcore] 
+[btorcore] linear constraint equations: 0
+[btorcore] gaussian elimination in linear equations: 0
+[btorcore] eliminated sliced variables: 2
+[btorcore] extracted skeleton constraints: 1489
+[btorcore] and normalizations: 0
+[btorcore] add normalizations: 0
+[btorcore] mul normalizations: 0
+[btorcore] synthesis assignment inconsistencies: 0
+[btorcore]   apply nodes: 0
+[btorcore]   lambda nodes: 0
+[btorcore]   var nodes: 0
+[btorcore] apply propagation during construction: 0
+[btorcore] beta reductions: 0
+[btorcore] expression evaluations: 0
+[btorcore] synthesized lambda applies: 0
+[btorcore] lambdas merged: 0
+[btorcore] propagations: 0
+[btorcore] propagations down: 0
+[btorcore] partial beta reduction restarts: 0
+[btorcore] 
+[btorcore] 0.00 seconds beta-reduction
+[btorcore] 0.00 seconds expression evaluation
+[btorcore] 0.01 seconds synthesize expressions
+[btorcore] 0.00 seconds lazy apply encoding
+[btorcore] 0.00 seconds lazy lambda encoding
+[btorcore] 0.00 seconds lazy var encoding
+[btorcore] 0.00 seconds node search
+[btorcore] 0.00 seconds reachable search
+[btorcore] 0.00 seconds initial applies search
+[btorcore] 0.00 seconds determinig failed assumptions
+[btorcore] 0.00 seconds lemma generation
+[btorcore] 0.00 seconds not encoded apply search
+[btorcore] 0.00 seconds propagation apply search
+[btorcore] 0.00 seconds for cloning
+[btorcore] 0.00 seconds beta reduction probing
+[btorcore] 
+[btorcore] 0.02 seconds in rewriting engine
+[btorcore] 23.28 seconds in pure SAT solving
+[btorcore] 
+[btorcore] 0.00 seconds in variable substitution during rewriting (0%)
+[btorcore] 0.00 seconds in embedded constraint replacing during rewriting (0%)
+[btorcore] 0.00 seconds in beta reduction during rewriting (0%)
+[btorcore] 0.00 seconds in slicing during rewriting (0%)
+[btorcore] 0.02 seconds skeleton preprocessing during rewriting (100%)
+[btorcore] 3.7 MB
+[btormain] 23.4 seconds
+[btormain] sat
+[runlim] end:			Fri Mar 20 01:43:54 2015
+[runlim] status:		ok
+[runlim] result:		10
+[runlim] children:		0
+[runlim] real:			23.75 seconds
+[runlim] time:			23.30 seconds
+[runlim] space:			22.9 MB
+[runlim] samples:		233

@@ -1,0 +1,733 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		cvc4
+[runlim] argv[1]:		--stats
+[runlim] argv[2]:		smt2-benchmarks/fib-bv-values/fib7_sup_on_sat.smt2
+[runlim] start:			Mon Mar 16 14:46:09 2015
+[runlim] main pid:		17776
+[runlim] sample:		10.0 seconds, 38.2 MB
+[runlim] sample:		20.0 seconds, 38.4 MB
+[runlim] sample:		30.0 seconds, 39.2 MB
+[runlim] sample:		40.0 seconds, 39.7 MB
+[runlim] sample:		50.0 seconds, 40.5 MB
+[runlim] sample:		60.0 seconds, 41.0 MB
+[runlim] sample:		70.0 seconds, 41.5 MB
+[runlim] sample:		80.0 seconds, 42.0 MB
+[runlim] sample:		90.0 seconds, 42.8 MB
+[runlim] sample:		100.0 seconds, 43.3 MB
+[runlim] sample:		110.0 seconds, 43.6 MB
+[runlim] sample:		120.0 seconds, 45.6 MB
+[runlim] sample:		130.0 seconds, 45.6 MB
+[runlim] sample:		139.9 seconds, 46.1 MB
+[runlim] sample:		149.9 seconds, 46.4 MB
+[runlim] sample:		159.9 seconds, 47.1 MB
+[runlim] sample:		169.9 seconds, 47.7 MB
+[runlim] sample:		179.9 seconds, 48.2 MB
+[runlim] sample:		189.9 seconds, 48.9 MB
+[runlim] sample:		199.9 seconds, 49.4 MB
+[runlim] sample:		209.9 seconds, 50.0 MB
+[runlim] sample:		219.9 seconds, 50.7 MB
+[runlim] sample:		229.9 seconds, 51.5 MB
+[runlim] sample:		239.9 seconds, 52.0 MB
+[runlim] sample:		249.9 seconds, 52.2 MB
+[runlim] sample:		259.9 seconds, 52.7 MB
+[runlim] sample:		269.9 seconds, 53.5 MB
+[runlim] sample:		279.9 seconds, 53.8 MB
+[runlim] sample:		289.9 seconds, 54.3 MB
+[runlim] sample:		299.9 seconds, 54.8 MB
+[runlim] sample:		309.9 seconds, 55.5 MB
+[runlim] sample:		319.9 seconds, 55.8 MB
+[runlim] sample:		329.9 seconds, 56.3 MB
+[runlim] sample:		339.9 seconds, 57.1 MB
+[runlim] sample:		349.9 seconds, 57.6 MB
+[runlim] sample:		359.9 seconds, 57.8 MB
+[runlim] sample:		369.9 seconds, 58.6 MB
+[runlim] sample:		379.9 seconds, 59.3 MB
+[runlim] sample:		389.9 seconds, 59.5 MB
+[runlim] sample:		399.9 seconds, 60.0 MB
+[runlim] sample:		409.9 seconds, 60.5 MB
+[runlim] sample:		419.9 seconds, 61.3 MB
+[runlim] sample:		429.9 seconds, 61.3 MB
+[runlim] sample:		439.9 seconds, 62.6 MB
+[runlim] sample:		449.9 seconds, 63.4 MB
+[runlim] sample:		459.9 seconds, 63.6 MB
+[runlim] sample:		469.9 seconds, 63.9 MB
+[runlim] sample:		479.9 seconds, 64.9 MB
+[runlim] sample:		489.9 seconds, 65.4 MB
+[runlim] sample:		499.9 seconds, 65.7 MB
+[runlim] sample:		509.9 seconds, 66.2 MB
+[runlim] sample:		519.9 seconds, 67.0 MB
+[runlim] sample:		529.9 seconds, 67.2 MB
+[runlim] sample:		539.8 seconds, 67.5 MB
+[runlim] sample:		549.8 seconds, 68.0 MB
+[runlim] sample:		559.9 seconds, 69.0 MB
+[runlim] sample:		569.9 seconds, 69.5 MB
+[runlim] sample:		579.9 seconds, 70.0 MB
+[runlim] sample:		589.8 seconds, 70.8 MB
+[runlim] sample:		599.8 seconds, 71.1 MB
+[runlim] sample:		609.8 seconds, 71.6 MB
+[runlim] sample:		619.8 seconds, 72.1 MB
+[runlim] sample:		629.8 seconds, 72.6 MB
+[runlim] sample:		639.8 seconds, 73.9 MB
+[runlim] sample:		649.8 seconds, 74.3 MB
+[runlim] sample:		659.8 seconds, 74.8 MB
+[runlim] sample:		669.8 seconds, 75.3 MB
+[runlim] sample:		679.8 seconds, 76.1 MB
+[runlim] sample:		689.8 seconds, 76.6 MB
+[runlim] sample:		699.8 seconds, 77.1 MB
+[runlim] sample:		709.8 seconds, 77.6 MB
+[runlim] sample:		719.8 seconds, 78.4 MB
+[runlim] sample:		729.8 seconds, 78.7 MB
+[runlim] sample:		739.8 seconds, 78.9 MB
+[runlim] sample:		749.8 seconds, 80.4 MB
+[runlim] sample:		759.8 seconds, 80.9 MB
+[runlim] sample:		769.8 seconds, 81.5 MB
+[runlim] sample:		779.8 seconds, 82.0 MB
+[runlim] sample:		789.8 seconds, 82.5 MB
+[runlim] sample:		799.8 seconds, 83.0 MB
+[runlim] sample:		809.8 seconds, 83.8 MB
+[runlim] sample:		819.8 seconds, 84.3 MB
+[runlim] sample:		829.7 seconds, 84.8 MB
+[runlim] sample:		839.8 seconds, 85.0 MB
+[runlim] sample:		849.7 seconds, 85.5 MB
+[runlim] sample:		859.7 seconds, 86.3 MB
+[runlim] sample:		869.7 seconds, 86.6 MB
+[runlim] sample:		879.7 seconds, 87.1 MB
+[runlim] sample:		889.7 seconds, 87.6 MB
+[runlim] sample:		899.7 seconds, 88.1 MB
+[runlim] sample:		909.7 seconds, 88.6 MB
+[runlim] sample:		919.7 seconds, 88.9 MB
+[runlim] sample:		929.7 seconds, 89.4 MB
+[runlim] sample:		939.7 seconds, 90.1 MB
+[runlim] sample:		949.7 seconds, 90.4 MB
+[runlim] sample:		959.7 seconds, 90.9 MB
+[runlim] sample:		969.7 seconds, 91.9 MB
+[runlim] sample:		979.7 seconds, 92.2 MB
+[runlim] sample:		989.7 seconds, 92.4 MB
+[runlim] sample:		999.7 seconds, 92.9 MB
+[runlim] sample:		1009.7 seconds, 93.7 MB
+[runlim] sample:		1019.7 seconds, 93.9 MB
+[runlim] sample:		1029.7 seconds, 94.4 MB
+[runlim] sample:		1039.7 seconds, 94.7 MB
+[runlim] sample:		1049.7 seconds, 95.4 MB
+[runlim] sample:		1059.7 seconds, 95.7 MB
+[runlim] sample:		1069.7 seconds, 96.2 MB
+[runlim] sample:		1079.7 seconds, 98.3 MB
+[runlim] sample:		1089.7 seconds, 98.8 MB
+[runlim] sample:		1099.7 seconds, 99.1 MB
+[runlim] sample:		1109.7 seconds, 99.6 MB
+[runlim] sample:		1119.7 seconds, 100.1 MB
+[runlim] sample:		1129.7 seconds, 100.6 MB
+[runlim] sample:		1139.7 seconds, 100.8 MB
+[runlim] sample:		1149.6 seconds, 101.4 MB
+[runlim] sample:		1159.7 seconds, 102.1 MB
+[runlim] sample:		1169.6 seconds, 102.6 MB
+[runlim] sample:		1179.6 seconds, 102.9 MB
+[runlim] sample:		1189.6 seconds, 104.7 MB
+[runlim] sample:		1199.6 seconds, 105.4 MB
+[runlim] sample:		1209.6 seconds, 106.0 MB
+[runlim] sample:		1219.6 seconds, 106.5 MB
+[runlim] sample:		1229.6 seconds, 107.0 MB
+[runlim] sample:		1239.6 seconds, 107.5 MB
+[runlim] sample:		1249.6 seconds, 108.0 MB
+[runlim] sample:		1259.6 seconds, 108.8 MB
+[runlim] sample:		1269.6 seconds, 109.0 MB
+[runlim] sample:		1279.6 seconds, 109.6 MB
+[runlim] sample:		1289.6 seconds, 110.1 MB
+[runlim] sample:		1299.6 seconds, 110.6 MB
+[runlim] sample:		1309.6 seconds, 110.8 MB
+[runlim] sample:		1319.6 seconds, 111.4 MB
+[runlim] sample:		1329.6 seconds, 112.1 MB
+[runlim] sample:		1339.6 seconds, 112.4 MB
+[runlim] sample:		1349.6 seconds, 112.9 MB
+[runlim] sample:		1359.6 seconds, 113.6 MB
+[runlim] sample:		1369.6 seconds, 113.9 MB
+[runlim] sample:		1379.6 seconds, 114.2 MB
+[runlim] sample:		1389.6 seconds, 114.7 MB
+[runlim] sample:		1399.6 seconds, 115.2 MB
+[runlim] sample:		1409.5 seconds, 115.4 MB
+[runlim] sample:		1419.5 seconds, 116.0 MB
+[runlim] sample:		1429.6 seconds, 116.2 MB
+[runlim] sample:		1439.5 seconds, 117.0 MB
+[runlim] sample:		1449.5 seconds, 117.2 MB
+[runlim] sample:		1459.5 seconds, 117.5 MB
+[runlim] sample:		1469.5 seconds, 118.0 MB
+[runlim] sample:		1479.5 seconds, 118.8 MB
+[runlim] sample:		1489.5 seconds, 119.0 MB
+[runlim] sample:		1499.5 seconds, 119.5 MB
+[runlim] sample:		1509.5 seconds, 120.3 MB
+[runlim] sample:		1519.5 seconds, 120.5 MB
+[runlim] sample:		1529.5 seconds, 120.5 MB
+[runlim] sample:		1539.5 seconds, 121.0 MB
+[runlim] sample:		1549.5 seconds, 121.6 MB
+[runlim] sample:		1559.5 seconds, 122.1 MB
+[runlim] sample:		1569.5 seconds, 122.3 MB
+[runlim] sample:		1579.5 seconds, 122.8 MB
+[runlim] sample:		1589.5 seconds, 123.3 MB
+[runlim] sample:		1599.5 seconds, 123.6 MB
+[runlim] sample:		1609.5 seconds, 124.1 MB
+[runlim] sample:		1619.5 seconds, 124.9 MB
+[runlim] sample:		1629.5 seconds, 125.4 MB
+[runlim] sample:		1639.5 seconds, 125.6 MB
+[runlim] sample:		1649.5 seconds, 125.9 MB
+[runlim] sample:		1659.5 seconds, 126.7 MB
+[runlim] sample:		1669.5 seconds, 126.9 MB
+[runlim] sample:		1679.5 seconds, 127.2 MB
+[runlim] sample:		1689.5 seconds, 127.9 MB
+[runlim] sample:		1699.5 seconds, 128.5 MB
+[runlim] sample:		1709.5 seconds, 128.7 MB
+[runlim] sample:		1719.5 seconds, 129.2 MB
+[runlim] sample:		1729.5 seconds, 130.2 MB
+[runlim] sample:		1739.5 seconds, 130.2 MB
+[runlim] sample:		1749.5 seconds, 130.8 MB
+[runlim] sample:		1759.5 seconds, 131.3 MB
+[runlim] sample:		1769.5 seconds, 131.8 MB
+[runlim] sample:		1779.5 seconds, 132.0 MB
+[runlim] sample:		1789.5 seconds, 132.8 MB
+[runlim] sample:		1799.5 seconds, 133.1 MB
+[runlim] sample:		1809.5 seconds, 133.6 MB
+[runlim] sample:		1819.5 seconds, 134.1 MB
+[runlim] sample:		1829.5 seconds, 134.8 MB
+[runlim] sample:		1839.5 seconds, 135.3 MB
+[runlim] sample:		1849.5 seconds, 135.8 MB
+[runlim] sample:		1859.5 seconds, 136.3 MB
+[runlim] sample:		1869.5 seconds, 136.8 MB
+[runlim] sample:		1879.5 seconds, 137.3 MB
+[runlim] sample:		1889.5 seconds, 137.8 MB
+[runlim] sample:		1899.5 seconds, 138.4 MB
+[runlim] sample:		1909.5 seconds, 138.9 MB
+[runlim] sample:		1919.5 seconds, 139.4 MB
+[runlim] sample:		1929.5 seconds, 139.9 MB
+[runlim] sample:		1939.5 seconds, 140.4 MB
+[runlim] sample:		1949.5 seconds, 141.2 MB
+[runlim] sample:		1959.5 seconds, 143.0 MB
+[runlim] sample:		1969.4 seconds, 143.5 MB
+[runlim] sample:		1979.4 seconds, 143.7 MB
+[runlim] sample:		1989.4 seconds, 144.2 MB
+[runlim] sample:		1999.4 seconds, 145.0 MB
+[runlim] sample:		2009.4 seconds, 145.5 MB
+[runlim] sample:		2019.4 seconds, 146.0 MB
+[runlim] sample:		2029.4 seconds, 146.6 MB
+[runlim] sample:		2039.4 seconds, 148.6 MB
+[runlim] sample:		2049.4 seconds, 149.1 MB
+[runlim] sample:		2059.4 seconds, 149.6 MB
+[runlim] sample:		2069.4 seconds, 150.4 MB
+[runlim] sample:		2079.4 seconds, 150.9 MB
+[runlim] sample:		2089.4 seconds, 151.2 MB
+[runlim] sample:		2099.4 seconds, 152.2 MB
+[runlim] sample:		2109.4 seconds, 152.5 MB
+[runlim] sample:		2119.4 seconds, 153.0 MB
+[runlim] sample:		2129.4 seconds, 153.2 MB
+[runlim] sample:		2139.4 seconds, 154.0 MB
+[runlim] sample:		2149.4 seconds, 154.5 MB
+[runlim] sample:		2159.4 seconds, 154.8 MB
+[runlim] sample:		2169.4 seconds, 155.3 MB
+[runlim] sample:		2179.4 seconds, 155.8 MB
+[runlim] sample:		2189.4 seconds, 156.3 MB
+[runlim] sample:		2199.4 seconds, 156.8 MB
+[runlim] sample:		2209.4 seconds, 157.8 MB
+[runlim] sample:		2219.4 seconds, 158.1 MB
+[runlim] sample:		2229.4 seconds, 158.3 MB
+[runlim] sample:		2239.4 seconds, 158.8 MB
+[runlim] sample:		2249.4 seconds, 159.3 MB
+[runlim] sample:		2259.3 seconds, 159.6 MB
+[runlim] sample:		2269.3 seconds, 160.1 MB
+[runlim] sample:		2279.3 seconds, 160.6 MB
+[runlim] sample:		2289.4 seconds, 161.1 MB
+[runlim] sample:		2299.3 seconds, 161.6 MB
+[runlim] sample:		2309.4 seconds, 162.7 MB
+[runlim] sample:		2319.3 seconds, 162.9 MB
+[runlim] sample:		2329.3 seconds, 162.9 MB
+[runlim] sample:		2339.4 seconds, 163.4 MB
+[runlim] sample:		2349.3 seconds, 163.7 MB
+[runlim] sample:		2359.3 seconds, 164.5 MB
+[runlim] sample:		2369.3 seconds, 165.5 MB
+[runlim] sample:		2379.3 seconds, 165.5 MB
+[runlim] sample:		2389.3 seconds, 169.2 MB
+[runlim] sample:		2399.3 seconds, 169.7 MB
+[runlim] sample:		2409.3 seconds, 169.9 MB
+[runlim] sample:		2419.3 seconds, 170.5 MB
+[runlim] sample:		2429.3 seconds, 171.0 MB
+[runlim] sample:		2439.3 seconds, 171.5 MB
+[runlim] sample:		2449.3 seconds, 171.7 MB
+[runlim] sample:		2459.3 seconds, 172.2 MB
+[runlim] sample:		2469.3 seconds, 172.8 MB
+[runlim] sample:		2479.3 seconds, 173.0 MB
+[runlim] sample:		2489.3 seconds, 173.3 MB
+[runlim] sample:		2499.3 seconds, 173.8 MB
+[runlim] sample:		2509.3 seconds, 174.3 MB
+[runlim] sample:		2519.3 seconds, 174.5 MB
+[runlim] sample:		2529.3 seconds, 174.8 MB
+[runlim] sample:		2539.3 seconds, 178.1 MB
+[runlim] sample:		2549.3 seconds, 178.1 MB
+[runlim] sample:		2559.3 seconds, 178.4 MB
+[runlim] sample:		2569.3 seconds, 178.4 MB
+[runlim] sample:		2579.3 seconds, 178.9 MB
+[runlim] sample:		2589.2 seconds, 179.4 MB
+[runlim] sample:		2599.2 seconds, 179.7 MB
+expr::ExprManager::AND, 1623
+expr::ExprManager::BITVECTOR_PLUS, 14
+expr::ExprManager::BITVECTOR_SLT, 2
+expr::ExprManager::DISTINCT, 2
+expr::ExprManager::EQUAL, 770
+expr::ExprManager::IMPLIES, 544
+expr::ExprManager::LEQ, 512
+expr::ExprManager::LT, 135
+expr::ExprManager::OR, 259
+expr::ExprManager::VARIABLE:Parameterized type, 32
+expr::ExprManager::VARIABLE:real type, 116
+DefaultModel::constantTermsCount, 0
+DefaultModel::functionTermsCount, 0
+DefaultModel::mergesCount, 0
+DefaultModel::termsCount, 2
+FirstOrderModelFmc::constantTermsCount, 0
+FirstOrderModelFmc::functionTermsCount, 0
+FirstOrderModelFmc::mergesCount, 0
+FirstOrderModelFmc::termsCount, 2
+InstantiationEngine::Instantiations_Auto_Gen, 0
+InstantiationEngine::Instantiations_Cbqi_Arith, 0
+InstantiationEngine::Instantiations_Cbqi_Arith_Minus, 0
+InstantiationEngine::Instantiations_Cbqi_Datatypes, 0
+InstantiationEngine::Instantiations_Guess, 0
+InstantiationEngine::Instantiations_Local_T_Ext, 0
+InstantiationEngine::Instantiations_User_Patterns, 0
+InstantiationEngine::Rounds, 0
+QuantConflictFind::Entailment_Checks, 0
+QuantConflictFind::Inst_Rounds, 0
+QuantConflictFind::Instantiations_Conflict_Find, 0
+QuantConflictFind::Instantiations_Prop, 0
+QuantifiersEngine::Duplicate_Inst, 0
+QuantifiersEngine::Duplicate_Inst_Eq, 0
+QuantifiersEngine::Instantiations_Total, 0
+QuantifiersEngine::Multi_Trigger_Instantiations, 0
+QuantifiersEngine::Num_Quantifiers, 0
+QuantifiersEngine::Rounds_Instantiation_Full, 0
+QuantifiersEngine::Rounds_Instantiation_Last_Call, 0
+QuantifiersEngine::Triggers, 0
+QuantifiersEngine::Triggers_Multi, 0
+QuantifiersEngine::Triggers_Simple, 0
+SharedTermsDatabase::constantTermsCount, 0
+SharedTermsDatabase::functionTermsCount, 826
+SharedTermsDatabase::mergesCount, 18464813
+SharedTermsDatabase::termsCount, 973
+TheoryEngine::combineTheoriesTime, 0.000005
+TheoryStrings::NumOfDiseqSplits, 0
+TheoryStrings::NumOfEqSplits, 0
+TheoryStrings::NumOfLoops, 0
+TheoryStrings::NumOfNewSkolems, 0
+TheoryStrings::NumOfSplitOnDemands, 0
+decision::jh::giveup, 0
+decision::jh::helpfulness, 212110
+decision::jh::time, 15.647506
+preprocessor::number of unconstrained elims, 0
+prop::theoryproxy::replayedDecisions, 0
+sat::clauses_literals, 6600
+sat::conflicts, 112846
+sat::decisions, 212110
+sat::learnts_literals, 5815423
+sat::max_literals, 2842890
+sat::propagations, 9890135
+sat::rnd_decisions, 0
+sat::starts, 255
+sat::tot_literals, 2841797
+smt::SmtEngine::checkModelTime, 0.000000
+smt::SmtEngine::checkProofTime, 0.000000
+smt::SmtEngine::cnfConversionTime, 0.119003
+smt::SmtEngine::definitionExpansionTime, 0.002455
+smt::SmtEngine::iteRemovalTime, 0.001452
+smt::SmtEngine::miplibPassTime, 0.000000
+smt::SmtEngine::nonclausalSimplificationTime, 0.001762
+smt::SmtEngine::numAssertionsPostITERemoval, 89
+smt::SmtEngine::numAssertionsPreITERemoval, 89
+smt::SmtEngine::numConstantProps, 0
+smt::SmtEngine::numMiplibAssertionsRemoved, 0
+smt::SmtEngine::processAssertionsTime, 0.254303
+smt::SmtEngine::pushPopTime, 0.000000
+smt::SmtEngine::resourceUnitsUsed, 18419787
+smt::SmtEngine::rewriteApplyToConstTime, 0.000000
+smt::SmtEngine::rewriteBooleanTermsTime, 0.015740
+smt::SmtEngine::simpITETime, 0.000000
+smt::SmtEngine::simplifiedToFalse, 0
+smt::SmtEngine::solveTime, 2609.311993
+smt::SmtEngine::staticLearningTime, 0.014173
+smt::SmtEngine::theoryPreprocessTime, 0.008589
+smt::SmtEngine::unconstrainedSimpTime, 0.000000
+theory::QuantifiersEngine::time, 0.000001
+theory::arith::ArithCongruenceManager::constantTermsCount, 0
+theory::arith::ArithCongruenceManager::functionTermsCount, 350593
+theory::arith::ArithCongruenceManager::mergesCount, 1253325
+theory::arith::ArithCongruenceManager::termsCount, 1151981
+theory::arith::AssertLowerConflicts, 0
+theory::arith::AssertUpperConflicts, 0
+theory::arith::AuxiliaryVariables, 607
+theory::arith::DisequalityConflicts, 0
+theory::arith::DisequalitySplits, 0
+theory::arith::FC::Construction, 0.000000
+theory::arith::FC::FoundSat, 0
+theory::arith::FC::FoundUnsat, 0
+theory::arith::FC::Missed, 0
+theory::arith::FC::Timer, 0.000000
+theory::arith::FC::UpdateConflicts, 0
+theory::arith::FC::initialProcessTime, 0.000000
+theory::arith::FC::lastPivots, "0"
+theory::arith::FC::selectUpdateForDualLike, 0.000000
+theory::arith::FC::selectUpdateForPrimal, 0.000000
+theory::arith::SOI::ConfMin::num, 0
+theory::arith::SOI::Conflict::Minimization, 0.000000
+theory::arith::SOI::Construction, 0.000000
+theory::arith::SOI::FoundSat, 0
+theory::arith::SOI::FoundUnsat, 0
+theory::arith::SOI::HasToBeMin, 0
+theory::arith::SOI::MaybeNotMin, 0
+theory::arith::SOI::Missed, 0
+theory::arith::SOI::Time, 0.000000
+theory::arith::SOI::UpdateConflicts, 0
+theory::arith::SOI::initialProcessTime, 0.000000
+theory::arith::SOI::lastPivots, "0"
+theory::arith::SOI::selectSOI, 0.000000
+theory::arith::UserVariables, 116
+theory::arith::adjTime, 406.014363
+theory::arith::attempt::conflicts, 0
+theory::arith::attempt::queueTime, 0.000000
+theory::arith::attempt::searchTime, 0.000000
+theory::arith::bound::boundComputations, 3654986
+theory::arith::bound::boundPropagations, 311150
+theory::arith::bound::time, 146.982221
+theory::arith::cd::unatePropagateCalls, 2571207
+theory::arith::cd::unatePropagateImplications, 6113347
+theory::arith::congruence::conflicts, 0
+theory::arith::congruence::equalsConstantCalls, 451366
+theory::arith::congruence::propagateConstraints, 0
+theory::arith::congruence::propagations, 0
+theory::arith::congruence::watchedVariableIsNotZero, 2091325
+theory::arith::congruence::watchedVariableIsZero, 451366
+theory::arith::congruence::watchedVariables, 607
+theory::arith::currSetToSmaller, 0
+theory::arith::dio::conflictCalls, 0
+theory::arith::dio::conflictTimer, 0.000000
+theory::arith::dio::conflicts, 0
+theory::arith::dio::cutCalls, 0
+theory::arith::dio::cutTimer, 0.000000
+theory::arith::dio::cuts, 0
+theory::arith::dual::UpdateConflicts, 0
+theory::arith::dual::findConflictOnTheQueueTime, 14.372732
+theory::arith::dual::lastPivots, "0"
+theory::arith::dual::recentViolationCatches, 1779
+theory::arith::dual::searchTime, 1337.032982
+theory::arith::dual::simplexConflicts, 0
+theory::arith::externalBranchAndBounds, 0
+theory::arith::forcing::time, 0.000000
+theory::arith::initialTableauSize, 1821
+theory::arith::iteConstantApplications, 0
+theory::arith::iteMinMaxApplications, 0
+theory::arith::newPropTimer, 6.102288
+theory::arith::pivotTime, 1322.713225
+theory::arith::pivots, 947646
+theory::arith::pivots::sat, "[]"
+theory::arith::pivots::unkown, "[]"
+theory::arith::pivots::unsat, "[]"
+theory::arith::ppRewriteTimer, 0.002326
+theory::arith::pqueue::enqueues, 0
+theory::arith::pqueue::enqueuesCollection, 0
+theory::arith::pqueue::enqueuesCollectionDuplicates, 0
+theory::arith::pqueue::enqueuesDiffMode, 0
+theory::arith::pqueue::enqueuesVarOrderMode, 0
+theory::arith::pqueue::enqueuesVarOrderModeDuplicates, 0
+theory::arith::presolveTime, 0.029880
+theory::arith::restartTimer, 0.000104
+theory::arith::simplifyTimer, 0.000053
+theory::arith::smallerSetToCurr, 0
+theory::arith::staticLearningTimer, 0.013274
+theory::arith::status::avgUnknownsInARow, 0.000000
+theory::arith::status::commitsOnConflicts, 557
+theory::arith::status::maxUnknownsInARow, 0
+theory::arith::status::nontrivialSatChecks, 572104
+theory::arith::status::revertsOnConflicts, 0
+theory::arith::status::unknowns, 0
+theory::arith::updates, 1686974
+theory::arith::weakening::attempts, 1779
+theory::arith::weakening::success, 1663
+theory::arith::weakening::time, 0.088062
+theory::arith::weakening::total, 6346
+theory::arith::z::approx::cuts::branch::attempted, 0
+theory::arith::z::approx::cuts::gmi::attempted, 0
+theory::arith::z::approx::cuts::mir::attempted, 0
+theory::arith::z::approx::cuts::proofs, 0
+theory::arith::z::approx::cuts::proofs::failed, 0
+theory::arith::z::approx::cuts::reconstructed, 0
+theory::arith::z::approx::cuts::reconstructed::failed, 0
+theory::arith::z::approx::exhausted::branches, 0
+theory::arith::z::approx::exhausted::exec, 0
+theory::arith::z::approx::exhausted::pivots, 0
+theory::arith::z::approx::external::branches, 0
+theory::arith::z::approx::external::calls, 0
+theory::arith::z::approx::external::cuts, 0
+theory::arith::z::approx::external::cuts::rejected, 0
+theory::arith::z::approx::inSolverInteger, 0
+theory::arith::z::approx::lp::timer, 0.000000
+theory::arith::z::approx::mip::timer, 0.000000
+theory::arith::z::approx::replay::cuts::rejected, 0
+theory::arith::z::approx::replay::log::timer, 0.000000
+theory::arith::z::approx::replay::rec, 0
+theory::arith::z::approx::replay::rec::branch::closefailures, 0
+theory::arith::z::approx::replay::rec::branch::skips, 0
+theory::arith::z::approx::replay::rec::earlyexit, 0
+theory::arith::z::approx::replay::rec::escalation, 0
+theory::arith::z::approx::replay::rec::leaf::closefailures, 0
+theory::arith::z::approx::replay::simplex::timer, 0.000000
+theory::arith::z::approxDisabled, 0
+theory::arith::z::arith::cuts::applyRowsDeleted, 0
+theory::arith::z::arith::paniclemmas, 0
+theory::arith::z::arith::relax::calls, 0
+theory::arith::z::arith::relax::exhausted, 0
+theory::arith::z::arith::relax::feasible::failures, 0
+theory::arith::z::arith::relax::feasible::res, 0
+theory::arith::z::arith::relax::infeasible, 0
+theory::arith::z::arith::relax::infeasible::failures, 0
+theory::arith::z::arith::relax::other, 0
+theory::arith::z::mip::branch::proof::failed, 0
+theory::arith::z::mip::proofs::attempted, 0
+theory::arith::z::mip::proofs::successful, 0
+theory::arith::z::replayAttemptFailed, 0
+theory::arith::z::solveInt::calls, 0
+theory::arith::z::solveInt::calls::standardEffort, 0
+theory::arith::z::solveInt::models::attempts, 0
+theory::arith::z::solveInt::timer, 0.000000
+theory::arith::z::solveRealRelax::timer, 1351.653320
+theory::arith::zzz::arith::substitutions, 0
+theory::arith::zzz::solveInt::models::successful, 0
+theory::arrays::TheoryArrays::constantTermsCount, 0
+theory::arrays::TheoryArrays::functionTermsCount, 0
+theory::arrays::TheoryArrays::mergesCount, 0
+theory::arrays::TheoryArrays::termsCount, 2
+theory::arrays::TheoryArraysMayEqual::constantTermsCount, 0
+theory::arrays::TheoryArraysMayEqual::functionTermsCount, 0
+theory::arrays::TheoryArraysMayEqual::mergesCount, 0
+theory::arrays::TheoryArraysMayEqual::termsCount, 2
+theory::arrays::TheoryArraysPP::constantTermsCount, 0
+theory::arrays::TheoryArraysPP::functionTermsCount, 0
+theory::arrays::TheoryArraysPP::mergesCount, 0
+theory::arrays::TheoryArraysPP::termsCount, 2
+theory::arrays::avgInStoresListLength, 0.000000
+theory::arrays::avgIndexListLength, 0.000000
+theory::arrays::avgStoresListLength, 0.000000
+theory::arrays::callsMergeInfo, 0
+theory::arrays::infoTableSize, 0
+theory::arrays::listsCount, 0
+theory::arrays::maxList, 0
+theory::arrays::mergeInfoTimer, 0.000000
+theory::arrays::number of Ext lemmas, 0
+theory::arrays::number of Row lemmas, 0
+theory::arrays::number of calls to setNonLinear, 0
+theory::arrays::number of explanations, 0
+theory::arrays::number of getModelVal conflicts, 0
+theory::arrays::number of getModelVal splits, 0
+theory::arrays::number of propagations, 0
+theory::arrays::number of setModelVal conflicts, 0
+theory::arrays::number of setModelVal splits, 0
+theory::arrays::number of shared array var splits, 0
+theory::bv::AbstractioModule::AbstractionTime, 0.000000
+theory::bv::AbstractioModule::NumArgsSkolemized, 0
+theory::bv::AbstractioModule::NumFunctionsAbstracted, 0
+theory::bv::AlgebraicSolver::NumCallsToCheck, 1
+theory::bv::AlgebraicSolver::NumSat, 0
+theory::bv::AlgebraicSolver::NumSimplifiesToFalse, 0
+theory::bv::AlgebraicSolver::NumSimplifiesToTrue, 1
+theory::bv::AlgebraicSolver::NumUnknown, 0
+theory::bv::AlgebraicSolver::NumUnsat, 0
+theory::bv::AlgebraicSolver::SolveTime, 0.190981
+theory::bv::AlgebraicSolver::UseHeuristic, 0.200000
+theory::bv::AvgBVConflictSize, 28.224455
+theory::bv::BitblastSolver::NumCallsToCheck, 356583
+theory::bv::BitblastSolver::NumTimesLemmasBB, 0
+theory::bv::BvToBoolPreprocess::NumberOfAtomsLifted, 0
+theory::bv::BvToBoolPreprocess::NumberOfTermsForcedLifted, 0
+theory::bv::BvToBoolPreprocess::NumberOfTermsLifted, 0
+theory::bv::CoreSolver::NumCallsToCheck, 551234
+theory::bv::CoreSolver::SlicerEnabled, "0"
+theory::bv::InequalitySolver::NumCallsToCheck, 356583
+theory::bv::NumMultSliceApplied, 0
+theory::bv::NumberOfFullCheckCalls, 1
+theory::bv::NumberOfSolveSubstitutions, 0
+theory::bv::NumberOfStandardCheckCalls, 551233
+theory::bv::TheoryBV::constantTermsCount, 0
+theory::bv::TheoryBV::functionTermsCount, 286
+theory::bv::TheoryBV::mergesCount, 22410212
+theory::bv::TheoryBV::termsCount, 1858780
+theory::bv::alg::BitblastTimer, 0.000000
+theory::bv::alg::NumberOfAtomSatClauses, 0
+theory::bv::alg::NumberOfBitblastedAtoms, 0
+theory::bv::alg::NumberOfBitblastedTerms, 49
+theory::bv::alg::NumberOfBitblastingPropagations, 0
+theory::bv::alg::NumberOfExplainedPropagations, 0
+theory::bv::alg::NumberOfTermSatClauses, 0
+theory::bv::algbvminisat::calls_to_solve, 0
+theory::bv::algbvminisat::clauses_literals, 0
+theory::bv::algbvminisat::conflicts, 0
+theory::bv::algbvminisat::decisions, 0
+theory::bv::algbvminisat::eliminated_vars, 0
+theory::bv::algbvminisat::learnts_literals, 0
+theory::bv::algbvminisat::max_literals, 0
+theory::bv::algbvminisat::propagations, 0
+theory::bv::algbvminisat::rnd_decisions, 0
+theory::bv::algbvminisat::solve_time, 0.000000
+theory::bv::algbvminisat::starts, 0
+theory::bv::algbvminisat::tot_literals, 0
+theory::bv::lazy::BitblastTimer, 0.184444
+theory::bv::lazy::NumberOfAtomSatClauses, 0
+theory::bv::lazy::NumberOfBitblastedAtoms, 260
+theory::bv::lazy::NumberOfBitblastedTerms, 49
+theory::bv::lazy::NumberOfBitblastingPropagations, 469062
+theory::bv::lazy::NumberOfExplainedPropagations, 1100
+theory::bv::lazy::NumberOfTermSatClauses, 0
+theory::bv::lazybvminisat::calls_to_solve, 1
+theory::bv::lazybvminisat::clauses_literals, 126916
+theory::bv::lazybvminisat::conflicts, 0
+theory::bv::lazybvminisat::decisions, 1
+theory::bv::lazybvminisat::eliminated_vars, 0
+theory::bv::lazybvminisat::learnts_literals, 0
+theory::bv::lazybvminisat::max_literals, 0
+theory::bv::lazybvminisat::propagations, 24559998
+theory::bv::lazybvminisat::rnd_decisions, 0
+theory::bv::lazybvminisat::solve_time, 0.000000
+theory::bv::lazybvminisat::starts, 1474067
+theory::bv::lazybvminisat::tot_literals, 0
+theory::bv::slicer::AverageFindDepth, 0.000000
+theory::bv::slicer::NumberOfEqualitiesAdded, "0"
+theory::bv::slicer::NumberOfMerges, 0
+theory::bv::slicer::NumberOfRepresentatives, 0
+theory::bv::slicer::NumberOfSplits, 0
+theory::bv::solveTimer, 594.938192
+theory::bv::weightComputationTimer, 0.000087
+theory::datatypes::TheoryDatatypes::constantTermsCount, 0
+theory::datatypes::TheoryDatatypes::functionTermsCount, 0
+theory::datatypes::TheoryDatatypes::mergesCount, 0
+theory::datatypes::TheoryDatatypes::termsCount, 2
+theory::master::constantTermsCount, 0
+theory::master::functionTermsCount, 350851
+theory::master::mergesCount, 23623804
+theory::master::termsCount, 3010744
+theory::sets::TheorySetsPrivate::constantTermsCount, 0
+theory::sets::TheorySetsPrivate::functionTermsCount, 0
+theory::sets::TheorySetsPrivate::mergesCount, 0
+theory::sets::TheorySetsPrivate::termsCount, 2
+theory::sets::getModelValueTime, 0.000000
+theory::sets::lemmas::disequality, 0
+theory::sets::lemmas::member, 0
+theory::shared_terms, 0
+theory::strings::TheoryStrings::constantTermsCount, 0
+theory::strings::TheoryStrings::functionTermsCount, 0
+theory::strings::TheoryStrings::mergesCount, 0
+theory::strings::TheoryStrings::termsCount, 2
+theory::uf::TheoryUF::constantTermsCount, 0
+theory::uf::TheoryUF::functionTermsCount, 0
+theory::uf::TheoryUF::mergesCount, 0
+theory::uf::TheoryUF::termsCount, 2
+theory::uf::symmetry_breaker::clauses, 0
+theory::uf::symmetry_breaker::permutationSetsConsidered, 0
+theory::uf::symmetry_breaker::permutationSetsInvariant, 0
+theory::uf::symmetry_breaker::timers::initNormalization, 0.000000
+theory::uf::symmetry_breaker::timers::invariantByPermutations, 0.000000
+theory::uf::symmetry_breaker::timers::selectTerms, 0.000000
+theory::uf::symmetry_breaker::units, 0
+theory<THEORY_ARITH>::checkTime, 1592.243798
+theory<THEORY_ARITH>::computeCareGraphTime, 0.000000
+theory<THEORY_ARITH>::conflicts, 1779
+theory<THEORY_ARITH>::flipDecision, 0
+theory<THEORY_ARITH>::lemmas, 1420
+theory<THEORY_ARITH>::propagations, 2959748
+theory<THEORY_ARITH>::requirePhase, 0
+theory<THEORY_ARITH>::restartDemands, 0
+theory<THEORY_ARRAY>::checkTime, 0.000005
+theory<THEORY_ARRAY>::computeCareGraphTime, 0.000001
+theory<THEORY_ARRAY>::conflicts, 0
+theory<THEORY_ARRAY>::flipDecision, 0
+theory<THEORY_ARRAY>::lemmas, 0
+theory<THEORY_ARRAY>::propagations, 0
+theory<THEORY_ARRAY>::requirePhase, 0
+theory<THEORY_ARRAY>::restartDemands, 0
+theory<THEORY_BOOL>::checkTime, 0.000000
+theory<THEORY_BOOL>::computeCareGraphTime, 0.000000
+theory<THEORY_BOOL>::conflicts, 0
+theory<THEORY_BOOL>::flipDecision, 0
+theory<THEORY_BOOL>::lemmas, 0
+theory<THEORY_BOOL>::propagations, 0
+theory<THEORY_BOOL>::requirePhase, 0
+theory<THEORY_BOOL>::restartDemands, 0
+theory<THEORY_BUILTIN>::checkTime, 0.000000
+theory<THEORY_BUILTIN>::computeCareGraphTime, 0.000000
+theory<THEORY_BUILTIN>::conflicts, 0
+theory<THEORY_BUILTIN>::flipDecision, 0
+theory<THEORY_BUILTIN>::lemmas, 0
+theory<THEORY_BUILTIN>::propagations, 0
+theory<THEORY_BUILTIN>::requirePhase, 0
+theory<THEORY_BUILTIN>::restartDemands, 0
+theory<THEORY_BV>::checkTime, 595.444062
+theory<THEORY_BV>::computeCareGraphTime, 0.000000
+theory<THEORY_BV>::conflicts, 194605
+theory<THEORY_BV>::flipDecision, 0
+theory<THEORY_BV>::lemmas, 0
+theory<THEORY_BV>::propagations, 33934189
+theory<THEORY_BV>::requirePhase, 0
+theory<THEORY_BV>::restartDemands, 0
+theory<THEORY_DATATYPES>::checkTime, 0.000005
+theory<THEORY_DATATYPES>::computeCareGraphTime, 0.000001
+theory<THEORY_DATATYPES>::conflicts, 0
+theory<THEORY_DATATYPES>::flipDecision, 0
+theory<THEORY_DATATYPES>::lemmas, 0
+theory<THEORY_DATATYPES>::propagations, 0
+theory<THEORY_DATATYPES>::requirePhase, 0
+theory<THEORY_DATATYPES>::restartDemands, 0
+theory<THEORY_FP>::checkTime, 0.000000
+theory<THEORY_FP>::computeCareGraphTime, 0.000000
+theory<THEORY_FP>::conflicts, 0
+theory<THEORY_FP>::flipDecision, 0
+theory<THEORY_FP>::lemmas, 0
+theory<THEORY_FP>::propagations, 0
+theory<THEORY_FP>::requirePhase, 0
+theory<THEORY_FP>::restartDemands, 0
+theory<THEORY_QUANTIFIERS>::checkTime, 0.000001
+theory<THEORY_QUANTIFIERS>::computeCareGraphTime, 0.000000
+theory<THEORY_QUANTIFIERS>::conflicts, 0
+theory<THEORY_QUANTIFIERS>::flipDecision, 0
+theory<THEORY_QUANTIFIERS>::lemmas, 0
+theory<THEORY_QUANTIFIERS>::propagations, 0
+theory<THEORY_QUANTIFIERS>::requirePhase, 0
+theory<THEORY_QUANTIFIERS>::restartDemands, 0
+theory<THEORY_SETS>::checkTime, 0.000001
+theory<THEORY_SETS>::computeCareGraphTime, 0.000001
+theory<THEORY_SETS>::conflicts, 0
+theory<THEORY_SETS>::flipDecision, 0
+theory<THEORY_SETS>::lemmas, 0
+theory<THEORY_SETS>::propagations, 0
+theory<THEORY_SETS>::requirePhase, 0
+theory<THEORY_SETS>::restartDemands, 0
+theory<THEORY_STRINGS>::checkTime, 0.000007
+theory<THEORY_STRINGS>::computeCareGraphTime, 0.000001
+theory<THEORY_STRINGS>::conflicts, 0
+theory<THEORY_STRINGS>::flipDecision, 0
+theory<THEORY_STRINGS>::lemmas, 0
+theory<THEORY_STRINGS>::propagations, 0
+theory<THEORY_STRINGS>::requirePhase, 0
+theory<THEORY_STRINGS>::restartDemands, 0
+theory<THEORY_UF>::checkTime, 0.000000
+theory<THEORY_UF>::computeCareGraphTime, 0.000000
+theory<THEORY_UF>::conflicts, 0
+theory<THEORY_UF>::flipDecision, 0
+theory<THEORY_UF>::lemmas, 0
+theory<THEORY_UF>::propagations, 0
+theory<THEORY_UF>::requirePhase, 0
+theory<THEORY_UF>::restartDemands, 0
+driver::filename, smt2-benchmarks/fib-bv-values/fib7_sup_on_sat.smt2
+driver::sat/unsat, sat
+driver::totalTime, 2609.667286407
+[runlim] end:			Mon Mar 16 15:29:38 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			2609.82 seconds
+[runlim] time:			2608.93 seconds
+[runlim] space:			183.1 MB
+[runlim] samples:		26097

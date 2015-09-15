@@ -1,0 +1,127 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		z3
+[runlim] argv[1]:		--st
+[runlim] argv[2]:		smt2-benchmarks/fib-int-values/fib9_sup_on_unsat.smt2
+[runlim] start:			Sun Apr  5 09:53:00 2015
+[runlim] main pid:		1898
+WARNING: unknown logic, ignoring set-logic command
+[runlim] sample:		10.0 seconds, 40.5 MB
+[runlim] sample:		20.0 seconds, 42.9 MB
+[runlim] sample:		30.0 seconds, 44.5 MB
+[runlim] sample:		40.0 seconds, 45.0 MB
+[runlim] sample:		50.0 seconds, 45.2 MB
+[runlim] sample:		60.0 seconds, 45.7 MB
+[runlim] sample:		70.0 seconds, 46.0 MB
+[runlim] sample:		80.0 seconds, 46.3 MB
+[runlim] sample:		89.9 seconds, 46.8 MB
+[runlim] sample:		99.9 seconds, 47.0 MB
+[runlim] sample:		109.9 seconds, 47.3 MB
+[runlim] sample:		119.9 seconds, 47.3 MB
+[runlim] sample:		129.9 seconds, 47.6 MB
+[runlim] sample:		139.9 seconds, 47.6 MB
+[runlim] sample:		149.9 seconds, 47.8 MB
+[runlim] sample:		159.9 seconds, 48.1 MB
+[runlim] sample:		169.9 seconds, 48.6 MB
+[runlim] sample:		179.9 seconds, 48.8 MB
+[runlim] sample:		189.9 seconds, 49.1 MB
+[runlim] sample:		199.9 seconds, 49.4 MB
+[runlim] sample:		209.9 seconds, 49.6 MB
+[runlim] sample:		219.9 seconds, 49.9 MB
+[runlim] sample:		229.9 seconds, 50.1 MB
+[runlim] sample:		239.9 seconds, 50.4 MB
+[runlim] sample:		249.9 seconds, 50.6 MB
+[runlim] sample:		259.9 seconds, 50.9 MB
+[runlim] sample:		269.8 seconds, 51.4 MB
+[runlim] sample:		279.8 seconds, 51.7 MB
+[runlim] sample:		289.8 seconds, 52.2 MB
+[runlim] sample:		299.8 seconds, 52.2 MB
+[runlim] sample:		309.8 seconds, 52.4 MB
+[runlim] sample:		319.8 seconds, 52.7 MB
+[runlim] sample:		329.8 seconds, 53.0 MB
+[runlim] sample:		339.8 seconds, 53.5 MB
+[runlim] sample:		349.8 seconds, 53.5 MB
+[runlim] sample:		359.8 seconds, 53.7 MB
+[runlim] sample:		369.8 seconds, 54.0 MB
+[runlim] sample:		379.8 seconds, 54.8 MB
+[runlim] sample:		389.8 seconds, 55.0 MB
+[runlim] sample:		399.8 seconds, 55.3 MB
+[runlim] sample:		409.8 seconds, 55.5 MB
+[runlim] sample:		419.7 seconds, 55.8 MB
+[runlim] sample:		429.7 seconds, 56.1 MB
+[runlim] sample:		439.7 seconds, 56.3 MB
+[runlim] sample:		449.7 seconds, 56.7 MB
+[runlim] sample:		459.7 seconds, 57.0 MB
+[runlim] sample:		469.7 seconds, 57.5 MB
+[runlim] sample:		479.7 seconds, 57.7 MB
+[runlim] sample:		489.7 seconds, 57.7 MB
+[runlim] sample:		499.7 seconds, 57.7 MB
+[runlim] sample:		509.7 seconds, 57.7 MB
+[runlim] sample:		519.7 seconds, 58.0 MB
+[runlim] sample:		529.7 seconds, 58.3 MB
+[runlim] sample:		539.7 seconds, 58.3 MB
+[runlim] sample:		549.7 seconds, 58.8 MB
+[runlim] sample:		559.7 seconds, 59.0 MB
+[runlim] sample:		569.7 seconds, 59.3 MB
+[runlim] sample:		579.7 seconds, 59.5 MB
+[runlim] sample:		589.7 seconds, 59.8 MB
+[runlim] sample:		599.7 seconds, 60.1 MB
+[runlim] sample:		609.7 seconds, 60.3 MB
+[runlim] sample:		619.6 seconds, 60.3 MB
+[runlim] sample:		629.6 seconds, 60.6 MB
+[runlim] sample:		639.6 seconds, 60.8 MB
+[runlim] sample:		649.6 seconds, 61.1 MB
+[runlim] sample:		659.6 seconds, 61.1 MB
+[runlim] sample:		669.6 seconds, 61.1 MB
+[runlim] sample:		679.6 seconds, 61.1 MB
+[runlim] sample:		689.6 seconds, 61.1 MB
+[runlim] sample:		699.6 seconds, 61.1 MB
+[runlim] sample:		709.6 seconds, 61.1 MB
+[runlim] sample:		719.6 seconds, 61.3 MB
+[runlim] sample:		729.6 seconds, 61.3 MB
+[runlim] sample:		739.6 seconds, 61.3 MB
+[runlim] sample:		749.6 seconds, 61.3 MB
+[runlim] sample:		759.6 seconds, 61.3 MB
+[runlim] sample:		769.6 seconds, 61.3 MB
+[runlim] sample:		779.6 seconds, 61.3 MB
+[runlim] sample:		789.6 seconds, 61.3 MB
+[runlim] sample:		799.5 seconds, 61.3 MB
+[runlim] sample:		809.5 seconds, 61.3 MB
+[runlim] sample:		819.5 seconds, 61.3 MB
+[runlim] sample:		829.5 seconds, 61.3 MB
+[runlim] sample:		839.5 seconds, 61.3 MB
+[runlim] sample:		849.5 seconds, 61.3 MB
+unsat
+(:add-rows            176461277
+ :added-eqs           27026
+ :arith-conflicts     77899
+ :assert-diseq        16093
+ :assert-lower        10962079
+ :assert-upper        7716736
+ :binary-propagations 17059581
+ :bound-prop          332000
+ :conflicts           139901
+ :decisions           190001
+ :del-clause          300241
+ :eq-adapter          2248
+ :fixed-eqs           1568
+ :memory              48.24
+ :minimized-lits      1255039
+ :mk-clause           344899
+ :num-checks          1
+ :offset-eqs          4514
+ :pivots              1552004
+ :propagations        31302803
+ :restarts            58
+ :time                859.35
+ :total-time          859.37)
+[runlim] end:			Sun Apr  5 10:07:19 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			859.96 seconds
+[runlim] time:			859.31 seconds
+[runlim] space:			61.3 MB
+[runlim] samples:		8598

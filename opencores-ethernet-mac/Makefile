@@ -2,7 +2,7 @@
 LLVM_GCC = llvm-gcc
 LLVM_LD = llvm-ld
 KLEE = klee
-CBMC = cbmc
+CBMC = /Users/ahorn/Github/cbmc-trunk/src/cbmc/cbmc
 CC=gcc
 
 SRC = *.c 
@@ -20,7 +20,7 @@ ALL_PROP = -D_ETHOC_PROP_1_ \
            -D_ETHOC_TEST_5_
 
 ethoc-hw-concrete:
-	@${CC} -g $(SRC) $(ALL_PROP)
+	@${CC} -lpthread -g $(SRC) $(ALL_PROP)
 
 ethoc-hw-cbmc:
 	@${CBMC} $(SRC) $(ALL_PROP) -D_SYMBOLIC_EXECUTION_ -D_CBMC_

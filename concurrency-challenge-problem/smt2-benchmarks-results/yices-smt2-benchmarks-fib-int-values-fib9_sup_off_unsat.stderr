@@ -1,0 +1,74 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		yices-smt2
+[runlim] argv[1]:		--stats
+[runlim] argv[2]:		smt2-benchmarks/fib-int-values/fib9_sup_off_unsat.smt2
+[runlim] start:			Fri Apr  3 13:28:13 2015
+[runlim] main pid:		30133
+[runlim] sample:		10.0 seconds, 6.8 MB
+[runlim] sample:		20.0 seconds, 7.0 MB
+[runlim] sample:		30.0 seconds, 7.3 MB
+[runlim] sample:		40.0 seconds, 7.3 MB
+[runlim] sample:		50.0 seconds, 7.6 MB
+[runlim] sample:		60.0 seconds, 8.1 MB
+[runlim] sample:		70.0 seconds, 8.1 MB
+[runlim] sample:		80.0 seconds, 8.1 MB
+[runlim] sample:		90.0 seconds, 8.8 MB
+[runlim] sample:		100.0 seconds, 8.8 MB
+[runlim] sample:		110.0 seconds, 8.8 MB
+[runlim] sample:		120.0 seconds, 9.1 MB
+[runlim] sample:		130.0 seconds, 9.1 MB
+[runlim] sample:		140.0 seconds, 9.1 MB
+[runlim] sample:		150.0 seconds, 9.1 MB
+[runlim] sample:		160.0 seconds, 9.4 MB
+[runlim] sample:		170.0 seconds, 9.4 MB
+[runlim] sample:		180.0 seconds, 9.4 MB
+[runlim] sample:		190.0 seconds, 9.7 MB
+[runlim] sample:		200.0 seconds, 9.7 MB
+[runlim] sample:		210.0 seconds, 9.9 MB
+[runlim] sample:		220.0 seconds, 10.4 MB
+[runlim] sample:		230.0 seconds, 10.4 MB
+[runlim] sample:		240.0 seconds, 10.4 MB
+[runlim] sample:		250.0 seconds, 10.6 MB
+[runlim] sample:		260.0 seconds, 10.6 MB
+[runlim] sample:		270.0 seconds, 10.6 MB
+[runlim] sample:		280.0 seconds, 11.2 MB
+[runlim] sample:		290.0 seconds, 11.4 MB
+[runlim] sample:		300.0 seconds, 11.4 MB
+[runlim] sample:		310.0 seconds, 11.7 MB
+[runlim] sample:		320.0 seconds, 11.7 MB
+[runlim] sample:		330.0 seconds, 12.2 MB
+[runlim] sample:		340.0 seconds, 12.2 MB
+unsat
+(:num-terms 13684
+ :num-types 3
+ :total-run-time 342.392
+ :mem-usage 17.652
+ :boolean-variables 3265
+ :atoms 2412
+ :clauses 20440
+ :restarts 18
+ :clause-db-reduce 67
+ :clause-db-simplify 33
+ :decisions 435489
+ :conflicts 304916
+ :theory-conflicts 243947
+ :boolean-propagations 49333892
+ :theory-propagations 6639224
+ :simplex-vars 997
+ :simplex-rows 839
+ :simplex-atoms 2412
+ :simplex-pivots 2288968
+ :simplex-conflicts 243947
+ :simplex-interface-lemmas 0
+)
+[runlim] end:			Fri Apr  3 13:33:55 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			342.72 seconds
+[runlim] time:			342.37 seconds
+[runlim] space:			12.2 MB
+[runlim] samples:		3424
