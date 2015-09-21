@@ -1,0 +1,26 @@
+Z3 version 4.4.1 (unstable, commit 869cd6074d28525ef9d57ae5ad0482eaa55259be)
+
+unsat
+(:add-rows            1449444294
+ :arith-conflicts     16216688
+ :assert-lower        2043067075
+ :assert-upper        1800070776
+ :binary-propagations 3404524910
+ :bound-prop          7972983
+ :conflicts           47075183
+ :decisions           54128626
+ :del-clause          53897385
+ :max-memory          75.19
+ :memory              23.79
+ :minimized-lits      507172465
+ :mk-clause           54120868
+ :num-allocs          69981436.00
+ :pivots              85837309
+ :propagations        3904444372
+ :restarts            30
+ :time                14096.99
+ :total-time          14097.00)
+
+real    234m47.658s
+user    234m56.945s
+sys     0m0.063s

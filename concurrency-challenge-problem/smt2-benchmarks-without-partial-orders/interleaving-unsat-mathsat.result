@@ -1,0 +1,84 @@
+MathSAT5 version 5.3.7 (073c3b224db1) (Jul  7 2015 15:45:01, gmp 5.0.2, gcc 4.6.3, 64-bit)
+
+unsat
+;; statistics
+(
+ :sat-checks 1
+ :sat-restarts 30
+ :sat-decisions 81061995
+ :sat-random-decisions 723163
+ :sat-propagations 12224974690
+ :sat-theory-propagations 8824695
+ :sat-watched-clauses-visited 149272403206
+ :sat-binary-watched-clauses-visited 4485665348
+ :sat-conflicts 67473208
+ :sat-theory-conflicts 12045381
+ :theory-necessary-interface-equalities 0
+ :theory-extra-interface-equalities 0
+ :euf-total-calls 97238534
+ :euf-complete-calls 0
+ :euf-conflicts 3231
+ :euf-implications 533435
+ :euf-explanations 19795
+ :euf-egraph-nodes-created 2353
+ :euf-egraph-nodes-deleted 0
+ :euf-num-asserted-equalities 2269312797
+ :euf-num-asserted-inequalities 1669903341
+ :euf-num-merges 11199163759
+ :euf-num-merges-undone 11199163583
+ :euf-num-atoms-retold 0
+ :la-total-calls 97235303
+ :la-complete-calls 0
+ :la-conflicts 12042150
+ :la-implications 8291260
+ :la-explanations 6533089
+ :la-num-equalities-split 378
+ :la-num-tableau-rows 118
+ :la-num-tableau-variables 154
+ :la-avg-tableau-row-length 4.67797
+ :la-max-tableau-row-length 9
+ :la-num-pivot-operations 72187152
+ :la-num-equational-conflicts 0
+ :la-num-equality-elimination-+-tightening-conflicts 0
+ :la-num-internal-branch-and-bound-calls 0
+ :la-num-internal-branch-and-bound-timeouts 0
+ :la-num-internal-branch-and-bound-conflicts 0
+ :la-num-internal-branch-and-bound-branches 0
+ :la-num-normal-branch-and-bound-lemmas 0
+ :la-num-extended-branch-and-bound-lemmas 0
+ :bv-total-calls 85193153
+ :bv-complete-calls 0
+ :bv-conflicts 0
+ :bv-implications 0
+ :bv-explanations 0
+ :fp-total-calls 85193153
+ :fp-complete-calls 0
+ :fp-conflicts 0
+ :fp-implications 0
+ :fp-explanations 0
+ :arr-total-calls 85193153
+ :arr-complete-calls 0
+ :arr-conflicts 0
+ :arr-implications 0
+ :arr-explanations 0
+ :arr-write-lemmas-added 0
+ :arr-row-lemmas-added 0
+ :arr-ext-lemmas-added 0
+ :arr-const-lemmas-added 0
+ :arr-write-lemmas-removed 0
+ :arr-row-lemmas-removed 0
+ :arr-ext-lemmas-removed 0
+ :arr-const-lemmas-removed 0
+ :arr-nonlinear-execs 0
+ :arr-nonlinear-impact 0
+ :arr-ext_arg-execs 0
+ :arr-ext_arg-impact 0
+ :arr-row-type-1-added 0
+ :arr-row-type-2-added 0
+ :time-seconds 24783.314
+ :memory-mb 414.789
+)
+
+real    412m45.824s
+user    413m2.672s
+sys     0m0.733s
