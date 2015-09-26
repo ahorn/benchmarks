@@ -1,0 +1,87 @@
+Index: src/solvers/sat/satcheck_minisat2.cpp
+===================================================================
+--- src/solvers/sat/satcheck_minisat2.cpp	(revision 5834)
++++ src/solvers/sat/satcheck_minisat2.cpp	(working copy)
+@@ -211,6 +211,9 @@
+ {
+   assert(status!=ERROR);
+ 
++  propt::resultt result=P_UNSATISFIABLE;
++  status=UNSAT;
++
+   {
+     messaget::status() <<
+       _no_variables << " variables, " <<
+@@ -235,7 +238,7 @@
+         "SAT checker: negated claim is SATISFIABLE, i.e., does not hold" << eom;
+       assert(solver->model.size()!=0);
+       status=SAT;
+-      return P_SATISFIABLE;
++      result=P_SATISFIABLE;
+     }
+     else
+     {
+@@ -244,8 +247,18 @@
+     }
+   }
+ 
+-  status=UNSAT;
+-  return P_UNSATISFIABLE;
++  {
++    messaget::status() <<
++      "SAT solving statistics: " << eom <<
++      "  Starts: " << solver->starts << eom <<
++      "  Decisions: " << solver->decisions << eom <<
++      "  Propagations: " << solver->propagations << eom <<
++      "  Conflicts: " << solver->conflicts << eom <<
++      "  Clause literals: " << solver->clauses_literals << eom <<
++      "  Learnts literals: " << solver->learnts_literals << eom;
++  }
++
++  return result;
+ }
+ 
+ /*******************************************************************\
+Index: src/solvers/sat/satcheck_glucose.cpp
+===================================================================
+--- src/solvers/sat/satcheck_glucose.cpp	(revision 5834)
++++ src/solvers/sat/satcheck_glucose.cpp	(working copy)
+@@ -211,6 +211,8 @@
+ {
+   assert(status!=ERROR);
+ 
++  status=UNSAT;
++  propt::resultt result=P_UNSATISFIABLE;
+   {
+     messaget::status() <<
+       _no_variables << " variables, " <<
+@@ -235,7 +237,7 @@
+         "SAT checker: negated claim is SATISFIABLE, i.e., does not hold" << eom;
+       assert(solver->model.size()!=0);
+       status=SAT;
+-      return P_SATISFIABLE;
++      result=P_SATISFIABLE;
+     }
+     else
+     {
+@@ -244,8 +246,18 @@
+     }
+   }
+ 
+-  status=UNSAT;
+-  return P_UNSATISFIABLE;
++  {
++    messaget::status() <<
++      "SAT solving statistics: " << eom <<
++      "  Starts: " << solver->starts << eom <<
++      "  Decisions: " << solver->decisions << eom <<
++      "  Propagations: " << solver->propagations << eom <<
++      "  Conflicts: " << solver->conflicts << eom <<
++      "  Clause literals: " << solver->clauses_literals << eom <<
++      "  Learnts literals: " << solver->learnts_literals << eom;
++  }
++
++  return result;
+ }
+ 
+ /*******************************************************************\
