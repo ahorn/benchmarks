@@ -1,0 +1,41 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		z3
+[runlim] argv[1]:		--st
+[runlim] argv[2]:		smt2-benchmarks/fkp2013-bv-clocks/fkp2013_sup_on_sat_08.smt2
+[runlim] start:			Sun Apr  5 04:24:20 2015
+[runlim] main pid:		1154
+sat
+(:binary-propagations        374069
+ :conflicts                  943
+ :decisions                  3260
+ :del-clause                 15148
+ :dyn-subsumption-resolution 339
+ :elim-bool-vars             3794
+ :elim-clauses               84
+ :elim-literals              496
+ :eliminated-vars            1
+ :memory                     7.67
+ :minimized-lits             7841
+ :mk-binary-clause           18567
+ :mk-bool-var                9735
+ :mk-clause                  10692
+ :mk-ternary-clause          24388
+ :probing-assigned           24
+ :propagations               9674
+ :restarts                   6
+ :subsumed                   3329
+ :subsumption-resolution     125
+ :ternary-propagations       390903
+ :time                       0.50
+ :total-time                 0.50)
+[runlim] end:			Sun Apr  5 04:24:21 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			1.11 seconds
+[runlim] time:			0.49 seconds
+[runlim] space:			18.1 MB
+[runlim] samples:		5

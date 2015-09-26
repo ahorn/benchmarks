@@ -1,0 +1,37 @@
+Yices 2.4.1
+Copyright SRI International.
+Linked with GMP 6.0.0
+Copyright Free Software Foundation, Inc.
+Build date: 2015-08-10
+Platform: x86_64-unknown-linux-gnu (release/static)
+
+unsat
+(:num-terms 1365
+ :num-types 3
+ :total-run-time 273702.248
+ :mem-usage 473.535
+ :boolean-variables 695
+ :atoms 486
+ :clauses 314308
+ :restarts 30
+ :clause-db-reduce 165
+ :clause-db-simplify 12
+ :decisions 58371005
+ :conflicts 50026686
+ :theory-conflicts 8538527
+ :boolean-propagations 6321791978
+ :theory-propagations 15798862
+ :simplex-init-vars 163
+ :simplex-init-rows 126
+ :simplex-init-atoms 486
+ :simplex-vars 163
+ :simplex-rows 118
+ :simplex-atoms 486
+ :simplex-pivots 52698785
+ :simplex-conflicts 8538527
+ :simplex-interface-lemmas 0
+)
+
+real    4558m14.460s
+user    4561m41.322s
+sys     0m1.012s

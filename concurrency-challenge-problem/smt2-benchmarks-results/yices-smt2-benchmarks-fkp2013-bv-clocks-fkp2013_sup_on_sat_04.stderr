@@ -1,0 +1,38 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		yices-smt2
+[runlim] argv[1]:		--stats
+[runlim] argv[2]:		smt2-benchmarks/fkp2013-bv-clocks/fkp2013_sup_on_sat_04.smt2
+[runlim] start:			Fri Apr  3 11:17:16 2015
+[runlim] main pid:		29850
+sat
+(:num-terms 320
+ :num-types 5
+ :total-run-time 0.004
+ :mem-usage 9.266
+ :boolean-variables 2286
+ :atoms 182
+ :clauses 8757
+ :restarts 1
+ :clause-db-reduce 0
+ :clause-db-simplify 2
+ :decisions 873
+ :conflicts 197
+ :theory-conflicts 0
+ :boolean-propagations 66881
+ :theory-propagations 0
+ :bvsolver-vars 60
+ :bvsolver-atoms 182
+ :bvsolver-equiv-lemmas 0
+ :bvsolver-interface-lemmas 0
+)
+[runlim] end:			Fri Apr  3 11:17:16 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			0.03 seconds
+[runlim] time:			0.00 seconds
+[runlim] space:			0.0 MB
+[runlim] samples:		0

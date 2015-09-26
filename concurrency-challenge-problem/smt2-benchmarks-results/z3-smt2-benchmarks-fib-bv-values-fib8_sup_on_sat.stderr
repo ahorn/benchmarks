@@ -1,0 +1,50 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		z3
+[runlim] argv[1]:		--st
+[runlim] argv[2]:		smt2-benchmarks/fib-bv-values/fib8_sup_on_sat.smt2
+[runlim] start:			Sun Apr  5 10:16:24 2015
+[runlim] main pid:		2024
+WARNING: unknown logic, ignoring set-logic command
+[runlim] sample:		10.0 seconds, 25.8 MB
+[runlim] sample:		20.0 seconds, 27.8 MB
+[runlim] sample:		30.0 seconds, 28.1 MB
+[runlim] sample:		40.0 seconds, 28.9 MB
+[runlim] sample:		50.0 seconds, 30.7 MB
+sat
+(:add-rows            8060225
+ :added-eqs           2588386
+ :arith-conflicts     108
+ :assert-diseq        1030522
+ :assert-lower        1164737
+ :assert-upper        1085349
+ :binary-propagations 8053980
+ :bound-prop          6711
+ :bv-bit2core         1865573
+ :bv-conflicts        933
+ :bv->core-eq         8623
+ :conflicts           44667
+ :decisions           235157
+ :del-clause          82467
+ :eq-adapter          61548
+ :final-checks        1
+ :fixed-eqs           106497
+ :memory              21.53
+ :minimized-lits      1175948
+ :mk-clause           115101
+ :offset-eqs          65643
+ :pivots              85871
+ :propagations        16532146
+ :restarts            221
+ :time                56.40
+ :total-time          56.42)
+[runlim] end:			Sun Apr  5 10:17:20 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			56.68 seconds
+[runlim] time:			56.37 seconds
+[runlim] space:			33.0 MB
+[runlim] samples:		564

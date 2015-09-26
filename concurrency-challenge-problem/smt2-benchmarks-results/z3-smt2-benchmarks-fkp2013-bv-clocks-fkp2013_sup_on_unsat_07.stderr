@@ -1,0 +1,68 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		z3
+[runlim] argv[1]:		--st
+[runlim] argv[2]:		smt2-benchmarks/fkp2013-bv-clocks/fkp2013_sup_on_unsat_07.smt2
+[runlim] start:			Sun Apr  5 04:24:33 2015
+[runlim] main pid:		1202
+[runlim] sample:		10.0 seconds, 22.6 MB
+[runlim] sample:		20.0 seconds, 30.5 MB
+[runlim] sample:		29.9 seconds, 25.1 MB
+[runlim] sample:		40.0 seconds, 26.4 MB
+[runlim] sample:		49.9 seconds, 28.1 MB
+[runlim] sample:		59.9 seconds, 28.1 MB
+[runlim] sample:		69.9 seconds, 28.1 MB
+[runlim] sample:		79.9 seconds, 28.3 MB
+[runlim] sample:		89.9 seconds, 28.6 MB
+[runlim] sample:		99.9 seconds, 28.6 MB
+[runlim] sample:		109.8 seconds, 29.1 MB
+[runlim] sample:		119.8 seconds, 29.1 MB
+[runlim] sample:		129.8 seconds, 29.3 MB
+[runlim] sample:		139.8 seconds, 29.3 MB
+[runlim] sample:		149.8 seconds, 29.3 MB
+[runlim] sample:		159.8 seconds, 29.5 MB
+[runlim] sample:		169.8 seconds, 29.8 MB
+[runlim] sample:		179.8 seconds, 30.3 MB
+[runlim] sample:		189.8 seconds, 30.6 MB
+[runlim] sample:		199.8 seconds, 30.6 MB
+[runlim] sample:		209.7 seconds, 30.9 MB
+[runlim] sample:		219.7 seconds, 30.9 MB
+[runlim] sample:		229.7 seconds, 30.9 MB
+[runlim] sample:		239.7 seconds, 31.2 MB
+[runlim] sample:		249.7 seconds, 31.4 MB
+unsat
+(:binary-propagations        27058701
+ :conflicts                  628701
+ :decisions                  1123423
+ :del-clause                 625156
+ :dyn-subsumption-resolution 813165
+ :elim-blocked-clauses       5402
+ :elim-bool-vars             5583
+ :elim-clauses               25367
+ :elim-literals              55805
+ :eliminated-vars            1
+ :gc-clause                  564304
+ :memory                     30.41
+ :minimized-lits             19135473
+ :mk-binary-clause           15152
+ :mk-bool-var                7869
+ :mk-clause                  636356
+ :mk-ternary-clause          26616
+ :probing-assigned           20
+ :propagations               31424804
+ :restarts                   1334
+ :subsumed                   7604
+ :subsumption-resolution     47352
+ :ternary-propagations       61894231
+ :time                       252.23
+ :total-time                 252.23)
+[runlim] end:			Sun Apr  5 04:28:46 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			253.17 seconds
+[runlim] time:			252.13 seconds
+[runlim] space:			40.5 MB
+[runlim] samples:		2524

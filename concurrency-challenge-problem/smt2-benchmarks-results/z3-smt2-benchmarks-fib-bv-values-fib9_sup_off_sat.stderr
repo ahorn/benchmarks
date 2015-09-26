@@ -1,0 +1,66 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		z3
+[runlim] argv[1]:		--st
+[runlim] argv[2]:		smt2-benchmarks/fib-bv-values/fib9_sup_off_sat.smt2
+[runlim] start:			Sun Apr  5 10:19:21 2015
+[runlim] main pid:		2043
+WARNING: unknown logic, ignoring set-logic command
+[runlim] sample:		10.0 seconds, 30.8 MB
+[runlim] sample:		20.0 seconds, 31.3 MB
+[runlim] sample:		30.0 seconds, 33.1 MB
+[runlim] sample:		40.0 seconds, 34.1 MB
+[runlim] sample:		50.0 seconds, 34.6 MB
+[runlim] sample:		60.0 seconds, 35.2 MB
+[runlim] sample:		70.0 seconds, 35.7 MB
+[runlim] sample:		80.0 seconds, 36.2 MB
+[runlim] sample:		90.0 seconds, 36.2 MB
+[runlim] sample:		100.0 seconds, 36.2 MB
+[runlim] sample:		109.9 seconds, 36.2 MB
+[runlim] sample:		119.9 seconds, 37.7 MB
+[runlim] sample:		129.9 seconds, 37.7 MB
+[runlim] sample:		139.9 seconds, 37.7 MB
+[runlim] sample:		149.9 seconds, 37.7 MB
+[runlim] sample:		159.9 seconds, 37.7 MB
+[runlim] sample:		169.9 seconds, 37.7 MB
+[runlim] sample:		179.9 seconds, 37.7 MB
+[runlim] sample:		189.9 seconds, 37.7 MB
+[runlim] sample:		199.8 seconds, 37.7 MB
+[runlim] sample:		209.8 seconds, 37.7 MB
+sat
+(:add-rows            25685344
+ :added-eqs           7388998
+ :arith-conflicts     104
+ :assert-diseq        1219948
+ :assert-lower        2996847
+ :assert-upper        3231143
+ :binary-propagations 32523005
+ :bound-prop          10895
+ :bv-bit2core         6587297
+ :bv-conflicts        1846
+ :bv->core-eq         25445
+ :conflicts           182235
+ :decisions           737205
+ :del-clause          404450
+ :eq-adapter          247714
+ :final-checks        1
+ :fixed-eqs           228336
+ :memory              26.87
+ :minimized-lits      5141298
+ :mk-clause           444778
+ :offset-eqs          269184
+ :pivots              218788
+ :propagations        69877218
+ :restarts            525
+ :time                217.05
+ :total-time          217.08)
+[runlim] end:			Sun Apr  5 10:22:58 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			217.60 seconds
+[runlim] time:			217.03 seconds
+[runlim] space:			38.5 MB
+[runlim] samples:		2172

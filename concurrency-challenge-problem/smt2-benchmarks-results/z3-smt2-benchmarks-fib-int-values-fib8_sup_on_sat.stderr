@@ -1,0 +1,61 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		z3
+[runlim] argv[1]:		--st
+[runlim] argv[2]:		smt2-benchmarks/fib-int-values/fib8_sup_on_sat.smt2
+[runlim] start:			Sun Apr  5 08:49:23 2015
+[runlim] main pid:		1814
+WARNING: unknown logic, ignoring set-logic command
+[runlim] sample:		10.0 seconds, 35.0 MB
+[runlim] sample:		20.0 seconds, 36.0 MB
+[runlim] sample:		29.9 seconds, 36.5 MB
+[runlim] sample:		39.9 seconds, 37.0 MB
+[runlim] sample:		49.9 seconds, 37.5 MB
+[runlim] sample:		59.9 seconds, 38.1 MB
+[runlim] sample:		69.9 seconds, 38.8 MB
+[runlim] sample:		79.9 seconds, 39.6 MB
+[runlim] sample:		89.9 seconds, 40.4 MB
+[runlim] sample:		99.9 seconds, 40.6 MB
+[runlim] sample:		109.9 seconds, 40.9 MB
+[runlim] sample:		119.9 seconds, 41.4 MB
+[runlim] sample:		129.9 seconds, 41.7 MB
+[runlim] sample:		139.9 seconds, 41.7 MB
+[runlim] sample:		149.9 seconds, 41.9 MB
+[runlim] sample:		159.9 seconds, 41.9 MB
+[runlim] sample:		169.9 seconds, 41.9 MB
+[runlim] sample:		179.9 seconds, 42.2 MB
+sat
+(:add-rows            43477559
+ :added-eqs           30045
+ :arith-conflicts     22565
+ :assert-diseq        18058
+ :assert-lower        2653414
+ :assert-upper        1996691
+ :binary-propagations 4178937
+ :bound-prop          99636
+ :conflicts           38053
+ :decisions           58465
+ :del-clause          58184
+ :eq-adapter          2135
+ :final-checks        1
+ :fixed-eqs           1760
+ :memory              30.00
+ :minimized-lits      289337
+ :mk-clause           118835
+ :num-checks          1
+ :offset-eqs          6010
+ :pivots              428779
+ :propagations        7084539
+ :restarts            44
+ :time                189.47
+ :total-time          189.49)
+[runlim] end:			Sun Apr  5 08:52:32 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			189.87 seconds
+[runlim] time:			189.46 seconds
+[runlim] space:			42.2 MB
+[runlim] samples:		1896

@@ -1,0 +1,72 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		yices-smt2
+[runlim] argv[1]:		--stats
+[runlim] argv[2]:		smt2-benchmarks/fib-bv-clocks/fib9_sup_off_sat.smt2
+[runlim] start:			Fri Apr  3 14:30:54 2015
+[runlim] main pid:		30290
+[runlim] sample:		10.0 seconds, 16.6 MB
+[runlim] sample:		20.0 seconds, 18.7 MB
+[runlim] sample:		30.0 seconds, 21.5 MB
+[runlim] sample:		40.0 seconds, 25.1 MB
+[runlim] sample:		50.0 seconds, 25.1 MB
+[runlim] sample:		60.0 seconds, 28.0 MB
+[runlim] sample:		70.0 seconds, 30.3 MB
+[runlim] sample:		80.0 seconds, 32.9 MB
+[runlim] sample:		90.0 seconds, 33.7 MB
+[runlim] sample:		100.0 seconds, 34.4 MB
+[runlim] sample:		110.0 seconds, 39.6 MB
+[runlim] sample:		120.0 seconds, 39.8 MB
+[runlim] sample:		130.0 seconds, 39.8 MB
+[runlim] sample:		140.0 seconds, 39.8 MB
+[runlim] sample:		150.0 seconds, 41.1 MB
+[runlim] sample:		160.0 seconds, 43.2 MB
+[runlim] sample:		170.0 seconds, 44.7 MB
+[runlim] sample:		180.0 seconds, 44.7 MB
+[runlim] sample:		190.0 seconds, 47.1 MB
+[runlim] sample:		200.0 seconds, 49.1 MB
+[runlim] sample:		210.0 seconds, 49.1 MB
+[runlim] sample:		220.0 seconds, 49.4 MB
+[runlim] sample:		230.0 seconds, 49.4 MB
+[runlim] sample:		240.0 seconds, 49.4 MB
+[runlim] sample:		250.0 seconds, 51.7 MB
+[runlim] sample:		260.0 seconds, 51.7 MB
+[runlim] sample:		270.0 seconds, 55.3 MB
+[runlim] sample:		280.0 seconds, 55.3 MB
+[runlim] sample:		290.0 seconds, 55.3 MB
+[runlim] sample:		300.0 seconds, 55.3 MB
+[runlim] sample:		310.0 seconds, 66.6 MB
+[runlim] sample:		320.0 seconds, 67.2 MB
+[runlim] sample:		330.0 seconds, 67.2 MB
+[runlim] sample:		340.0 seconds, 68.2 MB
+sat
+(:num-terms 10129
+ :num-types 5
+ :total-run-time 340.432
+ :mem-usage 74.324
+ :boolean-variables 29111
+ :atoms 1985
+ :clauses 169808
+ :restarts 3483
+ :clause-db-reduce 103
+ :clause-db-simplify 88
+ :decisions 7406668
+ :conflicts 2029319
+ :theory-conflicts 0
+ :boolean-propagations 1878950559
+ :theory-propagations 0
+ :bvsolver-vars 204
+ :bvsolver-atoms 1985
+ :bvsolver-equiv-lemmas 0
+ :bvsolver-interface-lemmas 0
+)
+[runlim] end:			Fri Apr  3 14:36:35 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			341.28 seconds
+[runlim] time:			340.39 seconds
+[runlim] space:			68.2 MB
+[runlim] samples:		3404

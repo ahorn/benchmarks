@@ -1,0 +1,58 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		z3
+[runlim] argv[1]:		--st
+[runlim] argv[2]:		smt2-benchmarks/fib-int-values/fib8_sup_off_unsat.smt2
+[runlim] start:			Sun Apr  5 08:46:36 2015
+[runlim] main pid:		1802
+WARNING: unknown logic, ignoring set-logic command
+[runlim] sample:		10.0 seconds, 35.8 MB
+[runlim] sample:		20.0 seconds, 37.6 MB
+[runlim] sample:		30.0 seconds, 38.9 MB
+[runlim] sample:		40.0 seconds, 38.9 MB
+[runlim] sample:		50.0 seconds, 39.2 MB
+[runlim] sample:		60.0 seconds, 39.4 MB
+[runlim] sample:		70.0 seconds, 39.9 MB
+[runlim] sample:		80.0 seconds, 40.2 MB
+[runlim] sample:		89.9 seconds, 40.7 MB
+[runlim] sample:		99.9 seconds, 41.2 MB
+[runlim] sample:		109.9 seconds, 41.7 MB
+[runlim] sample:		119.9 seconds, 42.2 MB
+[runlim] sample:		129.9 seconds, 43.0 MB
+[runlim] sample:		139.9 seconds, 43.0 MB
+[runlim] sample:		149.9 seconds, 43.0 MB
+[runlim] sample:		159.9 seconds, 43.0 MB
+unsat
+(:add-rows            36883187
+ :added-eqs           18817
+ :arith-conflicts     22667
+ :assert-diseq        8445
+ :assert-lower        2865212
+ :assert-upper        2513792
+ :binary-propagations 5975228
+ :bound-prop          137823
+ :conflicts           58698
+ :decisions           83692
+ :del-clause          126819
+ :eq-adapter          1744
+ :fixed-eqs           862
+ :memory              31.05
+ :minimized-lits      663877
+ :mk-clause           195222
+ :num-checks          1
+ :offset-eqs          4755
+ :pivots              382337
+ :propagations        12197751
+ :restarts            51
+ :time                166.61
+ :total-time          166.64)
+[runlim] end:			Sun Apr  5 08:49:23 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			167.21 seconds
+[runlim] time:			166.63 seconds
+[runlim] space:			43.0 MB
+[runlim] samples:		1667

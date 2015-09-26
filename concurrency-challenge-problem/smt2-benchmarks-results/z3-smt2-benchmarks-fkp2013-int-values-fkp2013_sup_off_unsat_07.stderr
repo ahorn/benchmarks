@@ -1,0 +1,42 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		z3
+[runlim] argv[1]:		--st
+[runlim] argv[2]:		smt2-benchmarks/fkp2013-int-values/fkp2013_sup_off_unsat_07.smt2
+[runlim] start:			Sat Apr  4 22:51:20 2015
+[runlim] main pid:		488
+WARNING: unknown logic, ignoring set-logic command
+unsat
+(:add-rows            2307502
+ :added-eqs           111454
+ :arith-conflicts     14714
+ :assert-diseq        93027
+ :assert-lower        1566731
+ :assert-upper        1693529
+ :binary-propagations 3382958
+ :bound-prop          28896
+ :conflicts           48012
+ :decisions           57697
+ :del-clause          40316
+ :eq-adapter          324
+ :fixed-eqs           3945
+ :memory              9.77
+ :minimized-lits      316250
+ :mk-clause           79133
+ :num-checks          1
+ :offset-eqs          25088
+ :pivots              113364
+ :propagations        6374495
+ :restarts            96
+ :time                4.86
+ :total-time          4.87)
+[runlim] end:			Sat Apr  4 22:51:25 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			5.56 seconds
+[runlim] time:			4.80 seconds
+[runlim] space:			21.4 MB
+[runlim] samples:		48

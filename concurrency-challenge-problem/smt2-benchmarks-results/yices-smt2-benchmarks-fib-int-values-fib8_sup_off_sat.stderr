@@ -1,0 +1,43 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		yices-smt2
+[runlim] argv[1]:		--stats
+[runlim] argv[2]:		smt2-benchmarks/fib-int-values/fib8_sup_off_sat.smt2
+[runlim] start:			Fri Apr  3 13:19:32 2015
+[runlim] main pid:		30091
+[runlim] sample:		10.0 seconds, 6.4 MB
+[runlim] sample:		20.0 seconds, 6.7 MB
+[runlim] sample:		30.0 seconds, 7.2 MB
+sat
+(:num-terms 11040
+ :num-types 3
+ :total-run-time 37.320
+ :mem-usage 12.949
+ :boolean-variables 2775
+ :atoms 2050
+ :clauses 16837
+ :restarts 15
+ :clause-db-reduce 50
+ :clause-db-simplify 29
+ :decisions 188742
+ :conflicts 101190
+ :theory-conflicts 62162
+ :boolean-propagations 15033850
+ :theory-propagations 2391601
+ :simplex-vars 860
+ :simplex-rows 711
+ :simplex-atoms 2050
+ :simplex-pivots 436423
+ :simplex-conflicts 62162
+ :simplex-interface-lemmas 0
+)
+[runlim] end:			Fri Apr  3 13:20:09 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			37.49 seconds
+[runlim] time:			37.29 seconds
+[runlim] space:			7.2 MB
+[runlim] samples:		373

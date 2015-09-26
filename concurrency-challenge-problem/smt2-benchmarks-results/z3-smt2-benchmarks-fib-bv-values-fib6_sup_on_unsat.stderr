@@ -1,0 +1,46 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		z3
+[runlim] argv[1]:		--st
+[runlim] argv[2]:		smt2-benchmarks/fib-bv-values/fib6_sup_on_unsat.smt2
+[runlim] start:			Sun Apr  5 10:08:33 2015
+[runlim] main pid:		1966
+WARNING: unknown logic, ignoring set-logic command
+[runlim] sample:		10.0 seconds, 22.3 MB
+[runlim] sample:		20.0 seconds, 23.6 MB
+unsat
+(:add-rows            2621770
+ :added-eqs           1093536
+ :arith-conflicts     42
+ :assert-diseq        413586
+ :assert-lower        491866
+ :assert-upper        460799
+ :binary-propagations 3969154
+ :bound-prop          2362
+ :bv-bit2core         1067361
+ :bv-conflicts        797
+ :bv->core-eq         3697
+ :conflicts           22555
+ :decisions           114696
+ :del-clause          42592
+ :eq-adapter          31966
+ :fixed-eqs           56447
+ :memory              12.15
+ :minimized-lits      744994
+ :mk-clause           60437
+ :offset-eqs          35210
+ :pivots              43103
+ :propagations        8383637
+ :restarts            133
+ :time                22.20
+ :total-time          22.21)
+[runlim] end:			Sun Apr  5 10:08:56 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			23.02 seconds
+[runlim] time:			22.17 seconds
+[runlim] space:			23.6 MB
+[runlim] samples:		222

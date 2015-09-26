@@ -1,0 +1,139 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		z3
+[runlim] argv[1]:		--st
+[runlim] argv[2]:		smt2-benchmarks/fib-bv-clocks/fib9_sup_off_unsat.smt2
+[runlim] start:			Sun Apr  5 11:45:01 2015
+[runlim] main pid:		2230
+[runlim] sample:		10.0 seconds, 46.2 MB
+[runlim] sample:		20.0 seconds, 51.0 MB
+[runlim] sample:		30.0 seconds, 53.1 MB
+[runlim] sample:		40.0 seconds, 54.7 MB
+[runlim] sample:		50.0 seconds, 54.7 MB
+[runlim] sample:		60.0 seconds, 55.4 MB
+[runlim] sample:		70.0 seconds, 55.4 MB
+[runlim] sample:		80.0 seconds, 55.4 MB
+[runlim] sample:		90.0 seconds, 52.4 MB
+[runlim] sample:		100.0 seconds, 53.7 MB
+[runlim] sample:		110.0 seconds, 54.2 MB
+[runlim] sample:		119.9 seconds, 56.8 MB
+[runlim] sample:		129.9 seconds, 56.8 MB
+[runlim] sample:		139.9 seconds, 56.8 MB
+[runlim] sample:		149.9 seconds, 60.2 MB
+[runlim] sample:		159.9 seconds, 60.2 MB
+[runlim] sample:		169.9 seconds, 60.2 MB
+[runlim] sample:		179.9 seconds, 60.2 MB
+[runlim] sample:		189.9 seconds, 64.3 MB
+[runlim] sample:		199.9 seconds, 64.3 MB
+[runlim] sample:		209.9 seconds, 64.3 MB
+[runlim] sample:		219.9 seconds, 64.3 MB
+[runlim] sample:		229.9 seconds, 64.3 MB
+[runlim] sample:		239.9 seconds, 64.3 MB
+[runlim] sample:		249.9 seconds, 64.3 MB
+[runlim] sample:		259.9 seconds, 64.3 MB
+[runlim] sample:		269.9 seconds, 64.3 MB
+[runlim] sample:		279.9 seconds, 64.3 MB
+[runlim] sample:		289.9 seconds, 62.1 MB
+[runlim] sample:		299.9 seconds, 62.1 MB
+[runlim] sample:		309.9 seconds, 62.1 MB
+[runlim] sample:		319.9 seconds, 62.1 MB
+[runlim] sample:		329.9 seconds, 62.1 MB
+[runlim] sample:		339.8 seconds, 63.9 MB
+[runlim] sample:		349.8 seconds, 65.1 MB
+[runlim] sample:		359.8 seconds, 68.5 MB
+[runlim] sample:		369.8 seconds, 69.0 MB
+[runlim] sample:		379.8 seconds, 73.7 MB
+[runlim] sample:		389.8 seconds, 74.7 MB
+[runlim] sample:		399.8 seconds, 74.7 MB
+[runlim] sample:		409.8 seconds, 74.7 MB
+[runlim] sample:		419.8 seconds, 74.7 MB
+[runlim] sample:		429.8 seconds, 74.7 MB
+[runlim] sample:		439.8 seconds, 74.7 MB
+[runlim] sample:		449.8 seconds, 74.7 MB
+[runlim] sample:		459.8 seconds, 77.3 MB
+[runlim] sample:		469.8 seconds, 77.3 MB
+[runlim] sample:		479.8 seconds, 77.3 MB
+[runlim] sample:		489.8 seconds, 77.3 MB
+[runlim] sample:		499.8 seconds, 77.3 MB
+[runlim] sample:		509.8 seconds, 77.3 MB
+[runlim] sample:		519.8 seconds, 77.3 MB
+[runlim] sample:		529.8 seconds, 77.3 MB
+[runlim] sample:		539.7 seconds, 77.3 MB
+[runlim] sample:		549.7 seconds, 77.3 MB
+[runlim] sample:		559.7 seconds, 77.3 MB
+[runlim] sample:		569.7 seconds, 77.3 MB
+[runlim] sample:		579.7 seconds, 77.3 MB
+[runlim] sample:		589.7 seconds, 77.3 MB
+[runlim] sample:		599.7 seconds, 77.3 MB
+[runlim] sample:		609.7 seconds, 77.3 MB
+[runlim] sample:		619.7 seconds, 77.3 MB
+[runlim] sample:		629.7 seconds, 77.3 MB
+[runlim] sample:		639.7 seconds, 77.3 MB
+[runlim] sample:		649.7 seconds, 77.3 MB
+[runlim] sample:		659.7 seconds, 77.3 MB
+[runlim] sample:		669.7 seconds, 77.3 MB
+[runlim] sample:		679.7 seconds, 77.3 MB
+[runlim] sample:		689.7 seconds, 75.5 MB
+[runlim] sample:		699.6 seconds, 75.5 MB
+[runlim] sample:		709.6 seconds, 75.5 MB
+[runlim] sample:		719.6 seconds, 75.5 MB
+[runlim] sample:		729.6 seconds, 75.5 MB
+[runlim] sample:		739.6 seconds, 75.5 MB
+[runlim] sample:		749.6 seconds, 75.5 MB
+[runlim] sample:		759.6 seconds, 78.6 MB
+[runlim] sample:		769.6 seconds, 78.6 MB
+[runlim] sample:		779.6 seconds, 78.6 MB
+[runlim] sample:		789.6 seconds, 78.6 MB
+[runlim] sample:		799.6 seconds, 78.6 MB
+[runlim] sample:		809.6 seconds, 78.6 MB
+[runlim] sample:		819.6 seconds, 78.6 MB
+[runlim] sample:		829.5 seconds, 78.6 MB
+[runlim] sample:		839.5 seconds, 78.6 MB
+[runlim] sample:		849.5 seconds, 78.6 MB
+[runlim] sample:		859.5 seconds, 78.6 MB
+[runlim] sample:		869.5 seconds, 78.6 MB
+[runlim] sample:		879.5 seconds, 78.6 MB
+[runlim] sample:		889.5 seconds, 78.6 MB
+[runlim] sample:		899.5 seconds, 78.6 MB
+[runlim] sample:		909.5 seconds, 78.6 MB
+[runlim] sample:		919.5 seconds, 78.6 MB
+[runlim] sample:		929.5 seconds, 78.6 MB
+[runlim] sample:		939.5 seconds, 78.6 MB
+[runlim] sample:		949.5 seconds, 78.6 MB
+[runlim] sample:		959.5 seconds, 78.5 MB
+[runlim] sample:		969.5 seconds, 78.5 MB
+unsat
+(:binary-propagations        139204012
+ :conflicts                  2311330
+ :decisions                  7015158
+ :del-clause                 2417821
+ :dyn-subsumption-resolution 11051638
+ :elim-blocked-clauses       40083
+ :elim-bool-vars             34759
+ :elim-clauses               64458
+ :elim-literals              141595
+ :gc-clause                  2165529
+ :memory                     110.09
+ :minimized-lits             83276231
+ :mk-binary-clause           101595
+ :mk-bool-var                45203
+ :mk-clause                  2346276
+ :mk-ternary-clause          179260
+ :probing-assigned           285
+ :propagations               248078185
+ :restarts                   4094
+ :subsumed                   30283
+ :subsumption-resolution     30948
+ :ternary-propagations       400095696
+ :time                       978.79
+ :total-time                 978.83)
+[runlim] end:			Sun Apr  5 12:01:21 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			980.16 seconds
+[runlim] time:			978.78 seconds
+[runlim] space:			119.0 MB
+[runlim] samples:		9793

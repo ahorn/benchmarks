@@ -1,0 +1,121 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		z3
+[runlim] argv[1]:		--st
+[runlim] argv[2]:		smt2-benchmarks/fib-bv-clocks/fib8_sup_on_unsat.smt2
+[runlim] start:			Sun Apr  5 11:22:28 2015
+[runlim] main pid:		2211
+[runlim] sample:		10.0 seconds, 40.2 MB
+[runlim] sample:		20.0 seconds, 44.5 MB
+[runlim] sample:		30.0 seconds, 46.8 MB
+[runlim] sample:		40.0 seconds, 45.8 MB
+[runlim] sample:		50.0 seconds, 45.8 MB
+[runlim] sample:		59.9 seconds, 47.6 MB
+[runlim] sample:		69.9 seconds, 47.6 MB
+[runlim] sample:		79.9 seconds, 49.7 MB
+[runlim] sample:		89.9 seconds, 49.8 MB
+[runlim] sample:		99.9 seconds, 49.8 MB
+[runlim] sample:		109.9 seconds, 49.8 MB
+[runlim] sample:		119.9 seconds, 49.8 MB
+[runlim] sample:		129.9 seconds, 52.1 MB
+[runlim] sample:		139.8 seconds, 52.1 MB
+[runlim] sample:		149.8 seconds, 52.1 MB
+[runlim] sample:		159.8 seconds, 52.1 MB
+[runlim] sample:		169.8 seconds, 52.4 MB
+[runlim] sample:		179.8 seconds, 52.9 MB
+[runlim] sample:		189.8 seconds, 53.9 MB
+[runlim] sample:		199.8 seconds, 56.2 MB
+[runlim] sample:		209.8 seconds, 56.2 MB
+[runlim] sample:		219.8 seconds, 56.2 MB
+[runlim] sample:		229.8 seconds, 56.2 MB
+[runlim] sample:		239.8 seconds, 56.5 MB
+[runlim] sample:		249.8 seconds, 56.5 MB
+[runlim] sample:		259.8 seconds, 56.5 MB
+[runlim] sample:		269.7 seconds, 56.5 MB
+[runlim] sample:		279.7 seconds, 56.5 MB
+[runlim] sample:		289.7 seconds, 56.5 MB
+[runlim] sample:		299.7 seconds, 56.5 MB
+[runlim] sample:		309.7 seconds, 61.9 MB
+[runlim] sample:		319.7 seconds, 61.9 MB
+[runlim] sample:		329.7 seconds, 61.9 MB
+[runlim] sample:		339.7 seconds, 61.9 MB
+[runlim] sample:		349.7 seconds, 61.9 MB
+[runlim] sample:		359.7 seconds, 61.9 MB
+[runlim] sample:		369.7 seconds, 61.9 MB
+[runlim] sample:		379.7 seconds, 61.9 MB
+[runlim] sample:		389.6 seconds, 62.4 MB
+[runlim] sample:		399.6 seconds, 62.4 MB
+[runlim] sample:		409.6 seconds, 62.4 MB
+[runlim] sample:		419.6 seconds, 62.4 MB
+[runlim] sample:		429.6 seconds, 62.4 MB
+[runlim] sample:		439.6 seconds, 63.2 MB
+[runlim] sample:		449.6 seconds, 65.0 MB
+[runlim] sample:		459.6 seconds, 65.0 MB
+[runlim] sample:		469.6 seconds, 65.0 MB
+[runlim] sample:		479.6 seconds, 65.0 MB
+[runlim] sample:		489.6 seconds, 67.3 MB
+[runlim] sample:		499.6 seconds, 67.3 MB
+[runlim] sample:		509.6 seconds, 67.3 MB
+[runlim] sample:		519.5 seconds, 67.3 MB
+[runlim] sample:		529.5 seconds, 67.3 MB
+[runlim] sample:		539.5 seconds, 67.3 MB
+[runlim] sample:		549.5 seconds, 67.3 MB
+[runlim] sample:		559.5 seconds, 67.3 MB
+[runlim] sample:		569.5 seconds, 67.3 MB
+[runlim] sample:		579.5 seconds, 67.3 MB
+[runlim] sample:		589.4 seconds, 67.3 MB
+[runlim] sample:		599.4 seconds, 67.3 MB
+[runlim] sample:		609.4 seconds, 67.3 MB
+[runlim] sample:		619.4 seconds, 67.3 MB
+[runlim] sample:		629.4 seconds, 67.3 MB
+[runlim] sample:		639.4 seconds, 67.3 MB
+[runlim] sample:		649.3 seconds, 67.3 MB
+[runlim] sample:		659.3 seconds, 67.3 MB
+[runlim] sample:		669.3 seconds, 67.3 MB
+[runlim] sample:		679.3 seconds, 67.3 MB
+[runlim] sample:		689.3 seconds, 67.3 MB
+[runlim] sample:		699.3 seconds, 67.3 MB
+[runlim] sample:		709.3 seconds, 67.3 MB
+[runlim] sample:		719.3 seconds, 65.7 MB
+[runlim] sample:		729.3 seconds, 65.7 MB
+[runlim] sample:		739.3 seconds, 65.7 MB
+[runlim] sample:		749.2 seconds, 65.7 MB
+[runlim] sample:		759.2 seconds, 65.7 MB
+[runlim] sample:		769.2 seconds, 65.9 MB
+[runlim] sample:		779.2 seconds, 65.9 MB
+[runlim] sample:		789.2 seconds, 65.9 MB
+unsat
+(:binary-propagations        82120501
+ :conflicts                  1845483
+ :decisions                  5521955
+ :del-clause                 1931158
+ :dyn-subsumption-resolution 6603968
+ :elim-blocked-clauses       16570
+ :elim-bool-vars             27612
+ :elim-clauses               20273
+ :elim-literals              130803
+ :gc-clause                  1761367
+ :memory                     84.00
+ :minimized-lits             68907209
+ :mk-binary-clause           76664
+ :mk-bool-var                35861
+ :mk-clause                  1871928
+ :mk-ternary-clause          149172
+ :probing-assigned           176
+ :propagations               197586159
+ :restarts                   3579
+ :subsumed                   26417
+ :subsumption-resolution     41348
+ :ternary-propagations       391474159
+ :time                       790.20
+ :total-time                 790.21)
+[runlim] end:			Sun Apr  5 11:35:39 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			791.88 seconds
+[runlim] time:			790.20 seconds
+[runlim] space:			92.8 MB
+[runlim] samples:		7910

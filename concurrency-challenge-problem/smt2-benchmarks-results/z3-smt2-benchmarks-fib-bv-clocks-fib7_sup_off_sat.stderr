@@ -1,0 +1,60 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		z3
+[runlim] argv[1]:		--st
+[runlim] argv[2]:		smt2-benchmarks/fib-bv-clocks/fib7_sup_off_sat.smt2
+[runlim] start:			Sun Apr  5 10:45:44 2015
+[runlim] main pid:		2139
+[runlim] sample:		10.0 seconds, 39.2 MB
+[runlim] sample:		20.0 seconds, 40.1 MB
+[runlim] sample:		30.0 seconds, 43.3 MB
+[runlim] sample:		40.0 seconds, 41.1 MB
+[runlim] sample:		50.0 seconds, 44.7 MB
+[runlim] sample:		60.0 seconds, 44.9 MB
+[runlim] sample:		69.9 seconds, 44.9 MB
+[runlim] sample:		79.9 seconds, 44.5 MB
+[runlim] sample:		89.9 seconds, 44.5 MB
+[runlim] sample:		99.9 seconds, 44.5 MB
+[runlim] sample:		109.9 seconds, 46.0 MB
+[runlim] sample:		119.9 seconds, 47.6 MB
+[runlim] sample:		129.9 seconds, 47.6 MB
+[runlim] sample:		139.9 seconds, 48.3 MB
+[runlim] sample:		149.9 seconds, 48.3 MB
+[runlim] sample:		159.9 seconds, 49.4 MB
+[runlim] sample:		169.9 seconds, 49.4 MB
+[runlim] sample:		179.9 seconds, 49.4 MB
+sat
+(:binary-propagations        37289680
+ :conflicts                  547134
+ :decisions                  1520654
+ :del-clause                 609946
+ :dyn-subsumption-resolution 1858054
+ :elim-blocked-clauses       26646
+ :elim-bool-vars             23358
+ :elim-clauses               4913
+ :elim-literals              50439
+ :gc-clause                  473930
+ :memory                     46.61
+ :minimized-lits             15059446
+ :mk-binary-clause           67520
+ :mk-bool-var                30761
+ :mk-clause                  580144
+ :mk-ternary-clause          111008
+ :probing-assigned           200
+ :propagations               48761953
+ :restarts                   1147
+ :subsumed                   22065
+ :subsumption-resolution     23465
+ :ternary-propagations       102050765
+ :time                       181.96
+ :total-time                 181.99)
+[runlim] end:			Sun Apr  5 10:48:46 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			182.32 seconds
+[runlim] time:			181.98 seconds
+[runlim] space:			56.7 MB
+[runlim] samples:		1821

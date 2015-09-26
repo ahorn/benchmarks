@@ -1,0 +1,45 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		z3
+[runlim] argv[1]:		--st
+[runlim] argv[2]:		smt2-benchmarks/fib-bv-clocks/fib6_sup_on_sat.smt2
+[runlim] start:			Sun Apr  5 10:42:48 2015
+[runlim] main pid:		2123
+[runlim] sample:		10.0 seconds, 33.4 MB
+[runlim] sample:		20.0 seconds, 37.9 MB
+[runlim] sample:		29.9 seconds, 39.9 MB
+sat
+(:binary-propagations        9236165
+ :conflicts                  127765
+ :decisions                  429613
+ :del-clause                 191090
+ :dyn-subsumption-resolution 205471
+ :elim-blocked-clauses       11329
+ :elim-bool-vars             17689
+ :elim-clauses               4011
+ :elim-literals              34735
+ :gc-clause                  90109
+ :memory                     33.84
+ :minimized-lits             2362109
+ :mk-binary-clause           48938
+ :mk-bool-var                23607
+ :mk-clause                  156007
+ :mk-ternary-clause          85629
+ :probing-assigned           83
+ :propagations               8213610
+ :restarts                   347
+ :subsumed                   18965
+ :subsumption-resolution     18941
+ :ternary-propagations       30043820
+ :time                       37.40
+ :total-time                 37.40)
+[runlim] end:			Sun Apr  5 10:43:26 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			38.18 seconds
+[runlim] time:			37.35 seconds
+[runlim] space:			43.8 MB
+[runlim] samples:		374

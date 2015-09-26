@@ -1,0 +1,84 @@
+[runlim] version:		1.7
+[runlim] time limit:		311040000 seconds
+[runlim] real time limit:	3600 seconds
+[runlim] space limit:		3962 MB
+[runlim] argv[0]:		z3
+[runlim] argv[1]:		--st
+[runlim] argv[2]:		smt2-benchmarks/fkp2013-bv-clocks-int-values/fkp2013_sup_on_unsat_08.smt2
+[runlim] start:			Sun Apr  5 07:34:08 2015
+[runlim] main pid:		1624
+WARNING: unknown logic, ignoring set-logic command
+[runlim] sample:		10.0 seconds, 20.9 MB
+[runlim] sample:		20.0 seconds, 22.4 MB
+[runlim] sample:		30.0 seconds, 23.1 MB
+[runlim] sample:		40.0 seconds, 23.6 MB
+[runlim] sample:		49.9 seconds, 23.6 MB
+[runlim] sample:		59.9 seconds, 24.2 MB
+[runlim] sample:		69.9 seconds, 24.7 MB
+[runlim] sample:		79.9 seconds, 25.5 MB
+[runlim] sample:		89.9 seconds, 26.8 MB
+[runlim] sample:		99.9 seconds, 27.1 MB
+[runlim] sample:		109.9 seconds, 27.3 MB
+[runlim] sample:		119.9 seconds, 28.1 MB
+[runlim] sample:		129.9 seconds, 28.1 MB
+[runlim] sample:		139.8 seconds, 28.3 MB
+[runlim] sample:		149.8 seconds, 28.6 MB
+[runlim] sample:		159.8 seconds, 28.9 MB
+[runlim] sample:		169.8 seconds, 29.1 MB
+[runlim] sample:		179.8 seconds, 29.4 MB
+[runlim] sample:		189.8 seconds, 29.6 MB
+[runlim] sample:		199.8 seconds, 29.6 MB
+[runlim] sample:		209.8 seconds, 29.9 MB
+[runlim] sample:		219.8 seconds, 30.1 MB
+[runlim] sample:		229.8 seconds, 30.4 MB
+[runlim] sample:		239.7 seconds, 30.7 MB
+[runlim] sample:		249.7 seconds, 30.7 MB
+[runlim] sample:		259.7 seconds, 30.7 MB
+[runlim] sample:		269.7 seconds, 30.7 MB
+[runlim] sample:		279.7 seconds, 30.9 MB
+[runlim] sample:		289.7 seconds, 30.9 MB
+[runlim] sample:		299.7 seconds, 30.9 MB
+[runlim] sample:		309.7 seconds, 30.9 MB
+[runlim] sample:		319.7 seconds, 30.9 MB
+[runlim] sample:		329.7 seconds, 31.2 MB
+[runlim] sample:		339.7 seconds, 31.4 MB
+[runlim] sample:		349.6 seconds, 31.4 MB
+[runlim] sample:		359.6 seconds, 31.6 MB
+[runlim] sample:		369.6 seconds, 31.9 MB
+[runlim] sample:		379.6 seconds, 32.2 MB
+[runlim] sample:		389.6 seconds, 32.2 MB
+unsat
+(:add-rows            4898909
+ :added-eqs           17752019
+ :arith-conflicts     108788
+ :assert-diseq        1843507
+ :assert-lower        3747949
+ :assert-upper        1535328
+ :binary-propagations 26817285
+ :bound-prop          124200
+ :bv-bit2core         6229372
+ :bv-conflicts        9
+ :bv-dynamic-diseqs   8887001
+ :bv->core-eq         14
+ :conflicts           408597
+ :decisions           558716
+ :del-clause          195885357
+ :eq-adapter          75
+ :fixed-eqs           96126
+ :memory              21.36
+ :minimized-lits      3990487
+ :mk-clause           195944667
+ :offset-eqs          841580
+ :pivots              369293
+ :propagations        42353211
+ :restarts            780
+ :time                394.59
+ :total-time          394.61)
+[runlim] end:			Sun Apr  5 07:40:43 2015
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		0
+[runlim] real:			395.28 seconds
+[runlim] time:			394.60 seconds
+[runlim] space:			32.4 MB
+[runlim] samples:		3950
