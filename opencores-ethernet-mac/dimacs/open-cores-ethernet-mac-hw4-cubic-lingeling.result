@@ -1,0 +1,52 @@
+c Lingeling SAT Solver
+c 
+c Version ayv 86bf266b9332599f1b876e28a02fe8427aeaa2db
+c 
+c Copyright (C) 2010-2014 Armin Biere JKU Linz Austria.
+c All rights reserved.
+c 
+c released Tue Apr 29 19:18:48 CEST 2014
+c compiled Sun  9 Aug 20:55:37 BST 2015
+c 
+c gcc (GCC) 4.8.3 20140911 (Red Hat 4.8.3-7)
+c -Wall -O3 -DNDBLSCR -DNLGLOG -DNDEBUG -DNCHKSOL -DNLGLPICOSAT -DNLGLDRUPLIG
+c -DNLGLYALSAT
+c Linux dkr12.cs.ox.ac.uk 3.17.4-200.fc20.x86_64 x86_64
+c 
+c reading input file ../benchmarks/opencores-ethernet-mac/dimacs/hw4-cubic.dimacs
+c no embedded options
+c found 'p cnf 9317200 71266130' header
+c read 9317199 variables, 71266130 clauses, 228652231 literals in 0.00 seconds
+c 
+c  seconds         irredundant          redundant clauses agility   height
+c          variables clauses conflicts large ternary binary    glue         MB
+c 
+c S    0.6 5548860 70688721         0       0      0     0  58  0.0   0.0 2996
+c S    1.0 5548860 70688721         0       0      0     0  58  0.0   0.0 3276
+c S    2.0 5548860 70688721         0       0      0     0  58  0.0   0.0 3276
+c S    5.0 5548860 70688721         0       0      0     0  58  0.0   0.0 3276
+c S   10.0 5548860 70688721         0       0      0     0  58  0.0   0.0 3276
+c P   36.0 4784782 67774316         0       0      0     0  58  0.0   0.0 3148
+c P   54.6 4784777 67774305         0       0      0  7783  58  0.0   0.0 2146
+c P   60.0 4784447 67774184         0       0      0  7783  58  0.0   0.0 3230
+c S  120.0 4730795 67613640        62       0      1  7784   0  0.0 244557.2 2976
+c P  192.6 4730623 67612944      4110    2441    946 15448   0  7.8 229545.9 2974
+c P  241.2 4726788 67612944      4110    2441    946 337520   0  7.8 229545.9 2969
+c S  300.0 4682155 67435312      5435    1656   1114 393845   0  7.8 229380.3 2948
+c S  600.0 4616264 66762892     49568   14095   4719 360207   0 11.8 218484.3 2929
+c S  900.0 4592532 66762774     96100   20774   7030 360831   1 17.0 199771.6 2935
+c 
+c  seconds         irredundant          redundant clauses agility   height
+c          variables clauses conflicts large ternary binary    glue         MB
+c 
+s UNSATISFIABLE
+c
+c  741.340  46% simplifying
+c  882.032  54% search
+c ==================================
+c 1623.455 100% all
+c 
+c 23082881 decisions, 14218.4 decisions/sec
+c 138900 conflicts, 85.6 conflicts/sec
+c 3236005407 propagations, 2.0 megaprops/sec
+c 1623.5 seconds, 4677.5 MB

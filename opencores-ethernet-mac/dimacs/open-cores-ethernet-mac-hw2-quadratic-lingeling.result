@@ -1,0 +1,56 @@
+c Lingeling SAT Solver
+c 
+c Version ayv 86bf266b9332599f1b876e28a02fe8427aeaa2db
+c 
+c Copyright (C) 2010-2014 Armin Biere JKU Linz Austria.
+c All rights reserved.
+c 
+c released Tue Apr 29 19:18:48 CEST 2014
+c compiled Sun  9 Aug 20:55:37 BST 2015
+c 
+c gcc (GCC) 4.8.3 20140911 (Red Hat 4.8.3-7)
+c -Wall -O3 -DNDBLSCR -DNLGLOG -DNDEBUG -DNCHKSOL -DNLGLPICOSAT -DNLGLDRUPLIG
+c -DNLGLYALSAT
+c Linux dkr12.cs.ox.ac.uk 3.17.4-200.fc20.x86_64 x86_64
+c 
+c reading input file dimacs/hw2-quadratic.dimacs
+c no embedded options
+c found 'p cnf 7706109 52034121' header
+c read 7706108 variables, 52034121 clauses, 158263494 literals in 0.00 seconds
+c 
+c  seconds         irredundant          redundant clauses agility   height
+c          variables clauses conflicts large ternary binary    glue         MB
+c 
+c S    0.1 4475482 51606084         0       0      0     0  54  0.0   0.0 1671
+c S    1.1 4475482 51606084         0       0      0     0  54  0.0   0.0 1897
+c S    2.0 4475482 51606084         0       0      0     0  54  0.0   0.0 1897
+c S    5.0 4475482 51606084         0       0      0     0  54  0.0   0.0 1897
+c S   10.0 4475482 51606084         0       0      0     0  54  0.0   0.0 1897
+c P   28.8 3907493 49462391         0       0      0     0  54  0.0   0.0 2285
+c P   43.8 3907489 49462382         0       0      0  1368  54  0.0   0.0 1587
+c P   50.0 3907474 49462368         0       0      0  1368  54  0.0   0.0 1587
+c P   67.1 3905357 49403021         0       0      0  1368  54  0.0   0.0 2240
+c P  120.1 3830520 49188405      4005    2000   1553  6004   3  6.9 1080.0 2133
+c P  180.0 3830492 49188405      4005    2000   1553 70991   3  6.9 1080.0 2129
+c S  240.0 3770146 48969965      9049    3637   2080 163558   7  9.6 573.0 2120
+c S  300.0 3770146 48969940     29906    7350   4096 163618   4 11.3 400.2 2121
+c S  600.0 3650212 48670042     66781   14172   7126 98751   0 11.6 18957.2 2112
+c P  909.4 3562262 48127839     93392   15734   7958 89970   3 28.5 23214.0 2096
+c S 1800.0 3415972 46793455    211514   33444 141730 3052306   3 44.0 19757.1 2129
+c S 2700.0 3336054 45997739    335190   51504 277292 4643489   1 70.7 17527.6 2162
+c S 3600.0 3286679 45276562    422008   56608 461447 5980478   0 72.2 16182.5 2189
+c P 4503.8 3274463 44335450    526333   66081 580963 5942671   3 68.4 15347.8 2224
+c S 5400.0 3259031 44296154    640351   74014 581567 6919536   4 64.7 14959.4 2206
+c S 6300.0 3226749 43591794    740868   84685 725561 6474493   3 62.3 14522.1 2196
+c S 7200.0 3226744 43591759    889452   80740 725885 6474570   2 59.3 14125.4 2191
+s UNSATISFIABLE
+c
+c 1436.236  18% simplifying
+c 6524.554  82% search
+c ==================================
+c 7960.865 100% all
+c 
+c 70534552 decisions, 8860.2 decisions/sec
+c 1007084 conflicts, 126.5 conflicts/sec
+c 21338671701 propagations, 2.7 megaprops/sec
+c 7960.9 seconds, 3369.8 MB
