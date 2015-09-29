@@ -1,0 +1,92 @@
+c WARNING: for repeatability, setting FPU to use double precision
+c ============================[     riss  4.27     ]=======================================================
+c | Norbert Manthey. The use of the tool is limited to research only!                                     |
+c | Based on Minisat 2.2 and Glucose 2.1  -- thanks!                                                      |
+c | Contributors:                                                                                         |
+c |      Kilian Gebhardt (BVE Implementation,parallel preprocessor)                                       |
+c ============================[ Problem Statistics ]=======================================================
+c |                                                                                                       |
+c |  Number of variables:             804533                                                              |
+c |  Number of clauses:              4078743                                                              |
+c |  Number of total literals:      12322518                                                              |
+c |  Parse time:                        0.72 s                                                            |
+c |                                                                                                       |
+c ========================================[ MAGIC CONSTANTS ]==============================================
+c | Constants are supposed to work well together :-)                                                      |
+c | however, if you find better choices, please let us known...                                           |
+c |-------------------------------------------------------------------------------------------------------|
+c |                                |                                |                                     |
+c | - Restarts:                    | - Reduce Clause DB:            | - Minimize Asserting:               |
+c |   * LBD Queue    :     50      |   * First     :   4000         |    * size <  30                     |
+c |   * Trail  Queue :   5000      |   * Inc       :    300         |    * lbd  <   6                     |
+c |   * K            :   0.80      |   * Special   :   1000         |                                     |
+c |   * R            :   1.40      |   * Protected :  (lbd)< 30     |                                     |
+c |                                |                                |                                     |
+c =========================================================================================================
+c =========================================================================================================
+c | solve clauses:      4000827  solve variables:       804533                                            |
+c =========================================================================================================
+c ==================================[ Search Statistics (every  10000 conflicts) ]=========================
+c |                                                                                                       |
+c |          RESTARTS           |          ORIGINAL         |              LEARNT              | Progress |
+c |       NB   Blocked  Avg Cfc |    Vars  Clauses Literals |   Red   Learnts    LBD2  Removed |          |
+c =========================================================================================================
+c |       74         0      135 |  751221  4000827 12099678 |     1     8011      388     1988 |  6.626 % 0.110 | 
+c |      104        67      192 |  751215  4000808 12099633 |     3     6960      668    12986 |  6.627 % 0.110 | 
+c |      105        73      285 |  751215  3998529 12091885 |     3    16823      927    12986 |  6.627 % 0.110 | 
+c |      106        88      377 |  751215  3998529 12091885 |     4    17723     1068    22086 |  6.627 % 0.110 | 
+c |      112       116      446 |  751215  3998529 12091885 |     5    15880     1246    33929 |  6.627 % 0.110 | 
+c |      114       136      526 |  751215  3998529 12091885 |     5    25880     1309    33929 |  6.627 % 0.110 | 
+c |      121       178      578 |  751215  3998529 12091885 |     6    21536     1365    48273 |  6.627 % 0.110 | 
+c |      129       212      620 |  751215  3998529 12091885 |     6    31536     1408    48273 |  6.627 % 0.110 | 
+c |      129       216      697 |  751215  3998529 12091885 |     7    24552     1430    65257 |  6.627 % 0.110 | 
+c |      141       242      709 |  750949  3986463 12051232 |     7    34542     1549    65257 |  6.660 % 0.110 | 
+c |      154       244      714 |  750949  3984174 12043460 |     8    24966     1586    84795 |  6.660 % 0.110 | 
+c |      154       245      779 |  750949  3984174 12043460 |     8    34966     1618    84795 |  6.660 % 0.110 | 
+c |      171       254      760 |  750949  3984174 12043460 |     9    22970     1804   106791 |  6.660 % 0.110 | 
+c |      190       262      736 |  750949  3984174 12043460 |     9    32970     1860   106791 |  6.660 % 0.110 | 
+c |      201       262      746 |  750948  3984169 12043441 |     9    42636     1917   106791 |  6.660 % 0.110 | 
+c |      214       264      747 |  750948  3984169 12043441 |    10    27991     1945   131436 |  6.660 % 0.110 | 
+c |      246       288      691 |  750948  3984169 12043441 |    10    37991     2261   131436 |  6.660 % 0.110 | 
+c |      285       290      631 |  750948  3984169 12043441 |    10    47991     2412   131436 |  6.660 % 0.110 | 
+c |      292       297      650 |  750948  3984169 12043441 |    11    30639     2609   158788 |  6.660 % 0.110 | 
+c |      346       299      578 |  750941  3981880 12035669 |    11    40623     2649   158788 |  6.661 % 0.110 | 
+c =========================================================================================================
+c Tinimt-Ratios: ratioCpW: 0.99 ,overhead/Total 0.07 0.07 
+c Timing(cpu,wall, in s): total: 322.78 325.22 ,prop: 275.34 276.17 ,analysis: 24.85 24.93 ,ext.Res.: 0.02 0.10 ,reduce: 1.34 1.43 ,overhead 22.57 24.02
+c PP-Timing(cpu,wall, in s): preprocessing( 1 ): 0.00 0.00 ,inprocessing (0 ): 0.00 0.00
+c Learnt At Level 1: 6  Multiple: 0 Units: 0
+c LAs: 0.000000 laSeconds 0 LA assigned: 0 tabus: 0, failedLas: 0, maxEvery 0, eeV: 0 eeL: 0 
+c lhbr: 0 (l1: 0 ),new: 0 (l1: 0 ),tests: 0 ,subs: 0 ,byLearning: 3571
+c otfss: 0 (l1: 0 ),cls: 0 ,units: 0 ,binaries: 0 ,jumpedHigher: 0
+c learning: 204450 cls, 144.191900 avg. size, 41.183086 avg. LBD, 1833 maxSize, 0 proof-depth
+c ext.cl.l.: 0 outOf 0 ecls, 0 maxSize, 0.00 avgSize, 0.00 totalLits
+c res.ext.res.: 0 rer, 0 rerSizeCands, 0 sizeReject, 0 patternReject, 0 bloomReject, 0 maxSize, 0.00 avgSize, 0.00 totalLits
+c ER rewrite: 0 cls, 0 lits
+c ER-ITE: 0.000000 cpu-s 0.000000 wall-s 0 tries 0 successes, 0 rejS, 0 rejT, 0 rejF
+c i.cls.strengthening: 0.00 seconds, 0 calls, 0 candidates, 0 droppedBefore, 0 shrinked, 0 shrinkedLits
+c bi-asserting: 0 pre-Mini, 0 post-Mini, 0.000 rel-pre, 0.000 rel-post
+c search-UHLE: 0 attempts, 0 rem-lits
+c decisionClauses: 0
+c IntervalRestarts: 0
+c partial restarts: 0 saved decisions: 0 saved propagations: 0 recursives: 0
+c agility restart rejects: 0
+c uhd probe: 0.000000 s, 0 L2units, 0 L3units, 0 L4units
+c OGS rewrite: 0.000000 s, 0 steps, 0 assumptions, 0 sdClauses, 0 sdLits, 0 failedCalls, 0 failedAssumptions, 322.781618 searchTime, 322.781617 lastIterTime, 
+c cegarBVA : 0.000000 s, 0 steps, 0 cbVariables, 0 cbReduction, 0 cbFailedCalls, 0 cegarClauses, 0 cbReaddCls
+c restarts              : 361 (566 conflicts in avg)
+c blocked restarts      : 303 (multiple: 40) 
+c last block at restart : 361
+c nb ReduceDB           : 11
+c nb removed Clauses    : 158788
+c nb learnts DL2        : 2715
+c nb learnts size 2     : 955
+c nb learnts size 1     : 10
+c conflicts             : 204451         (632 /sec)
+c decisions             : 2611811        (0.00 % random) (8073 /sec)
+c propagations          : 1767887713     (5464332 /sec)
+c conflict literals     : 29481701       (41.74 % deleted)
+c nb reduced Clauses    : 1260
+c Memory used           : 451.00 MB
+c CPU time              : 323.532 s
+s UNSATISFIABLE

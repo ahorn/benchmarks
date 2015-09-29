@@ -1,0 +1,72 @@
+c WARNING: for repeatability, setting FPU to use double precision
+c ============================[     riss  4.27     ]=======================================================
+c | Norbert Manthey. The use of the tool is limited to research only!                                     |
+c | Based on Minisat 2.2 and Glucose 2.1  -- thanks!                                                      |
+c | Contributors:                                                                                         |
+c |      Kilian Gebhardt (BVE Implementation,parallel preprocessor)                                       |
+c ============================[ Problem Statistics ]=======================================================
+c |                                                                                                       |
+c |  Number of variables:             723405                                                              |
+c |  Number of clauses:              3880031                                                              |
+c |  Number of total literals:      11414778                                                              |
+c |  Parse time:                        0.61 s                                                            |
+c |                                                                                                       |
+c ========================================[ MAGIC CONSTANTS ]==============================================
+c | Constants are supposed to work well together :-)                                                      |
+c | however, if you find better choices, please let us known...                                           |
+c |-------------------------------------------------------------------------------------------------------|
+c |                                |                                |                                     |
+c | - Restarts:                    | - Reduce Clause DB:            | - Minimize Asserting:               |
+c |   * LBD Queue    :     50      |   * First     :   4000         |    * size <  30                     |
+c |   * Trail  Queue :   5000      |   * Inc       :    300         |    * lbd  <   6                     |
+c |   * K            :   0.80      |   * Special   :   1000         |                                     |
+c |   * R            :   1.40      |   * Protected :  (lbd)< 30     |                                     |
+c |                                |                                |                                     |
+c =========================================================================================================
+c =========================================================================================================
+c | solve clauses:      3802183  solve variables:       723405                                            |
+c =========================================================================================================
+c ==================================[ Search Statistics (every  10000 conflicts) ]=========================
+c |                                                                                                       |
+c |          RESTARTS           |          ORIGINAL         |              LEARNT              | Progress |
+c |       NB   Blocked  Avg Cfc |    Vars  Clauses Literals |   Red   Learnts    LBD2  Removed |          |
+c =========================================================================================================
+c =========================================================================================================
+c Tinimt-Ratios: ratioCpW: 0.83 ,overhead/Total 0.14 0.21 
+c Timing(cpu,wall, in s): total: 0.63 0.76 ,prop: 0.52 0.57 ,analysis: 0.02 0.02 ,ext.Res.: 0.00 0.00 ,reduce: 0.00 0.00 ,overhead 0.09 0.16
+c PP-Timing(cpu,wall, in s): preprocessing( 1 ): 0.00 0.00 ,inprocessing (0 ): 0.00 0.00
+c Learnt At Level 1: 6  Multiple: 0 Units: 0
+c LAs: 0.000000 laSeconds 0 LA assigned: 0 tabus: 0, failedLas: 0, maxEvery 0, eeV: 0 eeL: 0 
+c lhbr: 0 (l1: 0 ),new: 0 (l1: 0 ),tests: 0 ,subs: 0 ,byLearning: 20
+c otfss: 0 (l1: 0 ),cls: 0 ,units: 0 ,binaries: 0 ,jumpedHigher: 0
+c learning: 1708 cls, 10.927400 avg. size, 5.595433 avg. LBD, 910 maxSize, 0 proof-depth
+c ext.cl.l.: 0 outOf 0 ecls, 0 maxSize, 0.00 avgSize, 0.00 totalLits
+c res.ext.res.: 0 rer, 0 rerSizeCands, 0 sizeReject, 0 patternReject, 0 bloomReject, 0 maxSize, 0.00 avgSize, 0.00 totalLits
+c ER rewrite: 0 cls, 0 lits
+c ER-ITE: 0.000000 cpu-s 0.000000 wall-s 0 tries 0 successes, 0 rejS, 0 rejT, 0 rejF
+c i.cls.strengthening: 0.00 seconds, 0 calls, 0 candidates, 0 droppedBefore, 0 shrinked, 0 shrinkedLits
+c bi-asserting: 0 pre-Mini, 0 post-Mini, 0.000 rel-pre, 0.000 rel-post
+c search-UHLE: 0 attempts, 0 rem-lits
+c decisionClauses: 0
+c IntervalRestarts: 0
+c partial restarts: 0 saved decisions: 0 saved propagations: 0 recursives: 0
+c agility restart rejects: 0
+c uhd probe: 0.000000 s, 0 L2units, 0 L3units, 0 L4units
+c OGS rewrite: 0.000000 s, 0 steps, 0 assumptions, 0 sdClauses, 0 sdLits, 0 failedCalls, 0 failedAssumptions, 0.626724 searchTime, 0.626724 lastIterTime, 
+c cegarBVA : 0.000000 s, 0 steps, 0 cbVariables, 0 cbReduction, 0 cbFailedCalls, 0 cegarClauses, 0 cbReaddCls
+c restarts              : 18 (94 conflicts in avg)
+c blocked restarts      : 0 (multiple: 0) 
+c last block at restart : 0
+c nb ReduceDB           : 0
+c nb removed Clauses    : 0
+c nb learnts DL2        : 117
+c nb learnts size 2     : 69
+c nb learnts size 1     : 17
+c conflicts             : 1709           (1346 /sec)
+c decisions             : 195686         (0.00 % random) (154072 /sec)
+c propagations          : 6706825        (5280582 /sec)
+c conflict literals     : 18665          (35.87 % deleted)
+c nb reduced Clauses    : 1
+c Memory used           : 239.00 MB
+c CPU time              : 1.27009 s
+s UNSATISFIABLE
