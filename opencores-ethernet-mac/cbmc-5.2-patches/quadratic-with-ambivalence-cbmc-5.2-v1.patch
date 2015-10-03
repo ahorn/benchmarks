@@ -1,0 +1,351 @@
+Index: goto-symex/memory_model.cpp
+===================================================================
+--- goto-symex/memory_model.cpp	(revision 5897)
++++ goto-symex/memory_model.cpp	(working copy)
+@@ -120,10 +120,19 @@
+         r_it++)
+     {
+       const event_it r=*r_it;
+-      
++
+       exprt::operandst rf_some_operands;
+       rf_some_operands.reserve(a_rec.writes.size());
+ 
++#ifdef CPROVER_MEMORY_MODEL_SUP
++       // To implement the quadratic-size partial order encoding, we
++       // create a formula that finds the least upper bound (supremum)
++       // of all writes that do not happen after a read on the same
++       // memory location. Since there are different memory axioms,
++       // we create a new event rather than a new clock variable.
++       const event_it sup=create_sup_event(r);
++#endif
++
+       // this is quadratic in #events per address
+       for(event_listt::const_iterator
+           w_it=a_rec.writes.begin();
+@@ -140,6 +149,15 @@
+           w->source.thread_nr==r->source.thread_nr;
+ 
+         symbol_exprt s=nondet_bool_symbol("rf");
++
++#ifdef CPROVER_MEMORY_MODEL_SUP
++        implies_exprt ensure_supremum(
++          and_exprt(w->guard, not_exprt(before(r, w))),
++          not_exprt(before(sup, w)));
++
++        add_constraint(equation,
++          ensure_supremum, "sup-clock", r->source);
++#endif
+         
+         // record the symbol
+         choice_symbols[
+@@ -149,6 +167,9 @@
+         // one write event that has guard 'true'.
+         implies_exprt read_from(s,
+             and_exprt(w->guard,
++#ifdef CPROVER_MEMORY_MODEL_SUP
++                      not_exprt(before(w, sup)),
++#endif
+               equal_exprt(r->ssa_lhs, w->ssa_lhs)));
+ 
+         // Uses only the write's guard as precondition, read's guard
+Index: goto-symex/memory_model_pso.cpp
+===================================================================
+--- goto-symex/memory_model_pso.cpp	(revision 5897)
++++ goto-symex/memory_model_pso.cpp	(working copy)
+@@ -30,7 +30,7 @@
+   read_from(equation);
+   write_serialization_external(equation);
+   program_order(equation);
+-#ifndef CPROVER_MEMORY_MODEL_SUP_CLOCK
++#ifndef CPROVER_MEMORY_MODEL_SUP
+   from_read(equation);
+ #endif
+ }
+Index: goto-symex/memory_model_sc.cpp
+===================================================================
+--- goto-symex/memory_model_sc.cpp	(revision 5897)
++++ goto-symex/memory_model_sc.cpp	(working copy)
+@@ -33,7 +33,9 @@
+   read_from(equation);
+   write_serialization_external(equation);
+   program_order(equation);
++#ifndef CPROVER_MEMORY_MODEL_SUP
+   from_read(equation);
++#endif
+ }
+ 
+ /*******************************************************************\
+Index: goto-symex/memory_model_tso.cpp
+===================================================================
+--- goto-symex/memory_model_tso.cpp	(revision 5897)
++++ goto-symex/memory_model_tso.cpp	(working copy)
+@@ -33,7 +33,7 @@
+   read_from(equation);
+   write_serialization_external(equation);
+   program_order(equation);
+-#ifndef CPROVER_MEMORY_MODEL_SUP_CLOCK
++#ifndef CPROVER_MEMORY_MODEL_SUP
+   from_read(equation);
+ #endif
+ }
+Index: goto-symex/partial_order_concurrency.cpp
+===================================================================
+--- goto-symex/partial_order_concurrency.cpp	(revision 5897)
++++ goto-symex/partial_order_concurrency.cpp	(working copy)
+@@ -27,7 +27,9 @@
+ \*******************************************************************/
+ 
+ partial_order_concurrencyt::partial_order_concurrencyt(
+-  const namespacet &_ns):ns(_ns)
++  const namespacet &_ns):ns(_ns),
++  sup_events(),
++  sup_event_it(sup_events.end())
+ {
+ }
+ 
+@@ -47,8 +49,46 @@
+ {
+ }
+ 
++#ifdef CPROVER_MEMORY_MODEL_SUP
+ /*******************************************************************\
+ 
++Function: partial_order_concurrencyt::create_sup_event
++
++  Inputs: Read event, denoted by r
++
++ Outputs: A hidden write event on the same memory location as r
++
++ Purpose: Find the supremum of writes that do not happen after r
++
++\*******************************************************************/
++
++partial_order_concurrencyt::event_it
++  partial_order_concurrencyt::create_sup_event(event_it r)
++{
++  assert(is_shared_read(r));
++
++  sup_events.push_back(eventt());
++  eventt &sup_event=sup_events.back();
++
++  if(sup_event_it==sup_events.end())
++    sup_event_it=sup_events.begin();
++  else
++    ++sup_event_it;
++
++  // ambivalent clock type
++  sup_event.guard=false_exprt();
++  sup_event.ssa_lhs=r->ssa_lhs;
++  sup_event.original_lhs_object=r->original_lhs_object;
++  sup_event.type=goto_trace_stept::SHARED_WRITE;
++  sup_event.atomic_section_id=r->atomic_section_id;
++  sup_event.source=r->source;
++
++  return sup_event_it;
++}
++#endif
++
++/*******************************************************************\
++
+ Function: partial_order_concurrencyt::add_init_writes
+ 
+   Inputs: 
+@@ -220,6 +260,9 @@
+   else
+     assert(false);
+ 
++  if(event->guard.is_false())
++    return symbol_exprt(identifier, ambivalent_clock_type);
++
+   return symbol_exprt(identifier, clock_type);
+ }
+ 
+@@ -285,6 +328,11 @@
+   mp_integer width=address_bits(numbering.size());
+   assert(width<std::numeric_limits<unsigned>::max());
+   clock_type=unsignedbv_typet(integer2unsigned(width));
++  ambivalent_clock_type=unsignedbv_typet(integer2unsigned(width));
++  ambivalent_clock_type.set_ambivalent();
++
++  assert(!clock_type.get_ambivalent());
++  assert(ambivalent_clock_type.get_ambivalent());
+ }
+ 
+ /*******************************************************************\
+Index: goto-symex/partial_order_concurrency.h
+===================================================================
+--- goto-symex/partial_order_concurrency.h	(revision 5897)
++++ goto-symex/partial_order_concurrency.h	(working copy)
+@@ -13,6 +13,8 @@
+ 
+ #include "symex_target_equation.h"
+ 
++#define CPROVER_MEMORY_MODEL_SUP
++
+ class partial_order_concurrencyt:public messaget
+ {
+ public:
+@@ -38,6 +40,9 @@
+ protected:
+   const namespacet &ns;
+ 
++  eventst sup_events;
++  event_it sup_event_it;
++
+   typedef std::vector<event_it> event_listt;
+   
+   // lists of reads and writes per address
+@@ -69,10 +74,13 @@
+   }
+ 
+   // produce a clock symbol for some event
+-  typet clock_type;
++  typet clock_type, ambivalent_clock_type;
+   symbol_exprt clock(event_it e, axiomt axiom);
+   void build_clock_type(const symex_target_equationt &);
+ 
++  // returns a new supremum event for a read event r
++  event_it create_sup_event(event_it r);
++
+   // preprocess and add a constraint to equation
+   void add_constraint(
+     symex_target_equationt &equation,
+Index: solvers/flattening/boolbv.cpp
+===================================================================
+--- solvers/flattening/boolbv.cpp	(revision 5897)
++++ solvers/flattening/boolbv.cpp	(working copy)
+@@ -157,6 +157,9 @@
+   // check
+   forall_literals(it, cache_result.first->second)
+   {
++    if(expr.type().get_ambivalent())
++      set_ambivalent(*it);
++
+     if(it->var_no()==literalt::unused_var_no())
+     {
+       std::cout << "unused_var_no: " << expr.pretty() << std::endl;
+Index: solvers/prop/prop.h
+===================================================================
+--- solvers/prop/prop.h	(revision 5897)
++++ solvers/prop/prop.h	(working copy)
+@@ -90,6 +90,7 @@
+   
+   // an incremental solver may remove any variables that aren't frozen
+   virtual void set_frozen(literalt a) { }
++  virtual void set_ambivalent(literalt a) { }
+ 
+ protected:
+   // to avoid a temporary for lcnf(...)
+Index: solvers/prop/prop_conv.cpp
+===================================================================
+--- solvers/prop/prop_conv.cpp	(revision 5897)
++++ solvers/prop/prop_conv.cpp	(working copy)
+@@ -93,6 +93,23 @@
+ 
+ /*******************************************************************\
+ 
++Function: prop_convt::set_ambivalent
++
++  Inputs:
++
++ Outputs:
++
++ Purpose:
++
++\*******************************************************************/
++
++void prop_convt::set_ambivalent(const literalt)
++{
++  assert(false);
++}
++
++/*******************************************************************\
++
+ Function: prop_conv_solvert::literal
+ 
+   Inputs:
+Index: solvers/prop/prop_conv.h
+===================================================================
+--- solvers/prop/prop_conv.h	(revision 5897)
++++ solvers/prop/prop_conv.h	(working copy)
+@@ -51,6 +51,8 @@
+   virtual void set_assumptions(const bvt &_assumptions);
+   virtual bool has_set_assumptions() const { return false; }
+ 
++  virtual void set_ambivalent(literalt a);
++
+   // returns true if an assumption is in the final conflict
+   virtual bool is_in_conflict(literalt l) const;  
+   virtual bool has_is_in_conflict() const { return false; }
+@@ -87,6 +89,7 @@
+   using prop_convt::set_frozen;
+   virtual tvt l_get(literalt a) const { return prop.l_get(a); }
+   virtual void set_frozen(literalt a) { prop.set_frozen(a); }
++  virtual void set_ambivalent(literalt a) { prop.set_ambivalent(a); }
+   virtual void set_assumptions(const bvt &_assumptions) { prop.set_assumptions(_assumptions); }
+   virtual bool has_set_assumptions() const { return prop.has_set_assumptions(); }
+   virtual literalt convert(const exprt &expr);
+Index: solvers/sat/satcheck_minisat2.cpp
+===================================================================
+--- solvers/sat/satcheck_minisat2.cpp	(revision 5897)
++++ solvers/sat/satcheck_minisat2.cpp	(working copy)
+@@ -416,6 +416,25 @@
+ 
+ /*******************************************************************\
+ 
++Function: satcheck_minisat_simplifiert::set_ambivalent
++
++  Inputs:
++
++ Outputs:
++
++ Purpose:
++
++\*******************************************************************/
++
++void satcheck_minisat_simplifiert::set_ambivalent(literalt a)
++{
++  assert(!a.is_constant());
++  add_variables();
++  solver->setDecisionVar(a.var_no(), false);
++}
++
++/*******************************************************************\
++
+ Function: satcheck_minisat_simplifiert::is_eliminated
+ 
+   Inputs:
+Index: solvers/sat/satcheck_minisat2.h
+===================================================================
+--- solvers/sat/satcheck_minisat2.h	(revision 5897)
++++ solvers/sat/satcheck_minisat2.h	(working copy)
+@@ -67,6 +67,7 @@
+   satcheck_minisat_simplifiert();
+   virtual const std::string solver_text();
+   virtual void set_frozen(literalt a);
++  virtual void set_ambivalent(literalt a);
+   bool is_eliminated(literalt a) const;
+ };
+ 
+Index: util/type.h
+===================================================================
+--- util/type.h	(revision 5897)
++++ util/type.h	(working copy)
+@@ -49,6 +49,16 @@
+    
+   typedef std::vector<typet> subtypest;
+ 
++  void set_ambivalent()
++  {
++    set(ID_hide, true);
++  }
++
++  bool get_ambivalent() const
++  {
++    return get_bool(ID_hide);
++  }
++
+   inline subtypest &subtypes()
+   #ifdef SUBTYPES_IN_GETSUB
+   { return (subtypest &)get_sub(); }
