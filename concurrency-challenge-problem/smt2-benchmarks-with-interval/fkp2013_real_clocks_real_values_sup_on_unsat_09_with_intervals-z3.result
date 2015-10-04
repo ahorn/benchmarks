@@ -1,0 +1,22 @@
+real    21m8.276s
+user    21m9.166s
+sys     0m0.016s
+
+unsat
+(:added-eqs           9
+ :binary-propagations 175497922
+ :conflicts           3496826
+ :dd-assertions       92120416
+ :dd-propagations     428812580
+ :decisions           4164238
+ :del-clause          3484374
+ :eq-adapter          45
+ :max-memory          22.62
+ :memory              8.31
+ :minimized-lits      36380259
+ :mk-clause           3496672
+ :num-allocs          9075825.00
+ :propagations        241685533
+ :restarts            85
+ :time                1269.17
+ :total-time          1269.18)

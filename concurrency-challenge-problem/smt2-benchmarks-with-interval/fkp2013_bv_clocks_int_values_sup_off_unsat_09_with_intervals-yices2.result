@@ -1,0 +1,7 @@
+(error "unknown logic: ALL")
+(error "at line 2, column 22: undefined sort: Int")
+(:num-terms 3
+ :num-types 3
+ :total-run-time 0.002
+ :mem-usage 3.238
+)

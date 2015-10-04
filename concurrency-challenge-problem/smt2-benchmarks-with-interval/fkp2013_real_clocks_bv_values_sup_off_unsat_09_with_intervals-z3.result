@@ -1,0 +1,32 @@
+real    791m55.661s
+user    792m28.743s
+sys     0m0.686s
+
+unsat
+(:add-rows            1263947744
+ :added-eqs           714108062
+ :arith-conflicts     14
+ :assert-diseq        55
+ :assert-lower        154412820
+ :assert-upper        163519622
+ :binary-propagations 1904417375
+ :bound-prop          5789
+ :bv-bit2core         53541709
+ :bv-conflicts        1183
+ :bv-diseqs           10
+ :bv-dynamic-diseqs   49921183
+ :bv->core-eq         195863252
+ :conflicts           85856554
+ :decisions           250121300
+ :del-clause          933764100
+ :eq-adapter          46
+ :max-memory          160.26
+ :memory              58.48
+ :minimized-lits      514591995
+ :mk-clause           934249798
+ :num-allocs          9897719039477.00
+ :pivots              28574351
+ :propagations        3537568645
+ :restarts            4529
+ :time                47549.41
+ :total-time          47549.41)

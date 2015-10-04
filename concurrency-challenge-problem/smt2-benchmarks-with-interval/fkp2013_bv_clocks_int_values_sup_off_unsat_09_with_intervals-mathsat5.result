@@ -1,0 +1,82 @@
+real    1m40.338s
+user    1m40.366s
+sys     0m0.040s
+
+unsat
+;; statistics
+(
+ :sat-checks 1
+ :sat-restarts 19
+ :sat-decisions 914488
+ :sat-random-decisions 17905
+ :sat-propagations 108576850
+ :sat-theory-propagations 43557
+ :sat-watched-clauses-visited 925757025
+ :sat-binary-watched-clauses-visited 57860203
+ :sat-conflicts 734533
+ :sat-theory-conflicts 1145
+ :theory-necessary-interface-equalities 0
+ :theory-extra-interface-equalities 0
+ :euf-total-calls 928347
+ :euf-complete-calls 0
+ :euf-conflicts 30
+ :euf-implications 2443
+ :euf-explanations 124
+ :euf-egraph-nodes-created 2262
+ :euf-egraph-nodes-deleted 0
+ :euf-num-asserted-equalities 7796188
+ :euf-num-asserted-inequalities 6595544
+ :euf-num-merges 10499216
+ :euf-num-merges-undone 10498865
+ :euf-num-atoms-retold 0
+ :la-total-calls 928317
+ :la-complete-calls 0
+ :la-conflicts 1115
+ :la-implications 41114
+ :la-explanations 41106
+ :la-num-equalities-split 93
+ :la-num-tableau-rows 46
+ :la-num-tableau-variables 57
+ :la-avg-tableau-row-length 4.04348
+ :la-max-tableau-row-length 6
+ :la-num-pivot-operations 208566
+ :la-num-equational-conflicts 0
+ :la-num-equality-elimination-+-tightening-conflicts 0
+ :la-num-internal-branch-and-bound-calls 0
+ :la-num-internal-branch-and-bound-timeouts 0
+ :la-num-internal-branch-and-bound-conflicts 0
+ :la-num-internal-branch-and-bound-branches 0
+ :la-num-normal-branch-and-bound-lemmas 0
+ :la-num-extended-branch-and-bound-lemmas 0
+ :bv-total-calls 927202
+ :bv-complete-calls 0
+ :bv-conflicts 0
+ :bv-implications 0
+ :bv-explanations 0
+ :fp-total-calls 927202
+ :fp-complete-calls 0
+ :fp-conflicts 0
+ :fp-implications 0
+ :fp-explanations 0
+ :arr-total-calls 927202
+ :arr-complete-calls 0
+ :arr-conflicts 0
+ :arr-implications 0
+ :arr-explanations 0
+ :arr-write-lemmas-added 0
+ :arr-row-lemmas-added 0
+ :arr-ext-lemmas-added 0
+ :arr-const-lemmas-added 0
+ :arr-write-lemmas-removed 0
+ :arr-row-lemmas-removed 0
+ :arr-ext-lemmas-removed 0
+ :arr-const-lemmas-removed 0
+ :arr-nonlinear-execs 0
+ :arr-nonlinear-impact 0
+ :arr-ext_arg-execs 0
+ :arr-ext_arg-impact 0
+ :arr-row-type-1-added 0
+ :arr-row-type-2-added 0
+ :time-seconds 100.388
+ :memory-mb 68.434
+)

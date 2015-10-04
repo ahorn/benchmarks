@@ -1,0 +1,33 @@
+TIMEOUT
+
+real    1207m58.340s
+user    1208m40.564s
+sys     0m6.801s
+
+unknown
+(:binary-propagations        3837323198
+ :conflicts                  133969888
+ :decisions                  237266138
+ :del-clause                 133430293
+ :dyn-subsumption-resolution 490874204
+ :elim-blocked-clauses       8855
+ :elim-bool-vars             9789
+ :elim-literals              380206
+ :eliminated-vars            1
+ :gc-clause                  133322115
+ :max-memory                 630.73
+ :memory                     2.34
+ :minimized-lits             1526936056
+ :mk-binary-clause           27745
+ :mk-bool-var                13554
+ :mk-clause                  133983664
+ :mk-ternary-clause          46942
+ :num-allocs                 24746527121411.00
+ :probing-assigned           32
+ :propagations               120098274
+ :restarts                   163836
+ :subsumed                   67162
+ :subsumption-resolution     379737
+ :ternary-propagations       3684078524
+ :time                       72527.35
+ :total-time                 72527.35)

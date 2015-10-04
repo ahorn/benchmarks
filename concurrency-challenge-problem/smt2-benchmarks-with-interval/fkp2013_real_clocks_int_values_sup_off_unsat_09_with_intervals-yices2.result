@@ -1,0 +1,30 @@
+real    4m26.504s
+user    4m26.687s
+sys     0m0.017s
+
+unsat
+(:num-terms 4263
+ :num-types 3
+ :total-run-time 266.696
+ :mem-usage 20.293
+ :boolean-variables 988
+ :atoms 756
+ :clauses 9156
+ :restarts 21
+ :clause-db-reduce 95
+ :clause-db-simplify 24
+ :decisions 1677795
+ :conflicts 1384029
+ :theory-conflicts 39614
+ :boolean-propagations 200144167
+ :theory-propagations 3829182
+ :simplex-init-vars 304
+ :simplex-init-rows 227
+ :simplex-init-atoms 756
+ :simplex-vars 304
+ :simplex-rows 227
+ :simplex-atoms 756
+ :simplex-pivots 1246949
+ :simplex-conflicts 39614
+ :simplex-interface-lemmas 0
+)

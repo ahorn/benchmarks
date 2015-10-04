@@ -1,0 +1,74 @@
+real    2m5.012s
+user    2m5.071s
+sys     0m0.028s
+
+unsat
+;; statistics
+(
+ :sat-checks 1
+ :sat-restarts 19
+ :sat-decisions 1014417
+ :sat-random-decisions 13985
+ :sat-propagations 172005686
+ :sat-theory-propagations 566946
+ :sat-watched-clauses-visited 820952016
+ :sat-binary-watched-clauses-visited 94126899
+ :sat-conflicts 813326
+ :sat-theory-conflicts 1402
+ :theory-necessary-interface-equalities 0
+ :theory-extra-interface-equalities 0
+ :euf-total-calls 1186202
+ :euf-complete-calls 0
+ :euf-conflicts 129
+ :euf-implications 378613
+ :euf-explanations 494
+ :euf-egraph-nodes-created 2907
+ :euf-egraph-nodes-deleted 0
+ :euf-num-asserted-equalities 11931989
+ :euf-num-asserted-inequalities 9943593
+ :euf-num-merges 32517977
+ :euf-num-merges-undone 32517480
+ :euf-num-atoms-retold 0
+ :la-total-calls 1186073
+ :la-complete-calls 0
+ :la-conflicts 1273
+ :la-implications 188333
+ :la-explanations 133152
+ :la-num-equalities-split 334
+ :la-num-tableau-rows 329
+ :la-num-tableau-variables 394
+ :la-avg-tableau-row-length 7.88146
+ :la-max-tableau-row-length 18
+ :la-num-pivot-operations 713263
+ :bv-total-calls 1184800
+ :bv-complete-calls 0
+ :bv-conflicts 0
+ :bv-implications 0
+ :bv-explanations 0
+ :fp-total-calls 1184800
+ :fp-complete-calls 0
+ :fp-conflicts 0
+ :fp-implications 0
+ :fp-explanations 0
+ :arr-total-calls 1184800
+ :arr-complete-calls 0
+ :arr-conflicts 0
+ :arr-implications 0
+ :arr-explanations 0
+ :arr-write-lemmas-added 0
+ :arr-row-lemmas-added 0
+ :arr-ext-lemmas-added 0
+ :arr-const-lemmas-added 0
+ :arr-write-lemmas-removed 0
+ :arr-row-lemmas-removed 0
+ :arr-ext-lemmas-removed 0
+ :arr-const-lemmas-removed 0
+ :arr-nonlinear-execs 0
+ :arr-nonlinear-impact 0
+ :arr-ext_arg-execs 0
+ :arr-ext_arg-impact 0
+ :arr-row-type-1-added 0
+ :arr-row-type-2-added 0
+ :time-seconds 125.086
+ :memory-mb 44.340
+)

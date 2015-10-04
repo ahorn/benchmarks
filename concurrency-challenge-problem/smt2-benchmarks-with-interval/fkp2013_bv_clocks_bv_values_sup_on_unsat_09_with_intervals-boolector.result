@@ -1,0 +1,138 @@
+real    95m52.805s
+user    95m55.550s
+sys     0m1.148s
+
+[btor>sat] Lingeling allows both incremental and non-incremental mode
+[btor>main] Boolector Version 2.1.1 8abebe0e3234c05e4d73cc268cba988efdf6203a
+[btor>main] -W -Wall -Wextra -Wredundant-decls -O3 -DNDEBUG -DNBTORLOG -DBTOR_USE_LINGELING -DBTOR_ENABLE_BETA_REDUCTION_PROBING
+[btor>main] released Sun Sep 27 18:41:38 CEST 2015
+[btor>main] compiled Thu  1 Oct 21:37:44 BST 2015
+[btor>main] gcc (GCC) 4.8.3 20140911 (Red Hat 4.8.3-7)
+[btor>main] setting signal handlers
+[btor>main] no time limit given
+[btor>main] SMT-LIB v2 input forced through cmd line options
+[btor>parse] (null)
+[btor>core] enabled core engine
+[btor>core] calling SAT
+[btor>core] replaced 288 embedded constraints in 0 seconds
+[btor>simp>elimslices] sliced 1 variables in 0 seconds
+[btor>core] 2 variables substituted in 0.0 seconds
+[btor>simp>elimslices] sliced 0 variables in 0 seconds
+[btor>simp>skel] found 1094 skeleton literals in 360 constraints
+[btor>simp>skel] skeleton preprocessing result 0
+[btor>simp>skel] skeleton preprocessing produced 317 new constraints in 0.0 seconds
+[btor>simp>extract] extracted 0 memsets (0), 0 memset_inc (0), 0 idxidx (0), 0 idxinc (0), 0 memcopies (0)
+[btor>simp>extract] extracted 0 lambdas in 0.000 seconds
+[btor>simp>merge] merged 0 lambdas in 0.00 seconds
+[btor>core] 2 rewriting rounds in 0.0 seconds
+[btor>core] simplification returned 0
+[btor>sat] initialized Lingeling
+[lingeling] Lingeling
+[lingeling] 
+[lingeling] Version b85 3ee2a39cc143d07ea0a989cedd5008dd097a4068
+[lingeling] 
+[lingeling] Copyright (C) 2010-2014 Armin Biere JKU Linz Austria.
+[lingeling] All rights reserved.
+[lingeling] 
+[lingeling] released Sun Sep 27 18:41:38 CEST 2015
+[lingeling] compiled Thu Oct  1 21:37:41 BST 2015
+[lingeling] 
+[lingeling] gcc (GCC) 4.8.3 20140911 (Red Hat 4.8.3-7)
+[lingeling] -Wall -O3 -DNLGLOG -DNDEBUG -DNCHKSOL -DNLGLDRUPLIG -DNLGLYALSAT
+[lingeling] Linux dkr12.cs.ox.ac.uk 3.17.4-200.fc20.x86_64 x86_64
+[lingeling] 
+[btor>core] no functions found, resetting SAT solver to non-incremental
+[btor>core] SAT call 1 returned 20 in 5756.677 seconds
+unsat
+[btor>pars>smt2] WARNING no 'exit' command at end of 'fkp2013_bv_clocks_bv_values_sup_on_unsat_09_with_intervals.smt2'
+[btor>pars>smt2] parsed 246 commands in 5756.68 seconds
+[btor>parse] parsed 76 inputs and 0 outputs
+[btor>parse] logic QF_BV
+[btor>parse] status unknown
+[lingeling]   17.913   0% simplifying
+[lingeling] 5738.739 100% search
+[lingeling] ==================================
+[lingeling] 5756.653 100% all
+[lingeling] 
+[lingeling]      22480053 conflicts,        3905.1 confs/sec
+[lingeling]          1077 ternaries,       20872.8 confs/ternary
+[lingeling]           167 binaries,       134611.1 confs/binary
+[lingeling]            15 iterations,    1498670.2 confs/iteration
+[lingeling] 
+[lingeling]           220 reductions,          0.0 redus/sec, 102182.1 confs/reduction
+[lingeling]         60775 restarts,           10.6 rests/sec,    369.9 confs/restart
+[lingeling]      41116035 decisions,        7142.4 decis/sec,      1.8 decis/conflict
+[lingeling]    2669461595 propagations,   463717.7 props/sec,     64.9 props/decision
+[lingeling] 
+[lingeling] 5756.7 seconds, 139.9 MB
+[btor>sat] 0 forked
+[btor>sat] 1 SAT calls in 5756.7 seconds
+[btor>core] 2/296/368/360 constraints 0/0/0/360 1.5 MB
+[btor>core] variable substitutions: 2
+[btor>core] uninterpreted function substitutions: 0
+[btor>core] embedded constraint substitutions: 8
+[btor>core] assumptions: 0
+[btor>core] memory allocated for nodes: 0.26 MB
+[btor>core] 
+[btor>core] bit blasting statistics:
+[btor>core]  AIG vectors (cur/max): 1196/1196
+[btor>core]  AIG ANDs (cur/max): 22636/22636
+[btor>core]  AIG variables: 871
+[btor>core]  CNF variables: 16558
+[btor>core]  CNF clauses: 55613
+[btor>core]  CNF literals: 135555
+[btor>core] 
+[btor>core] linear constraint equations: 0
+[btor>core] gaussian elimination in linear equations: 0
+[btor>core] eliminated sliced variables: 1
+[btor>core] extracted skeleton constraints: 317
+[btor>core] and normalizations: 0
+[btor>core] add normalizations: 0
+[btor>core] mul normalizations: 0
+[btor>core] lambdas merged: 0
+[btor>core] apply propagation during construction: 0
+[btor>core] beta reductions: 0
+[btor>core] clone calls: 0
+[btor>core] 
+[btor>core] lemmas on demand statistics:
+[btor>core]  refinement iterations: 0
+[btor>core]  LOD refinements: 0
+[btor>core] synthesis assignment inconsistencies: 0
+[btor>core]   apply nodes: 0
+[btor>core]   lambda nodes: 0
+[btor>core]   var nodes: 0
+[btor>core] expression evaluations: 0
+[btor>core] synthesized lambda applies: 0
+[btor>core] propagations: 0
+[btor>core] propagations down: 0
+[btor>core] partial beta reduction restarts: 0
+[btor>core] 
+[btor>core] 0.00 seconds beta-reduction
+[btor>core] 0.02 seconds synthesize expressions
+[btor>core] 0.00 seconds reachable search
+[btor>core] 0.00 seconds determining failed assumptions
+[btor>core] 0.00 seconds for cloning
+[btor>core] 0.00 seconds beta reduction probing
+[btor>core] 0.00 seconds substitute and rebuild
+[btor>core] 
+[btor>core] 0.00 seconds in rewriting engine
+[btor>core] 0.00 seconds in variable substitution during rewriting (0%)
+[btor>core] 0.00 seconds in embedded constraint replacing during rewriting (0%)
+[btor>core] 0.00 seconds in beta reduction during rewriting (0%)
+[btor>core] 0.00 seconds in slicing during rewriting (0%)
+[btor>core] 0.00 seconds skeleton preprocessing during rewriting (100%)
+[btor>core] 
+[btor>core] 0.00 seconds expression evaluation
+[btor>core] 0.00 seconds lazy apply encoding
+[btor>core] 0.00 seconds lazy lambda encoding
+[btor>core] 0.00 seconds lazy var encoding
+[btor>core] 0.00 seconds initial applies search
+[btor>core] 0.00 seconds lemma generation
+[btor>core] 0.00 seconds not encoded apply search
+[btor>core] 0.00 seconds propagation apply search
+[btor>core] 5756.65 seconds in pure SAT solving
+[btor>core] 
+[btor>core] 
+[btor>core] 1.5 MB
+[btor>main] 5756.7 seconds
+[btor>main] unsat
